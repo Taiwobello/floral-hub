@@ -1,0 +1,129 @@
+.hero-bg {
+  background-image: url("/images/faq-hero.png");
+  .title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    width: 50%;
+    text-align: center;
+    color: #68203b;
+
+    @media (max-width: 650px) {
+      font-size: 2.2rem;
+      width: 100%;
+    }
+  }
+}
+
+.title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 1.6rem;
+
+  @media (max-width: 650px) {
+    font-size: 2rem;
+  }
+}
+
+.sub-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+.container {
+  padding: 0 6rem;
+
+  @media (max-width: 650px) {
+    padding: 0 2rem;
+  }
+}
+
+.content {
+  margin: 4rem 0;
+  display: flex;
+
+  @media (max-width: 650px) {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  // p {
+  //   line-height: 1.5rem;
+  // }
+
+  .links {
+    width: 30%;
+    border: 0.1rem solid #f3f4f6;
+    height: fit-content;
+    padding: 1rem 0;
+    padding-left: 1rem;
+
+    @media (max-width: 650px) {
+      width: 100%;
+      margin-bottom: 3rem;
+      border: none;
+    }
+  }
+
+  .linked-content {
+    width: 66%;
+    & > div {
+      margin-bottom: 2.5rem;
+    }
+
+    @media (max-width: 650px) {
+      margin-left: 0;
+      width: 100%;
+    }
+
+    .link {
+      color: #9b0000;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .payment-info {
+    background-color: #f9fafb;
+    display: inline-block;
+    padding: 1rem;
+    margin: 1rem;
+
+    & > * {
+      margin-bottom: 0.6rem;
+    }
+  }
+}
+.flowers-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &.center {
+    justify-content: center;
+  }
+
+  & > * {
+    margin-left: 1rem;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+  &.wrap {
+    flex-wrap: wrap;
+  }
+  &.bottom-margin {
+    margin-bottom: 4rem;
+  }
+
+  @media (max-width: 650px) {
+    .title {
+      font-size: 1.5rem;
+      margin-bottom: 0;
+    }
+    & > * {
+      margin-left: 0;
+    }
+  }
+}

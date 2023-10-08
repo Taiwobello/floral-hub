@@ -1,0 +1,55 @@
+{
+  "name": "floral-hub",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "start": "next dev",
+    "build": "next build",
+    "nextstart": "next start",
+    "lint": "eslint . --fix && tsc --noEmit",
+    "export": "next export",
+    "deploy": "next build && next export"
+  },
+  "dependencies": {
+    "@paypal/react-paypal-js": "^7.8.2",
+    "date-fns": "^2.29.3",
+    "dayjs": "^1.10.4",
+    "next": "12",
+    "react": "17.0.2",
+    "react-day-picker": "^8.4.1",
+    "react-dom": "17.0.2",
+    "react-paystack": "^4.0.1",
+    "sass": "^1.35.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/jest": "^29.2.4",
+    "@types/node": "^18.11.15",
+    "@types/react": "17.0.2",
+    "@types/react-dom": "17.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "babel-eslint": "^9.0.0",
+    "eslint": "7.28.0",
+    "eslint-config-airbnb": "^18.0.0",
+    "eslint-config-next": "11.0.0",
+    "eslint-config-nextjs": "^1.0.7",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-html": "^5.0.3",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.14.2",
+    "eslint-plugin-react-hooks": "^1.4.0",
+    "prettier": "^1.16.4",
+    "tsc": "^2.0.3",
+    "typescript": "4.3.2"
+  },
+  "resolutions": {
+    "@types/react": "17.0.2",
+    "@types/react-dom": "17.0.2"
+  }
+}

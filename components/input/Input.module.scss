@@ -1,0 +1,110 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  background-color: white;
+  border-radius: 0.3rem;
+  border: 0.1rem solid #e5e7eb;
+  transition: 0.3s ease-out;
+  align-items: center;
+  &.responsive {
+    width: 100%;
+  }
+  &.with-icon {
+    padding: 0 0.5rem;
+  }
+  &.error {
+    border-color: #f45366a6;
+  }
+  &.completed {
+    border-color: #00875a;
+  }
+  &.disabled {
+    border-color: #0000004d;
+  }
+  // &.input-active {
+  //   // border-color: #2684ff;
+  // }
+  .input,
+  .input:active {
+    width: 100%;
+    transition: 0.3s ease-out;
+    border: none;
+    outline: none;
+    font-size: inherit;
+    padding: 0.5rem;
+
+    @media (max-width: 650px) {
+      padding: 0.6rem;
+    }
+    &.small {
+      font-size: 0.75rem;
+      padding: 0.3rem;
+    }
+    &.with-icon {
+      padding: 0.5rem 0;
+    }
+    &.dimmed {
+      background-color: #f9fafb;
+    }
+    &.padding-left {
+      padding-left: 1.5rem;
+    }
+    &::placeholder {
+      color: #a3a3a3;
+    }
+    &.disable-resize {
+      resize: none;
+    }
+  }
+
+  .input:disabled {
+    background-color: rgb(196 198 201 / 30%);
+    color: #a3a3a3;
+    cursor: not-allowed;
+  }
+  .error-message {
+    position: absolute;
+    z-index: 5;
+    left: 0;
+    bottom: -1rem;
+    color: #f45367;
+    font-size: 0.65rem;
+    &::first-letter {
+      text-transform: capitalize;
+    }
+  }
+  .icon {
+    margin-right: 0.4rem;
+    height: 1.2rem;
+
+    &.right {
+      position: absolute;
+      right: 0.4rem;
+      margin: 0;
+    }
+  }
+  .symbol {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    font-size: larger;
+    color: rgb(173, 170, 170);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    &.end {
+      right: 0.4rem;
+    }
+    &.start {
+      left: 0.4rem;
+    }
+    .clear-icon {
+      height: 1rem;
+      width: auto;
+    }
+  }
+}
+
+.no-border {
+  border: none;
+}

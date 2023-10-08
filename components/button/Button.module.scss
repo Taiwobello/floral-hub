@@ -1,0 +1,100 @@
+.button {
+  background-color: #9b0000;
+  color: white;
+  font-weight: 700;
+  padding: 0.8rem 1.6rem;
+  border-radius: 0.4rem;
+  min-width: 12rem;
+  font-size: inherit;
+  transition: 0.3s ease-out;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &.padded {
+    padding: 0.8rem;
+    min-width: 9rem;
+    border-radius: 0.2rem;
+  }
+  &.loading {
+    cursor: default;
+  }
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    &.primary {
+      background-color: #b7bcc2;
+      border-color: #b7bcc2;
+      opacity: 1;
+    }
+  }
+  &.min-width {
+    min-width: 8rem;
+  }
+  &.primary {
+    color: white;
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+  &.accent {
+    background-color: white;
+    color: #9b0000;
+    border: 0.1rem solid #9b0000;
+  }
+  &.accent {
+    background-color: transparent;
+    color: #9b0000;
+    border: 0.1rem solid #9b0000;
+  }
+
+  &.transparent {
+    background-color: transparent;
+    color: #9b0000;
+    border: none;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+  &.plain {
+    width: fit-content;
+    min-width: 0;
+    padding: 0;
+    color: #9b0000;
+    background-color: unset;
+  }
+
+  &.responsive {
+    width: 100%;
+  }
+  &.large {
+    padding: 0.8rem 2rem;
+  }
+  &.small {
+    padding: 0.3rem 0.8rem;
+  }
+
+  &.icon-only {
+    padding: 0;
+    min-width: 0;
+    &:hover {
+      background-color: unset;
+    }
+  }
+  .loader {
+    height: auto;
+    width: 0;
+    margin-left: 0;
+    transition: 0.3s ease-out;
+    &.active {
+      width: 1.1rem;
+      margin-left: 0.6rem;
+    }
+  }
+  .start-icon {
+    height: 1rem;
+    width: auto;
+    margin-right: 0.6rem;
+    align-self: center;
+  }
+}
