@@ -1,12 +1,15 @@
 .hero-bg {
-  background-image: url("/images/faq-hero.png");
+  background-image: url("/images/faq-hero-desktop.png");
+    @media (max-width: 650px) {
+      background-image: url("/images/faq-hero.png");
+    }
   .title {
     font-size: 2.5rem;
     font-weight: 800;
     width: 50%;
     text-align: center;
-    color: #68203b;
-
+    color: #1F1F1F;
+    
     @media (max-width: 650px) {
       font-size: 2.2rem;
       width: 100%;
@@ -24,12 +27,10 @@
   }
 }
 
-.sub-title {
-  font-size: 1.6rem;
-  font-weight: 600;
-}
+
 .container {
   padding: 0 6rem;
+
 
   @media (max-width: 650px) {
     padding: 0 2rem;
@@ -45,25 +46,77 @@
     justify-content: center;
   }
 
-  // p {
-  //   line-height: 1.5rem;
-  // }
+  .faq-body{
+    // width: 90%;
+    // margin: 0 auto;
+    .sub-title {
+        @media (max-width: 650px) {
+          font-size: 2rem;
+          font-weight: 600;
+          text-align: center;
+          line-height: 28px;
+          margin-bottom: 20px;
+        }
+      }
 
-  .links {
-    width: 30%;
-    border: 0.1rem solid #f3f4f6;
-    height: fit-content;
-    padding: 1rem 0;
-    padding-left: 1rem;
+    .faq-question {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.5rem;
+        margin: 20px 0;
+        .icon-container{
+            .expand-icon {
+                vertical-align: bottom;
+              }
+        }
+        .icon-container:hover{
+            cursor: pointer;
+        }
+        .icon-container-open {
+          background-color: #B240DA;
+          border-radius: 100px;
+        }
+        .question-text{
+          max-width: 80%;
+        }
+        .question-text-open {
+          color: #470F5B;
+          font-weight:800;
+        }
+      }
+    .faq-answer{
+      font-size: 1.2rem;
+      border-top: 1px solid #EED4F7;
+      padding: 10px 0;
+    }
 
     @media (max-width: 650px) {
-      width: 100%;
-      margin-bottom: 3rem;
-      border: none;
+        display: flex;
+        flex-direction: column;
+        column-gap: 10px;
+        justify-content: space-between;
+        // width: 100%;
+        // margin: auto;
+        }
     }
-  }
+
+    .links {
+      width: 30%;
+      border: 0.1rem solid #f3f4f6;
+      height: fit-content;
+      padding: 1rem 0;
+      padding-left: 1rem;
+
+      @media (max-width: 650px) {
+        width: 100%;
+        margin-bottom: 3rem;
+        border: none;
+      }
+    }
 
   .linked-content {
+      display: none;
     width: 66%;
     & > div {
       margin-bottom: 2.5rem;

@@ -19,6 +19,7 @@ import SchemaMarkup from "../components/schema-mark-up/SchemaMarkUp";
 
 type ContentLink = "how-it-works" | "payment-methods" | "delivery";
 
+
 const schemaProperties = {
   "@type": "FAQPage",
   mainEntity: [
@@ -147,8 +148,40 @@ const schemaProperties = {
 const Index: FunctionComponent<{ featuredFlowers: Product[] }> = ({
   featuredFlowers
 }) => {
-  const [activeContent, setActiveContent] = useState<ContentLink | null>(null);
+  // const [activeContent, setActiveContent] = useState<ContentLink | null>(null);
+  const [openQuestions, setOpenQuestions] = useState<OpenQuestions>({});
+  const questionList = schemaProperties.mainEntity;
+  interface OpenQuestions {
+    [key: number]: boolean;
+  }
+  const toggleAnswer = (index: number) => {
+    setOpenQuestions((prevOpenQuestions) => ({
+      ...prevOpenQuestions,
+      [index]: !prevOpenQuestions[index],
+    }));
+  };
+  
+  const questions = questionList.map((question, index) => {
+    const isAnswerOpen = openQuestions[index] || false;
 
+    return (
+      <div key={index}>
+        <div className={styles["faq-question"]} onClick={() => toggleAnswer(index)}>
+          <p className={`${styles["question-text"]} ${isAnswerOpen ? styles["question-text-open"] : ''}`}>{question.name}</p>
+          <div className={`${styles["icon-container"]} ${isAnswerOpen ? styles["icon-container-open"] : ''}`}>
+            <img
+              src={isAnswerOpen ? "/icons/minus_circle_outline.svg" : "/icons/plus_circle_outline.png"}
+              alt="expand-question-icon"
+              className={styles["expand-icon"]}
+            />
+          </div>
+        </div>
+        {isAnswerOpen && (
+          <div className={styles["faq-answer"]}>{question.acceptedAnswer.text}</div>
+        )}
+      </div>
+    );
+  });
   return (
     <>
       <Meta
@@ -164,51 +197,17 @@ const Index: FunctionComponent<{ featuredFlowers: Product[] }> = ({
       <section className={styles.wrapper}>
         <div className={[styles["hero-bg"], "hero-bg"].join(" ")}>
           <div className="hero-content flex column center center-align">
-            <p className={styles.title}>Frequently Asked Questions</p>
+            <p className={styles.title}>HOW CAN WE HELP?</p>
           </div>
         </div>
         <div className={styles.container}>
+
           <div className={`${styles.content} flex between spaced-xl`}>
-            <ol className={`flex column ${styles.links} normal-text`}>
-              <p className="title small bold">Table of content</p>
-              <Link href="#how-it-works">
-                <a
-                  className={`vertical-margin `}
-                  onClick={() => setActiveContent("how-it-works")}
-                >
-                  <p
-                    className={`${activeContent === "how-it-works" &&
-                      "primary-color"}`}
-                  >
-                    <span className="margin-right">1</span> How to order flowers
-                    and gifts for delivery
-                  </p>
-                </a>
-              </Link>
-              <Link href="#payment-methods">
-                <a
-                  className="margin-bottom"
-                  onClick={() => setActiveContent("payment-methods")}
-                >
-                  <p
-                    className={`${activeContent === "payment-methods" &&
-                      "primary-color"}`}
-                  >
-                    <span className="margin-right">2</span> Payment Method
-                  </p>
-                </a>
-              </Link>
-              <Link href="#delivery">
-                <a onClick={() => setActiveContent("delivery")}>
-                  <p
-                    className={`${activeContent === "delivery" &&
-                      "primary-color"}`}
-                  >
-                    <span className="margin-right">3</span> Delivery
-                  </p>
-                </a>
-              </Link>
-            </ol>
+            <div className={styles["faq-body"]}>
+              <h2 className={styles["sub-title"]}>FREQUENTLY ASKED QUESTIONS</h2>
+              {questions}
+            </div>
+
             <div className={styles["linked-content"]}>
               <div id="how-it-works">
                 <h1 className={`${styles.title}`}>
