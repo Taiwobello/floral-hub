@@ -165,8 +165,8 @@ const Index: FunctionComponent<{ featuredFlowers: Product[] }> = ({
     const isAnswerOpen = openQuestions[index] || false;
 
     return (
-      <div key={index}>
-        <div className={styles["faq-question"]} onClick={() => toggleAnswer(index)}>
+      <div key={index} className="faq-question-container">
+        <div className={`${styles["faq-question"]} ${isAnswerOpen ? styles["faq-question-open"] : ''}`} onClick={() => toggleAnswer(index)}>
           <p className={`${styles["question-text"]} ${isAnswerOpen ? styles["question-text-open"] : ''}`}>{question.name}</p>
           <div className={`${styles["icon-container"]} ${isAnswerOpen ? styles["icon-container-open"] : ''}`}>
             <img
