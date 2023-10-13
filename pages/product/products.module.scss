@@ -18,7 +18,7 @@
   .product-content {
     margin-bottom: 3rem;
 
-    &>div {
+    & > div {
       flex-basis: 51%;
 
       &.slider-wrapper {
@@ -36,7 +36,7 @@
       flex-direction: column;
       margin-bottom: 1rem;
 
-      &>div {
+      & > div {
         flex-basis: 100%;
 
         &.slider-wrapper {
@@ -190,7 +190,7 @@
   .tab-title {
     padding-bottom: 0.4rem;
     transition: 0.3s ease-out;
-    border-bottom: 0.15rem solid #9b0000;
+    border-bottom: 0.15rem solid #b240da;
     font-weight: 700;
   }
 
@@ -214,7 +214,6 @@
   .social-icons {
     @media (max-width: 650px) {
       margin: 15px 0 0 25px;
-
     }
 
     .social-icon {
@@ -265,13 +264,13 @@
       &:hover {
         border-color: rgba(209, 213, 219, 0.8);
         color: white;
-        background-color: #9b0000;
+        background-color: #b240da;
       }
 
       &.selected-size {
-        // border-color: #9b0000;
+        // border-color: #B240DA;
         color: white;
-        background-color: #9b0000;
+        background-color: #b240da;
       }
 
       &.not-selected {
@@ -299,12 +298,12 @@
         padding: 0 1rem;
 
         &.active {
-          color: #9b0000;
+          color: #b240da;
           background-color: rgba(155, 0, 0, 0.1);
         }
 
         &:hover {
-          color: #9b0000;
+          color: #b240da;
           background-color: rgba(155, 0, 0, 0.1);
           transition: 0.3s ease-out;
         }
@@ -349,11 +348,11 @@
     transition: 0.3s ease-out;
 
     &.selected-design {
-      border-color: #9b0000;
+      border-color: #b240da;
     }
 
     &:hover {
-      border-color: #9b0000;
+      border-color: #b240da;
     }
 
     .inLargeVase {

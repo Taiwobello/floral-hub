@@ -3093,3 +3093,18 @@ export const occasionsPageMetaData: Record<
     description: ""
   }
 };
+
+export const contactUsPageConent: Record<string, any> = {
+  lagosDetails: {
+    text: "Lagos Head Office/Delivery Center",
+    address: "7, Ikeja Way, Dolphin Estate, Ikoyi",
+    phoneNo: "+234 907 777 7994",
+    whatsappNo: "+234 907 777 7994"
+  },
+  abujaDetails: {
+    text: "Abuja",
+    address: "5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja.",
+    phoneNo: "+234 907 777 7994",
+    whatsappNo: "+234 907 777 7994"
+  }
+};

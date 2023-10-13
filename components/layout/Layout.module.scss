@@ -336,7 +336,7 @@
         width: 1.6rem;
         // margin: 0.6rem 0 0.1rem;
         font-weight: bold;
-        color: #9b0000;
+        color: #b240da;
         border-radius: 50%;
         font-size: 1.1rem;
       }
@@ -370,7 +370,7 @@
       transition: 0.3s ease-out;
       &.active {
         color: white;
-        background-color: #9b0000;
+        background-color: #b240da;
         border-radius: 1rem;
         padding: 0.2rem 0.8rem;
       }
@@ -389,7 +389,7 @@
         width: 1.6rem;
         margin: 0.6rem 0 0.1rem;
         font-weight: bold;
-        color: #9b0000;
+        color: #b240da;
         border-radius: 50%;
         font-size: 1.1rem;
       }
@@ -454,9 +454,13 @@
   }
 }
 .main {
-  margin-top: 5rem;
+  margin-top: 6.8rem;
   min-height: calc(100vh - 5.5rem);
   background-color: white;
+
+  @media (max-width: 650px) {
+    margin-top: 5rem;
+  }
 }
 
 .backdrop {
@@ -567,7 +571,7 @@
   position: relative;
   width: 1.7rem;
   height: 1.7rem;
-  background: #9b0000;
+  background: #b240da;
   cursor: pointer;
   border-radius: 0.3rem;
 
@@ -601,14 +605,14 @@
   width: 1.7rem;
   height: 1.7rem;
   background: white;
-  border: 0.1rem solid #9b0000;
+  border: 0.1rem solid #b240da;
   cursor: pointer;
   border-radius: 0.3rem;
 
   &::after {
     content: "";
     position: absolute;
-    background: #9b0000;
+    background: #b240da;
     top: 50%;
     left: 7px;
     right: 7px;
@@ -724,7 +728,7 @@
     }
 
     span {
-      background-color: #B240DA;
+      background-color: #b240da;
       border-radius: 50%;
       height: 2.5rem;
       width: 2.5rem;
@@ -772,7 +776,7 @@
       margin-bottom: 1rem;
 
       &.active {
-        color: #9b0000;
+        color: #b240da;
       }
 
       &:last-child {

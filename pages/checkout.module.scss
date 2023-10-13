@@ -65,7 +65,7 @@
       &:hover,
       &.active {
         background-color: white;
-        border: 0.1rem solid #9b0000;
+        border: 0.1rem solid #b240da;
       }
     }
   }
@@ -98,7 +98,7 @@
     width: 2.5rem;
     font-size: 1.4rem;
     &.active {
-      border-color: #9b0000;
+      border-color: #b240da;
     }
   }
 
@@ -186,7 +186,7 @@
       font-size: 1.8rem;
       .bold {
         font-weight: 600;
-        color: #9b0000;
+        color: #b240da;
       }
       margin-bottom: 1.2rem;
     }
@@ -239,7 +239,7 @@
     .detail {
       font-size: 1.4rem;
       font-weight: 600;
-      color: #9b0000;
+      color: #b240da;
     }
     .order-detail {
       font-size: 1rem;
@@ -262,7 +262,7 @@
       border: 0.15rem solid #2e3a59;
 
       &.active {
-        border-color: #9b0000;
+        border-color: #b240da;
       }
 
       .vertical {
@@ -281,7 +281,7 @@
         position: absolute;
         bottom: 40%;
         &.active {
-          border-color: #9b0000;
+          border-color: #b240da;
         }
       }
     }
@@ -387,7 +387,7 @@
       text-align: center;
       transition: 0.3s ease-out;
       &.active {
-        background-color: #9b0000;
+        background-color: #b240da;
         color: #fff;
       }
     }
@@ -438,7 +438,7 @@
     width: 2.5rem;
     font-size: 1.4rem;
     &.active {
-      border-color: #9b0000;
+      border-color: #b240da;
     }
   }
 
@@ -504,7 +504,7 @@
     .detail {
       font-size: 1.2rem;
       font-weight: 600;
-      color: #9b0000;
+      color: #b240da;
     }
 
     .order-details {
