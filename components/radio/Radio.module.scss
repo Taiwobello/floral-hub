@@ -3,7 +3,7 @@
 }
 .radio:checked ~ .wrapper .radio-icon {
   // border: 0.4rem solid #E7C91D;
-  border: 0.2rem solid #9b0000;
+  border: 0.2rem solid #b240da;
   position: relative;
   &::before {
     content: "";
@@ -14,11 +14,11 @@
     width: 70%;
     height: 70%;
     border-radius: 50%;
-    background-color: #9b0000;
+    background-color: #b240da;
   }
 }
 .radio:checked ~ .wrapper {
-  border-color: #9b0000;
+  border-color: #b240da;
   // border-color: #E7C91D;
 }
 .wrapper {
