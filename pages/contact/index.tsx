@@ -33,7 +33,7 @@ const Index: FunctionComponent = () => {
       <p className="text-large primary-color">Our Offices</p>
       <div className={styles.offices}>
         <div className={styles.office}>
-          <strong className="text-regular margin-bottom spaced">
+          <strong className="text-medium margin-bottom spaced">
             {contactUsPageConent.lagosDetails.text}
           </strong>
           <div className={styles.info}>
@@ -67,7 +67,7 @@ const Index: FunctionComponent = () => {
           <img src="/images/map.png" alt="whatsapp" className={styles.map} />
         </div>
         <div className={styles.office}>
-          <strong className="text-regular margin-bottom spaced">
+          <strong className="text-medium margin-bottom spaced">
             {contactUsPageConent.abujaDetails.text}
           </strong>
           <div className={styles.info}>
