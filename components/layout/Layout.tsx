@@ -11,12 +11,7 @@ import React, {
 } from "react";
 import Link from "next/link";
 import styles from "./Layout.module.scss";
-import {
-  footerContent,
-  links,
-  paypalEmail,
-  regalEmail
-} from "../../utils/constants";
+import { footerContent, links, paypalEmail } from "../../utils/constants";
 import SettingsContext, {
   NotifyType
 } from "../../utils/context/SettingsContext";
@@ -32,7 +27,6 @@ import ContextWrapper from "../context-wrapper/ContextWrapper";
 import AuthDropdown from "./AuthDropdown";
 import useDeviceType from "../../utils/hooks/useDeviceType";
 import useOutsideClick from "../../utils/hooks/useOutsideClick";
-import Input from "../input/Input";
 import { getPriceDisplay } from "../../utils/helpers/type-conversions";
 import { CartItem, Design } from "../../utils/types/Core";
 import DatePicker from "../date-picker/DatePicker";
@@ -68,114 +62,99 @@ const Footer: FunctionComponent = () => {
 
   return (
     <footer className={styles.footer} id="footer">
+      <Link href="/">
+        <a className={styles["footer-logo"]}>
+          <img
+            src="/images/footer-logo.svg"
+            alt="logo"
+            className={styles["logo-image"]}
+          />
+        </a>
+      </Link>
+
       <div className={styles["footer-wrapper"]}>
         <div className={styles.top}>
           <div>
-            <Link href="/">
-              <a>
-                <img
-                  alt="regal flowers logo"
-                  src="/icons/logo.png"
-                  className={styles.logo}
-                />
-              </a>
-            </Link>
-            <p>{footerContent.aboutUs}</p>
-            <div className="flex spaced-xl">
-              {footerContent.socialIcons.map(icon => (
-                <Link key={icon.name} href={icon.url}>
-                  <a target="_blank">
-                    <img
-                      alt={icon.name}
-                      src={icon.src}
-                      className="generic-icon medium"
-                    />
-                  </a>
-                </Link>
-              ))}
-            </div>
-          </div>
-          <div
-            className={`${
-              deviceType === "mobile" ? "flex between spaced" : ""
-            }`}
-          >
-            <div
-              className={`${
-                deviceType === "mobile" ? "flex between spaced column" : ""
-              }`}
-              style={deviceType === "mobile" ? { width: "30%" } : {}}
-            >
-              <strong>Quick Links</strong>
-              {footerContent.quickLinks.map(link => (
-                <Link
-                  key={link.title}
-                  href={link.phoneNumber ? `tel:${link.phoneNumber}` : link.url}
-                >
-                  <a>{link.title}</a>
-                </Link>
-              ))}
-            </div>
-            <div
-              className={`${
-                deviceType === "mobile" ? "flex between spaced column" : ""
-              }`}
-              style={deviceType === "mobile" ? { width: "65%" } : {}}
-            >
-              <strong>Get In Touch</strong>
-              <div className="flex spaced-xl">
-                <Link href="tel:+2347011992888">
-                  <a>
-                    <img
-                      className="generic-icon medium"
-                      src="/icons/footer/phone.svg"
-                      alt="phone"
-                    />
-                  </a>
-                </Link>
+            <strong className="text-regular">Get more from Floralhub</strong>
 
-                <Link href="https://wa.me/+2347011992888">
-                  <a>
-                    <img
-                      className="generic-icon medium"
-                      src="/icons/footer/whatsapp.svg"
-                      alt="whtasapp"
-                    />
-                  </a>
-                </Link>
-              </div>
-              {footerContent.phoneNumbers.map(number => (
-                <a key={number} href={`tel:${number}`}>
-                  {number}
-                </a>
-              ))}
-              <div className="flex spaced center-align">
-                <img
-                  className="generic-icon"
-                  src="/icons/footer/message.svg"
-                  alt="message"
+            <button
+              className={[styles["news-btn"], "flex spaced center-align"].join(
+                " "
+              )}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                className="generic-icon medium"
+              >
+                <path
+                  d="M2.243 6.85399L11.49 1.30999C11.6454 1.21674 11.8233 1.16748 12.0045 1.16748C12.1857 1.16748 12.3636 1.21674 12.519 1.30999L21.757 6.85499C21.8311 6.8994 21.8925 6.96227 21.9351 7.03746C21.9776 7.11264 22 7.19758 22 7.28399V20C22 20.2652 21.8946 20.5196 21.7071 20.7071C21.5196 20.8946 21.2652 21 21 21H3C2.73478 21 2.48043 20.8946 2.29289 20.7071C2.10536 20.5196 2 20.2652 2 20V7.28299C1.99998 7.19658 2.02236 7.11164 2.06495 7.03646C2.10753 6.96127 2.16888 6.8984 2.243 6.85399ZM4 8.13299V19H20V8.13199L12.004 3.33199L4 8.13199V8.13299ZM12.06 13.698L17.356 9.23499L18.644 10.765L12.074 16.302L5.364 10.772L6.636 9.22799L12.06 13.698Z"
+                  fill="#09121F"
                 />
-                <a
-                  href={`mailto:${regalEmail}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {regalEmail}
-                </a>
-              </div>
-            </div>
+              </svg>
+
+              <strong>Sign up for latest news</strong>
+            </button>
           </div>
-          <div>
-            <strong>Payment Information</strong>
-            <strong>Bank Transfers</strong>
+
+          <div className="flex spaced column">
+            <strong className="text-medium">About</strong>
+            {footerContent.about.map(link => (
+              <Link key={link.title} href={link.url}>
+                <a className="">{link.title}</a>
+              </Link>
+            ))}
+          </div>
+          <div className="flex spaced column">
+            <strong className="text-medium">Shop by Occasion</strong>
+            {footerContent.occassions.map(link => (
+              <Link key={link.title} href={link.url}>
+                <a className="">{link.title}</a>
+              </Link>
+            ))}
+          </div>
+
+          <div className="flex spaced column">
+            <strong className="text-medium">Seasonal Gifts</strong>
+            {footerContent.gifts.map(link => (
+              <Link key={link.title} href={link.url}>
+                <a className="">{link.title}</a>
+              </Link>
+            ))}
+          </div>
+
+          <div className="flex spaced column">
+            <strong className="text-regular">Legal</strong>
+            {footerContent.legals.map(link => (
+              <Link key={link.title} href={link.url}>
+                <a className="">{link.title}</a>
+              </Link>
+            ))}
+          </div>
+        </div>
+        {deviceType === "desktop" && (
+          <strong className="text-regular">Payment Information</strong>
+        )}
+        <div className={`${styles.bottom}`}>
+          <div className="flex spaced column">
+            {deviceType === "mobile" && (
+              <strong className="text-regular">Payment Information</strong>
+            )}
+            <strong>Bank Transfers (Naira)</strong>
             <div className="flex spaced">
-              <span>Bank:</span> <strong>GTBank</strong>
+              <span className={styles.grayed}>Bank:</span>{" "}
+              <strong>{footerContent.bankName}</strong>
             </div>
             <div className="flex spaced">
-              <span>Account Number: </span> <strong>0252862666</strong>
+              <span className={styles.grayed}>Account Number: </span>{" "}
+              <strong>{footerContent.accountNo}</strong>
             </div>
             <div className="flex spaced">
-              <span>Account Name: </span> <strong>Regal Flowers Ltd</strong>
+              <span className={styles.grayed}>Account Name: </span>{" "}
+              <strong>{footerContent.accountName}</strong>
             </div>
             <strong>Paypal</strong>
             <div
@@ -183,125 +162,78 @@ const Footer: FunctionComponent = () => {
                 deviceType === "mobile" ? "column" : ""
               }`}
             >
-              <span>Email:</span> <strong>{paypalEmail}</strong>
+              <span className={styles.grayed}>Email:</span>{" "}
+              <strong>{paypalEmail}</strong>
             </div>
             <strong>Bitcoin</strong>
             <div className="">
-              <span>Address: </span>{" "}
-              <strong>12W9vKCcCbKFmYr9bYfbd9SqVvhyK5j4E1</strong>
+              <span className={styles.grayed}>Address: </span>{" "}
+              <strong>{footerContent.bitcoinAddress}</strong>
+            </div>
+          </div>
+
+          <div className="flex spaced column ">
+            <strong>{footerContent.lagosBranch.name}</strong>
+            <div className="flex spaced">
+              <img
+                src="/icons/map-pin.svg"
+                alt="map pin"
+                className="generic-icon medium"
+              />
+              <Link href={footerContent.lagosBranch.url}>
+                <a target="_blank">{footerContent.lagosBranch.location}</a>
+              </Link>
+            </div>
+
+            <p className={styles.grayed}>
+              {footerContent.abujaBranch.workingTimes}
+            </p>
+          </div>
+          <div className="flex spaced column ">
+            <strong>{footerContent.abujaBranch.name}</strong>
+            <div className="flex spaced">
+              <img
+                src="/icons/map-pin.svg"
+                alt="map pin"
+                className="generic-icon medium"
+              />
+              <Link href={footerContent.abujaBranch.url}>
+                <a target="_blank">{footerContent.abujaBranch.location}</a>
+              </Link>
+            </div>
+
+            <p className={styles.grayed}>
+              {footerContent.abujaBranch.workingTimes}
+            </p>
+          </div>
+          <div className="flex spaced column">
+            <strong className="text-medium">Get In Touch</strong>
+
+            <div className="flex spaced column">
+              {footerContent.contacts.map((contact, index) => (
+                <div
+                  className={`flex spaced center-align ${
+                    index === footerContent.contacts.length - 1
+                      ? "underline"
+                      : ""
+                  }`}
+                  key={index}
+                >
+                  <img
+                    src={contact.icon}
+                    alt="icon"
+                    className="generic-icon small"
+                  />
+                  <Link href={contact.url}>
+                    <a target="_blank" className="">
+                      {contact.title}
+                    </a>
+                  </Link>
+                </div>
+              ))}
             </div>
           </div>
         </div>
-        <br />
-        <div>
-          <div className={styles.middle}>
-            <div>
-              <strong className="normal-text">Lagos Locations</strong>
-              <div className={styles.branches}>
-                {footerContent.lagosBranch.map((branch, index) => (
-                  <div key={index} className={styles.branch}>
-                    <strong>{branch.name}</strong>
-                    <Link href={branch.url}>
-                      <a target="_blank">{branch.location}</a>
-                    </Link>
-                    <p className={styles.grayed}>{branch.workingTimes}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div>
-              <strong className="normal-text">Abuja Location</strong>
-              <div
-                className={deviceType === "mobile" ? "margin-left spaced" : ""}
-              >
-                <strong>{footerContent.abujaBranch.name}</strong>
-                <Link href={footerContent.abujaBranch.url}>
-                  <a target="_blank">{footerContent.abujaBranch.location}</a>
-                </Link>
-                <p className={styles.grayed}>
-                  {footerContent.abujaBranch.workingTimes}
-                </p>
-              </div>
-            </div>
-
-            <div id={styles.newsletter}>
-              <strong>Subscribe to Newsletter</strong>
-              <div className="flex spaced">
-                <Input
-                  value=""
-                  onChange={() => {}}
-                  placeholder="Enter your email"
-                  className={styles.input}
-                />
-                <Button className={styles["subsribe-btn"]}>Subscribe</Button>
-              </div>
-              <p className={`margin-top ${styles.grayed}`}>
-                We care about your data
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className={styles.bottom}>
-        <p>© 2023 Regal Flowers.</p>
-
-        <div
-          className={`flex between ${
-            deviceType === "desktop" ? "spaced-xl" : "spaced"
-          } ${styles["payment-icon"]}`}
-        >
-          <img
-            src="/icons/visa.svg"
-            alt="visa"
-            className="generic-icon large"
-          />
-          <img
-            src="/icons/master-card.svg"
-            alt="master card"
-            className="generic-icon large"
-          />
-          <img
-            src="/icons/paypal-blue.svg"
-            alt="paypal"
-            className="generic-icon large"
-          />
-          <img
-            src="/icons/bitcoin-gold.svg"
-            alt="bitcoin"
-            className="generic-icon large"
-          />
-          <img
-            src="/icons/building-white.svg"
-            alt="bank"
-            className="generic-icon large"
-          />
-          <img
-            src="/icons/paystack.svg"
-            alt="pay stack"
-            className="generic-icon large"
-          />
-        </div>
-        {deviceType === "desktop" && (
-          <Link href="#top">
-            <a className="flex spaced center-align">
-              <span>Scroll to top</span>
-              <svg
-                width="10"
-                height="13"
-                viewBox="0 0 10 13"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="generic-icon"
-              >
-                <path
-                  d="M1 5.66602L5 1.66602M5 1.66602L9 5.66602M5 1.66602L5 11.666"
-                  stroke="white"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </a>
-          </Link>
-        )}
       </div>
     </footer>
   );

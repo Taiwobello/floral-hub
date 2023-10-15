@@ -118,42 +118,115 @@ export const currencyOptions: AppCurrency[] = [
   { name: "GBP", conversionRate: 890, sign: "£" }
 ];
 
+interface FooterLinks {
+  title: string;
+  url: string;
+}
+
 interface FooterContent {
   aboutUs: string;
   socialIcons: { name: string; src: string; url: string }[];
   quickLinks: { title: string; url: string; phoneNumber?: string }[];
   phoneNumbers: string[];
-  lagosBranch: OfficeAddress[];
+  lagosBranch: OfficeAddress;
   abujaBranch: OfficeAddress;
+  about: FooterLinks[];
+  occassions: FooterLinks[];
+  gifts: FooterLinks[];
+  legals: FooterLinks[];
+  accountNo: string;
+  accountName: string;
+  bitcoinAddress: string;
+  bankName: string;
+  contacts: {
+    icon: string;
+    url: string;
+    title: string;
+  }[];
 }
 
 export const footerContent: FooterContent = {
-  lagosBranch: [
+  contacts: [
     {
-      name: "Head Office",
-      url: "https://goo.gl/maps/cNB9Jx9sidQhJgtD6",
-      workingTimes: "24/7",
-      location: "81b, Lafiaji Way, Dolphin Estate, Ikoyi, Lagos"
+      title: "+234 907 7777994",
+      icon: "/icons/footer/phone.svg",
+      url: "tel:+2349077777994"
     },
     {
-      name: "VI Branch",
-      url: "https://goo.gl/maps/AsSEYaBUVV3NCRaa7",
-      workingTimes: "8am-7pm (Everyday)",
-      location:
-        "133, Ahmadu Bello Way, Silverbird Galleria, Victoria Island, Lagos"
+      title: "+234 907 777 7994",
+      icon: "/icons/footer/whatsapp.svg",
+      url: "https://wa.me/+2349077777994"
     },
     {
-      name: "Airport Branch",
-      url: "https://goo.gl/maps/5wQFMW5pR33n9k6G7",
-      workingTimes: "6am-7pm (Everyday)",
-      location: "Muritala Muhammed Airport2, Ikeja, Lagos"
+      title: "info@floralhub.com.ng",
+      icon: "/icons/footer/message.svg",
+      url: "mailto:info@floralhub.com.ng"
     }
   ],
+  accountName: "Floral Services & Events Hub Ltd",
+  accountNo: "1024853047",
+  bitcoinAddress: "1NQfzJGzXSn5B5xqT4mfw48KpaoA4Ajmwy",
+  bankName: "UBA",
+  legals: [
+    { title: "FAQ", url: "/faq" },
+    { title: "Legal Terms", url: "/legal-terms" },
+    { title: "Privacy Statement", url: "/privacy-statement" }
+  ],
+  gifts: [
+    {
+      title: "Christmas Flowers",
+      url: "/product-category/christmas-flowers"
+    },
+    {
+      title: "Mother’s Day Flowers",
+      url: "/product-category/mothers-day-flowers"
+    },
+    {
+      title: "Valentine’s Day Flowers",
+      url: "/product-category/valentines-day-flowers-and-gifts"
+    }
+  ],
+  about: [
+    {
+      title: "Contact Us",
+      url: "/contact-us"
+    },
+    {
+      title: "Our Blog",
+      url: "/blog"
+    }
+  ],
+  occassions: [
+    {
+      title: "Love, Birthday & Anniversary",
+      url: "/product-category/flowers-for-love-birthday-anniversary-etc"
+    },
+    {
+      title: "Bridal Flowers",
+      url: "/product-category/bridal-bouquets"
+    },
+    {
+      title: "Funeral Flowers",
+      url: "/product-category/funeral-and-condolence"
+    },
+    {
+      title: "VIP Bouquets",
+      url: "/vip"
+    }
+  ],
+
+  lagosBranch: {
+    name: "Lagos Head Office/Delivery Center",
+    url: "https://goo.gl/maps/cNB9Jx9sidQhJgtD6",
+    workingTimes: "24/7",
+    location: "7, Ikeja Way, Dolphin Estate, Ikoyi"
+  },
+
   abujaBranch: {
     name: "Abuja Office",
     url: "https://goo.gl/maps/JAKrvZAe5vfh4czr9",
     workingTimes: "24/7",
-    location: "5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja"
+    location: "5, Nairobi Street, Off Aminu Kano crescent, Wuse 2, Abuja."
   },
   aboutUs:
     "Nigeria's most loved online flower shop with same day delivery in Lagos and Abuja",
@@ -2325,7 +2398,7 @@ export const links: AppLink[] = [
   }
 ];
 
-export const paypalEmail = "payments@regalflowers.com";
+export const paypalEmail = "payments@floralhub.com.ng";
 
 export const tagsMap: Record<string, string[]> = {
   budget: ["vip", "regular"],
