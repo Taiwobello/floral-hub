@@ -1,14 +1,9 @@
 import { GetStaticProps } from "next";
-import Link from "next/link";
 import React, { FunctionComponent, useState } from "react";
 import Button from "../components/button/Button";
 import FlowerCard from "../components/flower-card/FlowerCard";
 import {
   featuredSlugs,
-  footerContent,
-  gifts,
-  paypalEmail,
-  regalEmail,
   regalWebsiteUrl
 } from "../utils/constants";
 import { getProductsBySlugs } from "../utils/helpers/data/products";
@@ -16,8 +11,6 @@ import Product from "../utils/types/Product";
 import styles from "./faq.module.scss";
 import Meta from "../components/meta/Meta";
 import SchemaMarkup from "../components/schema-mark-up/SchemaMarkUp";
-
-type ContentLink = "how-it-works" | "payment-methods" | "delivery";
 
 
 const schemaProperties = {
