@@ -92,9 +92,9 @@
     .faq-answer{
       font-size: 1.2rem;
       background-color: #FAF2FD;
-      padding: 10px 5px;
+      padding: 10px;
       color: #470F5B;
-   
+      margin-bottom: 20px;
     }
     .faq-question:hover{
       background-color: #FAF2FD;
@@ -102,6 +102,7 @@
     .faq-question-open{
       border-bottom: 1px solid #EED4F7;
       background-color: #FAF2FD;
+      border-radius: 4px;
     }
     @media (max-width: 650px) {
         display: flex;
