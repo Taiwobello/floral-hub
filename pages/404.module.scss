@@ -1,15 +1,58 @@
-.hero-img {
-  height: 20rem;
+.not-found{
+  height: 30rem;
   width: auto;
   margin: 0 auto 2rem auto;
-  display: block;
+  background-size: cover;
+  background-position: left bottom;
+  background-image: url("/images/404.png");
+  .text{
+    position: absolute;
+    left: 8rem;
+    top: 12rem;
+    max-width: 300px;
+    z-index: 1;
+    p:first-of-type{
+        font-size: 5rem;
+        font-weight: 800;
+    }
+    p:nth-child(2){
+      font-weight: 800;
+        }
+    p:nth-child(2), p:nth-child(3){
+     margin: 15px 0;
+    }
+    button{
+      background-color: #b240da;
+      padding: 10px;
+      width: 80%;
+      color: #FFFFFF;
+    }
+  }
 
   @media (max-width: 650px) {
-    width: 100%;
-    height: auto;
-    margin: 0 auto;
-    margin-bottom: 2rem;
+    background-position: 25% 75% ;
+    height: 35rem;
+    background-image: url("/images/404-mobile.png");
+    .text{
+      width: 100%;
+      top:22rem;
+      left:2rem;
+        p:first-of-type {
+            font-size: 3rem;
+            font-weight: 800;
+          }
+        
+          p:nth-child(2),
+          p:nth-child(3) {
+            margin: 10px 0;
+          }
+          button {
+            width: 60%;
+          
+          }
+    }
   }
+
 }
 
 .popular-sections {
