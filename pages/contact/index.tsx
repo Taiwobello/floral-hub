@@ -1,10 +1,13 @@
-import { FunctionComponent, useState } from "react";
+import { FormEvent, FunctionComponent, useContext, useState } from "react";
 import styles from "./index.module.scss";
 import { contactUsPageConent } from "../../utils/constants";
 import Input, { TextArea } from "../../components/input/Input";
 import Button from "../../components/button/Button";
 import useDeviceType from "../../utils/hooks/useDeviceType";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
+import { sendClientMessage } from "../../utils/helpers/data/message";
+import SettingsContext from "../../utils/context/SettingsContext";
+import { emailValidator } from "../../utils/helpers/validators";
 
 const initialContactData = {
   name: "",
@@ -16,6 +19,8 @@ const breadcrumbItems = [{ label: "Home", link: "/" }, { label: "Contact" }];
 
 const Index: FunctionComponent = () => {
   const [formData, setFormData] = useState(initialContactData);
+  const { notify } = useContext(SettingsContext);
+  const [loading, setLoading] = useState(false);
 
   const deviceType = useDeviceType();
 
@@ -24,6 +29,31 @@ const Index: FunctionComponent = () => {
       ...formData,
       [key]: value
     });
+  };
+
+  const handleSendMessage = async (e: FormEvent) => {
+    e.preventDefault();
+    const { name, email, message } = formData;
+
+    if (!name) {
+      notify("error", "Please enter your name");
+      return;
+    } else if (!email) {
+      notify("error", "Please enter your email address");
+      return;
+    } else if (!message) {
+      notify("error", "Please enter your message");
+      return;
+    }
+    setLoading(true);
+    const response = await sendClientMessage(formData);
+
+    if (!response.error) {
+      setFormData(initialContactData);
+      notify("success", "Message sent successfully");
+    }
+
+    setLoading(false);
   };
   return (
     <section className={[styles["page-wrapper"], "text-medium"].join(" ")}>
@@ -111,7 +141,7 @@ const Index: FunctionComponent = () => {
           Leave Us a Message
         </p>
         <div className={styles["form-wrapper"]}>
-          <form className={styles.form}>
+          <form className={styles.form} onSubmit={handleSendMessage}>
             <div className="input-group">
               <span className="question">Name</span>
               <Input
@@ -132,6 +162,7 @@ const Index: FunctionComponent = () => {
                 onChange={value => handleChange("email", value)}
                 required
                 responsive
+                onBlurValidation={emailValidator}
               />
             </div>
             <div className="input-group">
@@ -147,6 +178,7 @@ const Index: FunctionComponent = () => {
               responsive
               buttonType="submit"
               className="margin-top spaced"
+              loading={loading}
             >
               Send Message
             </Button>
