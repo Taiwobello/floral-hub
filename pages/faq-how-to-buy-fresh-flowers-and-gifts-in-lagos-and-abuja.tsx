@@ -11,6 +11,7 @@ import Product from "../utils/types/Product";
 import styles from "./faq.module.scss";
 import Meta from "../components/meta/Meta";
 import SchemaMarkup from "../components/schema-mark-up/SchemaMarkUp";
+import Breadcrumb from "../components/breadcrumb/Breadcrumb";
 
 
 const schemaProperties = {
@@ -138,6 +139,7 @@ const schemaProperties = {
     "https://regalflowers.com.ng/faq-how-to-buy-fresh-flowers-and-gifts-in-lagos-and-abuja"
 };
 
+const breadcrumbItems = [{ label: "Home", link: "/" }, { label: "FAQ" }];
 const Index: FunctionComponent<{ featuredFlowers: Product[] }> = ({
   featuredFlowers
 }) => {
@@ -189,7 +191,8 @@ const Index: FunctionComponent<{ featuredFlowers: Product[] }> = ({
       </Meta>
       <section className={styles.wrapper}>
         <div className={[styles["hero-bg"], "hero-bg"].join(" ")}>
-          <div className="hero-content flex column center center-align">
+          <div className={styles["hero-content"]}>
+            <Breadcrumb items={breadcrumbItems} />
             <p className={styles.title}>HOW CAN WE HELP?</p>
           </div>
         </div>
