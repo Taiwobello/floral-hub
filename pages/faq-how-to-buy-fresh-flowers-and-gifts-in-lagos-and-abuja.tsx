@@ -3,6 +3,7 @@ import React, { FunctionComponent, useState } from "react";
 import Button from "../components/button/Button";
 import FlowerCard from "../components/flower-card/FlowerCard";
 import {
+  FAQs,
   featuredSlugs,
   regalWebsiteUrl
 } from "../utils/constants";
@@ -19,16 +20,16 @@ const schemaProperties = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "What is Regal Flowers?",
+      name: "How do I order flowers and gifts on FloralHub.com.ng?",
       acceptedAnswer: {
         "@type": "Answer",
         text:
-          "Regal Flowers is a top flower shop in Lagos & Abuja, Nigeria. We offer fresh flowers and gifts for same-day delivery or walk-in."
+          "There are several ways to order. Either online, or by Phone/Whatsapp on +234 907 777 7994 <br> <br> We can also customize a bouquet to fit your budget, preferred colours, flower types etc.Do feel free to reach our line, or email us info@floralhub.com.ng"
       }
     },
     {
       "@type": "Question",
-      name: "How can I order flowers and gifts?",
+      name: "Is same day delivery possible?",
       acceptedAnswer: {
         "@type": "Answer",
         text:
@@ -138,14 +139,13 @@ const schemaProperties = {
   url:
     "https://regalflowers.com.ng/faq-how-to-buy-fresh-flowers-and-gifts-in-lagos-and-abuja"
 };
-
 const breadcrumbItems = [{ label: "Home", link: "/" }, { label: "FAQ" }];
 const Index: FunctionComponent<{ featuredFlowers: Product[] }> = ({
   featuredFlowers
 }) => {
   // const [activeContent, setActiveContent] = useState<ContentLink | null>(null);
   const [openQuestions, setOpenQuestions] = useState<OpenQuestions>({});
-  const questionList = schemaProperties.mainEntity;
+  const questionList = FAQs;
   interface OpenQuestions {
     [key: number]: boolean;
   }
@@ -155,7 +155,7 @@ const Index: FunctionComponent<{ featuredFlowers: Product[] }> = ({
       [index]: !prevOpenQuestions[index],
     }));
   };
-  
+
   const questions = questionList.map((question, index) => {
     const isAnswerOpen = openQuestions[index] || false;
 
@@ -172,7 +172,7 @@ const Index: FunctionComponent<{ featuredFlowers: Product[] }> = ({
           </div>
         </div>
         {isAnswerOpen && (
-          <div className={styles["faq-answer"]}>{question.acceptedAnswer.text}</div>
+          <div className={styles["faq-answer"]}>{question.acceptedAnswer.text} </div>
         )}
       </div>
     );

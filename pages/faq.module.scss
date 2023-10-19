@@ -14,6 +14,7 @@
     }
   }
   .hero-content {
+    width: 80%;
     position: relative;
     top: 40%;
     left: 8%;
@@ -97,6 +98,7 @@
         }
         @media (max-width: 650px) {
         transition: background-color .5s ease-out;
+        font-size: 1.3rem;
         }
       }
     .faq-answer{
@@ -105,6 +107,14 @@
       padding: 10px;
       color: #470F5B;
       margin-bottom: 20px;
+
+      a{
+        color: #B240DA;
+        font-weight: 700;
+      }
+      @media (max-width: 650px) {
+        font-size: 1rem;
+      }
     }
     .faq-question:hover{
       background-color: #FAF2FD;
