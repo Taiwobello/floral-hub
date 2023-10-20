@@ -88,7 +88,7 @@ const Index: FunctionComponent = () => {
   };
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyDrAvwEYDj6TWfGwcwsM0flDCnp0TYcEOY"
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ""
   });
 
   const onLoad = useCallback(function callback(map) {
