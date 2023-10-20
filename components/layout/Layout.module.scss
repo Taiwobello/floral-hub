@@ -802,12 +802,22 @@
 
 .footer {
   line-height: 1.7;
-  background-image: url("/images/footer-bg.svg");
+  background: rgb(247, 239, 224);
+  background: linear-gradient(
+    90deg,
+    rgba(247, 239, 224, 1) 50%,
+    rgba(233, 239, 240, 1) 65%
+  );
   position: relative;
   margin-top: 8rem; //TODO remove
 
   @media (max-width: 650px) {
     font-size: 1rem;
+    background: linear-gradient(
+      180deg,
+      rgba(247, 239, 224, 1) 50%,
+      rgba(233, 239, 240, 1) 65%
+    );
   }
   .footer-wrapper {
     padding: 2rem 6rem;
@@ -897,7 +907,17 @@
       & > *:first-child {
         order: 5;
         grid-column: 1 / -1;
-        grid-row: 3;
+        grid-row: 4;
+      }
+
+      & > *:nth-child(2) {
+        grid-column: 1 / -1;
+        grid-row: 1;
+      }
+
+      & > *:nth-child(3) {
+        grid-column: 1 / -1;
+        grid-row: 2;
       }
     }
 

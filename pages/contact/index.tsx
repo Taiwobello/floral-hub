@@ -1,10 +1,26 @@
-import { FunctionComponent, useState } from "react";
+import {
+  CSSProperties,
+  FormEvent,
+  FunctionComponent,
+  useCallback,
+  useContext,
+  useState
+} from "react";
 import styles from "./index.module.scss";
 import { contactUsPageConent } from "../../utils/constants";
 import Input, { TextArea } from "../../components/input/Input";
 import Button from "../../components/button/Button";
 import useDeviceType from "../../utils/hooks/useDeviceType";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
+import { sendClientMessage } from "../../utils/helpers/data/message";
+import SettingsContext from "../../utils/context/SettingsContext";
+import { emailValidator } from "../../utils/helpers/validators";
+import {
+  useJsApiLoader,
+  GoogleMap,
+  Marker,
+  Polygon
+} from "@react-google-maps/api";
 
 const initialContactData = {
   name: "",
@@ -12,10 +28,30 @@ const initialContactData = {
   message: ""
 };
 
+const center = {
+  lat: 31.968599,
+  lng: -99.90181
+};
+
+const containerStyle: CSSProperties = {
+  width: "100%",
+  height: "33rem",
+  borderRadius: "0.5rem"
+};
+
+const polygonCoords = [
+  { lat: -34.4, lng: 150.6 },
+  { lat: -34.45, lng: 150.7 },
+  { lat: -34.35, lng: 150.8 }
+];
+
 const breadcrumbItems = [{ label: "Home", link: "/" }, { label: "Contact" }];
 
 const Index: FunctionComponent = () => {
   const [formData, setFormData] = useState(initialContactData);
+  const { notify } = useContext(SettingsContext);
+  const [loading, setLoading] = useState(false);
+  const [, setMap] = useState(null);
 
   const deviceType = useDeviceType();
 
@@ -25,6 +61,47 @@ const Index: FunctionComponent = () => {
       [key]: value
     });
   };
+
+  const handleSendMessage = async (e: FormEvent) => {
+    e.preventDefault();
+    const { name, email, message } = formData;
+
+    if (!name) {
+      notify("error", "Please enter your name");
+      return;
+    } else if (!email) {
+      notify("error", "Please enter your email address");
+      return;
+    } else if (!message) {
+      notify("error", "Please enter your message");
+      return;
+    }
+    setLoading(true);
+    const response = await sendClientMessage(formData);
+
+    if (!response.error) {
+      setFormData(initialContactData);
+      notify("success", "Message sent successfully");
+    }
+
+    setLoading(false);
+  };
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ""
+  });
+
+  const onLoad = useCallback(function callback(map) {
+    const bounds = new window.google.maps.LatLngBounds(center);
+    map.fitBounds(bounds);
+
+    setMap(map);
+  }, []);
+
+  const onUnmount = useCallback(function callback() {
+    setMap(null);
+  }, []);
+
   return (
     <section className={[styles["page-wrapper"], "text-medium"].join(" ")}>
       <Breadcrumb items={breadcrumbItems} />
@@ -64,7 +141,29 @@ const Index: FunctionComponent = () => {
               </p>
             </div>
           </div>
-          <img src="/images/map.png" alt="whatsapp" className={styles.map} />
+          {isLoaded ? (
+            <GoogleMap
+              mapContainerStyle={containerStyle}
+              center={center}
+              zoom={12}
+              onLoad={onLoad}
+              onUnmount={onUnmount}
+            >
+              <Marker position={center} />
+              <Polygon
+                paths={[polygonCoords]}
+                options={{
+                  fillColor: "blue",
+                  fillOpacity: 0.4,
+                  strokeColor: "red",
+                  strokeOpacity: 1,
+                  strokeWeight: 2
+                }}
+              />
+            </GoogleMap>
+          ) : (
+            <></>
+          )}
         </div>
         <div className={styles.office}>
           <strong className="text-medium margin-bottom spaced">
@@ -98,10 +197,31 @@ const Index: FunctionComponent = () => {
               </p>
             </div>
           </div>
-          <img src="/images/map.png" alt="whatsapp" className={styles.map} />
+          {isLoaded ? (
+            <GoogleMap
+              mapContainerStyle={containerStyle}
+              center={center}
+              zoom={12}
+              onLoad={onLoad}
+              onUnmount={onUnmount}
+            >
+              <Marker position={center} />
+              <Polygon
+                paths={[polygonCoords]}
+                options={{
+                  fillColor: "blue",
+                  fillOpacity: 0.4,
+                  strokeColor: "red",
+                  strokeOpacity: 1,
+                  strokeWeight: 2
+                }}
+              />
+            </GoogleMap>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
-
       <div>
         <p
           className={`primary-color margin-bottom text-large ${
@@ -111,7 +231,7 @@ const Index: FunctionComponent = () => {
           Leave Us a Message
         </p>
         <div className={styles["form-wrapper"]}>
-          <form className={styles.form}>
+          <form className={styles.form} onSubmit={handleSendMessage}>
             <div className="input-group">
               <span className="question">Name</span>
               <Input
@@ -132,6 +252,7 @@ const Index: FunctionComponent = () => {
                 onChange={value => handleChange("email", value)}
                 required
                 responsive
+                onBlurValidation={emailValidator}
               />
             </div>
             <div className="input-group">
@@ -147,6 +268,7 @@ const Index: FunctionComponent = () => {
               responsive
               buttonType="submit"
               className="margin-top spaced"
+              loading={loading}
             >
               Send Message
             </Button>
