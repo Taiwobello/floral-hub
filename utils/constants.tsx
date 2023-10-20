@@ -3181,3 +3181,5 @@ export const contactUsPageConent: Record<string, any> = {
     whatsappNo: "+234 907 777 7994"
   }
 };
+
+export const business = "floralHub";
