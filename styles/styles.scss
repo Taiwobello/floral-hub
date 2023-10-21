@@ -103,10 +103,6 @@ span {
   display: inline-block;
 }
 
-li {
-  list-style: none;
-}
-
 .title {
   font-size: 1.8rem;
   &.small {
@@ -209,7 +205,7 @@ li {
   text-align: center;
 }
 .grayed {
-  color: rgba(0, 0, 0, 0.6);
+  color: #6b7280;
 }
 .danger {
   color: #ff7452;
@@ -475,6 +471,7 @@ li {
   flex-direction: column;
   width: 100%;
   margin: 0.8rem 0;
+  text-align: left;
   &.responsive {
     width: unset;
   }

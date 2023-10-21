@@ -35,6 +35,12 @@
     // overflow-x: auto;
     max-height: 97vh;
     z-index: 9;
+
+    &.custom-modal {
+      width: 95%;
+      height: 95vh;
+      background-color: #f9f9f9;
+    }
     &.confirm {
       padding: 1.5rem;
       min-width: 40vw;
