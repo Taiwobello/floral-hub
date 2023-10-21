@@ -838,5 +838,12 @@ span {
   }
 }
 
+.faq-li{
+list-style: decimal;
+word-wrap: break-word;
+}
+.faq-ol{
+  padding: 20px;
+}
 // 16px: 1.2rem
 // 32px 2.3rem

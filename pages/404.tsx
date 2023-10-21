@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import BlogCard from "../components/blog-card/BlogCard";
 import FlowerCard from "../components/flower-card/FlowerCard";
 import { blogPosts, popularSections } from "../utils/constants";
@@ -9,7 +10,16 @@ function Custom404Page() {
   const deviceType = useDeviceType();
   return (
     <section className="">
-      <img src="/images/404.svg" alt="404" className={styles["hero-img"]} />
+      <div className={styles["not-found"]}>
+        <div className={styles["text"]}>
+          <p>Oops</p>
+          <p className="text-medium">Page not found</p>
+          <p>We couldn’t find the page you were looking for. Please crosscheck your URL. If this issue persists, kindly contact us.</p>
+          <Link href="/">
+            <button className="button">GO TO HOME</button>
+          </Link>
+        </div>
+      </div>
       <div className={styles["popular-sections"]}>
         <h2 className={styles.title}>Popular Sections</h2>
         <div className={[styles.section, styles.wrap].join(" ")}>
