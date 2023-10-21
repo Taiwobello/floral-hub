@@ -701,8 +701,98 @@
 }
 
 .auth-form {
-  padding: 1.5rem;
-  width: 22rem;
+  .form-wrapper {
+    width: 50%;
+    border: 1px solid #9ca3af;
+    border-radius: 0.5rem;
+    padding: 2.3rem 4rem;
+    margin: auto;
+    max-height: 100%;
+
+    @media (max-width: 800px) {
+      width: 60%;
+    }
+
+    @media (max-width: 650px) {
+      width: 95%;
+      padding: 2rem;
+    }
+
+    @media (max-width: 480px) {
+      width: 98%;
+      padding: 1rem;
+    }
+
+    &.login {
+      margin-bottom: 2rem;
+      margin-top: 2rem;
+    }
+
+    .login-form,
+    .signup-form {
+      margin-top: 1rem;
+      overflow: hidden;
+      transition: 0.9s ease-out;
+      height: 100%;
+
+      &.collapse {
+        height: 0;
+        margin-top: 0;
+      }
+    }
+
+    .signup-form {
+      margin-top: 2rem;
+    }
+
+    .list {
+      margin-top: 1.5rem;
+
+      @media (max-width: 650px) {
+        padding-left: 2rem;
+      }
+
+      @media (max-width: 480px) {
+        padding-left: 1rem;
+      }
+
+      li:first-child {
+        margin-bottom: 1.5rem;
+      }
+    }
+  }
+
+  .password-reset {
+    width: 40%;
+    margin: 0 auto;
+    text-align: center;
+
+    @media (max-width: 650px) {
+      width: 90%;
+    }
+
+    .icon {
+      border: 0.8rem solid #f8eefc;
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      margin: 0 auto;
+      background-color: #fcf6fd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &.success {
+        border: 0.8rem solid #ecfdf3;
+        background: #d1fadf;
+      }
+    }
+
+    .bottom-text {
+      display: inline-flex;
+      align-items: center;
+    }
+  }
 }
 
 .currency-wrapper {
@@ -961,4 +1051,9 @@
 .confirm-body {
   font-size: 1rem;
   margin: 1rem 0 3rem;
+}
+
+.user-area {
+  padding: 1.5rem;
+  width: 22rem;
 }

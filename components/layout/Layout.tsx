@@ -23,8 +23,6 @@ import {
   updateOrder
 } from "../../utils/helpers/data/order";
 import dayjs from "dayjs";
-import ContextWrapper from "../context-wrapper/ContextWrapper";
-import AuthDropdown from "./AuthDropdown";
 import useDeviceType from "../../utils/hooks/useDeviceType";
 import useOutsideClick from "../../utils/hooks/useOutsideClick";
 import { getPriceDisplay } from "../../utils/helpers/type-conversions";
@@ -35,6 +33,8 @@ import Modal from "../modal/Modal";
 import AppStorage, {
   AppStorageConstants
 } from "../../utils/helpers/storage-helpers";
+import AuthModal from "./AuthModal";
+import ContextWrapper from "../context-wrapper/ContextWrapper";
 
 const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
   const { pathname } = useRouter();
@@ -294,6 +294,7 @@ const Header: FunctionComponent = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [activeSublinkNav, setActiveSublinkNav] = useState("");
   const [showSearch, setShowSearch] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -315,7 +316,8 @@ const Header: FunctionComponent = () => {
     orderId,
     setDeliveryDate,
     searchText,
-    setSearchText
+    setSearchText,
+    setUser
   } = useContext(SettingsContext);
 
   const linksToHide = ["faq", "plants"];
@@ -362,8 +364,20 @@ const Header: FunctionComponent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [_pathname]);
 
+  const handleDisplayAuthModal = () => {
+    if (!user) setShowAuthModal(true);
+  };
+
+  const handleLogout = async () => {
+    AppStorage.remove("userData");
+    setUser(null);
+  };
+
   const accountAnchor = (
-    <button className="flex column center-align">
+    <button
+      className="flex column center-align"
+      onClick={handleDisplayAuthModal}
+    >
       {user ? (
         <span className={[styles.initial, styles["control-icon"]].join(" ")}>
           {(user.name || user.email)[0]}
@@ -381,6 +395,10 @@ const Header: FunctionComponent = () => {
 
   return (
     <>
+      <AuthModal
+        visible={showAuthModal}
+        cancel={() => setShowAuthModal(false)}
+      />
       <header className={styles.header} id="top">
         <img
           alt="menu"
@@ -744,7 +762,18 @@ const Header: FunctionComponent = () => {
             anchor={accountAnchor}
             className={styles["auth-wrapper"]}
           >
-            <AuthDropdown />
+            {user ? (
+              <div className={styles["user-area"]}>
+                <div className="flex column center-align">
+                  <em className="margin-bottom spaced">
+                    Logged in as {user.email}
+                  </em>
+                  <Button onClick={handleLogout}>Logout</Button>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
           </ContextWrapper>
 
           <button
@@ -793,8 +822,22 @@ const Header: FunctionComponent = () => {
           </div>
           <div className="flex spaced-lg">
             <div className={styles.group}>
-              <ContextWrapper anchor={accountAnchor}>
-                <AuthDropdown />
+              <ContextWrapper
+                anchor={accountAnchor}
+                className={styles["auth-wrapper"]}
+              >
+                {user ? (
+                  <div className={styles["user-area"]}>
+                    <div className="flex column center-align">
+                      <em className="margin-bottom spaced">
+                        Logged in as {user.email}
+                      </em>
+                      <Button onClick={handleLogout}>Logout</Button>
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
               </ContextWrapper>
             </div>
             <button
@@ -1238,7 +1281,6 @@ export const CheckoutHeader: FunctionComponent = () => {
     currentStage,
     setShouldShowCart,
     shouldShowCart,
-    shouldShowAuthDropdown,
     setShouldShowAuthDropdown
   } = useContext(SettingsContext);
   const authDropdownRef = useOutsideClick<HTMLDivElement>(() => {
@@ -1322,16 +1364,7 @@ export const CheckoutHeader: FunctionComponent = () => {
         cancel={() => setShouldShowCart(false)}
         header="checkout"
       />
-      <div className={styles["auth-wrapper"]} ref={authDropdownRef}>
-        <div
-          className={[
-            styles["auth-dropdown"],
-            shouldShowAuthDropdown && styles.active
-          ].join(" ")}
-        >
-          <AuthDropdown />
-        </div>
-      </div>
+      <div className={styles["auth-wrapper"]} ref={authDropdownRef}></div>
     </>
   );
 };

@@ -8,8 +8,9 @@ interface CheckboxProps {
   name?: string;
   className?: string;
   responsive?: boolean;
-  type?: "primary" | "transparent";
+  type?: "primary" | "transparent" | "secondary";
   disabled?: boolean;
+  rounded?: boolean;
 }
 const Checkbox = (props: CheckboxProps) => {
   const {
@@ -19,7 +20,8 @@ const Checkbox = (props: CheckboxProps) => {
     checked,
     className,
     type,
-    disabled
+    disabled,
+    rounded
   } = props;
 
   const _onChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -40,9 +42,11 @@ const Checkbox = (props: CheckboxProps) => {
         disabled={disabled}
       />
       <span
-        className={[styles["check-wrapper"], styles[type || "primary"]].join(
-          " "
-        )}
+        className={[
+          styles["check-wrapper"],
+          styles[type || "primary"],
+          rounded && styles.rounded
+        ].join(" ")}
       >
         <span className={styles["check-icon"]} />
       </span>
