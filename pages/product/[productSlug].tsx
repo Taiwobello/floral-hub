@@ -104,7 +104,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
       description.innerHTML = product.description.replace("<p>&nbsp;</p>", "");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [descriptionTab]);
+  }, [product, descriptionTab, deviceType]);
 
   useEffect(() => {
     if (!shouldShowRegularSizes) {
