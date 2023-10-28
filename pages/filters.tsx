@@ -377,7 +377,7 @@ const changeHeroContent = () =>{
   }, [search]);
 
   const hideHero = search;
-  // console.log(window.location.href.split("/")) 
+  const crumbItems = [{ label: "Home", link: "/" }, { label: updateHeroContent }]
   return (
     <>
       {router.pathname === "/filters" && (
@@ -397,7 +397,7 @@ const changeHeroContent = () =>{
               { deviceType === "desktop" && (
                 <>
                   <div className={styles["hero-text"]}>
-                    <Breadcrumb items={[{ label: "Home", link: "/" }, { label: `${updateHeroContent}` }]} />
+                    <Breadcrumb items={crumbItems} />
                       <p>
                       {!isGiftPage ? `${updateHeroContent} Flowers` : updateHeroContent}
                     
