@@ -178,10 +178,10 @@ const ProductsPage: FunctionComponent<{
     }
   };
 const changeHeroContent = () =>{
-  let url = window.location.href.split("/").slice(3);
-  
-    const content = breadcrumbItems.find((value)=> url[0] === value.url)
-    content ? setUpdateHeroContent(content.label) : setUpdateHeroContent( "Romance, Birthdays & Anniversary" )
+  const url = window.location.href.split("/").slice(3);
+  console.log(url)
+  const content = breadcrumbItems.find(value => url[1] === value.url || url[0] === value.url)
+  content ? setUpdateHeroContent(content.label) : setUpdateHeroContent( "Romance, Birthdays & Anniversary" )
   
 
 }
@@ -399,7 +399,7 @@ const changeHeroContent = () =>{
                   <div className={styles["hero-text"]}>
                     <Breadcrumb items={[{ label: "Home", link: "/" }, { label: `${updateHeroContent}` }]} />
                       <p>
-                      {`${updateHeroContent} Flowers`}
+                      {!isGiftPage ? `${updateHeroContent} Flowers` : updateHeroContent}
                     
                       </p>
                     <p className="text-small">
