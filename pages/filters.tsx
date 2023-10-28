@@ -42,6 +42,7 @@ import SettingsContext from "../utils/context/SettingsContext";
 import Radio from "../components/radio/Radio";
 import Input from "../components/input/Input";
 import Meta from "../components/meta/Meta";
+import Breadcrumb from "../components/breadcrumb/Breadcrumb";
 
 const giftMap: Record<string, string> = {
   "gift-items-perfumes-cakes-chocolate-wine-giftsets-and-teddy-bears":
@@ -89,7 +90,6 @@ const ProductsPage: FunctionComponent<{
     "accessories-boutonnieres-bridesmaids-flowers-amp-corsages",
     "bridal-bouquets"
   ];
-
   const funeralCategories = ["funeral-and-condolence"];
 
   const _filterCategories =
@@ -115,6 +115,7 @@ const ProductsPage: FunctionComponent<{
   const [sort, setSort] = useState<Sort>("name-asc");
   const [hasMore, setHasMore] = useState(false);
   const [shouldShowFilter, setShouldShowFilter] = useState(false);
+  const [updateHeroContent, setUpdateHeroContent] = useState("")
 
   const filterDropdownRef = useOutsideClick<HTMLDivElement>(() => {
     setShouldShowFilter(false);
@@ -176,7 +177,14 @@ const ProductsPage: FunctionComponent<{
       setJustToSayText(JustToSayTexts[count]);
     }
   };
+const changeHeroContent = () =>{
+  const url = window.location.href.split("/").slice(3);
+  console.log(url)
+  const content = breadcrumbItems.find(value => url[1] === value.url || url[0] === value.url)
+  content ? setUpdateHeroContent(content.label) : setUpdateHeroContent( "Romance, Birthdays & Anniversary" )
+  
 
+}
   const handleClearFIlter = () => {
     setSelectedFilter([]);
     router.push(`/product-category/${categorySlug}`, undefined, {
@@ -351,6 +359,7 @@ const ProductsPage: FunctionComponent<{
   useEffect(() => {
     if (isReady) {
       setRedirectUrl(router.asPath);
+      changeHeroContent()
       setBreadcrumb(
         selectedBreadcrumb
           ? {
@@ -368,7 +377,7 @@ const ProductsPage: FunctionComponent<{
   }, [search]);
 
   const hideHero = search;
-
+  const crumbItems = [{ label: "Home", link: "/" }, { label: updateHeroContent }]
   return (
     <>
       {router.pathname === "/filters" && (
@@ -381,48 +390,25 @@ const ProductsPage: FunctionComponent<{
           <div
             className={[
               styles["hero-bg"],
-              productCategory === "occasion" && styles["occasion-bg"],
-              productCategory === "vip" && styles["vip-bg"]
             ].join(" ")}
           >
+            
             <div className={`hero-content flex column center center-align `}>
-              {productCategory === "occasion" && deviceType === "desktop" && (
-                <div
-                  className={[
-                    styles["occasion-wrapper"],
-                    isGiftPage && styles["gifts-wrapper"]
-                  ].join(" ")}
-                >
-                  {(isGiftPage ? gifts : occasions).map((occasion, index) => {
-                    return (
-                      <Link href={occasion.url} key={index}>
-                        <a
-                          className={[
-                            styles["occasion"],
-                            isGiftPage && styles["gift-occasion"],
-
-                            categorySlug === occasion.url.split("/")[2] &&
-                              styles["active"]
-                          ].join(" ")}
-                          onClick={() => {
-                            router.push(occasion.url, undefined, {
-                              scroll: false
-                            });
-                          }}
-                        >
-                          <strong>
-                            {occasion.title}
-                            <br />
-                            {occasion.title === "Just to Say" && (
-                              <span>{JustToSayText}</span>
-                            )}{" "}
-                          </strong>
-                        </a>
-                      </Link>
-                    );
-                  })}
-                </div>
-              )}
+              { deviceType === "desktop" && (
+                <>
+                  <div className={styles["hero-text"]}>
+                    <Breadcrumb items={crumbItems} />
+                      <p>
+                      {!isGiftPage ? `${updateHeroContent} Flowers` : updateHeroContent}
+                    
+                      </p>
+                    <p className="text-small">
+                      Congratulations! Another year of love and laughter with your other half. Whether you’ve been together one year or 60, our anniversary flowers are hand-crafted by local florists so you can give that special someone a warm and fuzzy feeling.
+                      </p>
+                    </div>   
+                <div className= {styles["hero-image"]}></div>
+                </>
+                )}
               {productCategory === "occasion" && deviceType === "mobile" && (
                 <div className={styles["occasions-mobile"]}>
                   <div
@@ -501,17 +487,7 @@ const ProductsPage: FunctionComponent<{
                   </div>
                 </div>
               )}
-              {productCategory === "vip" && (
-                <div className={styles["vip-wrapper"]}>
-                  <strong className={styles["wow"]}>Wow Them</strong>
-                  <h1 className="primary-color">
-                    Go All-Out With VIP Flower Arrangements
-                  </h1>
-                  <p className={styles["info"]}>
-                    All VIP Orders Come With a Complimentary Gift
-                  </p>
-                </div>
-              )}
+          
             </div>
           </div>
         )}
@@ -524,15 +500,30 @@ const ProductsPage: FunctionComponent<{
               {!hideFilterInfo && (
                 <div className="vertical-margin spaced">
                   <span className={`bold margin-right ${styles["sub-title"]}`}>
-                    Filters ({selectedFilter.length})
+                    FILTERS ({selectedFilter.length})
                   </span>
-                  <button className="primary-color" onClick={handleClearFIlter}>
-                    Clear Filters
-                  </button>
                 </div>
               )}
 
               <div className={styles["filters-sidebar"]}>
+                <form
+                  onSubmit={handleSearch}
+                  className={`input-group ${styles["search-wrapper"]}`}
+                >
+                  <span className="question normal-text"></span>
+                  <Input
+                    name="name"
+                    placeholder="Search flowers"
+                    value={searchText}
+                    onChange={value => {
+                      setSearchText(value);
+                    }}
+                    icon="/icons/search.svg"
+                    noBorder
+                    responsive
+                    className={`search ${styles["search-input"]}`}
+                  />
+                </form>
                 {filterCategories.map((filter, index) => (
                   <div key={index} className="vertical-margin spaced">
                     <p className="bold vertical-margin spaced">{filter.name}</p>
@@ -634,13 +625,17 @@ const ProductsPage: FunctionComponent<{
                         {!filter.viewMore ? "View More" : "View Less"}
                       </button>
                     )}
+                  
                   </div>
                 ))}
+                <Button className="primary-color" onClick={handleClearFIlter}>
+                  RESET FILTER
+                </Button>
               </div>
             </div>
           )}
           <div className={styles["product-wrapper"]}>
-            <div className="flex between block center-align">
+            <div className={`flex between block center-align ${!hideFilters && [styles.sorts].join(" ")}` }>
               {!hideFilters && (
                 <div
                   className={styles["filter-mobile"]}
@@ -784,33 +779,15 @@ const ProductsPage: FunctionComponent<{
                 }`}
               >
                 <div className={`input-group ${styles.sort}`}>
-                  <span className="question">Sort: </span>
+                  <span className="question">Sorted By: </span>
                   <Select
                     options={sortOptions}
                     value={sort}
                     onSelect={value => setSort(value as Sort)}
                     placeholder="Default"
-                    className={styles["sort"]}
+                    className={`${styles["sort"]}`}
                   />
                 </div>
-                {search && (
-                  <form
-                    onSubmit={handleSearch}
-                    className={`input-group ${styles["search-wrapper"]}`}
-                  >
-                    <span className="question normal-text">Search:</span>
-                    <Input
-                      name="name"
-                      placeholder="Search for products"
-                      value={searchText}
-                      onChange={value => {
-                        setSearchText(value);
-                      }}
-                      dimmed
-                      responsive
-                    />
-                  </form>
-                )}
               </div>
             </div>
 
@@ -883,11 +860,6 @@ const ProductsPage: FunctionComponent<{
                     type="transparent"
                   >
                     <h3 className="red margin-right">See All</h3>
-                    <img
-                      alt="arrow"
-                      className="generic-icon xsmall"
-                      src="/icons/arrow-right.svg"
-                    />
                   </Button>
                 )}
               </div>
@@ -898,7 +870,7 @@ const ProductsPage: FunctionComponent<{
                     name={gift.name}
                     image={gift.image}
                     subTitle={gift.description}
-                    buttonText="See More"
+                    buttonText="VIEW GIFTS"
                     url={gift.slug}
                   />
                 ))}
