@@ -31,7 +31,7 @@
     border: none;
     outline: none;
     font-size: inherit;
-    padding: 0.8rem;
+    padding: 0.5rem;
 
     @media (max-width: 650px) {
       padding: 0.6rem;
@@ -50,7 +50,7 @@
       padding-left: 1.5rem;
     }
     &::placeholder {
-      color: #a3a3a3;
+      color: #202020;
     }
     &.disable-resize {
       resize: none;

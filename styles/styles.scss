@@ -264,7 +264,6 @@ span {
   }
 }
 .margin-right {
-  margin-right: 0.6rem;
   &.spaced {
     margin-right: 1.2rem;
   }
@@ -468,10 +467,11 @@ span {
 
 .input-group {
   display: flex;
-  flex-direction: column;
   width: 100%;
+  justify-content: flex-end;
+  align-items: center;
   margin: 0.8rem 0;
-  text-align: left;
+  text-align: right;
   &.responsive {
     width: unset;
   }
@@ -483,8 +483,8 @@ span {
   }
   .question {
     font-weight: bold;
-    margin-bottom: 0.4rem;
     font-size: 0.9rem;
+    margin-right: 1rem;
 
     @media (max-width: 650px) {
       font-size: 1rem;
@@ -844,6 +844,14 @@ span {
 }
 .faq-ol {
   padding: 20px;
+}
+.price{
+  margin-left: 10px;
+  text-align: center;
+}
+.search{
+  border: 1px solid #DADADA;
+  padding: 0.5rem;
 }
 // 16px: 1.2rem
 // 32px 2.3rem

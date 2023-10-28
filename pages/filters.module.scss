@@ -1,145 +1,47 @@
 .filters {
+  background-color: #F3F4F6;
   .hero-bg {
-    height: 30rem;
+    height: 28rem;
     width: 100%;
-    background-attachment: fixed;
-
+    position: relative;
+    padding: 5rem 0 0 0;
     @media (max-width: 650px) {
       height: 25rem;
     }
 
-    &.vip-bg {
-      background-image: url("/images/vip-bg.png");
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      text-align: center;
-      font-weight: 700;
-      background-position: center center;
-      background-size: cover;
-      padding: 1rem;
-
-      .info {
-        background-color: white;
-        padding: 0.3rem;
-        font-weight: normal;
-        font-size: 1.2rem;
-        margin-top: 1rem;
-        border-radius: 0.3rem;
-        display: inline-block;
+    
+    .hero-image {
+        background-image: url("/images/Rectangle-3040.png");
+        background-position: center center;
+        align-self: flex-end;
+        background-size: cover;
+        height: 25rem;
+        width: 65%;
+    
       }
-
-      .wow {
-        font-size: 1.5rem;
+      .hero-text{
+        position: absolute;
+        height: 18rem;
+        width: 50%;
+        background:#FAFAFA;
+        left:5rem;
+        padding: 2rem;
+        border-radius: 8px;
+        opacity: 0.9;
+        
+        p:first-of-type {
+            font-size: 3rem;
+            font-weight: 800;
+            width: 90%;
+            color:#1F1F1F;
+            vertical-align: top;
+            line-height: 3rem;
+            margin: 1rem 0;
+          }
+          p:nth-child(2){
+            color: #1F1F1F;
+          }
       }
-    }
-
-    &.occasion-bg {
-      background-image: url("/icons/filters-bg.svg");
-      background-position: center center;
-      background-size: cover;
-
-      .occasion-wrapper {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 6rem;
-
-        & > * {
-          margin-right: 1rem;
-
-          &:last-child {
-            margin-right: 0;
-          }
-        }
-
-        @media (max-width: 800px) {
-          padding: 0 2rem;
-        }
-
-        @media (max-width: 650px) {
-          display: none;
-        }
-      }
-
-      .gifts-wrapper {
-        display: grid;
-        grid-template-columns: repeat(4, 14rem);
-        grid-gap: 1rem;
-        padding: 0 6rem;
-        justify-content: center;
-        justify-items: center;
-        row-gap: 2rem;
-
-        @media (max-width: 1400px) {
-          padding: 0 2rem;
-        }
-      }
-
-      .occasion {
-        background-color: #fdf0f0;
-        position: relative;
-        height: 14rem;
-        width: 14rem;
-        border-radius: 50%;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 0 0.5rem;
-        color: #b240da;
-        cursor: pointer;
-        font-size: 1.3rem;
-        border: 0.2rem solid transparent;
-
-        &.active {
-          border-color: #b240da;
-        }
-
-        &:hover {
-          border-color: #b240da;
-        }
-
-        @media (max-width: 650px) {
-          height: 10rem;
-          width: 10rem;
-          font-size: 1rem;
-        }
-
-        @media (max-width: 450px) {
-          height: 8rem;
-          width: 8rem;
-        }
-
-        &.gift-occasion {
-          width: 10rem;
-          height: 10rem;
-          @media (max-width: 1150px) {
-            width: 9rem;
-            height: 9rem;
-          }
-
-          @media (max-width: 580px) {
-            width: 8rem;
-            height: 8rem;
-          }
-
-          @media (max-width: 500px) {
-            width: 7rem;
-            height: 7rem;
-            font-size: 0.8rem;
-          }
-
-          @media (max-width: 380px) {
-            width: 6rem;
-            height: 6rem;
-            font-size: 0.8rem;
-          }
-        }
-      }
-
       .occasions-mobile {
         width: 90%;
 
@@ -182,7 +84,7 @@
           }
         }
       }
-    }
+    
   }
 
   .title {
@@ -219,6 +121,7 @@
       border-radius: 0.3rem;
       padding: 0.8rem;
       min-width: 16rem;
+      background-color: #ffffff;
 
       .btn-view {
         display: block;
@@ -256,7 +159,9 @@
 
     .product-wrapper {
       width: 100%;
-
+       .sorts{
+        justify-content: end;
+       }
       .date-wrapper {
         display: flex;
         justify-content: space-between;
@@ -272,7 +177,8 @@
 
       .sort {
         min-width: 12rem;
-
+        text-align: right;
+        display: flex;
         @media (max-width: 650px) {
           width: 12rem;
         }
@@ -434,9 +340,9 @@
 }
 
 .search-wrapper {
-  width: 48%;
-  margin-left: auto;
-
+  width: 96%;
+    border: 1px solid #DADADA;
+    border-radius: 4px;
   @media (max-width: 650px) {
     width: 50%;
   }
