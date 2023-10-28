@@ -788,24 +788,6 @@ const changeHeroContent = () =>{
                     className={`${styles["sort"]}`}
                   />
                 </div>
-                {/* {search && (
-                  <form
-                    onSubmit={handleSearch}
-                    className={`input-group ${styles["search-wrapper"]}`}
-                  >
-                    <span className="question normal-text">Search:</span>
-                    <Input
-                      name="name"
-                      placeholder="Search for products"
-                      value={searchText}
-                      onChange={value => {
-                        setSearchText(value);
-                      }}
-                      dimmed
-                      responsive
-                    />
-                  </form>
-                )} */}
               </div>
             </div>
 
