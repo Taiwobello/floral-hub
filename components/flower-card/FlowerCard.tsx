@@ -144,7 +144,7 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
               >
                 {price && (
                   <>
-                    <div className="flex between center-align">
+                    <div className={`flex between ${styles["price-text"]}`}>
                     {product?.variants.length ? (
                       <p className="smaller text-secondary">From</p>
                     ) : (
