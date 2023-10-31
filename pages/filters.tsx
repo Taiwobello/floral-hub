@@ -179,7 +179,6 @@ const ProductsPage: FunctionComponent<{
   };
 const changeHeroContent = () =>{
   const url = window.location.href.split("/").slice(3);
-  console.log(url)
   const content = breadcrumbItems.find(value => url[1] === value.url || url[0] === value.url)
   content ? setUpdateHeroContent(content.label) : setUpdateHeroContent( "Romance, Birthdays & Anniversary" )
   
@@ -393,13 +392,13 @@ const changeHeroContent = () =>{
             ].join(" ")}
           >
             
-            <div className={`hero-content flex column center center-align `}>
+            <div className={`hero-content flex column `}>
               { deviceType === "desktop" && (
                 <>
                   <div className={styles["hero-text"]}>
                     <Breadcrumb items={crumbItems} />
                       <p>
-                      {!isGiftPage ? `${updateHeroContent} Flowers` : updateHeroContent}
+                      {!isGiftPage ? `${updateHeroContent.toUpperCase()} FLOWERS` : updateHeroContent.toUpperCase()}
                     
                       </p>
                     <p className="text-small">
@@ -409,82 +408,15 @@ const changeHeroContent = () =>{
                 <div className= {styles["hero-image"]}></div>
                 </>
                 )}
-              {productCategory === "occasion" && deviceType === "mobile" && (
+              {deviceType === "mobile" && (
                 <div className={styles["occasions-mobile"]}>
-                  <div
-                    className={`margin-bottom spaced ${
-                      styles.occasions
-                    } ${giftMap[categorySlug || ""] &&
-                      styles["gifts-category"]}`}
-                  >
-                    {(isGiftPage ? gifts : occasions)
-                      .slice(0, isGiftPage ? 4 : 3)
-                      .map((occasion, index) => {
-                        return (
-                          <Link href={occasion.url} key={index}>
-                            <a
-                              className={[
-                                styles["occasion"],
-                                isGiftPage && styles["gift-occasion"],
-
-                                categorySlug === occasion.url.split("/")[2] &&
-                                  styles["active"]
-                              ].join(" ")}
-                              onClick={() => {
-                                router.push(occasion.url, undefined, {
-                                  scroll: false
-                                });
-                              }}
-                            >
-                              <strong>
-                                {occasion.title}
-                                <br />
-                                {occasion.title === "Just to Say" && (
-                                  <span>{JustToSayText}</span>
-                                )}{" "}
-                              </strong>
-                            </a>
-                          </Link>
-                        );
-                      })}
-                  </div>
-                  <div
-                    className={[
-                      styles.occasions,
-                      isGiftPage && styles["gifts-categor"]
-                    ].join(" ")}
-                  >
-                    {(isGiftPage ? gifts : occasions)
-                      .slice(isGiftPage ? 4 : 3)
-                      .map((occasion, index) => {
-                        return (
-                          <Link href={occasion.url} key={index}>
-                            <a
-                              className={[
-                                styles["occasion"],
-                                isGiftPage && styles["gift-occasion"],
-
-                                categorySlug === occasion.url.split("/")[2] &&
-                                  styles["active"]
-                              ].join(" ")}
-                              onClick={() => {
-                                router.push(occasion.url, undefined, {
-                                  scroll: false
-                                });
-                              }}
-                            >
-                              <strong>
-                                {occasion.title}
-                                <br />
-                                {occasion.title === "Just to Say" && (
-                                  <span>{JustToSayText}</span>
-                                )}{" "}
-                              </strong>
-                            </a>
-                          </Link>
-                        );
-                      })}
-                  </div>
+                      <div className={`text-medium ${styles["mobile-card"]}`}>
+                    <Breadcrumb items={crumbItems} />
+                    <p className="vertical-margin spaced">{!isGiftPage ? `${updateHeroContent.toUpperCase()} FLOWERS` : updateHeroContent.toUpperCase()}</p>
+                    Congratulations! Another year of love and laughter with your other half. Whether you’ve been together one year or 60, our anniversary flowers are hand-crafted by local florists so you can give that special someone a warm and fuzzy feeling.
+                    <p className="primary-color text-medium bold">Continue reading</p>
+                      </div>
+              
                 </div>
               )}
           
@@ -635,13 +567,28 @@ const changeHeroContent = () =>{
             </div>
           )}
           <div className={styles["product-wrapper"]}>
-            <div className={`flex between block center-align ${!hideFilters && [styles.sorts].join(" ")}` }>
+            <div className={`flex between block center-align ${!hideFilters && deviceType === "desktop" && [styles.sorts].join(" ")} ${styles["sorts-mobile"]}` }>
               {!hideFilters && (
+              <>
+                  <div
+                    className={`flex between center-align ${hideFilters ? "block" : ""
+                      }`}
+                  >
+                    <div className={`input-group ${styles.sort}`}>
+                      <span className="question">{deviceType === "desktop" ? "Sorted By:" : "Sort:"} </span>
+                      <Select
+                        options={sortOptions}
+                        value={sort}
+                        onSelect={value => setSort(value as Sort)}
+                        placeholder="Default"
+                        className={`${styles["sort"]}`}
+                      />
+                    </div>
+                  </div>
                 <div
                   className={styles["filter-mobile"]}
                   ref={filterDropdownRef}
                 >
-                  <span>Filters: </span>
                   <button
                     className={styles.btn}
                     onClick={() => setShouldShowFilter(!shouldShowFilter)}
@@ -772,23 +719,8 @@ const changeHeroContent = () =>{
                     ))}
                   </div>
                 </div>
+                </>
               )}
-              <div
-                className={`flex between center-align ${
-                  hideFilters ? "block" : ""
-                }`}
-              >
-                <div className={`input-group ${styles.sort}`}>
-                  <span className="question">Sorted By: </span>
-                  <Select
-                    options={sortOptions}
-                    value={sort}
-                    onSelect={value => setSort(value as Sort)}
-                    placeholder="Default"
-                    className={`${styles["sort"]}`}
-                  />
-                </div>
-              </div>
             </div>
 
             <div>
@@ -878,11 +810,17 @@ const changeHeroContent = () =>{
               {deviceType === "mobile" && (
                 <Button
                   url="/product-category/gifts"
-                  type="accent"
+                  type="transparent"
                   minWidth
-                  className={styles["see-all"]}
+                  className={`${styles["see-all"]}`}
+                  
                 >
-                  <h3 className="red margin-right">See All</h3>
+                  <h3 className="bold">Browse All Gifts</h3>
+                  <img
+                    alt="arrow"
+                    className="generic-icon xsmall"
+                    src="/icons/arrow-right.svg"
+                  />
                 </Button>
               )}{" "}
             </>

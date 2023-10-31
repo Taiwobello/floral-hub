@@ -3341,4 +3341,4 @@ export const contactUsPageConent: Record<string, any> = {
   }
 };
 
-export const business = "floralHub";
+export const business = "regalFlowers";

@@ -110,6 +110,9 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+      @media (max-width:400px) {
+          border-bottom: 1px solid #EFF0F6;
+        }
   }
   .buy-btn {
     background-image: url("/icons/add-box-line.svg");
@@ -119,6 +122,9 @@
     background-size: cover;
 
     @media (max-width: 400px) {
+      background-image: none;
+      color: white;
+      background-color: #B240DA;
       width: 100%;
       margin-top: 0.5rem;
     }

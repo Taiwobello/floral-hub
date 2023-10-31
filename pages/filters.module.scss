@@ -4,7 +4,6 @@
     height: 28rem;
     width: 100%;
     position: relative;
-    padding: 5rem 0 0 0;
     @media (max-width: 650px) {
       height: 25rem;
     }
@@ -25,6 +24,7 @@
         width: 50%;
         background:#FAFAFA;
         left:5rem;
+        top:3.3rem;
         padding: 2rem;
         border-radius: 8px;
         opacity: 0.9;
@@ -43,44 +43,30 @@
           }
       }
       .occasions-mobile {
-        width: 90%;
+        background-image: url("/images/Rectangle-3040-mobile.png");
+        height: 20rem;
+        background-position: center center;
+        background-size: cover;
+        
+        
+        .mobile-card {
+             p:first-of-type{
+              font-size: 2rem;
+              font-weight: 700;
+             }
 
-        .occasions {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          & > * {
-            margin-left: 2.4rem;
-            &:first-child {
-              margin-left: 0;
-            }
-          }
+          position:relative;
+          top: 100px;
+          width: 90%;
+          background-color: white;
+          margin: auto;
+          padding: 1rem;
+          border-radius: 8px;
 
-          @media (max-width: 500px) {
-            & > * {
-              margin-left: 1.2rem;
-              &:first-child {
-                margin-left: 0;
-              }
-            }
-          }
-
-          &.gifts-category {
-            & > * {
-              margin-left: 1.5rem;
-              &:first-child {
-                margin-left: 0;
-              }
-            }
-
-            @media (max-width: 500px) {
-              & > * {
-                margin-left: 0.5rem;
-                &:first-child {
-                  margin-left: 0;
-                }
-              }
-            }
+          p:last-of-type{
+            margin-top: 1rem;
+            width:10rem;
+            border-bottom: 1px solid ;
           }
         }
       }
@@ -162,6 +148,12 @@
        .sorts{
         justify-content: end;
        }
+       .sorts-mobile{
+        @media (max-width: 650px) {
+
+          margin: 6rem 0 1rem 0;
+          }
+       }
       .date-wrapper {
         display: flex;
         justify-content: space-between;
@@ -179,8 +171,9 @@
         min-width: 12rem;
         text-align: right;
         display: flex;
+        border: 0;
         @media (max-width: 650px) {
-          width: 12rem;
+          width: 14rem;
         }
       }
     }
@@ -225,13 +218,15 @@
 }
 
 .see-all {
-  width: 12rem;
+  width: 17rem;
   margin: 1.5rem auto;
-  padding: 0.5rem 1rem;
 
   h3 {
     font-size: 1.3rem;
+    border-bottom: 1px solid;
+    margin-right: 1rem;
   }
+  
 }
 
 .spinner {
@@ -256,6 +251,7 @@
   position: relative;
   @media (max-width: 650px) {
     display: block;
+    margin-left: 2.2rem;
   }
 
   .btn {
