@@ -41,7 +41,7 @@ export const InfoRedIcon = ({ className = "" }) => (
   >
     <path
       d="M10 20C15.523 20 20 15.523 20 10C20 4.477 15.523 0 10 0C4.477 0 0 4.477 0 10C0 15.523 4.477 20 10 20ZM11 9V15H9V9H11ZM11 5V7H9V5H11Z"
-      fill="#9B0000"
+      fill="#b240da"
     />
   </svg>
 );

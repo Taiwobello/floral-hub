@@ -2,18 +2,13 @@ import { GetStaticProps } from "next";
 import React, { FunctionComponent, useState } from "react";
 import Button from "../components/button/Button";
 import FlowerCard from "../components/flower-card/FlowerCard";
-import {
-  FAQs,
-  featuredSlugs,
-  regalWebsiteUrl
-} from "../utils/constants";
+import { FAQs, featuredSlugs, regalWebsiteUrl } from "../utils/constants";
 import { getProductsBySlugs } from "../utils/helpers/data/products";
 import Product from "../utils/types/Product";
 import styles from "./faq.module.scss";
 import Meta from "../components/meta/Meta";
 import SchemaMarkup from "../components/schema-mark-up/SchemaMarkUp";
 import Breadcrumb from "../components/breadcrumb/Breadcrumb";
-
 
 const schemaProperties = {
   "@type": "FAQPage",
@@ -150,9 +145,9 @@ const Index: FunctionComponent<{ featuredFlowers: Product[] }> = ({
     [key: number]: boolean;
   }
   const toggleAnswer = (index: number) => {
-    setOpenQuestions((prevOpenQuestions) => ({
+    setOpenQuestions(prevOpenQuestions => ({
       ...prevOpenQuestions,
-      [index]: !prevOpenQuestions[index],
+      [index]: !prevOpenQuestions[index]
     }));
   };
 
@@ -161,19 +156,43 @@ const Index: FunctionComponent<{ featuredFlowers: Product[] }> = ({
 
     return (
       <div key={index} className="faq-question-container">
-        <div className={`${styles["faq-question"]} ${isAnswerOpen ? styles["faq-question-open"] : ''}`} onClick={() => toggleAnswer(index)}>
-          <p className={`${styles["question-text"]} ${isAnswerOpen ? styles["question-text-open"] : ''}`}>{question.name}</p>
-          <div className={`${styles["icon-container"]} ${isAnswerOpen ? styles["icon-container-open"] : ''}`}>
+        <div
+          className={`${styles["faq-question"]} ${
+            isAnswerOpen ? styles["faq-question-open"] : ""
+          }`}
+          onClick={() => toggleAnswer(index)}
+        >
+          <p
+            className={`${styles["question-text"]} ${
+              isAnswerOpen ? styles["question-text-open"] : ""
+            }`}
+          >
+            {question.name}
+          </p>
+          <div
+            className={`${styles["icon-container"]} ${
+              isAnswerOpen ? styles["icon-container-open"] : ""
+            }`}
+          >
             <img
-              src={isAnswerOpen ? "/icons/minus_circle_outline.svg" : "/icons/plus_circle_outline.png"}
+              src={
+                isAnswerOpen
+                  ? "/icons/minus_circle_outline.svg"
+                  : "/icons/plus_circle_outline.png"
+              }
               alt="expand-question-icon"
               className={styles["expand-icon"]}
             />
           </div>
         </div>
-       
-        <div className={`${isAnswerOpen ? styles["faq-answer"] : styles["faq-answer-closed"]}`}>{question.acceptedAnswer.text} </div>
-      
+
+        <div
+          className={`${
+            isAnswerOpen ? styles["faq-answer"] : styles["faq-answer-closed"]
+          }`}
+        >
+          {question.acceptedAnswer.text}{" "}
+        </div>
       </div>
     );
   });
@@ -197,10 +216,11 @@ const Index: FunctionComponent<{ featuredFlowers: Product[] }> = ({
           </div>
         </div>
         <div className={styles.container}>
-
           <div className={`${styles.content} flex between spaced-xl`}>
             <div className={styles["faq-body"]}>
-              <h2 className={styles["sub-title"]}>FREQUENTLY ASKED QUESTIONS</h2>
+              <h2 className={styles["sub-title"]}>
+                FREQUENTLY ASKED QUESTIONS
+              </h2>
               {questions}
             </div>
           </div>

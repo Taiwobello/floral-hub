@@ -1,4 +1,10 @@
-import { FormEvent, FunctionComponent, useContext, useState } from "react";
+import {
+  FormEvent,
+  FunctionComponent,
+  useContext,
+  useEffect,
+  useState
+} from "react";
 import SettingsContext from "../../utils/context/SettingsContext";
 import {
   changePassword,
@@ -13,6 +19,7 @@ import Input from "../input/Input";
 import styles from "./Layout.module.scss";
 import Modal, { ModalProps } from "../modal/Modal";
 import Checkbox from "../checkbox/Checkbox";
+import { useRouter } from "next/router";
 
 type FormType =
   | "login"
@@ -20,20 +27,25 @@ type FormType =
   | "forgotPassword"
   | "validateOtp"
   | "newPassword"
+  | "successful"
+  | "guestCheckout";
+
+type PasswordResetFormType =
+  | "forgotPassword"
+  | "validateOtp"
+  | "newPassword"
   | "successful";
 
-const descriptionTextMap: Record<FormType, string> = {
+const descriptionTextMap: Record<PasswordResetFormType, string> = {
   forgotPassword: "No worries, we’ll send you reset instructions.",
   newPassword:
     "Your new password must be different to previously used passwords.",
   validateOtp: "We sent an one-time password to",
   successful:
-    "Your password has been successfully reset. Click “continue” to log in magically.",
-  login: "",
-  signup: ""
+    "Your password has been successfully reset. Click “continue” to log in magically."
 };
 
-const iconMap: Record<FormType, JSX.Element | null> = {
+const iconMap: Record<PasswordResetFormType, JSX.Element | null> = {
   successful: (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -105,17 +117,13 @@ const iconMap: Record<FormType, JSX.Element | null> = {
         strokeLinejoin="round"
       />
     </svg>
-  ),
-  login: null,
-  signup: null
+  )
 };
 
-const loginTextMap: Record<FormType, string> = {
+const loginTextMap: Record<PasswordResetFormType, string> = {
   forgotPassword: "Reset Password",
   newPassword: "Reset Password",
-  login: "Login",
   validateOtp: "Submit OTP",
-  signup: "",
   successful: "Continue"
 };
 
@@ -124,8 +132,9 @@ const titleMap: Record<FormType, string> = {
   newPassword: "Set new password",
   validateOtp: "Enter OTP",
   successful: "Password reset",
-  login: "",
-  signup: ""
+  login: "Login",
+  signup: "Register",
+  guestCheckout: "Guest Checkout"
 };
 
 const AuthModal: FunctionComponent<ModalProps> = props => {
@@ -140,7 +149,19 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
   const [lastName, setLastName] = useState("");
   const [shouldsubscribeEmail, setShouldSubscribeEmail] = useState(false);
 
-  const { notify, setUser } = useContext(SettingsContext);
+  const { notify, setUser, user } = useContext(SettingsContext);
+
+  const { pathname } = useRouter();
+  const _pathname = pathname.split("/")[1];
+
+  useEffect(() => {
+    if (_pathname === "checkout" && !user) {
+      setFormType("guestCheckout");
+    } else {
+      setFormType("login");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [_pathname]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -208,6 +229,7 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
       }
     }
   };
+
   return (
     <Modal
       visible={visible}
@@ -216,9 +238,41 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
       cancel={cancel}
     >
       <div className={styles["auth-form"]}>
-        {formType === "login" || formType === "signup" ? (
+        {["login", "signup", "guestCheckout"].includes(formType) ? (
           <>
-            <h2 className="text-center text-large">WELCOME TO FLORALHUB</h2>
+            <h2 className="text-center text-large">
+              {_pathname === "checkout"
+                ? "WELCOME TO SECURE CHECKOUT"
+                : "WELCOME TO FLORALHUB"}
+            </h2>
+            {_pathname === "checkout" && !user && (
+              <div
+                className={[styles["form-wrapper"], styles["login"]].join(" ")}
+              >
+                <Checkbox
+                  text={
+                    <span className="flex spaced column">
+                      <strong className="text-regular">Guest Checkout</strong>
+                    </span>
+                  }
+                  type="primary"
+                  checked={formType === "guestCheckout"}
+                  rounded
+                  onChange={() => setFormType("guestCheckout")}
+                />
+
+                {formType === "guestCheckout" && (
+                  <Button
+                    buttonType="button"
+                    responsive
+                    onClick={() => cancel?.()}
+                    className="margin-top spaced"
+                  >
+                    Continue as Guest
+                  </Button>
+                )}
+              </div>
+            )}
             <div
               className={[styles["form-wrapper"], styles["login"]].join(" ")}
             >
@@ -409,12 +463,12 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
                 formType === "successful" && styles.success
               ].join(" ")}
             >
-              {iconMap[formType]}
+              {iconMap[formType as PasswordResetFormType]}
             </div>
 
             <h1>{titleMap[formType]}</h1>
             <p className="grayed text-small">{`${
-              descriptionTextMap[formType]
+              descriptionTextMap[formType as PasswordResetFormType]
             } ${formType === "validateOtp" ? email : ""} `}</p>
             {
               <form
@@ -482,7 +536,7 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
                   className="vertical-margin xl"
                   responsive
                 >
-                  {loginTextMap[formType]}
+                  {loginTextMap[formType as PasswordResetFormType]}
                 </Button>
                 {/* {formType === "validateOtp" && (
                   <p className="margin-bottom spaced text-small">

@@ -115,7 +115,7 @@ const ProductsPage: FunctionComponent<{
   const [sort, setSort] = useState<Sort>("name-asc");
   const [hasMore, setHasMore] = useState(false);
   const [shouldShowFilter, setShouldShowFilter] = useState(false);
-  const [updateHeroContent, setUpdateHeroContent] = useState("")
+  const [updateHeroContent, setUpdateHeroContent] = useState("");
 
   const filterDropdownRef = useOutsideClick<HTMLDivElement>(() => {
     setShouldShowFilter(false);
@@ -177,13 +177,15 @@ const ProductsPage: FunctionComponent<{
       setJustToSayText(JustToSayTexts[count]);
     }
   };
-const changeHeroContent = () =>{
-  const url = window.location.href.split("/").slice(3);
-  const content = breadcrumbItems.find(value => url[1] === value.url || url[0] === value.url)
-  content ? setUpdateHeroContent(content.label) : setUpdateHeroContent( "Romance, Birthdays & Anniversary" )
-  
-
-}
+  const changeHeroContent = () => {
+    const url = window.location.href.split("/").slice(3);
+    const content = breadcrumbItems.find(
+      value => url[1] === value.url || url[0] === value.url
+    );
+    content
+      ? setUpdateHeroContent(content.label)
+      : setUpdateHeroContent("Romance, Birthdays & Anniversary");
+  };
   const handleClearFIlter = () => {
     setSelectedFilter([]);
     router.push(`/product-category/${categorySlug}`, undefined, {
@@ -358,7 +360,7 @@ const changeHeroContent = () =>{
   useEffect(() => {
     if (isReady) {
       setRedirectUrl(router.asPath);
-      changeHeroContent()
+      changeHeroContent();
       setBreadcrumb(
         selectedBreadcrumb
           ? {
@@ -376,7 +378,10 @@ const changeHeroContent = () =>{
   }, [search]);
 
   const hideHero = search;
-  const crumbItems = [{ label: "Home", link: "/" }, { label: updateHeroContent }]
+  const crumbItems = [
+    { label: "Home", link: "/" },
+    { label: updateHeroContent }
+  ];
   return (
     <>
       {router.pathname === "/filters" && (
@@ -386,40 +391,47 @@ const changeHeroContent = () =>{
       )}
       <section className={styles.filters} ref={rootRef}>
         {!hideHero && (
-          <div
-            className={[
-              styles["hero-bg"],
-            ].join(" ")}
-          >
-            
+          <div className={[styles["hero-bg"]].join(" ")}>
             <div className={`hero-content flex column `}>
-              { deviceType === "desktop" && (
+              {deviceType === "desktop" && (
                 <>
                   <div className={styles["hero-text"]}>
                     <Breadcrumb items={crumbItems} />
-                      <p>
-                      {!isGiftPage ? `${updateHeroContent.toUpperCase()} FLOWERS` : updateHeroContent.toUpperCase()}
-                    
-                      </p>
+                    <p>
+                      {!isGiftPage
+                        ? `${updateHeroContent.toUpperCase()} FLOWERS`
+                        : updateHeroContent.toUpperCase()}
+                    </p>
                     <p className="text-small">
-                      Congratulations! Another year of love and laughter with your other half. Whether you’ve been together one year or 60, our anniversary flowers are hand-crafted by local florists so you can give that special someone a warm and fuzzy feeling.
-                      </p>
-                    </div>   
-                <div className= {styles["hero-image"]}></div>
+                      Congratulations! Another year of love and laughter with
+                      your other half. Whether you’ve been together one year or
+                      60, our anniversary flowers are hand-crafted by local
+                      florists so you can give that special someone a warm and
+                      fuzzy feeling.
+                    </p>
+                  </div>
+                  <div className={styles["hero-image"]}></div>
                 </>
-                )}
+              )}
               {deviceType === "mobile" && (
                 <div className={styles["occasions-mobile"]}>
-                      <div className={`text-medium ${styles["mobile-card"]}`}>
+                  <div className={`text-medium ${styles["mobile-card"]}`}>
                     <Breadcrumb items={crumbItems} />
-                    <p className="vertical-margin spaced">{!isGiftPage ? `${updateHeroContent.toUpperCase()} FLOWERS` : updateHeroContent.toUpperCase()}</p>
-                    Congratulations! Another year of love and laughter with your other half. Whether you’ve been together one year or 60, our anniversary flowers are hand-crafted by local florists so you can give that special someone a warm and fuzzy feeling.
-                    <p className="primary-color text-medium bold">Continue reading</p>
-                      </div>
-              
+                    <p className="vertical-margin spaced">
+                      {!isGiftPage
+                        ? `${updateHeroContent.toUpperCase()} FLOWERS`
+                        : updateHeroContent.toUpperCase()}
+                    </p>
+                    Congratulations! Another year of love and laughter with your
+                    other half. Whether you’ve been together one year or 60, our
+                    anniversary flowers are hand-crafted by local florists so
+                    you can give that special someone a warm and fuzzy feeling.
+                    <p className="primary-color text-medium bold">
+                      Continue reading
+                    </p>
+                  </div>
                 </div>
               )}
-          
             </div>
           </div>
         )}
@@ -557,7 +569,6 @@ const changeHeroContent = () =>{
                         {!filter.viewMore ? "View More" : "View Less"}
                       </button>
                     )}
-                  
                   </div>
                 ))}
                 <Button className="primary-color" onClick={handleClearFIlter}>
@@ -567,15 +578,22 @@ const changeHeroContent = () =>{
             </div>
           )}
           <div className={styles["product-wrapper"]}>
-            <div className={`flex between block center-align ${!hideFilters && deviceType === "desktop" && [styles.sorts].join(" ")} ${styles["sorts-mobile"]}` }>
+            <div
+              className={`flex between block center-align ${!hideFilters &&
+                deviceType === "desktop" &&
+                [styles.sorts].join(" ")} ${styles["sorts-mobile"]}`}
+            >
               {!hideFilters && (
-              <>
+                <>
                   <div
-                    className={`flex between center-align ${hideFilters ? "block" : ""
-                      }`}
+                    className={`flex between center-align ${
+                      hideFilters ? "block" : ""
+                    }`}
                   >
                     <div className={`input-group ${styles.sort}`}>
-                      <span className="question">{deviceType === "desktop" ? "Sorted By:" : "Sort:"} </span>
+                      <span className="question">
+                        {deviceType === "desktop" ? "Sorted By:" : "Sort:"}{" "}
+                      </span>
                       <Select
                         options={sortOptions}
                         value={sort}
@@ -585,140 +603,140 @@ const changeHeroContent = () =>{
                       />
                     </div>
                   </div>
-                <div
-                  className={styles["filter-mobile"]}
-                  ref={filterDropdownRef}
-                >
-                  <button
-                    className={styles.btn}
-                    onClick={() => setShouldShowFilter(!shouldShowFilter)}
-                  >
-                    <h3 className="margin-right">
-                      Filter{!hideFilterInfo && `(${selectedFilter.length})`}
-                    </h3>
-                    <img
-                      alt="filter"
-                      className="generic-icon medium"
-                      src="/icons/filter.svg"
-                    />
-                  </button>
                   <div
-                    className={[
-                      styles["filters-dropdown"],
-                      shouldShowFilter && styles.active
-                    ].join(" ")}
+                    className={styles["filter-mobile"]}
+                    ref={filterDropdownRef}
                   >
-                    {filterCategories.map((filter, index) => (
-                      <div key={index} className="vertical-margin spaced">
-                        <p className="bold vertical-margin spaced">
-                          {filter.name}
-                        </p>
-                        <div>
-                          {(filter.viewMore
-                            ? filter.options
-                            : filter.options.slice(0, filter.limit)
-                          ).map((child, index) => (
-                            <div key={index} className="margin-bottom">
-                              {filter.name === "Budget" ? (
-                                <>
-                                  <div className="margin-bottom">
+                    <button
+                      className={styles.btn}
+                      onClick={() => setShouldShowFilter(!shouldShowFilter)}
+                    >
+                      <h3 className="margin-right">
+                        Filter{!hideFilterInfo && `(${selectedFilter.length})`}
+                      </h3>
+                      <img
+                        alt="filter"
+                        className="generic-icon medium"
+                        src="/icons/filter.svg"
+                      />
+                    </button>
+                    <div
+                      className={[
+                        styles["filters-dropdown"],
+                        shouldShowFilter && styles.active
+                      ].join(" ")}
+                    >
+                      {filterCategories.map((filter, index) => (
+                        <div key={index} className="vertical-margin spaced">
+                          <p className="bold vertical-margin spaced">
+                            {filter.name}
+                          </p>
+                          <div>
+                            {(filter.viewMore
+                              ? filter.options
+                              : filter.options.slice(0, filter.limit)
+                            ).map((child, index) => (
+                              <div key={index} className="margin-bottom">
+                                {filter.name === "Budget" ? (
+                                  <>
+                                    <div className="margin-bottom">
+                                      <Radio
+                                        label="Regular"
+                                        onChange={() => {
+                                          const newFilters = [
+                                            ...selectedFilter.filter(filter => {
+                                              return filter !== "vip";
+                                            }),
+                                            "regular"
+                                          ];
+                                          setSelectedFilter(newFilters);
+                                          const url = categorySlug
+                                            ? `/product-category/${categorySlug}?shopBy=${newFilters.join(
+                                                ","
+                                              )}`
+                                            : `/filters?shopBy=${newFilters.join(
+                                                ","
+                                              )}`;
+                                          router.push(url, undefined, {
+                                            scroll: false
+                                          });
+                                        }}
+                                        checked={selectedFilter.includes(
+                                          "regular"
+                                        )}
+                                      />
+                                    </div>
+
                                     <Radio
-                                      label="Regular"
+                                      label="VIP"
                                       onChange={() => {
                                         const newFilters = [
                                           ...selectedFilter.filter(filter => {
-                                            return filter !== "vip";
+                                            return filter !== "regular";
                                           }),
-                                          "regular"
+                                          "vip"
                                         ];
                                         setSelectedFilter(newFilters);
-                                        const url = categorySlug
-                                          ? `/product-category/${categorySlug}?shopBy=${newFilters.join(
-                                              ","
-                                            )}`
-                                          : `/filters?shopBy=${newFilters.join(
-                                              ","
-                                            )}`;
+                                        const url = `/filters?shopBy=${newFilters.join(
+                                          ","
+                                        )}`;
                                         router.push(url, undefined, {
                                           scroll: false
                                         });
                                       }}
-                                      checked={selectedFilter.includes(
-                                        "regular"
-                                      )}
+                                      checked={selectedFilter.includes("vip")}
                                     />
-                                  </div>
-
-                                  <Radio
-                                    label="VIP"
-                                    onChange={() => {
-                                      const newFilters = [
-                                        ...selectedFilter.filter(filter => {
-                                          return filter !== "regular";
-                                        }),
-                                        "vip"
-                                      ];
-                                      setSelectedFilter(newFilters);
-                                      const url = `/filters?shopBy=${newFilters.join(
-                                        ","
-                                      )}`;
-                                      router.push(url, undefined, {
-                                        scroll: false
-                                      });
-                                    }}
-                                    checked={selectedFilter.includes("vip")}
+                                  </>
+                                ) : child.link ? (
+                                  <Link href={child.link}>
+                                    <a
+                                      className={[
+                                        styles["filter-link"],
+                                        child.link ===
+                                        `/product-category/${categorySlug}`
+                                          ? styles.active
+                                          : ""
+                                      ].join(" ")}
+                                    >
+                                      {child.name}
+                                    </a>
+                                  </Link>
+                                ) : (
+                                  <Checkbox
+                                    onChange={() => handleFilterChange(child)}
+                                    text={child.name}
+                                    checked={selectedFilter.includes(
+                                      child.tag || ""
+                                    )}
                                   />
-                                </>
-                              ) : child.link ? (
-                                <Link href={child.link}>
-                                  <a
-                                    className={[
-                                      styles["filter-link"],
-                                      child.link ===
-                                      `/product-category/${categorySlug}`
-                                        ? styles.active
-                                        : ""
-                                    ].join(" ")}
-                                  >
-                                    {child.name}
-                                  </a>
-                                </Link>
-                              ) : (
-                                <Checkbox
-                                  onChange={() => handleFilterChange(child)}
-                                  text={child.name}
-                                  checked={selectedFilter.includes(
-                                    child.tag || ""
-                                  )}
-                                />
-                              )}
-                            </div>
-                          ))}
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                          {filter.limit < filter.options.length && (
+                            <button
+                              className={styles["btn-view"]}
+                              onClick={() => {
+                                setFilterCategories(prev =>
+                                  prev.map((item, _index) => {
+                                    if (index === _index) {
+                                      return {
+                                        ...item,
+                                        viewMore: !item.viewMore
+                                      };
+                                    }
+                                    return item;
+                                  })
+                                );
+                              }}
+                            >
+                              {!filter.viewMore ? "View More" : "View Less"}
+                            </button>
+                          )}
                         </div>
-                        {filter.limit < filter.options.length && (
-                          <button
-                            className={styles["btn-view"]}
-                            onClick={() => {
-                              setFilterCategories(prev =>
-                                prev.map((item, _index) => {
-                                  if (index === _index) {
-                                    return {
-                                      ...item,
-                                      viewMore: !item.viewMore
-                                    };
-                                  }
-                                  return item;
-                                })
-                              );
-                            }}
-                          >
-                            {!filter.viewMore ? "View More" : "View Less"}
-                          </button>
-                        )}
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                </div>
                 </>
               )}
             </div>
@@ -813,7 +831,6 @@ const changeHeroContent = () =>{
                   type="transparent"
                   minWidth
                   className={`${styles["see-all"]}`}
-                  
                 >
                   <h3 className="bold">Browse All Gifts</h3>
                   <img

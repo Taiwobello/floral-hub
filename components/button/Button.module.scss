@@ -63,6 +63,10 @@
     background-color: unset;
   }
 
+  &.rounded {
+    border-radius: 0.3rem;
+  }
+
   &.responsive {
     width: 100%;
   }
