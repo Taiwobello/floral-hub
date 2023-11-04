@@ -185,11 +185,14 @@ const Index: FunctionComponent<{ featuredFlowers: Product[] }> = ({
             />
           </div>
         </div>
-        {isAnswerOpen && (
-          <div className={styles["faq-answer"]}>
-            {question.acceptedAnswer.text}{" "}
-          </div>
-        )}
+
+        <div
+          className={`${
+            isAnswerOpen ? styles["faq-answer"] : styles["faq-answer-closed"]
+          }`}
+        >
+          {question.acceptedAnswer.text}{" "}
+        </div>
       </div>
     );
   });
@@ -222,18 +225,13 @@ const Index: FunctionComponent<{ featuredFlowers: Product[] }> = ({
             </div>
           </div>
           <div className={`margin-bottom spaced ${styles["flowers-wrapper"]}`}>
-            <span className={styles.title}>Featured Flowers</span>
+            <span className={styles.title}>BEST SELLING FLOWERS</span>
             <Button
               url="/product-category/all"
               className="flex spaced center center-align"
               type="transparent"
             >
               <h3 className="red margin-right">See All</h3>
-              <img
-                alt="arrow"
-                className="generic-icon xsmall"
-                src="/icons/arrow-right.svg"
-              />
             </Button>
           </div>
           <div

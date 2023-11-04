@@ -179,7 +179,6 @@ const ProductsPage: FunctionComponent<{
   };
   const changeHeroContent = () => {
     const url = window.location.href.split("/").slice(3);
-    console.log(url);
     const content = breadcrumbItems.find(
       value => url[1] === value.url || url[0] === value.url
     );
@@ -393,15 +392,15 @@ const ProductsPage: FunctionComponent<{
       <section className={styles.filters} ref={rootRef}>
         {!hideHero && (
           <div className={[styles["hero-bg"]].join(" ")}>
-            <div className={`hero-content flex column center center-align `}>
+            <div className={`hero-content flex column `}>
               {deviceType === "desktop" && (
                 <>
                   <div className={styles["hero-text"]}>
                     <Breadcrumb items={crumbItems} />
                     <p>
                       {!isGiftPage
-                        ? `${updateHeroContent} Flowers`
-                        : updateHeroContent}
+                        ? `${updateHeroContent.toUpperCase()} FLOWERS`
+                        : updateHeroContent.toUpperCase()}
                     </p>
                     <p className="text-small">
                       Congratulations! Another year of love and laughter with
@@ -414,81 +413,22 @@ const ProductsPage: FunctionComponent<{
                   <div className={styles["hero-image"]}></div>
                 </>
               )}
-              {productCategory === "occasion" && deviceType === "mobile" && (
+              {deviceType === "mobile" && (
                 <div className={styles["occasions-mobile"]}>
-                  <div
-                    className={`margin-bottom spaced ${
-                      styles.occasions
-                    } ${giftMap[categorySlug || ""] &&
-                      styles["gifts-category"]}`}
-                  >
-                    {(isGiftPage ? gifts : occasions)
-                      .slice(0, isGiftPage ? 4 : 3)
-                      .map((occasion, index) => {
-                        return (
-                          <Link href={occasion.url} key={index}>
-                            <a
-                              className={[
-                                styles["occasion"],
-                                isGiftPage && styles["gift-occasion"],
-
-                                categorySlug === occasion.url.split("/")[2] &&
-                                  styles["active"]
-                              ].join(" ")}
-                              onClick={() => {
-                                router.push(occasion.url, undefined, {
-                                  scroll: false
-                                });
-                              }}
-                            >
-                              <strong>
-                                {occasion.title}
-                                <br />
-                                {occasion.title === "Just to Say" && (
-                                  <span>{JustToSayText}</span>
-                                )}{" "}
-                              </strong>
-                            </a>
-                          </Link>
-                        );
-                      })}
-                  </div>
-                  <div
-                    className={[
-                      styles.occasions,
-                      isGiftPage && styles["gifts-categor"]
-                    ].join(" ")}
-                  >
-                    {(isGiftPage ? gifts : occasions)
-                      .slice(isGiftPage ? 4 : 3)
-                      .map((occasion, index) => {
-                        return (
-                          <Link href={occasion.url} key={index}>
-                            <a
-                              className={[
-                                styles["occasion"],
-                                isGiftPage && styles["gift-occasion"],
-
-                                categorySlug === occasion.url.split("/")[2] &&
-                                  styles["active"]
-                              ].join(" ")}
-                              onClick={() => {
-                                router.push(occasion.url, undefined, {
-                                  scroll: false
-                                });
-                              }}
-                            >
-                              <strong>
-                                {occasion.title}
-                                <br />
-                                {occasion.title === "Just to Say" && (
-                                  <span>{JustToSayText}</span>
-                                )}{" "}
-                              </strong>
-                            </a>
-                          </Link>
-                        );
-                      })}
+                  <div className={`text-medium ${styles["mobile-card"]}`}>
+                    <Breadcrumb items={crumbItems} />
+                    <p className="vertical-margin spaced">
+                      {!isGiftPage
+                        ? `${updateHeroContent.toUpperCase()} FLOWERS`
+                        : updateHeroContent.toUpperCase()}
+                    </p>
+                    Congratulations! Another year of love and laughter with your
+                    other half. Whether you’ve been together one year or 60, our
+                    anniversary flowers are hand-crafted by local florists so
+                    you can give that special someone a warm and fuzzy feeling.
+                    <p className="primary-color text-medium bold">
+                      Continue reading
+                    </p>
                   </div>
                 </div>
               )}
@@ -640,161 +580,165 @@ const ProductsPage: FunctionComponent<{
           <div className={styles["product-wrapper"]}>
             <div
               className={`flex between block center-align ${!hideFilters &&
-                [styles.sorts].join(" ")}`}
+                deviceType === "desktop" &&
+                [styles.sorts].join(" ")} ${styles["sorts-mobile"]}`}
             >
               {!hideFilters && (
-                <div
-                  className={styles["filter-mobile"]}
-                  ref={filterDropdownRef}
-                >
-                  <span>Filters: </span>
-                  <button
-                    className={styles.btn}
-                    onClick={() => setShouldShowFilter(!shouldShowFilter)}
-                  >
-                    <h3 className="margin-right">
-                      Filter{!hideFilterInfo && `(${selectedFilter.length})`}
-                    </h3>
-                    <img
-                      alt="filter"
-                      className="generic-icon medium"
-                      src="/icons/filter.svg"
-                    />
-                  </button>
+                <>
                   <div
-                    className={[
-                      styles["filters-dropdown"],
-                      shouldShowFilter && styles.active
-                    ].join(" ")}
+                    className={`flex between center-align ${
+                      hideFilters ? "block" : ""
+                    }`}
                   >
-                    {filterCategories.map((filter, index) => (
-                      <div key={index} className="vertical-margin spaced">
-                        <p className="bold vertical-margin spaced">
-                          {filter.name}
-                        </p>
-                        <div>
-                          {(filter.viewMore
-                            ? filter.options
-                            : filter.options.slice(0, filter.limit)
-                          ).map((child, index) => (
-                            <div key={index} className="margin-bottom">
-                              {filter.name === "Budget" ? (
-                                <>
-                                  <div className="margin-bottom">
+                    <div className={`input-group ${styles.sort}`}>
+                      <span className="question">
+                        {deviceType === "desktop" ? "Sorted By:" : "Sort:"}{" "}
+                      </span>
+                      <Select
+                        options={sortOptions}
+                        value={sort}
+                        onSelect={value => setSort(value as Sort)}
+                        placeholder="Default"
+                        className={`${styles["sort"]}`}
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className={styles["filter-mobile"]}
+                    ref={filterDropdownRef}
+                  >
+                    <button
+                      className={styles.btn}
+                      onClick={() => setShouldShowFilter(!shouldShowFilter)}
+                    >
+                      <h3 className="margin-right">
+                        Filter{!hideFilterInfo && `(${selectedFilter.length})`}
+                      </h3>
+                      <img
+                        alt="filter"
+                        className="generic-icon medium"
+                        src="/icons/filter.svg"
+                      />
+                    </button>
+                    <div
+                      className={[
+                        styles["filters-dropdown"],
+                        shouldShowFilter && styles.active
+                      ].join(" ")}
+                    >
+                      {filterCategories.map((filter, index) => (
+                        <div key={index} className="vertical-margin spaced">
+                          <p className="bold vertical-margin spaced">
+                            {filter.name}
+                          </p>
+                          <div>
+                            {(filter.viewMore
+                              ? filter.options
+                              : filter.options.slice(0, filter.limit)
+                            ).map((child, index) => (
+                              <div key={index} className="margin-bottom">
+                                {filter.name === "Budget" ? (
+                                  <>
+                                    <div className="margin-bottom">
+                                      <Radio
+                                        label="Regular"
+                                        onChange={() => {
+                                          const newFilters = [
+                                            ...selectedFilter.filter(filter => {
+                                              return filter !== "vip";
+                                            }),
+                                            "regular"
+                                          ];
+                                          setSelectedFilter(newFilters);
+                                          const url = categorySlug
+                                            ? `/product-category/${categorySlug}?shopBy=${newFilters.join(
+                                                ","
+                                              )}`
+                                            : `/filters?shopBy=${newFilters.join(
+                                                ","
+                                              )}`;
+                                          router.push(url, undefined, {
+                                            scroll: false
+                                          });
+                                        }}
+                                        checked={selectedFilter.includes(
+                                          "regular"
+                                        )}
+                                      />
+                                    </div>
+
                                     <Radio
-                                      label="Regular"
+                                      label="VIP"
                                       onChange={() => {
                                         const newFilters = [
                                           ...selectedFilter.filter(filter => {
-                                            return filter !== "vip";
+                                            return filter !== "regular";
                                           }),
-                                          "regular"
+                                          "vip"
                                         ];
                                         setSelectedFilter(newFilters);
-                                        const url = categorySlug
-                                          ? `/product-category/${categorySlug}?shopBy=${newFilters.join(
-                                              ","
-                                            )}`
-                                          : `/filters?shopBy=${newFilters.join(
-                                              ","
-                                            )}`;
+                                        const url = `/filters?shopBy=${newFilters.join(
+                                          ","
+                                        )}`;
                                         router.push(url, undefined, {
                                           scroll: false
                                         });
                                       }}
-                                      checked={selectedFilter.includes(
-                                        "regular"
-                                      )}
+                                      checked={selectedFilter.includes("vip")}
                                     />
-                                  </div>
-
-                                  <Radio
-                                    label="VIP"
-                                    onChange={() => {
-                                      const newFilters = [
-                                        ...selectedFilter.filter(filter => {
-                                          return filter !== "regular";
-                                        }),
-                                        "vip"
-                                      ];
-                                      setSelectedFilter(newFilters);
-                                      const url = `/filters?shopBy=${newFilters.join(
-                                        ","
-                                      )}`;
-                                      router.push(url, undefined, {
-                                        scroll: false
-                                      });
-                                    }}
-                                    checked={selectedFilter.includes("vip")}
+                                  </>
+                                ) : child.link ? (
+                                  <Link href={child.link}>
+                                    <a
+                                      className={[
+                                        styles["filter-link"],
+                                        child.link ===
+                                        `/product-category/${categorySlug}`
+                                          ? styles.active
+                                          : ""
+                                      ].join(" ")}
+                                    >
+                                      {child.name}
+                                    </a>
+                                  </Link>
+                                ) : (
+                                  <Checkbox
+                                    onChange={() => handleFilterChange(child)}
+                                    text={child.name}
+                                    checked={selectedFilter.includes(
+                                      child.tag || ""
+                                    )}
                                   />
-                                </>
-                              ) : child.link ? (
-                                <Link href={child.link}>
-                                  <a
-                                    className={[
-                                      styles["filter-link"],
-                                      child.link ===
-                                      `/product-category/${categorySlug}`
-                                        ? styles.active
-                                        : ""
-                                    ].join(" ")}
-                                  >
-                                    {child.name}
-                                  </a>
-                                </Link>
-                              ) : (
-                                <Checkbox
-                                  onChange={() => handleFilterChange(child)}
-                                  text={child.name}
-                                  checked={selectedFilter.includes(
-                                    child.tag || ""
-                                  )}
-                                />
-                              )}
-                            </div>
-                          ))}
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                          {filter.limit < filter.options.length && (
+                            <button
+                              className={styles["btn-view"]}
+                              onClick={() => {
+                                setFilterCategories(prev =>
+                                  prev.map((item, _index) => {
+                                    if (index === _index) {
+                                      return {
+                                        ...item,
+                                        viewMore: !item.viewMore
+                                      };
+                                    }
+                                    return item;
+                                  })
+                                );
+                              }}
+                            >
+                              {!filter.viewMore ? "View More" : "View Less"}
+                            </button>
+                          )}
                         </div>
-                        {filter.limit < filter.options.length && (
-                          <button
-                            className={styles["btn-view"]}
-                            onClick={() => {
-                              setFilterCategories(prev =>
-                                prev.map((item, _index) => {
-                                  if (index === _index) {
-                                    return {
-                                      ...item,
-                                      viewMore: !item.viewMore
-                                    };
-                                  }
-                                  return item;
-                                })
-                              );
-                            }}
-                          >
-                            {!filter.viewMore ? "View More" : "View Less"}
-                          </button>
-                        )}
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                </div>
+                </>
               )}
-              <div
-                className={`flex between center-align ${
-                  hideFilters ? "block" : ""
-                }`}
-              >
-                <div className={`input-group ${styles.sort}`}>
-                  <span className="question">Sorted By: </span>
-                  <Select
-                    options={sortOptions}
-                    value={sort}
-                    onSelect={value => setSort(value as Sort)}
-                    placeholder="Default"
-                    className={`${styles["sort"]}`}
-                  />
-                </div>
-              </div>
             </div>
 
             <div>
@@ -884,11 +828,16 @@ const ProductsPage: FunctionComponent<{
               {deviceType === "mobile" && (
                 <Button
                   url="/product-category/gifts"
-                  type="accent"
+                  type="transparent"
                   minWidth
-                  className={styles["see-all"]}
+                  className={`${styles["see-all"]}`}
                 >
-                  <h3 className="red margin-right">See All</h3>
+                  <h3 className="bold">Browse All Gifts</h3>
+                  <img
+                    alt="arrow"
+                    className="generic-icon xsmall"
+                    src="/icons/arrow-right.svg"
+                  />
                 </Button>
               )}{" "}
             </>
