@@ -24,7 +24,6 @@ import {
 } from "../../utils/helpers/data/order";
 import dayjs from "dayjs";
 import useDeviceType from "../../utils/hooks/useDeviceType";
-import useOutsideClick from "../../utils/hooks/useOutsideClick";
 import { getPriceDisplay } from "../../utils/helpers/type-conversions";
 import { CartItem, Design } from "../../utils/types/Core";
 import DatePicker from "../date-picker/DatePicker";
@@ -41,8 +40,16 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
   const _pathname = pathname.split("/")[1];
   const deviceType = useDeviceType();
 
+  const { shouldShowAuthDropdown, setShouldShowAuthDropdown } = useContext(
+    SettingsContext
+  );
+
   return (
     <>
+      <AuthModal
+        visible={shouldShowAuthDropdown}
+        cancel={() => setShouldShowAuthDropdown(false)}
+      />
       {_pathname === "checkout" && deviceType === "desktop" ? (
         <CheckoutHeader />
       ) : (
@@ -51,7 +58,7 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
       <main className={styles.main}>
         {deviceType === "mobile" && <CurrencyController />}
         {children}
-        {_pathname !== "checkout" && <Footer />}
+        <Footer />
       </main>
     </>
   );
@@ -294,7 +301,6 @@ const Header: FunctionComponent = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [activeSublinkNav, setActiveSublinkNav] = useState("");
   const [showSearch, setShowSearch] = useState(false);
-  const [showAuthModal, setShowAuthModal] = useState(false);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -317,7 +323,8 @@ const Header: FunctionComponent = () => {
     setDeliveryDate,
     searchText,
     setSearchText,
-    setUser
+    setUser,
+    setShouldShowAuthDropdown
   } = useContext(SettingsContext);
 
   const linksToHide = ["faq", "plants"];
@@ -365,7 +372,7 @@ const Header: FunctionComponent = () => {
   }, [_pathname]);
 
   const handleDisplayAuthModal = () => {
-    if (!user) setShowAuthModal(true);
+    if (!user) setShouldShowAuthDropdown(true);
   };
 
   const handleLogout = async () => {
@@ -395,10 +402,6 @@ const Header: FunctionComponent = () => {
 
   return (
     <>
-      <AuthModal
-        visible={showAuthModal}
-        cancel={() => setShowAuthModal(false)}
-      />
       <header className={styles.header} id="top">
         <img
           alt="menu"
@@ -1277,15 +1280,9 @@ const CartContext: FunctionComponent<CartContextProps> = props => {
 };
 
 export const CheckoutHeader: FunctionComponent = () => {
-  const {
-    currentStage,
-    setShouldShowCart,
-    shouldShowCart,
-    setShouldShowAuthDropdown
-  } = useContext(SettingsContext);
-  const authDropdownRef = useOutsideClick<HTMLDivElement>(() => {
-    setShouldShowAuthDropdown(false);
-  });
+  const { currentStage, setShouldShowCart, shouldShowCart } = useContext(
+    SettingsContext
+  );
 
   const stages = [
     {
@@ -1364,7 +1361,6 @@ export const CheckoutHeader: FunctionComponent = () => {
         cancel={() => setShouldShowCart(false)}
         header="checkout"
       />
-      <div className={styles["auth-wrapper"]} ref={authDropdownRef}></div>
     </>
   );
 };

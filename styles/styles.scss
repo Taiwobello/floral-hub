@@ -136,6 +136,14 @@ span {
         margin-top: 0;
       }
     }
+
+    &.spaced-xl > * {
+      margin: 0;
+      margin-top: 2.4rem;
+      &:first-child {
+        margin-top: 0;
+      }
+    }
   }
   &.between {
     justify-content: space-between;

@@ -115,7 +115,7 @@ const ProductsPage: FunctionComponent<{
   const [sort, setSort] = useState<Sort>("name-asc");
   const [hasMore, setHasMore] = useState(false);
   const [shouldShowFilter, setShouldShowFilter] = useState(false);
-  const [updateHeroContent, setUpdateHeroContent] = useState("")
+  const [updateHeroContent, setUpdateHeroContent] = useState("");
 
   const filterDropdownRef = useOutsideClick<HTMLDivElement>(() => {
     setShouldShowFilter(false);
@@ -177,14 +177,16 @@ const ProductsPage: FunctionComponent<{
       setJustToSayText(JustToSayTexts[count]);
     }
   };
-const changeHeroContent = () =>{
-  const url = window.location.href.split("/").slice(3);
-  console.log(url)
-  const content = breadcrumbItems.find(value => url[1] === value.url || url[0] === value.url)
-  content ? setUpdateHeroContent(content.label) : setUpdateHeroContent( "Romance, Birthdays & Anniversary" )
-  
-
-}
+  const changeHeroContent = () => {
+    const url = window.location.href.split("/").slice(3);
+    console.log(url);
+    const content = breadcrumbItems.find(
+      value => url[1] === value.url || url[0] === value.url
+    );
+    content
+      ? setUpdateHeroContent(content.label)
+      : setUpdateHeroContent("Romance, Birthdays & Anniversary");
+  };
   const handleClearFIlter = () => {
     setSelectedFilter([]);
     router.push(`/product-category/${categorySlug}`, undefined, {
@@ -359,7 +361,7 @@ const changeHeroContent = () =>{
   useEffect(() => {
     if (isReady) {
       setRedirectUrl(router.asPath);
-      changeHeroContent()
+      changeHeroContent();
       setBreadcrumb(
         selectedBreadcrumb
           ? {
@@ -377,7 +379,10 @@ const changeHeroContent = () =>{
   }, [search]);
 
   const hideHero = search;
-  const crumbItems = [{ label: "Home", link: "/" }, { label: updateHeroContent }]
+  const crumbItems = [
+    { label: "Home", link: "/" },
+    { label: updateHeroContent }
+  ];
   return (
     <>
       {router.pathname === "/filters" && (
@@ -387,28 +392,28 @@ const changeHeroContent = () =>{
       )}
       <section className={styles.filters} ref={rootRef}>
         {!hideHero && (
-          <div
-            className={[
-              styles["hero-bg"],
-            ].join(" ")}
-          >
-            
+          <div className={[styles["hero-bg"]].join(" ")}>
             <div className={`hero-content flex column center center-align `}>
-              { deviceType === "desktop" && (
+              {deviceType === "desktop" && (
                 <>
                   <div className={styles["hero-text"]}>
                     <Breadcrumb items={crumbItems} />
-                      <p>
-                      {!isGiftPage ? `${updateHeroContent} Flowers` : updateHeroContent}
-                    
-                      </p>
+                    <p>
+                      {!isGiftPage
+                        ? `${updateHeroContent} Flowers`
+                        : updateHeroContent}
+                    </p>
                     <p className="text-small">
-                      Congratulations! Another year of love and laughter with your other half. Whether you’ve been together one year or 60, our anniversary flowers are hand-crafted by local florists so you can give that special someone a warm and fuzzy feeling.
-                      </p>
-                    </div>   
-                <div className= {styles["hero-image"]}></div>
+                      Congratulations! Another year of love and laughter with
+                      your other half. Whether you’ve been together one year or
+                      60, our anniversary flowers are hand-crafted by local
+                      florists so you can give that special someone a warm and
+                      fuzzy feeling.
+                    </p>
+                  </div>
+                  <div className={styles["hero-image"]}></div>
                 </>
-                )}
+              )}
               {productCategory === "occasion" && deviceType === "mobile" && (
                 <div className={styles["occasions-mobile"]}>
                   <div
@@ -487,7 +492,6 @@ const changeHeroContent = () =>{
                   </div>
                 </div>
               )}
-          
             </div>
           </div>
         )}
@@ -625,7 +629,6 @@ const changeHeroContent = () =>{
                         {!filter.viewMore ? "View More" : "View Less"}
                       </button>
                     )}
-                  
                   </div>
                 ))}
                 <Button className="primary-color" onClick={handleClearFIlter}>
@@ -635,7 +638,10 @@ const changeHeroContent = () =>{
             </div>
           )}
           <div className={styles["product-wrapper"]}>
-            <div className={`flex between block center-align ${!hideFilters && [styles.sorts].join(" ")}` }>
+            <div
+              className={`flex between block center-align ${!hideFilters &&
+                [styles.sorts].join(" ")}`}
+            >
               {!hideFilters && (
                 <div
                   className={styles["filter-mobile"]}
