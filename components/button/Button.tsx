@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { CSSProperties, ReactChild } from "react";
+import React, { CSSProperties, ReactNode } from "react";
 import styles from "./Button.module.scss";
 
 export type ButtonType =
@@ -10,7 +10,7 @@ export type ButtonType =
   | "accent-transparent";
 
 interface ButtonProps {
-  children?: ReactChild | ReactChild[];
+  children?: ReactNode;
   className?: string;
   loading?: boolean;
   minWidth?: boolean;
