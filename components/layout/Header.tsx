@@ -19,6 +19,9 @@ import styles from "./Layout.module.scss";
 import { links } from "../../utils/constants";
 import ContextWrapper from "../context-wrapper/ContextWrapper";
 import AuthModal from "./AuthModal";
+import FlowerCard from "../flower-card/FlowerCard";
+import { AppLink } from "../../utils/types/Core";
+import { getProductsBySlugs } from "../../utils/helpers/data/products";
 
 const Header: FunctionComponent = () => {
   const [activeNavLink, setActiveNavLink] = useState("");
@@ -26,6 +29,9 @@ const Header: FunctionComponent = () => {
   const [activeSublinkNav, setActiveSublinkNav] = useState("");
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [linksWithFeaturedProducts, setLinksWithFeaturedProducts] = useState<
+    AppLink[]
+  >([...links]);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
   const hasScrolledRef = useRef(hasScrolled);
@@ -36,8 +42,8 @@ const Header: FunctionComponent = () => {
 
   const deviceType = useDeviceType();
 
-  const { pathname, push, query } = useRouter();
-  const _pathname = pathname.split("/")[1];
+  const { pathname: _pathname, push, query } = useRouter();
+  const pathname = _pathname.split("/")[1];
 
   const {
     cartItems,
@@ -50,7 +56,8 @@ const Header: FunctionComponent = () => {
     setDeliveryDate,
     searchText,
     setSearchText,
-    setUser
+    setUser,
+    notify
   } = useContext(SettingsContext);
 
   const totalCartItems = useMemo(() => {
@@ -90,7 +97,7 @@ const Header: FunctionComponent = () => {
   }, []);
 
   useEffect(() => {
-    if (!orderId && _pathname !== "checkout") {
+    if (!orderId && pathname !== "checkout") {
       setOrder(null);
       setCurrentStage(1);
       setDeliveryDate(null);
@@ -106,7 +113,33 @@ const Header: FunctionComponent = () => {
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [_pathname]);
+  }, [pathname]);
+
+  useEffect(() => {
+    const fetchFeaturedProducts = async () => {
+      const { error, message, data } = await getProductsBySlugs(
+        links
+          .map(link => link.featuredSlugs)
+          .flat()
+          .filter(Boolean) as string[]
+      );
+      if (error) {
+        notify("error", `Unable to fetch featured products: ${message}`);
+        return;
+      }
+      setLinksWithFeaturedProducts(
+        links.map(link => ({
+          ...link,
+          featuredProducts: data?.filter(product =>
+            link.featuredSlugs?.includes(product.slug)
+          )
+        }))
+      );
+    };
+
+    fetchFeaturedProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleDisplayAuthModal = () => {
     if (!user) setShowAuthModal(true);
@@ -327,7 +360,7 @@ const Header: FunctionComponent = () => {
             </a>
           </Link>
           <nav className={styles.nav}>
-            {links.map((link, index) => (
+            {linksWithFeaturedProducts.map((link, index) => (
               <div
                 className={styles.link}
                 key={index}
@@ -335,49 +368,53 @@ const Header: FunctionComponent = () => {
                 onMouseLeave={() => setActiveNavLink("")}
               >
                 <Button
-                  className={`flex center-align spaced  ${styles.title}`}
+                  className={`flex center-align spaced  ${
+                    styles.title
+                  } ${activeNavLink === link.title && styles.active}`}
                   key={link.title}
                   type="plain"
                   url={link.url}
                 >
                   {link.title}
-                  {/* {link.children.length > 0 && (
-                        <div
-                          className={[
-                            styles.arrow,
-                            activeNavLink === link.title && activeNavLink
-                              ? styles.active
-                              : ""
-                          ].join(" ")}
-                        ></div>
-                      )} */}
                 </Button>
                 {link.children.length > 0 && (
                   <div
                     className={[
-                      styles["dropdown"],
-                      activeNavLink === link.title && styles.active
+                      styles.dropdown,
+                      activeNavLink === link.title && styles.active,
+                      hasScrolled && styles.minimize
                     ].join(" ")}
                   >
-                    {link.subtitle && (
-                      <p className={styles.subtitle}>{link.subtitle}</p>
-                    )}
-                    <div
-                      className={[
-                        styles["sub-link"],
-                        link.children.some(child => child.children.length) &&
-                          styles.grid
-                      ].join(" ")}
-                    >
-                      {link.children.map((child, index) => (
-                        <div key={index}>
-                          {child.url ? (
-                            <Link href={child.url}>
-                              <a
-                                onClick={() => {
-                                  setActiveNavLink("");
-                                }}
-                              >
+                    <div className="flex between">
+                      <div
+                        className={[
+                          styles["sub-link"],
+                          link.children.some(child => child.children.length) &&
+                            styles.grid
+                        ].join(" ")}
+                      >
+                        {link.children.map((child, index) => (
+                          <div key={index}>
+                            {child.url ? (
+                              <Link href={child.url}>
+                                <a
+                                  onClick={() => {
+                                    setActiveNavLink("");
+                                  }}
+                                >
+                                  {child.title && (
+                                    <span
+                                      className={[
+                                        child.children.length && styles.title
+                                      ].join(" ")}
+                                    >
+                                      {child.title}
+                                    </span>
+                                  )}
+                                </a>
+                              </Link>
+                            ) : (
+                              <>
                                 {child.title && (
                                   <span
                                     className={[
@@ -387,37 +424,50 @@ const Header: FunctionComponent = () => {
                                     {child.title}
                                   </span>
                                 )}
-                              </a>
-                            </Link>
-                          ) : (
-                            <>
-                              {child.title && (
-                                <span
-                                  className={[
-                                    child.children.length && styles.title
-                                  ].join(" ")}
-                                >
-                                  {child.title}
-                                </span>
-                              )}
-                            </>
-                          )}
-                          <div className={styles["grand-children"]}>
-                            {child.children.map((grandChild, index) => (
-                              <Link href={grandChild.url} key={index}>
-                                <a
-                                  className={styles["grand-title"]}
-                                  onClick={() => {
-                                    setActiveNavLink("");
-                                  }}
-                                >
-                                  {grandChild.title}
-                                </a>
-                              </Link>
-                            ))}
+                              </>
+                            )}
+                            <div className={styles["grand-children"]}>
+                              {child.children.map((grandChild, index) => (
+                                <Link href={grandChild.url} key={index}>
+                                  <a
+                                    className={styles["grand-title"]}
+                                    onClick={() => {
+                                      setActiveNavLink("");
+                                    }}
+                                  >
+                                    {grandChild.title}
+                                  </a>
+                                </Link>
+                              ))}
+                            </div>
                           </div>
+                        ))}
+                      </div>
+                      <div
+                        className={styles["card-wrapper"]}
+                        style={{
+                          width: `${(link.featuredProducts?.length || 0 + 1) *
+                            14}rem`
+                        }}
+                      >
+                        <h3 className="thin margin-bottom">
+                          FEATURED PRODUCT
+                          {link.featuredProducts?.length !== 1 ? "S" : ""}
+                        </h3>
+                        <div className="flex spaced">
+                          {link.featuredProducts?.map((product, i) => (
+                            <FlowerCard
+                              name={product.name}
+                              key={i}
+                              subTitle={product.subtitle}
+                              image={product.images[0]?.src}
+                              url={`/product/${product.slug}`}
+                              price={product.price}
+                              product={product}
+                            />
+                          ))}
                         </div>
-                      ))}
+                      </div>
                     </div>
                   </div>
                 )}

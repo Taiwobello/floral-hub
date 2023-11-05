@@ -135,7 +135,7 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
             >
               {name}
             </strong>
-            {subTitle && <p className={styles.subtitle}>{subTitle}</p>}
+            <p className={styles.subtitle}>{subTitle}</p>
             {!onlyTitle && (
               <div
                 className={` ${price ? "between" : ""} ${

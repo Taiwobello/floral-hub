@@ -58,13 +58,13 @@
           text-transform: uppercase;
           margin: 0 1rem;
           cursor: pointer;
+          border-bottom: 0.3rem solid transparent;
+          transition: 0.3s ease-out;
+          &.active {
+            border-bottom-color: #b240da;
+          }
         }
       }
-
-      @media (max-width: 650px) {
-        display: none;
-      }
-
       .arrow {
         border-top: 0.2rem solid #4b5563;
         width: 0.6rem;
@@ -81,42 +81,37 @@
       }
 
       .dropdown {
-        position: absolute;
-        top: -40rem;
-        left: 0;
+        position: fixed;
+        padding: 3rem 5rem;
+        top: 8rem;
+        left: 10vw;
         background-color: white;
-        width: max-content;
-        padding: 1rem;
-        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.06),
-          0px 1px 3px rgba(0, 0, 0, 0.1);
-        transform: translateY(-10%);
-        max-width: 0;
+        width: 80vw;
+        box-shadow: 0 0.8rem 0.8rem rgba(0, 0, 0, 0.1);
         font-size: 1rem;
         min-width: fit-content;
         transition: all 0.6s ease-out;
-
+        pointer-events: none;
         opacity: 0;
-        animation: slidein 0.6s ease-out forwards;
-
         &.active {
           opacity: 1;
-          transform: translateY(0);
-          max-width: 100vh;
           z-index: 10;
-          top: 2rem;
+          pointer-events: all;
+        }
+        &.minimize {
+          top: 5rem;
         }
 
         .subtitle {
-          color: #6b7280;
           font-weight: bold;
           font-size: inherit;
           margin-bottom: 1rem;
         }
         .sub-link {
-          color: #202020;
           font-size: 1rem;
+          font-weight: 400;
           & > * {
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             display: block;
             &:last-child {
               margin-bottom: 0;
@@ -125,7 +120,7 @@
           &.grid {
             display: grid;
             grid-template-columns: repeat(3, max-content);
-            column-gap: 1.5rem;
+            column-gap: 2.5rem;
 
             .title {
               margin: 0;
@@ -137,7 +132,7 @@
             }
 
             .grand-title {
-              margin-bottom: 0.5rem;
+              margin-bottom: 1rem;
               font-size: inherit;
               display: block;
 
@@ -153,8 +148,10 @@
           font-size: 0.8rem;
         }
 
-        strong {
-          display: inline-block;
+        .card-wrapper {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
         }
       }
     }
