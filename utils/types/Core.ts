@@ -1,6 +1,6 @@
 import { Dayjs } from "dayjs";
 import { ReactNode } from "react";
-import { DesignOptionName, ProductImage } from "./Product";
+import Product, { DesignOptionName, ProductImage } from "./Product";
 import { Order } from "./Order";
 
 export interface AppLink {
@@ -8,6 +8,8 @@ export interface AppLink {
   title: string;
   children: AppLink[];
   subtitle?: string;
+  featuredSlugs?: string[];
+  featuredProducts?: Product[];
 }
 
 export type AppCurrencyName = "NGN" | "GBP" | "USD";

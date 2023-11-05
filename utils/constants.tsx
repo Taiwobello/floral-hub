@@ -2441,6 +2441,9 @@ export const links: AppLink[] = [
           }
         ]
       }
+    ],
+    featuredSlugs: [
+      "allure-bouquet-of-red-white-pink-yellow-or-purples-roses-select-size"
     ]
   },
   {
@@ -2547,7 +2550,8 @@ export const links: AppLink[] = [
           }
         ]
       }
-    ]
+    ],
+    featuredSlugs: ["purity-roses-arranged-with-sparkling-white-select-size"]
   },
   {
     url: "/vip",
@@ -2599,6 +2603,10 @@ export const links: AppLink[] = [
         title: "Scented Candles",
         children: []
       }
+    ],
+    featuredSlugs: [
+      "balloons",
+      "caravaggio-assorted-italian-unisex-gift-set-more"
     ]
   },
   {
@@ -3402,4 +3410,4 @@ export const contactUsPageConent: Record<string, any> = {
   }
 };
 
-export const business = "regalFlowers";
+export const business = "floralHub";
