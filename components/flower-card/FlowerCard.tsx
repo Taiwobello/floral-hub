@@ -144,22 +144,20 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
               >
                 {price && (
                   <>
-                    <div className={`flex between ${styles["price-text"]}`}>
-                      {product?.variants.length ? (
-                        <p className="smaller text-secondary">From</p>
-                      ) : (
-                        ""
-                      )}
-                      <p className="bold price">
+                    <div
+                      className={`flex spaced center-align ${styles["price-text"]}`}
+                    >
+                      {product?.variants.length ? <span>From </span> : ""}
+                      <span className="bold price">
                         {getPriceDisplay(price, currency)}
-                      </p>
+                      </span>
                     </div>
                     <button
                       className={`${styles["buy-btn"]} text-small bold`}
                       onClick={e => cart && handleAddToCart(e)}
                       disabled={outOfStock}
                     >
-                      {deviceType == "mobile" ? "ADD TO CART" : ""}
+                      {deviceType === "mobile" ? "ADD TO CART" : ""}
                     </button>
                   </>
                 )}
