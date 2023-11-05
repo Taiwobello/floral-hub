@@ -64,6 +64,8 @@
       position: relative;
       max-height: 38rem;
       margin-right: 1rem;
+      width: 20%;
+      min-width: 8rem;
 
       @media (max-width: 650px) {
         max-height: 10rem;
@@ -154,7 +156,7 @@
 
       .slider {
         overflow: hidden;
-        width: 100%;
+        width: 80%;
         display: flex;
         position: relative;
         height: 100%;

@@ -454,6 +454,40 @@ export const footerContent: FooterContent = {
   ]
 };
 
+interface CheckoutContent {
+  paymentIcons: { alt: string; src: string }[];
+}
+
+export const checkoutContent: CheckoutContent = {
+  paymentIcons: [
+    {
+      alt: "visa",
+      src: "/icons/visa.svg"
+    },
+    {
+      alt: "master card",
+      src: "/icons/master-card.svg"
+    },
+    {
+      alt: "paypal",
+      src: "/icons/paypal-blue.svg"
+    },
+    {
+      alt: "bitcoin",
+      src: "/icons/bitcoin-gold.svg"
+    },
+
+    {
+      alt: "bank",
+      src: "/icons/building-primary.svg"
+    },
+    {
+      alt: "paystack",
+      src: "/icons/paystack.png"
+    }
+  ]
+};
+
 export const aboutUsContent: {
   [key: string]: { title: string; content: string };
 } = {
@@ -3368,4 +3402,4 @@ export const contactUsPageConent: Record<string, any> = {
   }
 };
 
-export const business = "floralHub";
+export const business = "regalFlowers";

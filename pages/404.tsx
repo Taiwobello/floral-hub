@@ -1,12 +1,17 @@
-import React from "react";
+import { GetStaticProps } from "next";
+import React, {FunctionComponent} from "react";
 import Link from "next/link";
 import BlogCard from "../components/blog-card/BlogCard";
 import FlowerCard from "../components/flower-card/FlowerCard";
-import { blogPosts, popularSections } from "../utils/constants";
+import Product from "../utils/types/Product";
+import { blogPosts, popularSections, featuredSlugs } from "../utils/constants";
+import { getProductsBySlugs } from "../utils/helpers/data/products";
 import useDeviceType from "../utils/hooks/useDeviceType";
 import styles from "./404.module.scss";
 
-function Custom404Page() {
+const Custom404Page: FunctionComponent<{ featuredFlowers: Product[] }> = ({
+  featuredFlowers
+}) => {
   const deviceType = useDeviceType();
   return (
     <section className="">
@@ -24,24 +29,25 @@ function Custom404Page() {
         </div>
       </div>
       <div className={styles["popular-sections"]}>
-        <h2 className={styles.title}>Popular Sections</h2>
+        <h2 className={`${styles.title} vertical-margin spaced` }>BEST SELLING FLOWERS</h2>
         <div className={[styles.section, styles.wrap].join(" ")}>
-          {popularSections.map(section => (
+          {featuredFlowers?.map(flower => (
             <FlowerCard
-              key={section.title}
-              image={section.image}
-              name={section.title}
-              url={section.url}
-              mode="four-x-grid"
-              onlyTitle
-              buttonText="Add to cart"
+              key={flower.key}
+              image={flower.images[0]?.src || ""}
+              name={flower.name}
+              subTitle={flower.details}
+              price={flower.price}
+              url={`/product/${flower.slug}`}
+              buttonText="Add to Cart"
+              cart={flower.variants?.length ? false : true}
             />
           ))}
         </div>
         {deviceType === "desktop" && (
           <div className="featured-content">
-            <h2 className="featured-title text-center margin-bottom spaced">
-              Our Blog
+            <h2 className="featured-title margin-bottom spaced">
+              OUR BLOG
             </h2>
             <div className={styles.section}>
               {blogPosts.map(post => (
@@ -62,5 +68,19 @@ function Custom404Page() {
     </section>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const { data, error, message } = await getProductsBySlugs(
+    featuredSlugs["featured-birthday"]
+  );
+  if (error) {
+    console.error("Unable to fetch products by slugs: ", message);
+  }
+  return {
+    props: {
+      featuredFlowers: data || []
+    }
+  };
+};
 
 export default Custom404Page;
