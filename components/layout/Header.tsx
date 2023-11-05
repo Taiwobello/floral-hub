@@ -6,7 +6,8 @@ import {
   MouseEvent as ReactMouseEvent,
   useMemo,
   useEffect,
-  FormEvent
+  FormEvent,
+  useCallback
 } from "react";
 import Link from "next/link";
 import SettingsContext from "../../utils/context/SettingsContext";
@@ -23,10 +24,15 @@ const Header: FunctionComponent = () => {
   const [activeNavLink, setActiveNavLink] = useState("");
   const [showSidebar, setShowSidebar] = useState(false);
   const [activeSublinkNav, setActiveSublinkNav] = useState("");
-  const [showSearch, setShowSearch] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const hasScrolledRef = useRef(hasScrolled);
+  useEffect(() => {
+    hasScrolledRef.current = hasScrolled;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasScrolled]);
 
   const deviceType = useDeviceType();
 
@@ -46,8 +52,6 @@ const Header: FunctionComponent = () => {
     setSearchText,
     setUser
   } = useContext(SettingsContext);
-
-  const linksToHide = ["faq", "plants"];
 
   const totalCartItems = useMemo(() => {
     if (!cartItems.length) return 0;
@@ -77,6 +81,14 @@ const Header: FunctionComponent = () => {
     }
   };
 
+  const onUserScroll = useCallback(() => {
+    if (hasScrolledRef.current && window.scrollY === 0) {
+      setHasScrolled(false);
+    } else if (!hasScrolledRef.current && window.scrollY > 0) {
+      setHasScrolled(true);
+    }
+  }, []);
+
   useEffect(() => {
     if (!orderId && _pathname !== "checkout") {
       setOrder(null);
@@ -87,6 +99,11 @@ const Header: FunctionComponent = () => {
     if (!query.search) {
       setSearchText("");
     }
+
+    window.addEventListener("scroll", onUserScroll);
+    return () => {
+      window.removeEventListener("scroll", onUserScroll);
+    };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [_pathname]);
@@ -281,8 +298,17 @@ const Header: FunctionComponent = () => {
             </form>
           </nav>
         )}
-        <div className={styles["logo-flex"]}>
-          <span className="flex spaced center-align larger">
+        <div
+          className={[styles["logo-flex"], hasScrolled && styles.minimize].join(
+            " "
+          )}
+        >
+          <span
+            className={[
+              "flex spaced center-align larger",
+              styles.packaged
+            ].join(" ")}
+          >
             <img
               alt="love"
               src="/icons/hearts.svg"
@@ -300,191 +326,162 @@ const Header: FunctionComponent = () => {
               />
             </a>
           </Link>
-        </div>
-        {/* {deviceType === "desktop" && (
-          <div className="flex spaced center-align">
-            <nav className={styles.nav}>
-              {links.map(
-                (link, index) =>
-                  !linksToHide.includes(link.title.toLocaleLowerCase()) && (
-                    <div
-                      className={styles.link}
-                      key={index}
-                      onMouseEnter={e => handleActiveNav(link.title, e)}
-                      onMouseLeave={() => setActiveNavLink("")}
-                    >
-                      <div
-                        className={`flex center-align spaced  ${styles.title}`}
-                        key={link.title}
-                        role="button"
-                      >
-                        {link.url ? (
-                          <Link href={link.url}>
-                            <a>
-                              <strong>{link.title}</strong>
-                            </a>
-                          </Link>
-                        ) : (
-                          <strong>{link.title}</strong>
-                        )}
-                        {link.children.length > 0 && (
-                          <div
-                            className={[
-                              styles.arrow,
-                              activeNavLink === link.title && activeNavLink
-                                ? styles.active
-                                : ""
-                            ].join(" ")}
-                          ></div>
-                        )}
-                      </div>
-                      {link.children.length > 0 && (
+          <nav className={styles.nav}>
+            {links.map((link, index) => (
+              <div
+                className={styles.link}
+                key={index}
+                onMouseEnter={e => handleActiveNav(link.title, e)}
+                onMouseLeave={() => setActiveNavLink("")}
+              >
+                <Button
+                  className={`flex center-align spaced  ${styles.title}`}
+                  key={link.title}
+                  type="plain"
+                  url={link.url}
+                >
+                  {link.title}
+                  {/* {link.children.length > 0 && (
                         <div
                           className={[
-                            styles["dropdown"],
-                            activeNavLink === link.title && styles.active
+                            styles.arrow,
+                            activeNavLink === link.title && activeNavLink
+                              ? styles.active
+                              : ""
                           ].join(" ")}
-                        >
-                          {link.subtitle && (
-                            <p className={styles.subtitle}>{link.subtitle}</p>
-                          )}
-                          <div
-                            className={[
-                              styles["sub-link"],
-                              link.children.some(
-                                child => child.children.length
-                              ) && styles.grid
-                            ].join(" ")}
-                          >
-                            {link.children.map((child, index) => (
-                              <div key={index}>
-                                {child.url ? (
-                                  <Link href={child.url}>
-                                    <a
-                                      onClick={() => {
-                                        setActiveNavLink("");
-                                      }}
-                                    >
-                                      {child.title && (
-                                        <span
-                                          className={[
-                                            child.children.length &&
-                                              styles.title
-                                          ].join(" ")}
-                                        >
-                                          {child.title}
-                                        </span>
-                                      )}
-                                    </a>
-                                  </Link>
-                                ) : (
-                                  <>
-                                    {child.title && (
-                                      <span
-                                        className={[
-                                          child.children.length && styles.title
-                                        ].join(" ")}
-                                      >
-                                        {child.title}
-                                      </span>
-                                    )}
-                                  </>
+                        ></div>
+                      )} */}
+                </Button>
+                {link.children.length > 0 && (
+                  <div
+                    className={[
+                      styles["dropdown"],
+                      activeNavLink === link.title && styles.active
+                    ].join(" ")}
+                  >
+                    {link.subtitle && (
+                      <p className={styles.subtitle}>{link.subtitle}</p>
+                    )}
+                    <div
+                      className={[
+                        styles["sub-link"],
+                        link.children.some(child => child.children.length) &&
+                          styles.grid
+                      ].join(" ")}
+                    >
+                      {link.children.map((child, index) => (
+                        <div key={index}>
+                          {child.url ? (
+                            <Link href={child.url}>
+                              <a
+                                onClick={() => {
+                                  setActiveNavLink("");
+                                }}
+                              >
+                                {child.title && (
+                                  <span
+                                    className={[
+                                      child.children.length && styles.title
+                                    ].join(" ")}
+                                  >
+                                    {child.title}
+                                  </span>
                                 )}
-                                <div className={styles["grand-children"]}>
-                                  {child.children.map((grandChild, index) => (
-                                    <Link href={grandChild.url} key={index}>
-                                      <a
-                                        className={styles["grand-title"]}
-                                        onClick={() => {
-                                          setActiveNavLink("");
-                                        }}
-                                      >
-                                        {grandChild.title}
-                                      </a>
-                                    </Link>
-                                  ))}
-                                </div>
-                              </div>
+                              </a>
+                            </Link>
+                          ) : (
+                            <>
+                              {child.title && (
+                                <span
+                                  className={[
+                                    child.children.length && styles.title
+                                  ].join(" ")}
+                                >
+                                  {child.title}
+                                </span>
+                              )}
+                            </>
+                          )}
+                          <div className={styles["grand-children"]}>
+                            {child.children.map((grandChild, index) => (
+                              <Link href={grandChild.url} key={index}>
+                                <a
+                                  className={styles["grand-title"]}
+                                  onClick={() => {
+                                    setActiveNavLink("");
+                                  }}
+                                >
+                                  {grandChild.title}
+                                </a>
+                              </Link>
                             ))}
                           </div>
                         </div>
-                      )}
+                      ))}
                     </div>
-                  )
-              )}
-              {!showSearch &&
-                links.map(
-                  (link, index) =>
-                    linksToHide.includes(link.title.toLocaleLowerCase()) && (
-                      <div className={styles.link} key={index}>
-                        <div
-                          className={`flex center-align spaced ${styles.title}`}
-                          role="button"
-                        >
-                          <strong>
-                            <Link href={link.url}>
-                              <a>{link.title}</a>
-                            </Link>
-                          </strong>
-                        </div>
-                      </div>
-                    )
+                  </div>
                 )}
-            </nav>
-            <div
+              </div>
+            ))}
+          </nav>
+        </div>
+
+        {/* <div className="flex spaced center-align">
+          
+          <div
+            className={[
+              styles["search-wrapper"],
+              showSearch ? styles.active : ""
+            ].join(" ")}
+          >
+            <form
               className={[
-                styles["search-wrapper"],
+                styles["search-form"],
                 showSearch ? styles.active : ""
               ].join(" ")}
+              onSubmit={handleSearch}
+              onClick={() => {
+                setShowSearch(true);
+                searchInputRef.current?.focus();
+              }}
             >
-              <form
+              <input
+                type="text"
+                onChange={e => {
+                  setSearchText(e.target.value);
+                }}
+                placeholder="Search for products"
+                value={searchText}
                 className={[
-                  styles["search-form"],
+                  styles["search-input"],
                   showSearch ? styles.active : ""
                 ].join(" ")}
-                onSubmit={handleSearch}
+                ref={searchInputRef}
+              />
+            </form>
+            {showSearch ? (
+              <img
+                alt="search"
+                src="/icons/search-cancel.svg"
+                className={`${styles["search-icon"]} generic-icon medium clickable`}
+                onClick={() => {
+                  setShowSearch(false);
+                }}
+              />
+            ) : (
+              <img
+                alt="search"
+                src="/icons/search.svg"
+                className={`${styles["search-icon"]} generic-icon medium clickable`}
                 onClick={() => {
                   setShowSearch(true);
                   searchInputRef.current?.focus();
                 }}
-              >
-                <input
-                  type="text"
-                  onChange={e => {
-                    setSearchText(e.target.value);
-                  }}
-                  placeholder="Search for products"
-                  value={searchText}
-                  className={[
-                    styles["search-input"],
-                    showSearch ? styles.active : ""
-                  ].join(" ")}
-                  ref={searchInputRef}
-                />
-              </form>
-              {showSearch ? (
-                <img
-                  alt="search"
-                  src="/icons/search-cancel.svg"
-                  className={`${styles["search-icon"]} generic-icon medium clickable`}
-                  onClick={() => {
-                    setShowSearch(false);
-                  }}
-                />
-              ) : (
-                <img
-                  alt="search"
-                  src="/icons/search.svg"
-                  className={`${styles["search-icon"]} generic-icon medium clickable`}
-                  onClick={() => {
-                    setShowSearch(true);
-                    searchInputRef.current?.focus();
-                  }}
-                />
-              )}
-            </div>
+              />
+            )}
           </div>
-        )} */}
+        </div> */}
+
         <div
           className={[styles["controls-area-mobile"], "flex spaced-lg"].join(
             " "

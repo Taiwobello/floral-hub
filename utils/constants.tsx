@@ -2343,7 +2343,7 @@ export const links: AppLink[] = [
         ]
       },
       {
-        title: "Bridal Bouquets & Accessories",
+        title: "Bridal",
         url: "",
         children: [
           {
@@ -2517,12 +2517,12 @@ export const links: AppLink[] = [
   },
   {
     url: "/vip",
-    title: "VIP Section",
+    title: "VIP Flowers",
     children: []
   },
 
   {
-    url: "#",
+    url: "",
     title: "Gifts",
     children: [
       {
@@ -2575,6 +2575,11 @@ export const links: AppLink[] = [
   {
     title: "FAQ",
     url: "/faq-how-to-buy-fresh-flowers-and-gifts-in-lagos-and-abuja",
+    children: []
+  },
+  {
+    title: "Contact",
+    url: "/contact",
     children: []
   }
 ];
