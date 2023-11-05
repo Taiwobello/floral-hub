@@ -26,6 +26,7 @@
         padding: 1rem;
         left: 12vw;
         background-color: transparent;
+        box-shadow: unset;
       }
     }
     .packaged {
@@ -50,6 +51,7 @@
       font-size: 1rem;
       padding: 1.5rem;
       transition: 0.3s ease-out;
+      box-shadow: 0 0.2rem 0.8rem -0.2rem rgba(0, 0, 0, 0.1);
       .link {
         position: relative;
         .title {

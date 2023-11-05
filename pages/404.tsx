@@ -1,13 +1,13 @@
 import { GetStaticProps } from "next";
-import React, {FunctionComponent} from "react";
-import Link from "next/link";
+import React, { FunctionComponent } from "react";
 import BlogCard from "../components/blog-card/BlogCard";
 import FlowerCard from "../components/flower-card/FlowerCard";
 import Product from "../utils/types/Product";
-import { blogPosts, popularSections, featuredSlugs } from "../utils/constants";
+import { blogPosts, featuredSlugs } from "../utils/constants";
 import { getProductsBySlugs } from "../utils/helpers/data/products";
 import useDeviceType from "../utils/hooks/useDeviceType";
 import styles from "./404.module.scss";
+import Button from "../components/button/Button";
 
 const Custom404Page: FunctionComponent<{ featuredFlowers: Product[] }> = ({
   featuredFlowers
@@ -23,13 +23,15 @@ const Custom404Page: FunctionComponent<{ featuredFlowers: Product[] }> = ({
             We couldn’t find the page you were looking for. Please crosscheck
             your URL. If this issue persists, kindly contact us.
           </p>
-          <Link href="/">
-            <button className="button">GO TO HOME</button>
-          </Link>
+          <Button className="button" url="/">
+            GO TO HOME
+          </Button>
         </div>
       </div>
       <div className={styles["popular-sections"]}>
-        <h2 className={`${styles.title} vertical-margin spaced` }>BEST SELLING FLOWERS</h2>
+        <h2 className={`${styles.title} vertical-margin spaced`}>
+          BEST SELLING FLOWERS
+        </h2>
         <div className={[styles.section, styles.wrap].join(" ")}>
           {featuredFlowers?.map(flower => (
             <FlowerCard
@@ -46,9 +48,7 @@ const Custom404Page: FunctionComponent<{ featuredFlowers: Product[] }> = ({
         </div>
         {deviceType === "desktop" && (
           <div className="featured-content">
-            <h2 className="featured-title margin-bottom spaced">
-              OUR BLOG
-            </h2>
+            <h2 className="featured-title margin-bottom spaced">OUR BLOG</h2>
             <div className={styles.section}>
               {blogPosts.map(post => (
                 <BlogCard
@@ -67,7 +67,7 @@ const Custom404Page: FunctionComponent<{ featuredFlowers: Product[] }> = ({
       </div>
     </section>
   );
-}
+};
 
 export const getStaticProps: GetStaticProps = async () => {
   const { data, error, message } = await getProductsBySlugs(

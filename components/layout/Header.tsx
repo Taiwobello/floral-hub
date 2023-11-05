@@ -533,7 +533,7 @@ const Header: FunctionComponent = () => {
         </div>
         <div className={styles["controls-area"]}>
           <div className="flex spaced-lg center-align">
-            <Button className="flex column center-align" url="/" type="plain">
+            <Button className="flex column center-align" type="plain">
               <img
                 alt="search"
                 src="/icons/search.svg"
