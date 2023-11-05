@@ -8,8 +8,18 @@
   left: 0;
   width: 100vw;
   z-index: 9;
-  background-color: white;
+  background-color: #fbf6fd;
   box-shadow: 0 0.2rem 0.5rem 0.2rem rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+  .logo-flex {
+    display: flex;
+    & > *:first-child {
+      margin-right: calc(22vw);
+      @media (max-width: 1300px) {
+        margin-right: calc(17vw);
+      }
+    }
+  }
 
   @media (max-width: 500px) {
     padding: 1rem 1.5rem;
@@ -24,8 +34,8 @@
     }
   }
   .logo {
-    height: 3rem;
-    width: auto;
+    height: auto;
+    width: 15rem;
   }
 
   .search-wrapper {
@@ -301,27 +311,6 @@
   .controls-area-mobile {
     display: none;
 
-    .cart-btn {
-      position: relative;
-      color: #4b5563;
-      margin-bottom: -0.5rem;
-
-      span {
-        position: absolute;
-        top: -0.5rem;
-        right: -0.5rem;
-        background-color: #ef4444;
-        color: white;
-        border-radius: 50%;
-        width: 1.5rem;
-        height: 1.5rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 0.8rem;
-      }
-    }
-
     .control-icon {
       height: 1.8rem;
       width: auto;
@@ -359,7 +348,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 0.8rem;
+    font-size: 1rem;
     justify-content: center;
 
     .currency {
@@ -375,10 +364,29 @@
         padding: 0.2rem 0.8rem;
       }
     }
+    .cart-button {
+      position: relative;
+      .control-icon {
+        height: 1.8rem;
+      }
+      .items-count {
+        position: absolute;
+        top: -0.5rem;
+        right: -0.5rem;
+        background-color: #ef4444;
+        color: white;
+        border-radius: 50%;
+        width: 1.5rem;
+        height: 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.8rem;
+      }
+    }
     .control-icon {
-      height: 1rem;
+      height: 1.5rem;
       width: auto;
-      margin: 1rem 0 0.4rem;
       &.initial {
         background-color: #f5e5e5;
         display: flex;
@@ -798,7 +806,7 @@
 .currency-wrapper {
   position: fixed;
   border-radius: 0.4rem;
-  background-color: #f3f4f6;
+  background-color: #f3f4f6a4;
   top: 7rem;
   right: 0;
   z-index: 100;
