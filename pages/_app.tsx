@@ -1,11 +1,7 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import { AppProps } from "next/app";
 import "../styles/styles.scss";
-import Layout, {
-  ConfirmModal,
-  ConfirmParams,
-  Toaster
-} from "../components/layout/Layout";
+import Layout from "../components/layout/Layout";
 import SettingsContext, {
   Breadcrumb,
   NotifyType,
@@ -33,6 +29,8 @@ import { getDefaultCurrency } from "../utils/helpers/type-conversions";
 import { Order } from "../utils/types/Order";
 import ProgressBar from "../components/progress-bar/ProgressBar";
 import Head from "next/head";
+import ConfirmModal, { ConfirmParams } from "../components/layout/ConfirmModal";
+import Toaster from "../components/layout/Toaster";
 
 const defaultSettings: Settings = {
   currency: defaultCurrency,

@@ -14,7 +14,10 @@ function Custom404Page() {
         <div className={styles["text"]}>
           <p>Oops</p>
           <p className="text-medium">Page not found</p>
-          <p>We couldn’t find the page you were looking for. Please crosscheck your URL. If this issue persists, kindly contact us.</p>
+          <p>
+            We couldn’t find the page you were looking for. Please crosscheck
+            your URL. If this issue persists, kindly contact us.
+          </p>
           <Link href="/">
             <button className="button">GO TO HOME</button>
           </Link>

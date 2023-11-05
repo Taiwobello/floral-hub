@@ -40,3 +40,5 @@ export const Toaster = (props: ToasterProps) => {
     </div>
   );
 };
+
+export default Toaster;
