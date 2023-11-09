@@ -179,8 +179,13 @@ const ProductsPage: FunctionComponent<{
   };
 const changeHeroContent = () =>{
   const url = window.location.href.split("/").slice(3);
-  const content = breadcrumbItems.find(value => url[1] === value.url || url[0] === value.url)
-  content ? setUpdateHeroContent(content.label) : setUpdateHeroContent( "Romance, Birthdays & Anniversary" )
+  if (url[1] == "indoor-plants-and-cactus"){
+    setUpdateHeroContent("Indoor Plants and Cactus")
+  }else{
+    const content = breadcrumbItems.find(value => url[1] === value.url || url[0] === value.url)
+    content ? setUpdateHeroContent(content.label) : setUpdateHeroContent("Romance, Birthdays & Anniversary")
+  }
+
   
 
 }
@@ -398,7 +403,12 @@ const changeHeroContent = () =>{
                   <div className={styles["hero-text"]}>
                     <Breadcrumb items={crumbItems} />
                       <p>
-                      {!isGiftPage ? `${updateHeroContent.toUpperCase()} FLOWERS` : updateHeroContent.toUpperCase()}
+                      {!isGiftPage
+                        ? updateHeroContent === "Indoor Plants and Cactus"
+                          ? updateHeroContent.toUpperCase()
+                          : updateHeroContent.toUpperCase() + " FLOWERS" 
+                        : updateHeroContent.toUpperCase()
+                      }
                     
                       </p>
                     <p className="text-small">

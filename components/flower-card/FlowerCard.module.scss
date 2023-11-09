@@ -115,13 +115,15 @@
         }
   }
   .buy-btn {
-    background-image: url("/icons/add-box-line.svg");
     height: 30px;
-    width: 30px;
-    background-position: center center;
-    background-size: cover;
+    transition: width 1s ease;
 
-    @media (max-width: 400px) {
+    @media (min-width:420px) {
+      width: 41%;
+      text-align: end;
+      }
+    
+    @media (max-width: 420px) {
       background-image: none;
       color: white;
       background-color: #B240DA;
@@ -130,8 +132,31 @@
     }
   }
   .buy-btn:hover{
-    transform: scale(1.2);
+    @media (min-width: 420px) {
+        background-image: none;
+          background-color: #B240DA;
+          color: white;
+          width: 50%;
+          text-align: center;
+      }
+
   }
+  .buy-btn:hover >img{
+     display: none;
+  }
+  .buy-btn>img {
+  height: 30px;
+  width: 30px;
+ 
+
+}
+  .buy-btn:hover>p{
+    display: inline;
+  }
+  .buy-btn > p{
+    display: none;
+  }
+
   .gift-btn{
     padding: 0.8rem 0.6rem;
     min-width: 6rem;
@@ -150,7 +175,7 @@
       justify-content: space-between;
     }
 
-    @media (max-width: 400px) {
+    @media (max-width: 420px) {
       .price-text{
        margin-right: 3.5rem;
       }

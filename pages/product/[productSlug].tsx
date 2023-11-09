@@ -132,7 +132,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
         src: product.images[0].src,
         alt: product.images[0].alt
       },
-      SKU: selectedSize?.sku as string
+      SKU: selectedSize?.sku as string,
     };
 
     const existingCartItem = cartItems.find(
