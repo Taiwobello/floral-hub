@@ -152,11 +152,11 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
                     )}
                     <p className="bold price">{getPriceDisplay(price, currency)}</p>
                   </div>
-
                     <button
                       className={`${styles["buy-btn"]} text-small bold`}
                       onClick={e => cart && handleAddToCart(e)}
                       disabled={outOfStock}
+                    > 
                     
                       {deviceType === "mobile" ? "ADD TO CART" : (<><img src="/icons/add-box-line.svg" alt="" /> <p>ADD TO CART</p></>)}
                     </button>

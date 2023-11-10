@@ -240,7 +240,6 @@ const Cart: FunctionComponent<CartContextProps> = props => {
 
       }
     }
-    console.log(cartItems)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderId, currentStage]);
 

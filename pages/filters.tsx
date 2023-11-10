@@ -175,7 +175,6 @@ const ProductsPage: FunctionComponent<{
       setJustToSayText(JustToSayTexts[count]);
     }
   };
-
 const changeHeroContent = () =>{
   const url = window.location.href.split("/").slice(3);
   if (url[1] == "indoor-plants-and-cactus"){
@@ -188,7 +187,6 @@ const changeHeroContent = () =>{
   
 
 }
-
   const handleClearFIlter = () => {
     setSelectedFilter([]);
     router.push(`/product-category/${categorySlug}`, undefined, {
@@ -400,6 +398,7 @@ const changeHeroContent = () =>{
                 <>
                   <div className={styles["hero-text"]}>
                     <Breadcrumb items={crumbItems} />
+                 
                       <p>
                       {!isGiftPage
                         ? updateHeroContent === "Indoor Plants and Cactus"
@@ -409,7 +408,6 @@ const changeHeroContent = () =>{
                       }
                     
                       </p>
-
                     <p className="text-small">
                       Congratulations! Another year of love and laughter with
                       your other half. Whether you’ve been together one year or
