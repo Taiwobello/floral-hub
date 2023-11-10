@@ -175,15 +175,18 @@ const ProductsPage: FunctionComponent<{
       setJustToSayText(JustToSayTexts[count]);
     }
   };
-  const changeHeroContent = () => {
-    const url = window.location.href.split("/").slice(3);
-    const content = breadcrumbItems.find(
-      value => url[1] === value.url || url[0] === value.url
-    );
-    content
-      ? setUpdateHeroContent(content.label)
-      : setUpdateHeroContent("Romance, Birthdays & Anniversary");
-  };
+const changeHeroContent = () =>{
+  const url = window.location.href.split("/").slice(3);
+  if (url[1] == "indoor-plants-and-cactus"){
+    setUpdateHeroContent("Indoor Plants and Cactus")
+  }else{
+    const content = breadcrumbItems.find(value => url[1] === value.url || url[0] === value.url)
+    content ? setUpdateHeroContent(content.label) : setUpdateHeroContent("Romance, Birthdays & Anniversary")
+  }
+
+  
+
+}
   const handleClearFIlter = () => {
     setSelectedFilter([]);
     router.push(`/product-category/${categorySlug}`, undefined, {
@@ -395,11 +398,16 @@ const ProductsPage: FunctionComponent<{
                 <>
                   <div className={styles["hero-text"]}>
                     <Breadcrumb items={crumbItems} />
-                    <p>
+                 
+                      <p>
                       {!isGiftPage
-                        ? `${updateHeroContent.toUpperCase()} FLOWERS`
-                        : updateHeroContent.toUpperCase()}
-                    </p>
+                        ? updateHeroContent === "Indoor Plants and Cactus"
+                          ? updateHeroContent.toUpperCase()
+                          : updateHeroContent.toUpperCase() + " FLOWERS" 
+                        : updateHeroContent.toUpperCase()
+                      }
+                    
+                      </p>
                     <p className="text-small">
                       Congratulations! Another year of love and laughter with
                       your other half. Whether you’ve been together one year or
