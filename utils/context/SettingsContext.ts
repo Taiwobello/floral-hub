@@ -3,7 +3,7 @@ import { createContext } from "react";
 import { AppCurrency, CartItem, Settings, Stage } from "../types/Core";
 import User from "../types/User";
 import { Order } from "../types/Order";
-import { ConfirmParams } from "../../components/layout/Layout";
+import { ConfirmParams } from "../../components/layout/ConfirmModal";
 
 export type NotifyType = "success" | "error" | "info";
 

@@ -59,8 +59,13 @@
     width: fit-content;
     min-width: 0;
     padding: 0;
-    color: #b240da;
+    color: inherit;
     background-color: unset;
+    font-weight: unset;
+  }
+
+  &.rounded {
+    border-radius: 0.3rem;
   }
 
   &.responsive {

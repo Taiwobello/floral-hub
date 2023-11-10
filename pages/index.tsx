@@ -178,10 +178,10 @@ const LandingPage: FunctionComponent<{
   return (
     <>
       <Meta
-        title="Regal Flowers | Same Day Flower Delivery Shop in Lagos and Abuja, Nigeria"
+        title="Floral Hub | Same Day Flower Delivery Shop in Lagos and Abuja, Nigeria"
         description="Order flowers and gifts online for same-day delivery or walk in 24/7. Send flowers to celebrate someone special from the top flower shop in Lagos & Abuja, Nigeria."
         image="/images/popular-bundled.jpg"
-        imageAlt="Regal Flowers"
+        imageAlt="Floral Hub"
         canonicalUrl={`${regalWebsiteUrl}`}
       >
         <SchemaMarkup properties={schemaProperties} />

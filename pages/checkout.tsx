@@ -22,6 +22,7 @@ import Select, { Option } from "../components/select/Select";
 import {
   allDeliveryLocationOptions,
   allDeliveryLocationZones,
+  checkoutContent,
   deliveryStates,
   freeDeliveryThreshold,
   freeDeliveryThresholdVals,
@@ -68,7 +69,6 @@ import {
   removeCountryCode
 } from "../utils/helpers/type-conversions";
 import { Recipient } from "../utils/types/User";
-import { Stage } from "../utils/types/Core";
 import PhoneInput from "../components/phone-input/PhoneInput";
 import { emailValidator } from "../utils/helpers/validators";
 import { getResidentTypes } from "../utils/helpers/data/residentTypes";
@@ -76,6 +76,7 @@ import { formatPhoneNumber } from "../utils/helpers/formatters";
 import AppStorage, {
   AppStorageConstants
 } from "../utils/helpers/storage-helpers";
+import Breadcrumb from "../components/breadcrumb/Breadcrumb";
 
 const initialData: CheckoutFormData = {
   senderName: "",
@@ -117,29 +118,11 @@ type DeliverStage =
   | "payment"
   | "customization-message";
 
-interface Tab {
-  tabTitle: string;
-  TabKey: Stage;
-}
-
-const tabs: Tab[] = [
-  {
-    tabTitle: "Delivery",
-    TabKey: 1
-  },
-  {
-    tabTitle: "Payment",
-    TabKey: 2
-  },
-  {
-    tabTitle: "Done",
-    TabKey: 3
-  }
-];
-
 type TransferName = "gtbTransfer" | "natwestTransfer" | "bitcoinTransfer";
 
 const transferList = ["gtbTransfer", "natwestTransfer", "bitcoinTransfer"];
+
+const breadcrumbItems = [{ label: "Home", link: "/" }, { label: "Checkout" }];
 
 const Checkout: FunctionComponent = () => {
   const [formData, setFormData] = useState<CheckoutFormData>(initialData);
@@ -158,9 +141,7 @@ const Checkout: FunctionComponent = () => {
   const [transferName, settransferName] = useState<TransferName | null>(null);
   const [showPaymentDetails, setShowPaymentDetails] = useState(false);
 
-  const [deliveryStage, setDeliveryStage] = useState<DeliverStage>(
-    "sender-info"
-  );
+  const [, setDeliveryStage] = useState<DeliverStage>("sender-info");
   const [allPurposes, setAllPurposes] = useState<Option[]>([]);
   const [allresidentTypes, setAllResidentTypes] = useState<Option[]>([]);
   const [selectedRecipient, setSelectedRecipient] = useState<Recipient | null>(
@@ -178,13 +159,13 @@ const Checkout: FunctionComponent = () => {
     deliveryDate,
     setDeliveryDate,
     setShouldShowCart,
-    redirect,
     setShouldShowAuthDropdown,
     order,
     confirm,
     setCartItems,
     setOrderId,
-    orderLoading
+    orderLoading,
+    cartItems
   } = useContext(SettingsContext);
 
   const deviceType = useDeviceType();
@@ -463,6 +444,9 @@ const Checkout: FunctionComponent = () => {
   }, [order]);
 
   useEffect(() => {
+    if (isReady && !user) {
+      setShouldShowAuthDropdown(true);
+    }
     if (user && !formData.senderName && !formData.senderEmail) {
       setFormData({
         ...formData,
@@ -472,8 +456,9 @@ const Checkout: FunctionComponent = () => {
         senderCountryCode: user.phoneCountryCode
       });
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [user, isReady]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -755,1170 +740,135 @@ const Checkout: FunctionComponent = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        {deviceType === "desktop" ? (
-          <section className={styles["checkout-page"]}>
-            {currentStage <= 2 && (
-              <div className={styles["checkout-wrapper"]}>
-                <div className={`${styles.left}`}>
-                  {currentStage === 1 && (
-                    <>
-                      {redirect && (
-                        <Link href={redirect}>
-                          <a className="margin-bottom">{"< Back to Shop"}</a>
-                        </Link>
-                      )}
-
-                      <div className={`${styles.border} margin-top`}>
-                        <p className={styles["payment-info"]}>
-                          Sender's Information
-                        </p>
-                        <div className={styles.padding}>
-                          <div className="flex spaced-xl">
-                            <div className="input-group half-width">
-                              <span className="question">Name</span>
-                              <Input
-                                name="name"
-                                placeholder="Name"
-                                value={formData.senderName}
-                                onChange={value =>
-                                  handleChange("senderName", value)
-                                }
-                                dimmed
-                                required
-                                responsive
-                              />
-                            </div>
-                            <div className="input-group half-width">
-                              <span className="question">Email</span>
-                              <Input
-                                name="email"
-                                placeholder="Email"
-                                value={formData.senderEmail}
-                                onChange={value =>
-                                  handleChange("senderEmail", value)
-                                }
-                                dimmed
-                                responsive
-                                required={formData.freeAccount}
-                              />
-                            </div>
-                          </div>
-                          <div className="flex spaced-xl">
-                            <PhoneInput
-                              phoneNumber={formData.senderPhoneNumber}
-                              countryCode={formData.senderCountryCode}
-                              onChangePhoneNumber={value =>
-                                handleChange("senderPhoneNumber", value)
-                              }
-                              onChangeCountryCode={value =>
-                                handleChange("senderCountryCode", value)
-                              }
-                              className="input-group half-width"
-                              countryCodePlaceholder="Code"
-                            />
-
-                            <div className="input-group half-width">
-                              <span className="question">
-                                Pickup/Delivery Date
-                              </span>
-                              <DatePicker
-                                value={deliveryDate}
-                                onChange={date => handleDateChange(date)}
-                                format="D MMMM YYYY"
-                                responsive
-                                disablePastDays
-                              />
-                            </div>
-                          </div>
-                          {!user && (
-                            <div
-                              className={`input-group spaced-xl compact ${styles["password"]}`}
-                            >
-                              <span className="question">Create Password</span>
-                              <Input
-                                name="password"
-                                type="password"
-                                placeholder="Password"
-                                value={formData.senderPassword}
-                                onChange={value =>
-                                  handleChange("senderPassword", value)
-                                }
-                                dimmed
-                                autoComplete="new-password"
-                                required={formData.freeAccount}
-                                showPasswordIcon
-                                disabled={!formData.freeAccount}
-                              />
-                            </div>
-                          )}
-
-                          {!user && (
-                            <div className="flex between center-align">
-                              <Checkbox
-                                checked={formData.freeAccount}
-                                onChange={value =>
-                                  handleChange("freeAccount", value)
-                                }
-                                text="Create a Free Account"
-                              />
-                              <div className="flex center">
-                                <span className="margin-right">
-                                  Already a user?
-                                </span>
-                                <Button
-                                  type="plain"
-                                  onClick={() =>
-                                    setShouldShowAuthDropdown(true)
-                                  }
-                                >
-                                  Login
-                                </Button>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      {!isSenderInfoCompleted && (
-                        <Button
-                          loading={savingSenderInfo}
-                          onClick={handleSaveSenderInfo}
-                        >
-                          Continue
-                        </Button>
-                      )}
-
-                      {isSenderInfoCompleted && (
-                        <div
+        <section className={styles["checkout-page"]}>
+          <Breadcrumb items={breadcrumbItems} />
+          <h1 className={[styles.title, styles["margin-bottom"]].join(" ")}>
+            CHECKOUT
+          </h1>
+          {currentStage <= 2 && (
+            <div className={styles["checkout-wrapper"]}>
+              <div className={`${styles.left}`}>
+                {currentStage === 1 && (
+                  <>
+                    <div
+                      className={`${styles.section} ${styles["margin-bottom"]} margin-top`}
+                    >
+                      <p className={[styles["section-title"]].join(" ")}>
+                        Who is sending this order?
+                      </p>
+                      {!user && (
+                        <p
                           className={[
-                            styles.border,
-                            styles["delivey-method"]
+                            "text-center text-medium",
+                            styles["margin-bottom"]
                           ].join(" ")}
                         >
-                          <p className={styles["payment-info"]}>
-                            Delivery Method
-                          </p>
-                          <div className={styles.padding}>
-                            <div className="flex between center-align">
-                              <div
-                                className={[
-                                  styles.method,
-                                  formData.deliveryMethod === "pick-up" &&
-                                    styles.active
-                                ].join(" ")}
-                                onClick={() =>
-                                  handleChange("deliveryMethod", "pick-up")
-                                }
-                              >
-                                <p className={`${styles["method-title"]}`}>
-                                  Pick Up
-                                </p>
-                                <p>Pick up from our stores</p>
-                              </div>
-                              <div
-                                className={[
-                                  styles.method,
-                                  formData.deliveryMethod === "delivery" &&
-                                    styles.active
-                                ].join(" ")}
-                                onClick={() =>
-                                  handleChange("deliveryMethod", "delivery")
-                                }
-                              >
-                                <p className={`${styles["method-title"]}`}>
-                                  Delivery
-                                </p>
-                                <p>
-                                  Get it delivered to the recipient's location
-                                </p>
-                              </div>
-                            </div>
-                            <div className="margin-top primary-color">
-                              <em>
-                                {["13-02", "14-02", "15-02"].includes(
-                                  deliveryDate?.format("DD-MM") || ""
-                                ) && formData.deliveryMethod === "delivery"
-                                  ? `Free Valentine (Feb 13th, 14th, 15th) Delivery in selected zones across Lagos and Abuja on orders above ${
-                                      currency.sign
-                                    }${freeDeliveryThresholdVals[
-                                      currency.name
-                                    ].toLocaleString()}`
-                                  : formData.deliveryMethod === "delivery"
-                                  ? `Free Delivery in selected zones across Lagos and Abuja on orders above ${
-                                      currency.sign
-                                    }${freeDeliveryThreshold[
-                                      currency.name
-                                    ].toLocaleString()}`
-                                  : ""}
-                              </em>
-                            </div>
-
-                            {formData.deliveryMethod === "delivery" && (
-                              <div className="flex spaced-xl">
-                                <div className="input-group">
-                                  <span className="question">
-                                    Delivery State
-                                  </span>
-                                  <Select
-                                    onSelect={value => {
-                                      handleChange("state", value);
-                                    }}
-                                    value={formData.state}
-                                    options={deliveryStates}
-                                    placeholder="Select a state"
-                                    responsive
-                                    dimmed
-                                  />
-                                </div>
-                                {formData.state &&
-                                  formData.state !== "other-locations" && (
-                                    <div className="input-group">
-                                      <span className="question">
-                                        Delivery Zones
-                                      </span>
-                                      <Select
-                                        onSelect={value =>
-                                          handleChange("zone", value)
-                                        }
-                                        value={formData.zone}
-                                        options={deliveryZoneOptions}
-                                        placeholder="Select a zone"
-                                        responsive
-                                        dimmed
-                                        dropdownOnTop
-                                        optionColor="gray-white"
-                                      />
-                                    </div>
-                                  )}
-                              </div>
-                            )}
-
-                            {formData.deliveryMethod === "delivery" &&
-                              formData.zone && (
-                                <div className={styles["pickup-locations"]}>
-                                  {deliveryLocationOptions.length > 0 && (
-                                    <p className="primary-color align-icon normal-text bold margin-bottom">
-                                      <InfoRedIcon />
-                                      <span className="margin-left">
-                                        Delivery Locations
-                                      </span>
-                                    </p>
-                                  )}
-
-                                  {deliveryLocationOptions.length === 0 && (
-                                    <div className="flex center-align primary-color normal-text margin-bottom spaced">
-                                      <InfoRedIcon className="generic-icon xl" />
-                                      <span>
-                                        At the moment, we only deliver VIP
-                                        Orders to other states on request, by
-                                        either chartering a vehicle or by
-                                        flight. Kindly contact us on
-                                        Phone/WhatsApp:
-                                        <br />
-                                        <a
-                                          href="tel:+2347011992888"
-                                          className="clickable neutral underline"
-                                        >
-                                          +234 7011992888
-                                        </a>
-                                        ,{" "}
-                                        <a
-                                          href="tel:+2347010006665"
-                                          className="clickable neutral underline"
-                                        >
-                                          +234 7010006665
-                                        </a>
-                                      </span>
-                                    </div>
-                                  )}
-
-                                  {deliveryLocationOptions.map(
-                                    locationOption => {
-                                      return (
-                                        <div
-                                          className="vertical-margin spaced"
-                                          key={locationOption.name}
-                                        >
-                                          <Radio
-                                            label={locationOption.label}
-                                            onChange={() =>
-                                              handleChange(
-                                                "deliveryLocation",
-                                                locationOption
-                                              )
-                                            }
-                                            disabled={
-                                              locationOption.name !==
-                                              (
-                                                (selectedZone?.value as string) ||
-                                                ""
-                                              )?.split("-")[0]
-                                            }
-                                            checked={
-                                              formData.deliveryLocation
-                                                ?.name === locationOption.name
-                                            }
-                                          />
-                                        </div>
-                                      );
-                                    }
-                                  )}
-                                </div>
-                              )}
-
-                            {formData.deliveryMethod === "pick-up" && (
-                              <div className={styles["pickup-locations"]}>
-                                <p className="primary-color align-icon normal-text bold margin-bottom">
-                                  <InfoRedIcon />
-                                  <span className="margin-left">
-                                    Pick Up Locations
-                                  </span>
-                                </p>
-                                <div>
-                                  <Radio
-                                    label="Lagos Pickup - 81b, Lafiaji Way, Dolphin Estate, Ikoyi, Lagos"
-                                    onChange={() =>
-                                      handleChange("pickUpLocation", "Lagos")
-                                    }
-                                    checked={
-                                      formData.pickUpLocation === "Lagos"
-                                    }
-                                  />
-                                </div>
-                                <div className="vertical-margin">
-                                  <Radio
-                                    label="Abuja Pickup - 5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja"
-                                    onChange={() =>
-                                      handleChange("pickUpLocation", "Abuja")
-                                    }
-                                    checked={
-                                      formData.pickUpLocation === "Abuja"
-                                    }
-                                  />
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      )}
-                      {formData.deliveryMethod === "delivery" &&
-                        completedDeliveryLocation && (
-                          <div className={styles.border}>
-                            <p className={styles["payment-info"]}>
-                              Receiver's Information
-                            </p>
-                            <div className={styles.padding}>
-                              <div className="input-group">
-                                <span className="question flex spaced">
-                                  <span>Select A Past Recipient </span>
-                                  {user ? (
-                                    <em className="normal">(if available)</em>
-                                  ) : (
-                                    <span className="normal flex spaced">
-                                      (
-                                      <button
-                                        onClick={() =>
-                                          setShouldShowAuthDropdown(true)
-                                        }
-                                        className="primary-color bold"
-                                        type="button"
-                                      >
-                                        Login
-                                      </button>
-                                      <span>to use</span>)
-                                    </span>
-                                  )}
-                                </span>
-
-                                <Select
-                                  onSelect={value => {
-                                    setSelectedRecipient(
-                                      user?.recipients.find(
-                                        recipient => recipient._id === value
-                                      ) || null
-                                    );
-                                  }}
-                                  value={
-                                    selectedRecipient
-                                      ? selectedRecipient._id
-                                      : ""
-                                  }
-                                  options={pastRecipients}
-                                  placeholder="Select Past Recipient"
-                                  responsive
-                                  dimmed
-                                />
-                              </div>
-                              <div className="flex center-align spaced vertical-margin">
-                                <span className={styles["line-through"]}></span>
-                                <span>OR</span>
-                                <span className={styles["line-through"]}></span>
-                              </div>
-                              <div className="flex spaced-xl margin-bottom">
-                                <div className="input-group">
-                                  <span className="question">Full Name</span>
-                                  <Input
-                                    name="name"
-                                    placeholder="Enter recipient name"
-                                    value={formData.recipientName}
-                                    onChange={value =>
-                                      handleChange("recipientName", value)
-                                    }
-                                    dimmed
-                                  />
-                                </div>
-
-                                <PhoneInput
-                                  phoneNumber={formData.recipientPhoneNumber}
-                                  countryCode={formData.recipientCountryCode}
-                                  onChangePhoneNumber={value =>
-                                    handleChange("recipientPhoneNumber", value)
-                                  }
-                                  onChangeCountryCode={value =>
-                                    handleChange("recipientCountryCode", value)
-                                  }
-                                  className="input-group"
-                                  question="Receiver Phone number"
-                                  countryCodePlaceholder="Code"
-                                />
-                              </div>
-
-                              <div className="flex spaced-xl margin-bottom">
-                                <PhoneInput
-                                  phoneNumber={formData.recipientPhoneNumberAlt}
-                                  countryCode={formData.recipientCountryCodeAlt}
-                                  onChangePhoneNumber={value =>
-                                    handleChange(
-                                      "recipientPhoneNumberAlt",
-                                      value
-                                    )
-                                  }
-                                  onChangeCountryCode={value =>
-                                    handleChange(
-                                      "recipientCountryCodeAlt",
-                                      value
-                                    )
-                                  }
-                                  className="input-group"
-                                  question="Enter alternative phone (if available)"
-                                  countryCodePlaceholder="Code"
-                                />
-                                <div className="input-group">
-                                  <span className="question">
-                                    Residence Type
-                                  </span>
-
-                                  <Select
-                                    onSelect={value =>
-                                      handleChange("residenceType", value)
-                                    }
-                                    value={formData.residenceType}
-                                    options={allresidentTypes}
-                                    placeholder="Select a residence type"
-                                    responsive
-                                    dimmed
-                                  />
-                                </div>
-                              </div>
-                              <div className="input-group">
-                                <span className="question">
-                                  Detailed Address
-                                </span>
-
-                                <TextArea
-                                  value={formData.recipientHomeAddress}
-                                  placeholder="To help us deliver better, please be detailed as possible"
-                                  onChange={value =>
-                                    handleChange("recipientHomeAddress", value)
-                                  }
-                                  dimmed
-                                  rows={3}
-                                />
-                              </div>
-                              <div className="input-group">
-                                <span className="question">
-                                  Any Delivery Instructions
-                                </span>
-
-                                <TextArea
-                                  value={formData.deliveryInstruction}
-                                  placeholder="e.g. Ask for security guard called Segun"
-                                  onChange={value =>
-                                    handleChange("deliveryInstruction", value)
-                                  }
-                                  dimmed
-                                  rows={3}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      {(formData.deliveryMethod === "delivery"
-                        ? completedReceiverInfo
-                        : completedPickUpLocation) && (
-                        <div className={styles.border}>
-                          <p className={styles["payment-info"]}>
-                            Optional Message
-                          </p>
-                          <div className={styles.padding}>
-                            <div className="input-group">
-                              <span className="question">
-                                Message to include
-                              </span>
-
-                              <TextArea
-                                value={formData.message}
-                                placeholder="Eg: I love you"
-                                onChange={value =>
-                                  handleChange("message", value)
-                                }
-                                dimmed
-                                rows={3}
-                              />
-                            </div>
-                            <div className="input-group">
-                              <span className="question">
-                                Additional Information for Us
-                              </span>
-
-                              <TextArea
-                                value={formData.additionalInfo}
-                                onChange={value =>
-                                  handleChange("additionalInfo", value)
-                                }
-                                dimmed
-                                rows={3}
-                              />
-                            </div>
-                            <div className="input-group half-width">
-                              <span className="question">Purpose</span>
-
-                              <Select
-                                onSelect={value =>
-                                  handleChange("purpose", value)
-                                }
-                                value={formData.purpose}
-                                options={allPurposes}
-                                placeholder="Select Purpose"
-                                responsive
-                                dropdownOnTop
-                                dimmed
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      )}
-
-                      {isSenderInfoCompleted && (
-                        <Button
-                          className="half-width"
-                          loading={loading}
-                          buttonType="submit"
-                        >
-                          Proceed to Payment
-                        </Button>
-                      )}
-                    </>
-                  )}
-                  {currentStage === 2 && (
-                    <>
-                      <button
-                        onClick={() => setCurrentStage(1)}
-                        className="margin-bottom"
-                      >
-                        {"<< Back To Checkout"}
-                      </button>
-                      <div className={styles.border}>
-                        <p className={styles["payment-info"]}>Payment Method</p>
-                        <div className={styles.padding}>
-                          <div className="flex center-align spaced-lg vertical-margin spaced">
-                            <p className="normal-text bold ">
-                              Select your preferred currency
-                            </p>
-                            <div className="flex spaced-lg">
-                              {allCurrencies.map((_currency, index) => (
-                                <button
-                                  key={index}
-                                  onClick={() => setCurrency(_currency)}
-                                  className={[
-                                    styles.currency,
-                                    currency.name === _currency.name &&
-                                      styles.active
-                                  ].join(" ")}
-                                  type="button"
-                                >
-                                  {_currency.sign}
-                                </button>
-                              ))}
-                            </div>
-                          </div>
-                          <p
-                            className={`${styles.info} flex center-align spaced`}
+                          {" "}
+                          <button
+                            onClick={() => setShouldShowAuthDropdown(true)}
+                            className="primary-color underline"
+                            type="button"
                           >
-                            <InfoIcon fill="#1C6DD0" />{" "}
-                            <span>
-                              Kindly select $ or £ for international payment
-                              options
-                            </span>{" "}
-                          </p>
-                          <div className={styles["payment-methods"]}>
-                            <p
-                              className={`${styles.info} flex center-align spaced margin-bottom`}
-                            >
-                              <InfoIcon fill="#1C6DD0" />{" "}
-                              <span>
-                                Payment issues? Simply Email
-                                payments@regalflowers.com.ng or Call/Whatsapp
-                                +2347011992888
-                              </span>{" "}
-                            </p>
-                            {paymentMethods.map((method, index) => (
-                              <div key={index}>
-                                <div
-                                  className={[
-                                    styles.method,
-                                    !method.supportedCurrencies.includes(
-                                      currency.name
-                                    ) && styles.inactive,
-                                    transferList.includes(method.paymentName) &&
-                                      !method.supportedCurrencies.includes(
-                                        currency.name
-                                      ) &&
-                                      styles.remove
-                                  ].join(" ")}
-                                  onClick={
-                                    method.supportedCurrencies.includes(
-                                      currency.name
-                                    )
-                                      ? () =>
-                                          paymentHandlerMap[
-                                            method.paymentName
-                                          ]()
-                                      : undefined
-                                  }
-                                  title={
-                                    !method.supportedCurrencies.includes(
-                                      currency.name
-                                    )
-                                      ? `This payment method does not support ${currency.name}`
-                                      : ""
-                                  }
-                                >
-                                  <div className="flex spaced-lg center-align">
-                                    {method.icon}
-                                    <div>
-                                      <p className="normal-text bold">
-                                        {method.title}
-                                      </p>
-                                      <p>{method.info}</p>
-                                    </div>
-                                  </div>
-                                  <div className="flex spaced center-align">
-                                    {method.other?.map((other, index) => (
-                                      <div key={index}>{other.icon}</div>
-                                    ))}
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                          <div className={styles.security}>
-                            {" "}
-                            <div className={styles["lock-icon"]}>
-                              <img
-                                src="icons/lock.svg"
-                                className={`generic-icon small `}
-                                alt="lock"
-                              />
-                            </div>{" "}
-                            We protect your payment information using encryption
-                            to provide bank-level security.
-                          </div>
-                        </div>
-                      </div>
-                    </>
-                  )}
-                </div>
-
-                {currentStage <= 2 && (
-                  <div className={styles.right}>
-                    <div className="flex between margin-bottom spaced">
-                      <p className="sub-heading bold">Cart Summary</p>
-                      <p
-                        className="sub-heading bold primary-color underline clickable"
-                        onClick={() => setShouldShowCart(true)}
-                      >
-                        View Cart
-                      </p>
-                    </div>
-                    <div className={`${styles.border} padded`}>
-                      <div className="flex between ">
-                        <span className="normal-text">Subtotal</span>
-                        <span className="normal-text bold">
-                          {getPriceDisplay(subTotal || 0, currency)}
-                        </span>
-                      </div>
-
-                      {formData.deliveryMethod === "delivery" && (
-                        <div className="flex between">
-                          <span className="normal-text">Delivery</span>
-                          <span className="normal-text bold">
-                            {getPriceDisplay(
-                              formData.deliveryLocation?.amount || 0,
-                              currency
-                            )}
-                          </span>
-                        </div>
+                            Login
+                          </button>{" "}
+                          to quickly complete checkout
+                        </p>
                       )}
-                      <div className="flex center-align">
-                        <div className="input-group">
+
+                      <div
+                        className={[
+                          "flex center-align spaced",
+                          styles["margin-bottom"]
+                        ].join(" ")}
+                      >
+                        <span className={styles["line-through"]}></span>
+                        <strong>Or</strong>
+                        <span className={styles["line-through"]}></span>
+                      </div>
+
+                      <div
+                        className={`flex  ${
+                          deviceType === "mobile" ? "column" : "spaced-xl"
+                        }`}
+                      >
+                        <div
+                          className={`input-group ${
+                            deviceType === "desktop" ? "half-width" : ""
+                          }`}
+                        >
+                          <span className="question">Name</span>
                           <Input
-                            placeholder="Enter Coupon Code"
-                            value={formData.coupon}
-                            onChange={value => handleChange("coupon", value)}
+                            name="name"
+                            placeholder="John Doe"
+                            value={formData.senderName}
+                            onChange={value =>
+                              handleChange("senderName", value)
+                            }
                             dimmed
+                            required
                             responsive
                           />
                         </div>
-                        <Button className={styles["apply-btn"]}>Apply</Button>
-                      </div>
-                      <hr className={`${styles.hr} hr`} />
-                      <div className="flex between margin-bottom">
-                        <span className="normal-text">Total</span>
-                        <span className="normal-text bold">
-                          {getPriceDisplay(total, currency)}
-                        </span>
-                      </div>
-                      {currentStage === 1 && (
-                        <Button
-                          responsive
-                          buttonType="submit"
-                          loading={loading}
-                        >
-                          Proceed to Payment
-                        </Button>
-                      )}
-                    </div>
-                    {currentStage === 1 && (
-                      <div>
-                        <p className="margin-bottom spaced normal-text">
-                          Accepted Payments
-                        </p>
                         <div
-                          className={`${styles["accepted-payments"]} flex between`}
+                          className={`input-group ${
+                            deviceType === "desktop" ? "half-width" : ""
+                          }`}
                         >
-                          <img
-                            src="/icons/visa.svg"
-                            alt="visa"
-                            className="generic-icon large"
-                          />
-                          <img
-                            src="/icons/master-card.svg"
-                            alt="master card"
-                            className="generic-icon large"
-                          />
-                          <img
-                            src="/icons/paypal-blue.svg"
-                            alt="paypal"
-                            className="generic-icon large"
-                          />
-                          <img
-                            src="/icons/paystack.png"
-                            alt="pay stack"
-                            className="generic-icon large"
+                          <span className="question">Email Address</span>
+                          <Input
+                            name="email"
+                            placeholder="johndoe@gmail,com"
+                            value={formData.senderEmail}
+                            onChange={value =>
+                              handleChange("senderEmail", value)
+                            }
+                            dimmed
+                            responsive
+                            required={formData.freeAccount}
                           />
                         </div>
                       </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            )}
-            {currentStage === 3 && isPaid && (
-              <div
-                className={[
-                  "flex between",
-                  styles["completed-checkout-wrapper"]
-                ].join(" ")}
-              >
-                <div className={styles["complete-checkout"]}>
-                  <div className="text-center">
-                    <img
-                      src="icons/checkout-complete.svg"
-                      alt="completed"
-                      className={`text-center ${styles["complete-image"]}`}
-                    />
-                    {isBankTransfer ? (
-                      <p className={styles["order-received"]}>
-                        Order Received Pending Payment Confirmation
-                      </p>
-                    ) : (
-                      <p className={styles["order-received"]}>
-                        Order Received Successfully
-                      </p>
-                    )}
-                    <p className={styles["order-number"]}>
-                      Order No:{" "}
-                      <span className={styles.bold}>
-                        {order?.fullOrderId || ""}
-                      </span>
-                    </p>
-
-                    <div
-                      className={`flex column center-align spaced normal-text ${styles["order-info"]}`}
-                    >
-                      <p>
-                        Your order was received, please note your order number
-                        in every correspondence with us.
-                      </p>
-                      <div className="flex spaced">
-                        <img
-                          src="icons/info.svg"
-                          alt="information"
-                          className={["generic-icon", styles.icon].join(" ")}
-                        />
-                        <p>
-                          If your order is a pickup, please mention your order
-                          number on arrival.
-                        </p>
-                      </div>
-                      {formData.deliveryMethod === "pick-up" &&
-                        pickupLocations[formData.pickUpLocation as string]}
-                    </div>
-
-                    <Button
-                      className={styles["shopping-btn"]}
-                      onClick={() =>
-                        router.push(
-                          "/product-category/flowers-for-love-birthday-anniversary-etc"
-                        )
-                      }
-                    >
-                      Continue Shopping
-                    </Button>
-                    {isDelivered(order?.deliveryStatus) && (
-                      <Link href="/#">
-                        <a className={styles.track}>Track Order</a>
-                      </Link>
-                    )}
-                  </div>
-
-                  {!user && (
-                    <div className={styles["account-wrapper"]}>
-                      <div className="sub-heading bold margin-bottom">
-                        Create a Free Account
-                      </div>
-                      <div className="margin-bottom spaced">
-                        Manage orders, address book and save time when checking
-                        out by creating a free account today!
-                      </div>
-                      <Button className="half-width">
-                        Create a Free Account
-                      </Button>
-                    </div>
-                  )}
-                </div>
-                <div className={styles["order-summary"]}>
-                  <p className="sub-heading bold">Order Summary</p>
-                  {isBankTransfer ? (
-                    <p className="normal-text">
-                      For any issues/enquiries, please email
-                      <a
-                        href={`mailto:${regalEmail}`}
-                        className="underline blue"
-                      >
-                        {regalEmail}
-                      </a>{" "}
-                      or call/text/whatsapp +234 7011992888, +234 7010006665,
-                      +234 7010006664
-                    </p>
-                  ) : (
-                    <p className="normal-text">
-                      Payment successful. A copy has been sent to your mail for
-                      reference.
-                    </p>
-                  )}
-                  <div className="vertical-margin spaced center-align">
-                    <p className={[styles.detail].join(" ")}>
-                      Sender's Information
-                    </p>
-                    <hr className="hr vertical-margin" />
-                    <div className={[styles["order-detail"]].join(" ")}>
-                      <div className="flex column spaced">
-                        <div className={styles["order-detail"]}>
-                          <span className="flex between">
-                            <strong>Name</strong>
-                            <span className={styles["detail-value"]}>
-                              {formData.senderName}
-                            </span>
-                          </span>
-                          <span className="flex between">
-                            <strong>Phone Number</strong>
-                            <span className={styles["detail-value"]}>
-                              {formData.senderPhoneNumber}
-                            </span>
-                          </span>
-                          <span className="flex between">
-                            <strong>Email</strong>
-                            <span className={styles["detail-value"]}>
-                              {formData.senderEmail}
-                            </span>
-                          </span>
-                          <span className="flex between">
-                            <strong>Delivery Date</strong>
-                            <span className={styles["detail-value"]}>
-                              {deliveryDate?.format("DD MMMM, YYYY")}
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {formData.deliveryMethod === "pick-up" && (
-                    <div className="vertical-margin spaced center-align">
-                      <p className={[styles.detail].join(" ")}>
-                        Pick Up Location
-                      </p>
-                      <hr className="hr vertical-margin" />
-                      <div className={[styles["order-detail"]].join(" ")}>
-                        {pickupLocations[formData.pickUpLocation as string]}
-                      </div>
-                    </div>
-                  )}
-                  {formData.deliveryMethod === "delivery" && (
-                    <div className="vertical-margin spaced center-align">
-                      <p className={[styles.detail].join(" ")}>
-                        Receiver's Information
-                      </p>
-                      <hr className="hr vertical-margin" />
                       <div
-                        className={[
-                          styles["order-detail"],
-                          "flex column spaced"
-                        ].join(" ")}
+                        className={`flex  ${
+                          deviceType === "mobile" ? "column" : "spaced-xl"
+                        }`}
                       >
-                        <div className={styles["order-detail"]}>
-                          <span className="flex between">
-                            <strong>Name</strong>
-                            <span className={styles["detail-value"]}>
-                              {formData.recipientName}
-                            </span>
-                          </span>
-                          <span className="flex between">
-                            <strong>Phone Number</strong>
-                            <span className={styles["detail-value"]}>
-                              {formData.recipientPhoneNumber}
-                            </span>
-                          </span>
-                          <span className="flex between">
-                            <strong>Address</strong>
-                            <span className={styles["detail-value"]}>
-                              {formData.recipientHomeAddress}
-                            </span>
-                          </span>
-                          <span className="flex between">
-                            <strong>Residence Type</strong>
-                            <span className={styles["detail-value"]}>
-                              {formData.residenceType}
-                            </span>
-                          </span>
-                          <span className="flex between">
-                            <strong>Delivery Instructions</strong>
-                            <span className={styles["detail-value"]}>
-                              {formData.deliveryInstruction}
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="vertical-margin spaced center-align">
-                    <p className={[styles.detail].join(" ")}>
-                      Optional Message
-                    </p>
-                    <hr className="hr vertical-margin" />
-                    <div className={[styles["order-detail"]].join(" ")}>
-                      <div className="flex column spaced">
-                        <div className={styles["order-detail"]}>
-                          {formData.message && (
-                            <span className="flex between">
-                              <strong>Message</strong>
-                              <span className={styles["detail-value"]}>
-                                {formData.message}
-                              </span>
-                            </span>
-                          )}
-                          {formData.additionalInfo && (
-                            <span className="flex between">
-                              <strong>Additional Info</strong>
-                              <span className={styles["detail-value"]}>
-                                {formData.additionalInfo}
-                              </span>
-                            </span>
-                          )}
-                          {formData.purpose && (
-                            <span className="flex between">
-                              <strong>Purpose</strong>
-                              <span className={styles["detail-value"]}>
-                                {formData.purpose}
-                              </span>
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="vertical-margin spaced center-align">
-                    <p className={[styles.detail].join(" ")}>Order Details</p>
-
-                    <hr className="hr vertical-margin" />
-
-                    <div className={[styles["order-details"]].join(" ")}>
-                      {order?.orderProducts?.map((item, index) => (
-                        <div key={index} className="flex column spaced">
-                          <div className={styles["order-detail"]}>
-                            <span className="flex between">
-                              <strong>Name</strong>
-                              <span className={styles["detail-value"]}>
-                                {item.name}
-                              </span>
-                            </span>
-                            <span className="flex between">
-                              <strong>Qty</strong>
-                              <span className={styles["detail-value"]}>
-                                {item.quantity}
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <p className={[styles.detail, "margin-bottom"].join(" ")}>
-                    Payment Details
-                  </p>
-                  <hr className="hr margin-bottom spaced" />
-                  <div className={[styles["order-detail"]].join(" ")}>
-                    <div className="flex between  margin-bottom spaced">
-                      <strong>Subtotal</strong>
-                      <span>{getPriceDisplay(subTotal || 0, currency)}</span>
-                    </div>
-
-                    <div className="flex between  margin-bottom spaced">
-                      <div>
-                        <strong>Delivery</strong>
-                      </div>
-                      <span>
-                        {getPriceDisplay(
-                          formData.deliveryLocation?.amount || 0,
-                          currency
-                        )}
-                      </span>
-                    </div>
-                    <div className="flex between  margin-bottom spaced">
-                      <div>
-                        <strong>Payment Method</strong>
-                      </div>
-                      <span>
-                        {order?.paymentStatus
-                          ?.match(/\(.+\)/)?.[0]
-                          ?.replace(/[()]/g, "")}
-                      </span>
-                    </div>
-                    <hr className="hr margin-bottom spaced" />
-                    <div className="flex between sub-heading margin-bottom spaced">
-                      <span>Total</span>
-                      <span className="bold primary-color">
-                        {getPriceDisplay(total, currency)}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </section>
-        ) : (
-          <section className={styles["checkout-mobile"]}>
-            <div className={styles.tabs}>
-              {tabs.map((tab, index) => (
-                <div
-                  key={index}
-                  className={[
-                    styles.tab,
-                    currentStage === tab.TabKey && styles.active
-                  ].join(" ")}
-                  // onClick={() => setActiveTab(tab.TabKey)}
-                >
-                  {tab.tabTitle}
-                </div>
-              ))}
-            </div>
-            <div className={styles.content}>
-              {currentStage === 1 && (
-                <div>
-                  <Link href={redirect}>
-                    <a className="margin-bottom spaced">{"< Back to Shop"}</a>
-                  </Link>
-                  {deliveryStage === "sender-info" && (
-                    <div>
-                      <div className="flex align-center between">
-                        <p className={styles.title}>Sender's Information</p>
-                      </div>
-                      <div className="input-group">
-                        <span className="question">Name</span>
-                        <Input
-                          name="name"
-                          placeholder="Name"
-                          value={formData.senderName}
-                          onChange={value => handleChange("senderName", value)}
-                          dimmed
-                          responsive
-                          required
-                        />
-                      </div>
-                      <div className="input-group">
-                        <span className="question">Email</span>
-                        <Input
-                          name="email"
-                          placeholder="Email"
-                          value={formData.senderEmail}
-                          onChange={value => handleChange("senderEmail", value)}
-                          dimmed
-                          responsive
-                          required={formData.freeAccount}
-                          onBlurValidation={() =>
-                            emailValidator(formData.senderEmail)
+                        <PhoneInput
+                          phoneNumber={formData.senderPhoneNumber}
+                          countryCode={formData.senderCountryCode}
+                          onChangePhoneNumber={value =>
+                            handleChange("senderPhoneNumber", value)
                           }
+                          onChangeCountryCode={value =>
+                            handleChange("senderCountryCode", value)
+                          }
+                          className={`input-group ${
+                            deviceType === "desktop" ? "half-width" : ""
+                          }`}
+                          countryCodePlaceholder="Code"
                         />
-                      </div>
-                      <PhoneInput
-                        phoneNumber={formData.senderPhoneNumber}
-                        countryCode={formData.senderCountryCode}
-                        onChangePhoneNumber={value =>
-                          handleChange("senderPhoneNumber", value)
-                        }
-                        onChangeCountryCode={value =>
-                          handleChange("senderCountryCode", value)
-                        }
-                        className="input-group"
-                        countryCodePlaceholder="Code"
-                      />
 
-                      <div className="input-group">
-                        <span className="question">Pickup/Delivery Date</span>
-                        <DatePicker
-                          value={deliveryDate}
-                          onChange={date => handleDateChange(date)}
-                          format="D MMMM YYYY"
-                          responsive
-                          disablePastDays
-                          dropdownTop
-                        />
+                        <div
+                          className={`input-group ${
+                            deviceType === "desktop" ? "half-width" : ""
+                          }`}
+                        >
+                          <span className="question">Pickup/Delivery Date</span>
+                          <DatePicker
+                            value={deliveryDate}
+                            onChange={date => handleDateChange(date)}
+                            format="D MMMM YYYY"
+                            responsive
+                            disablePastDays
+                          />
+                        </div>
                       </div>
                       {!user && (
-                        <div className="input-group">
+                        <div
+                          className={`input-group spaced-xl ${
+                            deviceType === "desktop" ? "compact" : ""
+                          } ${styles["password"]}`}
+                        >
                           <span className="question">Create Password</span>
                           <Input
                             name="password"
@@ -1929,7 +879,6 @@ const Checkout: FunctionComponent = () => {
                               handleChange("senderPassword", value)
                             }
                             dimmed
-                            responsive
                             autoComplete="new-password"
                             required={formData.freeAccount}
                             showPasswordIcon
@@ -1939,7 +888,7 @@ const Checkout: FunctionComponent = () => {
                       )}
 
                       {!user && (
-                        <div className="flex between">
+                        <div className="flex between center-align">
                           <Checkbox
                             checked={formData.freeAccount}
                             onChange={value =>
@@ -1947,369 +896,299 @@ const Checkout: FunctionComponent = () => {
                             }
                             text="Create a Free Account"
                           />
-                          <p className="flex spaced">
-                            <span>or</span>
+                          <div className="flex center">
+                            <span className="margin-right">
+                              Already a user?
+                            </span>
                             <Button
                               type="plain"
                               onClick={() => setShouldShowAuthDropdown(true)}
-                              className="primary-color"
                             >
                               Login
                             </Button>
-                          </p>
+                          </div>
                         </div>
                       )}
-
+                    </div>
+                    {!isSenderInfoCompleted && (
                       <Button
                         loading={savingSenderInfo}
                         onClick={handleSaveSenderInfo}
-                        className="vertical-margin xl"
                       >
                         Continue
                       </Button>
-                      <p className={styles.next}>
-                        Next: <strong>Delivery Type</strong>
-                      </p>
-                    </div>
-                  )}
+                    )}
 
-                  {deliveryStage === "delivery-type" && (
-                    <>
-                      <div className="flex between">
-                        <p className={styles.title}>Sender's Information</p>
-                        <strong
-                          onClick={() => setDeliveryStage("sender-info")}
-                          className="primary-color underline"
-                        >
-                          Edit
-                        </strong>
-                      </div>
+                    {isSenderInfoCompleted && (
                       <div
-                        className={[styles["sender-info"], "normal-text"].join(
-                          " "
-                        )}
+                        className={[
+                          styles.section,
+                          styles["delivey-method"]
+                        ].join(" ")}
                       >
-                        {formData.senderName && <p>{formData.senderName}</p>}
-                        {formData.senderEmail && <p>{formData.senderEmail}</p>}
-                        {formData.senderPhoneNumber && (
-                          <p>{formData.senderPhoneNumber}</p>
-                        )}
-                        {deliveryDate && (
-                          <p>{deliveryDate.format("dddd, MMMM DD YYYY")}</p>
-                        )}
-                      </div>
-
-                      <div>
-                        <p className={styles.title}>Delivery Method</p>
-                        <div>
-                          <div className="margin-top">
-                            <em>
-                              {["13-02", "14-02", "15-02"].includes(
-                                deliveryDate?.format("DD-MM") || ""
-                              )
-                                ? `Free Valentine (Feb 13th, 14th, 15th) Delivery in selected zone in Lagos and Abuja on orders above ${
-                                    currency.sign
-                                  }${freeDeliveryThresholdVals[
-                                    currency.name
-                                  ].toLocaleString()}`
-                                : formData.deliveryMethod === "delivery"
-                                ? `Free Delivery in selected in Lagos and Abuja on orders above ${
-                                    currency.sign
-                                  }${freeDeliveryThreshold[
-                                    currency.name
-                                  ].toLocaleString()}`
-                                : ""}
-                            </em>
-                          </div>
-                          <div className="vertical-margin spaced">
-                            <Radio
-                              label="Pick Up"
-                              onChange={() =>
-                                handleChange("deliveryMethod", "pick-up")
-                              }
-                              checked={formData.deliveryMethod === "pick-up"}
-                            />
-                          </div>
-                          {formData.deliveryMethod === "pick-up" && (
-                            <div className={styles["pickup-locations"]}>
-                              <p className="align-icon normal-text bold margin-bottom">
-                                Pick Up Locations
-                              </p>
-                              <div>
-                                <Radio
-                                  label="Lagos Pickup - 81b, Lafiaji Way, Dolphin Estate, Ikoyi, Lagos"
-                                  onChange={() =>
-                                    handleChange("pickUpLocation", "Lagos")
-                                  }
-                                  checked={formData.pickUpLocation === "Lagos"}
-                                />
-                              </div>
-                              <div className="vertical-margin">
-                                <Radio
-                                  label="Abuja Pickup - 5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja"
-                                  onChange={() =>
-                                    handleChange("pickUpLocation", "Abuja")
-                                  }
-                                  checked={formData.pickUpLocation === "Abuja"}
-                                />
-                              </div>
-                            </div>
-                          )}
-                          <div className="vertical-margin spaced">
-                            <Radio
-                              label="Delivery"
-                              onChange={() =>
-                                handleChange("deliveryMethod", "delivery")
-                              }
-                              checked={formData.deliveryMethod === "delivery"}
-                            />
-                          </div>
-                          {formData.deliveryMethod === "delivery" && (
-                            <>
-                              <div className="input-group">
-                                <span className="question">Delivery State</span>
-                                <Select
-                                  onSelect={value =>
-                                    handleChange("state", value)
-                                  }
-                                  value={formData.state}
-                                  options={deliveryStates}
-                                  placeholder="Select a state"
-                                  responsive
-                                  dimmed
-                                />
-                              </div>
-
-                              {formData.state &&
-                                formData.state !== "other-locations" && (
-                                  <div className="input-group">
-                                    <span className="question">
-                                      Delivery Zones
-                                    </span>
-                                    <Select
-                                      onSelect={value =>
-                                        handleChange("zone", value)
-                                      }
-                                      value={formData.zone}
-                                      options={deliveryZoneOptions}
-                                      placeholder="Select a zone"
-                                      responsive
-                                      dimmed
-                                      dropdownOnTop
-                                      optionColor="gray-white"
-                                    />
-                                  </div>
-                                )}
-                            </>
-                          )}
-
-                          {formData.deliveryMethod === "delivery" &&
-                            formData.zone && (
-                              <div className={styles["pickup-locations"]}>
-                                {deliveryLocationOptions.length > 0 && (
-                                  <p className="primary-color align-icon normal-text bold margin-bottom">
-                                    <InfoRedIcon />
-                                    <span className="margin-left">
-                                      Delivery Locations
-                                    </span>
-                                  </p>
-                                )}
-
-                                {deliveryLocationOptions.length === 0 && (
-                                  <div className="flex center-align primary-color normal-text margin-bottom spaced">
-                                    <InfoRedIcon className="generic-icon xl" />
-                                    <span>
-                                      At the moment, we only deliver VIP Orders
-                                      to other states on request, by either
-                                      chartering a vehicle or by flight. Kindly
-                                      contact us on Phone/WhatsApp:
-                                      <br />
-                                      <a
-                                        href="tel:+2347011992888"
-                                        className="clickable neutral underline"
-                                      >
-                                        +234 7011992888
-                                      </a>
-                                      ,{" "}
-                                      <a
-                                        href="tel:+2347010006665"
-                                        className="clickable neutral underline"
-                                      >
-                                        +234 7010006665
-                                      </a>
-                                    </span>
-                                  </div>
-                                )}
-
-                                {deliveryLocationOptions.map(locationOption => {
-                                  return (
-                                    <div
-                                      className="vertical-margin spaced"
-                                      key={locationOption.name}
-                                    >
-                                      <Radio
-                                        label={locationOption.label}
-                                        onChange={() =>
-                                          handleChange(
-                                            "deliveryLocation",
-                                            locationOption
-                                          )
-                                        }
-                                        disabled={
-                                          locationOption.name !==
-                                          (
-                                            (selectedZone?.value as string) ||
-                                            ""
-                                          )?.split("-")[0]
-                                        }
-                                        checked={
-                                          formData.deliveryLocation?.name ===
-                                          locationOption.name
-                                        }
-                                      />
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            )}
-                        </div>
-                      </div>
-
-                      <Button
-                        onClick={() => {
-                          const isDeliveryMethodComplete = validateDeliveryMethod();
-                          if (!isDeliveryMethodComplete) {
-                            return;
-                          }
-                          setDeliveryStage(
-                            formData.deliveryMethod === "delivery"
-                              ? "receiver"
-                              : "customization-message"
-                          );
-                        }}
-                        className="vertical-margin xl"
-                        responsive
-                      >
-                        Continue
-                      </Button>
-                      <p className={styles.next}>
-                        Next:{" "}
-                        <strong>
-                          {formData.deliveryMethod === "delivery"
-                            ? "Receiver's Information"
-                            : "Customization Message"}
-                        </strong>
-                      </p>
-                    </>
-                  )}
-
-                  {deliveryStage === "receiver" && (
-                    <>
-                      <div className="flex between">
-                        <p className={styles.title}>Sender's Information</p>
-                        <strong
-                          onClick={() => setDeliveryStage("sender-info")}
-                          className="primary-color underline"
-                        >
-                          Edit
-                        </strong>
-                      </div>
-                      <div
-                        className={[styles["sender-info"], "normal-text"].join(
-                          " "
-                        )}
-                      >
-                        {formData.senderName && <p>{formData.senderName}</p>}
-                        {formData.senderEmail && <p>{formData.senderEmail}</p>}
-                        {formData.senderPhoneNumber && (
-                          <p>{formData.senderPhoneNumber}</p>
-                        )}
-                        {deliveryDate && (
-                          <p>{deliveryDate.format("dddd, MMMM DD YYYY")}</p>
-                        )}
-                      </div>
-                      {formData.deliveryMethod && (
-                        <div className="flex between">
-                          <p className={styles.title}>Delivery Type</p>
-                          <strong
-                            onClick={() => setDeliveryStage("delivery-type")}
-                            className="primary-color underline"
-                          >
-                            Edit
-                          </strong>
-                        </div>
-                      )}
-                      {formData.deliveryMethod === "delivery" &&
-                        formData.state && (
+                        <p className={styles["section-title"]}>
+                          Delivery Method
+                        </p>
+                        <div className="flex between center-align">
                           <div
-                            className={`${styles["sender-info"]} normal-text flex between`}
+                            className={[
+                              styles.method,
+                              formData.deliveryMethod === "pick-up" &&
+                                styles.active
+                            ].join(" ")}
+                            onClick={() =>
+                              handleChange("deliveryMethod", "pick-up")
+                            }
                           >
-                            <p>Delivery</p>
-                            {formData.state && (
-                              <p className="capitalize">{formData.state}</p>
-                            )}
+                            <p className={`${styles["method-title"]}`}>
+                              Pick Up
+                            </p>
+                            <p>Pick up from our stores</p>
                           </div>
-                        )}
-                      {formData.deliveryMethod === "pick-up" &&
-                        formData.pickUpLocation && (
                           <div
-                            className={`${styles["sender-info"]} normal-text flex between`}
+                            className={[
+                              styles.method,
+                              formData.deliveryMethod === "delivery" &&
+                                styles.active
+                            ].join(" ")}
+                            onClick={() =>
+                              handleChange("deliveryMethod", "delivery")
+                            }
                           >
-                            <p>Pick Up</p>
-                            {<p>{formData.pickUpLocation}</p>}
+                            <p className={`${styles["method-title"]}`}>
+                              Delivery
+                            </p>
+                            <p>Get it delivered to the recipient's location</p>
                           </div>
-                        )}
-                      {formData.deliveryMethod === "delivery" && (
-                        <div>
-                          <p className={styles.title}>Receiver's Information</p>
-                          <div className={styles.padding}>
+                        </div>
+                        <div className="margin-top primary-color">
+                          <em>
+                            {["13-02", "14-02", "15-02"].includes(
+                              deliveryDate?.format("DD-MM") || ""
+                            ) && formData.deliveryMethod === "delivery"
+                              ? `Free Valentine (Feb 13th, 14th, 15th) Delivery in selected zones across Lagos and Abuja on orders above ${
+                                  currency.sign
+                                }${freeDeliveryThresholdVals[
+                                  currency.name
+                                ].toLocaleString()}`
+                              : formData.deliveryMethod === "delivery"
+                              ? `Free Delivery in selected zones across Lagos and Abuja on orders above ${
+                                  currency.sign
+                                }${freeDeliveryThreshold[
+                                  currency.name
+                                ].toLocaleString()}`
+                              : ""}
+                          </em>
+                        </div>
+
+                        {formData.deliveryMethod === "delivery" && (
+                          <div className="flex spaced-xl">
                             <div className="input-group">
-                              <span className="question flex spaced">
-                                <span>Select A Past Recipient </span>
-                                {user ? (
-                                  <em className="normal">(if available)</em>
-                                ) : (
-                                  <span className="normal flex spaced">
-                                    (
-                                    <button
-                                      onClick={() =>
-                                        setShouldShowAuthDropdown(true)
-                                      }
-                                      className="primary-color bold"
-                                      type="button"
-                                    >
-                                      Login
-                                    </button>
-                                    <span>to use</span>)
-                                  </span>
-                                )}
-                              </span>
-
+                              <span className="question">Delivery State</span>
                               <Select
                                 onSelect={value => {
-                                  setSelectedRecipient(
-                                    user?.recipients.find(
-                                      recipient => recipient._id === value
-                                    ) || null
-                                  );
+                                  handleChange("state", value);
                                 }}
-                                value={
-                                  selectedRecipient ? selectedRecipient._id : ""
-                                }
-                                options={pastRecipients}
-                                placeholder="Select Past Recipient"
+                                value={formData.state}
+                                options={deliveryStates}
+                                placeholder="Select a state"
                                 responsive
                                 dimmed
-                                optionColor="gray-white"
                               />
                             </div>
-                            <div className="flex center-align spaced vertical-margin">
-                              <span className={styles["line-through"]}></span>
-                              <span>OR</span>
-                              <span className={styles["line-through"]}></span>
-                            </div>
+                            {formData.state &&
+                              formData.state !== "other-locations" && (
+                                <div className="input-group">
+                                  <span className="question">
+                                    Delivery Zones
+                                  </span>
+                                  <Select
+                                    onSelect={value =>
+                                      handleChange("zone", value)
+                                    }
+                                    value={formData.zone}
+                                    options={deliveryZoneOptions}
+                                    placeholder="Select a zone"
+                                    responsive
+                                    dimmed
+                                    dropdownOnTop
+                                    optionColor="gray-white"
+                                  />
+                                </div>
+                              )}
+                          </div>
+                        )}
 
-                            <div className="input-group">
+                        {formData.deliveryMethod === "delivery" &&
+                          formData.zone && (
+                            <div className={styles["pickup-locations"]}>
+                              {deliveryLocationOptions.length > 0 && (
+                                <p className="primary-color align-icon normal-text bold margin-bottom">
+                                  <InfoRedIcon />
+                                  <span className="margin-left">
+                                    Delivery Locations
+                                  </span>
+                                </p>
+                              )}
+
+                              {deliveryLocationOptions.length === 0 && (
+                                <div className="flex center-align primary-color normal-text margin-bottom spaced">
+                                  <InfoRedIcon className="generic-icon xl" />
+                                  <span>
+                                    At the moment, we only deliver VIP Orders to
+                                    other states on request, by either
+                                    chartering a vehicle or by flight. Kindly
+                                    contact us on Phone/WhatsApp:
+                                    <br />
+                                    <a
+                                      href="tel:+2347011992888"
+                                      className="clickable neutral underline"
+                                    >
+                                      +234 7011992888
+                                    </a>
+                                    ,{" "}
+                                    <a
+                                      href="tel:+2347010006665"
+                                      className="clickable neutral underline"
+                                    >
+                                      +234 7010006665
+                                    </a>
+                                  </span>
+                                </div>
+                              )}
+
+                              {deliveryLocationOptions.map(locationOption => {
+                                return (
+                                  <div
+                                    className="vertical-margin spaced"
+                                    key={locationOption.name}
+                                  >
+                                    <Radio
+                                      label={locationOption.label}
+                                      onChange={() =>
+                                        handleChange(
+                                          "deliveryLocation",
+                                          locationOption
+                                        )
+                                      }
+                                      disabled={
+                                        locationOption.name !==
+                                        (
+                                          (selectedZone?.value as string) || ""
+                                        )?.split("-")[0]
+                                      }
+                                      checked={
+                                        formData.deliveryLocation?.name ===
+                                        locationOption.name
+                                      }
+                                    />
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
+
+                        {formData.deliveryMethod === "pick-up" && (
+                          <div className={styles["pickup-locations"]}>
+                            <p className="primary-color align-icon normal-text bold margin-bottom flex spaced">
+                              <span>Pick Up Locations</span>
+                              <InfoRedIcon />
+                            </p>
+                            <div>
+                              <Radio
+                                label="Lagos Pickup - 81b, Lafiaji Way, Dolphin Estate, Ikoyi, Lagos"
+                                onChange={() =>
+                                  handleChange("pickUpLocation", "Lagos")
+                                }
+                                checked={formData.pickUpLocation === "Lagos"}
+                              />
+                            </div>
+                            <div className="vertical-margin">
+                              <Radio
+                                label="Abuja Pickup - 5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja"
+                                onChange={() =>
+                                  handleChange("pickUpLocation", "Abuja")
+                                }
+                                checked={formData.pickUpLocation === "Abuja"}
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {formData.deliveryMethod === "delivery" &&
+                      completedDeliveryLocation && (
+                        <div className={styles.section}>
+                          <p className={styles["section-title"]}>
+                            Who is this order for?
+                          </p>
+                          <p
+                            className={[
+                              "text-center text-medium",
+                              styles["margin-bottom"]
+                            ].join(" ")}
+                          >
+                            <span>Select A Past Recipient </span>
+                            {user ? (
+                              <em className="normal">(if available)</em>
+                            ) : (
+                              <>
+                                {" "}
+                                <span>
+                                  <button
+                                    onClick={() =>
+                                      setShouldShowAuthDropdown(true)
+                                    }
+                                    className="primary-color underline"
+                                    type="button"
+                                  >
+                                    Login
+                                  </button>{" "}
+                                  to select a past recipient
+                                </span>
+                              </>
+                            )}
+                          </p>
+                          <div
+                            className={[
+                              "flex center-align spaced",
+                              styles["margin-bottom"]
+                            ].join(" ")}
+                          >
+                            <span className={styles["line-through"]}></span>
+                            <strong>Or</strong>
+                            <span className={styles["line-through"]}></span>
+                          </div>
+                          <div className="input-group">
+                            <Select
+                              onSelect={value => {
+                                setSelectedRecipient(
+                                  user?.recipients.find(
+                                    recipient => recipient._id === value
+                                  ) || null
+                                );
+                              }}
+                              value={
+                                selectedRecipient ? selectedRecipient._id : ""
+                              }
+                              options={pastRecipients}
+                              placeholder="Select Past Recipient"
+                              responsive
+                              dimmed
+                            />
+                          </div>
+
+                          <div
+                            className={`flex  ${
+                              deviceType === "mobile" ? "column" : "spaced-xl"
+                            }`}
+                          >
+                            <div
+                              className={`input-group ${
+                                deviceType === "desktop" ? "half-width" : ""
+                              }`}
+                            >
                               <span className="question">Full Name</span>
                               <Input
                                 name="name"
@@ -2319,7 +1198,6 @@ const Checkout: FunctionComponent = () => {
                                   handleChange("recipientName", value)
                                 }
                                 dimmed
-                                responsive
                               />
                             </div>
 
@@ -2336,7 +1214,13 @@ const Checkout: FunctionComponent = () => {
                               question="Receiver Phone number"
                               countryCodePlaceholder="Code"
                             />
+                          </div>
 
+                          <div
+                            className={`flex  ${
+                              deviceType === "mobile" ? "column" : "spaced-xl"
+                            }`}
+                          >
                             <PhoneInput
                               phoneNumber={formData.recipientPhoneNumberAlt}
                               countryCode={formData.recipientCountryCodeAlt}
@@ -2364,139 +1248,44 @@ const Checkout: FunctionComponent = () => {
                                 dimmed
                               />
                             </div>
-                            <div className="input-group">
-                              <span className="question">Detailed Address</span>
-
-                              <TextArea
-                                value={formData.recipientHomeAddress}
-                                placeholder="To help us deliver better, please be detailed as possible"
-                                onChange={value =>
-                                  handleChange("recipientHomeAddress", value)
-                                }
-                                dimmed
-                                rows={3}
-                              />
-                            </div>
-                            <div className="input-group">
-                              <span className="question">
-                                Any Delivery Instructions
-                              </span>
-
-                              <TextArea
-                                value={formData.deliveryInstruction}
-                                placeholder="e.g. Ask for security guard called Segun"
-                                onChange={value =>
-                                  handleChange("deliveryInstruction", value)
-                                }
-                                dimmed
-                                rows={3}
-                              />
-                            </div>
                           </div>
-                          <Button
-                            onClick={() => {
-                              const isReceiverInfoComplete = validateReceiverInfo();
+                          <div className="input-group">
+                            <span className="question">Detailed Address</span>
 
-                              if (!isReceiverInfoComplete) {
-                                return;
+                            <TextArea
+                              value={formData.recipientHomeAddress}
+                              placeholder="To help us deliver better, please be detailed as possible"
+                              onChange={value =>
+                                handleChange("recipientHomeAddress", value)
                               }
-                              setDeliveryStage("customization-message");
-                            }}
-                            className="vertical-margin xl"
-                            responsive
-                          >
-                            Continue
-                          </Button>
-                          <p className={styles.next}>
-                            Next: <strong>Customize Message</strong>
-                          </p>
-                        </div>
-                      )}
-                    </>
-                  )}
+                              dimmed
+                              rows={3}
+                            />
+                          </div>
+                          <div className="input-group">
+                            <span className="question">
+                              Optional Delivery Instructions
+                            </span>
 
-                  {deliveryStage === "customization-message" && (
-                    <>
-                      <div className="flex between">
-                        <p className={styles.title}>Sender's Information</p>
-                        <strong
-                          onClick={() => setDeliveryStage("sender-info")}
-                          className="primary-color underline"
-                        >
-                          Edit
-                        </strong>
-                      </div>
-                      <div
-                        className={[styles["sender-info"], "normal-text"].join(
-                          " "
-                        )}
-                      >
-                        {formData.senderName && <p>{formData.senderName}</p>}
-                        {formData.senderEmail && <p>{formData.senderEmail}</p>}
-                        {formData.senderPhoneNumber && (
-                          <p>{formData.senderPhoneNumber}</p>
-                        )}
-                        {deliveryDate && (
-                          <p>{deliveryDate.format("dddd, MMMM DD YYYY")}</p>
-                        )}
-                      </div>
-                      {formData.deliveryMethod && (
-                        <div className="flex between">
-                          <p className={styles.title}>Delivery Type</p>
-                          <strong
-                            onClick={() => setDeliveryStage("delivery-type")}
-                            className="primary-color underline"
-                          >
-                            Edit
-                          </strong>
-                        </div>
-                      )}
-                      {formData.deliveryMethod === "delivery" &&
-                        formData.state && (
-                          <div
-                            className={`${styles["sender-info"]} normal-text flex between`}
-                          >
-                            <p>Delivery</p>
-                            {formData.state && (
-                              <p className="capitalize">{formData.state}</p>
-                            )}
+                            <TextArea
+                              value={formData.deliveryInstruction}
+                              placeholder="e.g. Ask for security guard called Segun"
+                              onChange={value =>
+                                handleChange("deliveryInstruction", value)
+                              }
+                              dimmed
+                              rows={3}
+                            />
                           </div>
-                        )}
-                      {formData.deliveryMethod === "pick-up" &&
-                        formData.pickUpLocation && (
-                          <div
-                            className={`${styles["sender-info"]} normal-text flex between`}
-                          >
-                            <p>Pick Up</p>
-                            {<p>{formData.pickUpLocation}</p>}
-                          </div>
-                        )}
-                      {formData.deliveryMethod === "delivery" && (
-                        <div className="flex between">
-                          <p className={styles.title}>Receiver's Information</p>
-                          <strong
-                            onClick={() => setDeliveryStage("receiver")}
-                            className="primary-color underline"
-                          >
-                            Edit
-                          </strong>
                         </div>
                       )}
-                      {formData.deliveryMethod === "delivery" && (
-                        <div className={`${styles["sender-info"]} normal-text`}>
-                          <p>{formData.recipientName}</p>
-                          <p className={styles.grayed}>Pickup/Delivery Date</p>
-                          <p>{deliveryDate?.format("YYYY-MM-DD")}</p>
-                          <p>{formData.recipientPhoneNumber}</p>
-                          <p className={styles.grayed}>Alternative Number</p>
-                          <p>{formData.recipientPhoneNumberAlt}</p>
-                          <p>{formData.recipientHomeAddress}</p>
-                          <p className={styles.grayed}>Delivery Instructions</p>
-                          <p>{formData.deliveryInstruction}</p>
-                        </div>
-                      )}
-                      <div>
-                        <p className={styles.title}>Optional Message</p>
+                    {(formData.deliveryMethod === "delivery"
+                      ? completedReceiverInfo
+                      : completedPickUpLocation) && (
+                      <div className={styles.section}>
+                        <p className={styles["section-title"]}>
+                          Customize Message
+                        </p>
                         <div className="input-group">
                           <span className="question">Message to include</span>
 
@@ -2509,9 +1298,7 @@ const Checkout: FunctionComponent = () => {
                           />
                         </div>
                         <div className="input-group">
-                          <span className="question">
-                            Additional Information for Us
-                          </span>
+                          <span className="question">Personalized Message</span>
 
                           <TextArea
                             value={formData.additionalInfo}
@@ -2522,79 +1309,173 @@ const Checkout: FunctionComponent = () => {
                             rows={3}
                           />
                         </div>
-                        <div className="input-group">
-                          <span className="question">Purpose</span>
+                        <div className="input-group half-width">
+                          <span className="question">Occasion</span>
 
                           <Select
                             onSelect={value => handleChange("purpose", value)}
                             value={formData.purpose}
                             options={allPurposes}
-                            placeholder="Select Purpose"
+                            placeholder="Select Occasion"
                             responsive
+                            dropdownOnTop
                             dimmed
                           />
                         </div>
-                        <Button
-                          buttonType="submit"
-                          className="vertical-margin xl"
-                          loading={loading}
-                          responsive
-                        >
-                          Continue
-                        </Button>
-
-                        <p className={styles.next}>
-                          Next: <strong>Payment</strong>
-                        </p>
                       </div>
-                    </>
-                  )}
+                    )}
 
-                  <div className={styles.footer}>
-                    <p className="margin-bottom">Accepted Payment</p>
-                    <div
-                      className={`${styles["accepted-payments"]} flex between`}
+                    {isSenderInfoCompleted && (
+                      <Button
+                        className="half-width"
+                        loading={loading}
+                        buttonType="submit"
+                      >
+                        Proceed to Payment
+                      </Button>
+                    )}
+                  </>
+                )}
+                {currentStage === 2 && (
+                  <>
+                    <button
+                      onClick={() => setCurrentStage(1)}
+                      className="margin-bottom"
                     >
-                      <img
-                        src="/icons/visa.svg"
-                        alt="visa"
-                        className="generic-icon large"
-                      />
-                      <img
-                        src="/icons/master-card.svg"
-                        alt="master card"
-                        className="generic-icon large"
-                      />
-                      <img
-                        src="/icons/paypal-blue.svg"
-                        alt="paypal"
-                        className="generic-icon large"
-                      />
-                      <img
-                        src="/icons/paystack.png"
-                        alt="pay stack"
-                        className="generic-icon large"
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
+                      {"<< Back To Checkout"}
+                    </button>
+                    <div className={styles.section}>
+                      <p className={styles["section-title"]}>Secured Payment</p>
+                      <div
+                        className={[
+                          "flex center-align spaced-lg vertical-margin spaced",
+                          styles["currency-wrapper"]
+                        ].join(" ")}
+                      >
+                        <p className="normal-text bold ">Preferred Currency:</p>
+                        <div className="flex spaced-lg">
+                          {allCurrencies.map((_currency, index) => (
+                            <button
+                              key={index}
+                              onClick={() => setCurrency(_currency)}
+                              className={[
+                                styles.currency,
+                                currency.name === _currency.name &&
+                                  styles.active
+                              ].join(" ")}
+                              type="button"
+                            >
+                              {_currency.sign}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                      <p className={`${styles.info} flex center-align spaced`}>
+                        <InfoIcon fill="#1C6DD0" />{" "}
+                        <span>
+                          Kindly select $ or £ for international payment options
+                        </span>{" "}
+                      </p>
+                      <div className={styles["payment-methods"]}>
+                        <p
+                          className={`${styles.info} flex center-align spaced margin-bottom`}
+                        >
+                          <InfoIcon fill="#1C6DD0" />{" "}
+                          <span>
+                            Payment issues? Simply Email
+                            payments@regalflowers.com.ng or Call/Whatsapp
+                            +2347011992888
+                          </span>{" "}
+                        </p>
+                        {paymentMethods.map((method, index) => (
+                          <div key={index}>
+                            <div
+                              className={[
+                                styles.method,
+                                !method.supportedCurrencies.includes(
+                                  currency.name
+                                ) && styles.inactive,
+                                transferList.includes(method.paymentName) &&
+                                  !method.supportedCurrencies.includes(
+                                    currency.name
+                                  ) &&
+                                  styles.remove
+                              ].join(" ")}
+                              onClick={
+                                method.supportedCurrencies.includes(
+                                  currency.name
+                                )
+                                  ? () =>
+                                      paymentHandlerMap[method.paymentName]()
+                                  : undefined
+                              }
+                              title={
+                                !method.supportedCurrencies.includes(
+                                  currency.name
+                                )
+                                  ? `This payment method does not support ${currency.name}`
+                                  : ""
+                              }
+                            >
+                              <div className="flex spaced-lg center-align">
+                                <div className={styles["method-icon"]}>
+                                  {method.icon}
+                                </div>
 
-              {currentStage === 2 && (
-                <div className={styles["payment-tab"]}>
-                  <button
-                    onClick={() => setCurrentStage(1)}
-                    className="margin-bottom"
-                  >
-                    {"<< Back To Checkout"}
-                  </button>
-                  <div className={`${styles.border} padded`}>
+                                <div>
+                                  <p className="normal-text bold">
+                                    {method.title}
+                                  </p>
+                                  <p>{method.info}</p>
+                                </div>
+                              </div>
+                              <div className="flex spaced center-align">
+                                {method.other?.map((other, index) => (
+                                  <div key={index}>{other.icon}</div>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      <div className={styles.security}>
+                        {" "}
+                        <div className={styles["lock-icon"]}>
+                          <img
+                            src="icons/lock.svg"
+                            className={`generic-icon small `}
+                            alt="lock"
+                          />
+                        </div>{" "}
+                        We protect your payment information using encryption to
+                        provide bank-level security.
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {currentStage <= 2 && (
+                <div className={styles.right}>
+                  <div className={` ${styles.section}`}>
+                    <div className="flex between margin-bottom spaced">
+                      <p className="text-medium">
+                        Order Summary ({cartItems.length} items)
+                      </p>
+                      <p
+                        className="text-medium primary-color underline clickable"
+                        onClick={() => setShouldShowCart(true)}
+                      >
+                        View Cart
+                      </p>
+                    </div>
                     <div className="flex between ">
-                      <span className="normal-text">Sub Total</span>
+                      <span className="normal-text">Subtotal</span>
                       <span className="normal-text bold">
-                        {getPriceDisplay(subTotal, currency)}
+                        {getPriceDisplay(subTotal || 0, currency)}
                       </span>
                     </div>
+
                     {formData.deliveryMethod === "delivery" && (
                       <div className="flex between">
                         <span className="normal-text">Delivery</span>
@@ -2606,182 +1487,163 @@ const Checkout: FunctionComponent = () => {
                         </span>
                       </div>
                     )}
-                    <br />
-                    <hr className="hr" />
-                    <div className="flex between vertical-margin">
-                      <span className="normal-text">Total</span>
+                    <div className="flex center-align">
+                      <div className="input-group">
+                        <Input
+                          placeholder="Enter Coupon Code"
+                          value={formData.coupon}
+                          onChange={value => handleChange("coupon", value)}
+                          dimmed
+                          responsive
+                        />
+                      </div>
+                      <Button
+                        rounded
+                        type="accent"
+                        className={styles["apply-btn"]}
+                      >
+                        Apply
+                      </Button>
+                    </div>
+                    <hr className={`${styles.hr} hr`} />
+                    <div className="flex between margin-bottom">
+                      <span className="normal-text bold">Order Total</span>
                       <span className="normal-text bold">
-                        {getPriceDisplay(total || 0, currency)}
+                        {getPriceDisplay(total, currency)}
                       </span>
                     </div>
+                    {currentStage === 1 && (
+                      <Button responsive buttonType="submit" loading={loading}>
+                        Proceed to Payment
+                      </Button>
+                    )}
                   </div>
-
-                  <div className={styles.padding}>
-                    <div className="flex  spaced-lg column margin-bottom">
-                      <p className="normal-text bold vertical-margin spaced">
-                        Select your preferred currency
-                      </p>
-                      <div className="flex spaced-lg">
-                        {allCurrencies.map((_currency, index) => (
-                          <button
+                  <div>
+                    <div>
+                      <p className="margin-bottom spaced">Accepted Payments</p>
+                      <div
+                        className={`${styles["accepted-payments"]} flex between`}
+                      >
+                        {checkoutContent.paymentIcons.map((method, index) => (
+                          <img
+                            src={method.src}
+                            alt={method.alt}
+                            className="generic-icon medium"
                             key={index}
-                            onClick={() => setCurrency(_currency)}
-                            className={[
-                              styles.currency,
-                              currency.name === _currency.name && styles.active
-                            ].join(" ")}
-                            type="button"
-                          >
-                            {_currency.sign}
-                          </button>
+                          />
                         ))}
                       </div>
-                    </div>
-                    <p className={`${styles.info} flex center-align spaced`}>
-                      <InfoIcon fill="#1C6DD0" />{" "}
-                      <span>
-                        Kindly select $ or £ for international payment options
-                      </span>{" "}
-                    </p>
-
-                    <div className={styles["payment-methods"]}>
-                      <p className={`${styles.info} flex center-align spaced`}>
-                        <InfoIcon fill="#1C6DD0" />{" "}
-                        <span>
-                          Payment issues? Simply Email
-                          payments@regalflowers.com.ng or Call/Whatsapp
-                          +2347011992888
-                        </span>{" "}
-                      </p>
-                      {paymentMethods.map((method, index) => (
-                        <div key={index}>
-                          <div
-                            className={[
-                              styles.method,
-                              !method.supportedCurrencies.includes(
-                                currency.name
-                              ) && styles.inactive,
-                              transferList.includes(method.paymentName) &&
-                                !method.supportedCurrencies.includes(
-                                  currency.name
-                                ) &&
-                                styles.remove
-                            ].join(" ")}
-                            onClick={
-                              method.supportedCurrencies.includes(currency.name)
-                                ? () => paymentHandlerMap[method.paymentName]()
-                                : undefined
-                            }
-                            title={
-                              !method.supportedCurrencies.includes(
-                                currency.name
-                              )
-                                ? `This payment method does not support ${currency.name}`
-                                : ""
-                            }
-                          >
-                            <div className="flex spaced-lg center-align">
-                              {method.icon}
-                              <div>
-                                <p className="normal-text bold margin-bottom">
-                                  {method.title}
-                                </p>
-                                <p>{method.info}</p>
-                                <div className="flex spaced center-align">
-                                  {method.other?.map((other, index) => (
-                                    <div key={index}>{other.icon}</div>
-                                  ))}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className={styles.security}>
-                      {" "}
-                      <div className={styles["lock-icon"]}>
-                        <img
-                          src="icons/lock.svg"
-                          className={`generic-icon small `}
-                          alt="lock"
-                        />
-                      </div>{" "}
-                      We protect your payment information using encryption to
-                      provide bank-level security.
                     </div>
                   </div>
                 </div>
               )}
+            </div>
+          )}
+          {currentStage === 3 && isPaid && (
+            <div
+              className={[
+                `flex between ${deviceType === "mobile" ? "column" : ""}`,
+                styles["completed-checkout-wrapper"]
+              ].join(" ")}
+            >
+              <div className={styles["complete-checkout"]}>
+                <div className="text-center white-bg">
+                  <img
+                    src="icons/checkout-complete.svg"
+                    alt="completed"
+                    className={`text-center ${styles["complete-image"]}`}
+                  />
+                  {isBankTransfer ? (
+                    <p className={styles["order-received"]}>
+                      Order Received Pending Payment Confirmation
+                    </p>
+                  ) : (
+                    <p className={styles["order-received"]}>
+                      Order Received Successfully
+                    </p>
+                  )}
+                  <p className={styles["order-number"]}>
+                    Order No:{" "}
+                    <span className={styles.bold}>
+                      {order?.fullOrderId || ""}
+                    </span>
+                  </p>
 
-              {currentStage === 3 && (
-                <div>
-                  <div className="text-center">
-                    <div className={styles["order-received"]}>
-                      {isBankTransfer ? (
-                        <p>Order Received Pending Payment Confirmation</p>
-                      ) : (
-                        <p>Order Received Successfully</p>
-                      )}
-                      <p className={styles["order-number"]}>
-                        Order No:{" "}
-                        <span
-                          className={[styles.bold, "primary-color"].join(" ")}
-                        >
-                          {order?.fullOrderId}
-                        </span>{" "}
-                      </p>
-                    </div>
-
-                    {isDelivered(order?.deliveryStatus) && (
-                      <div className={`${styles["order-info"]}`}>
-                        <p>
-                          Your order was received, please check your mail for
-                          order confirmation.
-                        </p>
-                      </div>
-                    )}
-                    <div
-                      className={`flex column center-align spaced normal-text ${styles["order-info"]}`}
-                    >
-                      {isBankTransfer && (
-                        <p>
-                          For any issues/enquiries, please email
-                          <a
-                            href={`mailto:${regalEmail}`}
-                            className="underline blue"
-                          >
-                            {regalEmail}
-                          </a>{" "}
-                          or call/text/whatsapp +234 7011992888, +234
-                          7010006665, +234 7010006664
-                        </p>
-                      )}
+                  <div
+                    className={`flex column center-align spaced normal-text ${styles["order-info"]}`}
+                  >
+                    <p>
+                      Your order was received, please note your order number in
+                      every correspondence with us.
+                    </p>
+                    <div className="flex spaced">
+                      <img
+                        src="icons/info.svg"
+                        alt="information"
+                        className={["generic-icon", styles.icon].join(" ")}
+                      />
                       <p>
-                        Your order was received, please note your order number
-                        in every correspondence with us.
+                        If your order is a pickup, please mention your order
+                        number on arrival.
                       </p>
-                      <div className="flex spaced">
-                        <img
-                          src="icons/info.svg"
-                          alt="information"
-                          className={["generic-icon", styles.icon].join(" ")}
-                        />
-                        <p>
-                          If your order is a pickup, please mention your order
-                          number on arrival.
-                        </p>
-                      </div>
-                      {pickupLocations[formData.pickUpLocation as string]}
                     </div>
+                    {formData.deliveryMethod === "pick-up" &&
+                      pickupLocations[formData.pickUpLocation as string]}
                   </div>
 
-                  <div className={styles["order-summary-mobile"]}>
-                    <p className={[styles.detail].join(" ")}>
-                      Sender's Information
-                    </p>
-                    <div className={[styles["order-details"]].join(" ")}>
+                  <Button
+                    className={styles["shopping-btn"]}
+                    onClick={() =>
+                      router.push(
+                        "/product-category/flowers-for-love-birthday-anniversary-etc"
+                      )
+                    }
+                  >
+                    Continue Shopping
+                  </Button>
+                  {isDelivered(order?.deliveryStatus) && (
+                    <Link href="/#">
+                      <a className={styles.track}>Track Order</a>
+                    </Link>
+                  )}
+                </div>
+              </div>
+              <div className={styles["order-summary"]}>
+                <p
+                  className={[
+                    "sub-heading bold",
+                    deviceType === "mobile" && "text-center"
+                  ].join(" ")}
+                >
+                  Order Summary
+                </p>
+                {isBankTransfer ? (
+                  <p
+                    className={[
+                      deviceType === "mobile" && "text-center",
+                      "normal-text"
+                    ].join(" ")}
+                  >
+                    For any issues/enquiries, please email us at{" "}
+                    <a href={`mailto:${regalEmail}`} className="underline blue">
+                      {regalEmail}
+                    </a>{" "}
+                    or call/text/whatsapp +234 7011992888, +234 7010006665, +234
+                    7010006664
+                  </p>
+                ) : (
+                  <p className="normal-text">
+                    Payment successful. A copy has been sent to your mail for
+                    reference.
+                  </p>
+                )}
+                <div className="vertical-margin spaced center-align">
+                  <p className={[styles.detail].join(" ")}>
+                    Sender's Information
+                  </p>
+                  <hr className="hr vertical-margin" />
+                  <div className={[styles["order-detail"]].join(" ")}>
+                    <div className="flex column spaced">
                       <div className={styles["order-detail"]}>
                         <span className="flex between">
                           <strong>Name</strong>
@@ -2809,98 +1671,111 @@ const Checkout: FunctionComponent = () => {
                         </span>
                       </div>
                     </div>
-                    {formData.deliveryMethod === "pick-up" && (
-                      <>
-                        <p className={[styles.detail].join(" ")}>
-                          Pick Up Location
-                        </p>
-                        <div className={[styles["order-details"]].join(" ")}>
-                          <div className={styles["order-detail"]}>
-                            {pickupLocations[formData.pickUpLocation as string]}
-                          </div>
-                        </div>
-                      </>
-                    )}
-                    {formData.deliveryMethod === "delivery" && (
-                      <div className="vertical-margin">
-                        <p className={[styles.detail].join(" ")}>
-                          Receiver's Information
-                        </p>
-                        <div className={[styles["order-details"]].join(" ")}>
-                          <div className={styles["order-detail"]}>
-                            <span className="flex between">
-                              <strong>Name</strong>
-                              <span className={styles["detail-value"]}>
-                                {formData.recipientName}
-                              </span>
-                            </span>
-                            <span className="flex between">
-                              <strong>Phone Number</strong>
-                              <span className={styles["detail-value"]}>
-                                {formData.recipientPhoneNumber}
-                              </span>
-                            </span>
-                            <span className="flex between">
-                              <strong>Address</strong>
-                              <span className={styles["detail-value"]}>
-                                {formData.recipientHomeAddress}
-                              </span>
-                            </span>
-                            <span className="flex between">
-                              <strong>Residence Type</strong>
-                              <span className={styles["detail-value"]}>
-                                {formData.residenceType}
-                              </span>
-                            </span>
-                            {formData.deliveryInstruction && (
-                              <span className="flex between">
-                                <strong>Delivery Instructions</strong>
-                                <span className={styles["detail-value"]}>
-                                  {formData.deliveryInstruction}
-                                </span>
-                              </span>
-                            )}
-                          </div>
-                        </div>
+                  </div>
+                </div>
+                {formData.deliveryMethod === "pick-up" && (
+                  <div className="vertical-margin spaced center-align">
+                    <p className={[styles.detail].join(" ")}>
+                      Pick Up Location
+                    </p>
+                    <hr className="hr vertical-margin" />
+                    <div className={[styles["order-detail"]].join(" ")}>
+                      {pickupLocations[formData.pickUpLocation as string]}
+                    </div>
+                  </div>
+                )}
+                {formData.deliveryMethod === "delivery" && (
+                  <div className="vertical-margin spaced center-align">
+                    <p className={[styles.detail].join(" ")}>
+                      Who is this order for?
+                    </p>
+                    <hr className="hr vertical-margin" />
+                    <div
+                      className={[
+                        styles["order-detail"],
+                        "flex column spaced"
+                      ].join(" ")}
+                    >
+                      <div className={styles["order-detail"]}>
+                        <span className="flex between">
+                          <strong>Name</strong>
+                          <span className={styles["detail-value"]}>
+                            {formData.recipientName}
+                          </span>
+                        </span>
+                        <span className="flex between">
+                          <strong>Phone Number</strong>
+                          <span className={styles["detail-value"]}>
+                            {formData.recipientPhoneNumber}
+                          </span>
+                        </span>
+                        <span className="flex between">
+                          <strong>Address</strong>
+                          <span className={styles["detail-value"]}>
+                            {formData.recipientHomeAddress}
+                          </span>
+                        </span>
+                        <span className="flex between">
+                          <strong>Residence Type</strong>
+                          <span className={styles["detail-value"]}>
+                            {formData.residenceType}
+                          </span>
+                        </span>
+                        <span className="flex between">
+                          <strong>Delivery Instructions</strong>
+                          <span className={styles["detail-value"]}>
+                            {formData.deliveryInstruction}
+                          </span>
+                        </span>
                       </div>
-                    )}
-                    <>
-                      <p className={[styles.detail].join(" ")}>
-                        Optional Message
-                      </p>
-                      <div className={[styles["order-details"]].join(" ")}>
-                        <div className={styles["order-detail"]}>
-                          {formData.message && (
-                            <span className="flex between">
-                              <strong>Message</strong>
-                              <span className={styles["detail-value"]}>
-                                {formData.message}
-                              </span>
-                            </span>
-                          )}
-                          {formData.additionalInfo && (
-                            <span className="flex between">
-                              <strong>Additional Info</strong>
-                              <span className={styles["detail-value"]}>
-                                {formData.additionalInfo}
-                              </span>
-                            </span>
-                          )}
+                    </div>
+                  </div>
+                )}
 
+                <div className="vertical-margin spaced center-align">
+                  <p className={[styles.detail].join(" ")}>Customize Message</p>
+                  <hr className="hr vertical-margin" />
+                  <div className={[styles["order-detail"]].join(" ")}>
+                    <div className="flex column spaced">
+                      <div className={styles["order-detail"]}>
+                        {formData.message && (
                           <span className="flex between">
-                            <strong>Purpose</strong>
+                            <strong>Message</strong>
+                            <span className={styles["detail-value"]}>
+                              {formData.message}
+                            </span>
+                          </span>
+                        )}
+                        {formData.additionalInfo && (
+                          <span className="flex between">
+                            <strong>Additional Info</strong>
+                            <span className={styles["detail-value"]}>
+                              {formData.additionalInfo}
+                            </span>
+                          </span>
+                        )}
+                        {formData.purpose && (
+                          <span className="flex between">
+                            <strong>Occasion</strong>
                             <span className={styles["detail-value"]}>
                               {formData.purpose}
                             </span>
                           </span>
-                        </div>
+                        )}
                       </div>
-                    </>
-                    <p className={[styles.detail].join(" ")}>Order Details</p>
+                    </div>
+                  </div>
+                </div>
 
-                    <div className={[styles["order-details"]].join(" ")}>
-                      {order?.orderProducts?.map((item, index) => (
-                        <div className={styles["order-detail"]} key={index}>
+                <div className="vertical-margin spaced center-align">
+                  <p className={[styles.detail].join(" ")}>Order Details</p>
+
+                  <hr className="hr vertical-margin" />
+
+                  <div className={[styles["order-details"]].join(" ")}>
+                    {order?.orderProducts?.map((item, index) => (
+                      <div key={index} className="flex column spaced">
+                        <div className={styles["order-detail"]}>
                           <span className="flex between">
                             <strong>Name</strong>
                             <span className={styles["detail-value"]}>
@@ -2914,85 +1789,55 @@ const Checkout: FunctionComponent = () => {
                             </span>
                           </span>
                         </div>
-                      ))}
-                    </div>
-
-                    <div className="flex between vertical-margin spaced center-align">
-                      <p className={[styles.detail].join(" ")}>
-                        Payment Details
-                      </p>
-                    </div>
-                    <div className={[styles["order-details"]].join(" ")}>
-                      <div className="flex between margin-bottom spaced">
-                        <strong className={styles.grayed}>Subtotal</strong>
-                        <span className={styles["detail-value"]}>
-                          {getPriceDisplay(subTotal, currency)}
-                        </span>
                       </div>
-
-                      <div className="flex between margin-bottom spaced">
-                        <div>
-                          <strong className={styles.grayed}>Delivery</strong>
-                        </div>
-                        <span className={styles["detail-value"]}>
-                          {getPriceDisplay(
-                            formData.deliveryLocation?.amount || 0,
-                            currency
-                          )}
-                        </span>
-                      </div>
-                      <div className="flex between small-text margin-bottom spaced">
-                        <div>
-                          <strong className={styles.grayed}>
-                            Payment Method
-                          </strong>
-                        </div>
-                        <span className="bold">
-                          {order?.paymentStatus
-                            ?.match(/\(.+\)/)?.[0]
-                            ?.replace(/[()]/g, "")}
-                        </span>
-                      </div>
-                      <hr className="hr margin-bottom spaced" />
-                      <div className="flex between sub-heading margin-bottom spaced small-text">
-                        <span>Total</span>
-                        <span className="bold primary-color">
-                          {getPriceDisplay(total || 0, currency)}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  {!user && (
-                    <div className={styles["account-wrapper"]}>
-                      <p className="sub-heading bold margin-bottom">
-                        Create a Free Account
-                      </p>
-                      <p className="margin-bottom spaced">
-                        Manage orders, address book and save time when checking
-                        out by creating a free account today!
-                      </p>
-                      <Button>Create a Free Account</Button>
-                    </div>
-                  )}
-                  <div className={styles["done-footer"]}>
-                    <Button
-                      responsive
-                      className={styles["shopping-btn"]}
-                      onClick={() => router.push("/product-category/bouquets")}
-                    >
-                      Continue Shopping
-                    </Button>
-                    {isDelivered(order?.deliveryStatus) && (
-                      <Link href="#">
-                        <a className={styles.track}>Track Order</a>
-                      </Link>
-                    )}
+                    ))}
                   </div>
                 </div>
-              )}
+
+                <p className={[styles.detail, "margin-bottom"].join(" ")}>
+                  Payment Details
+                </p>
+                <hr className="hr margin-bottom spaced" />
+                <div className={[styles["order-detail"]].join(" ")}>
+                  <div className="flex between  margin-bottom spaced">
+                    <strong>Subtotal</strong>
+                    <span>{getPriceDisplay(subTotal || 0, currency)}</span>
+                  </div>
+
+                  <div className="flex between  margin-bottom spaced">
+                    <div>
+                      <strong>Delivery</strong>
+                    </div>
+                    <span>
+                      {getPriceDisplay(
+                        formData.deliveryLocation?.amount || 0,
+                        currency
+                      )}
+                    </span>
+                  </div>
+                  <div className="flex between  margin-bottom spaced">
+                    <div>
+                      <strong>Payment Method</strong>
+                    </div>
+                    <span>
+                      {order?.paymentStatus
+                        ?.match(/\(.+\)/)?.[0]
+                        ?.replace(/[()]/g, "")}
+                    </span>
+                  </div>
+                  <hr className="hr margin-bottom spaced" />
+                  <div className="flex between sub-heading margin-bottom spaced">
+                    <span>Total</span>
+                    <span className="bold primary-color">
+                      {getPriceDisplay(total, currency)}
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
-          </section>
-        )}
+          )}
+        </section>
+
         <PaypalModal
           visible={showPaypal}
           cancel={() => setShowPaypal(false)}

@@ -135,7 +135,7 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
             >
               {name}
             </strong>
-            {subTitle && <p className={styles.subtitle}>{subTitle}</p>}
+            <p className={styles.subtitle}>{subTitle}</p>
             {!onlyTitle && (
               <div
                 className={` ${price ? "between" : ""} ${
@@ -152,27 +152,28 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
                     )}
                     <p className="bold price">{getPriceDisplay(price, currency)}</p>
                   </div>
+
                     <button
                       className={`${styles["buy-btn"]} text-small bold`}
                       onClick={e => cart && handleAddToCart(e)}
                       disabled={outOfStock}
-                    > 
                     
                       {deviceType === "mobile" ? "ADD TO CART" : (<><img src="/icons/add-box-line.svg" alt="" /> <p>ADD TO CART</p></>)}
                     </button>
                   </>
                 )}
-                {!price && (<Button
-                  className={`${styles["gift-btn"]}`}
-                  onClick={e => cart && handleAddToCart(e)}
-                  disabled={outOfStock}
-                >
-                  {outOfStock
-                    ? "Out of Stock"
-                    : buttonText
-                    ? buttonText
-                    : "Buy Now"}
-                </Button>
+                {!price && (
+                  <Button
+                    className={`${styles["gift-btn"]}`}
+                    onClick={e => cart && handleAddToCart(e)}
+                    disabled={outOfStock}
+                  >
+                    {outOfStock
+                      ? "Out of Stock"
+                      : buttonText
+                      ? buttonText
+                      : "Buy Now"}
+                  </Button>
                 )}
               </div>
             )}

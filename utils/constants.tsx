@@ -32,163 +32,185 @@ export const pickupLocations: Record<string, JSX.Element> = {
 };
 
 export const FAQs = [
-    {
-      
-      name: "How do I order flowers and gifts on FloralHub.com.ng?",
-      acceptedAnswer: {
-        
-        text: (
-          <div>
-            There are several ways to order. Either online, or by Phone/Whatsapp on +234 907 777 7994.
-            <br /><br />
-            We can also customize a bouquet to fit your budget, preferred colors, flower types, etc. Do feel free to reach our line, or email us <a href="mailto:info@floralhub.com.ng">info@floralhub.com.ng</a>
-          </div>
-        )
-      }
-    },
-    {
-      
-      name: "Is same day delivery possible?",
-      acceptedAnswer: {
-        
-        text:  (  
-          <div>
-            Yes, we are able to deliver SAME DAY across Lagos, Nigeria as well as Abuja, Nigeria.
-             <br /> <br /> We also offer deliveries to other states on a case by case basis.Kindly contact us Phone/ Whatsapp on + 234 907 777 7994 or  email us info@floralhub.com.ng
-
-          </div>       
-
-           )     
-           }
-    },
-    {
-      
-      name: "Are you open on weekends and public holidays?",
-      acceptedAnswer: {
-        
-        text:
-
-        (
-          <div>
-              Yes, Floralhub.com.ng is open 24hrs all day including weekends and public holidays including Christmas Day.
-          </div>
-        )
-          
-      }
-    },
-    {
-      
-      name: "Can I return an item?",
-      acceptedAnswer: {
-        
-        text: (
-          <div>
-            Due to the perishable nature of the product, flowers cannot be returned.
-          </div>
-        )
-       
-      }
-    },
-    {
-      
-      name: "What time do you close?",
-      acceptedAnswer: {
-        
-        text:
-          (
-            <div>
-              We are open 24hrs, and are able to deliver same day across Lagos and Abuja
-            </div>
-          )
-      }
-    },
-    {
-      
-      name: "How do I take care of the flowers?",
-      acceptedAnswer: {
-        
-        text:
-          (
-            <div>
-              Fresh flowers should be kept somewhere cool, water changed regularly and stems trimmed. To do this justice, pls read this article we wrote on <a href='https://www.floralhub.com.ng/how-to-care-for-fresh-flowers-after-receiving-them/' target='_blank'> how to care for your flowers </a>. There might be some surprising facts there too
-            </div>
-          )
-      }
-    },
-    {
-      
-      name: "Do you offer payment on delivery?",
-      acceptedAnswer: {
-        
-        text:
-          (
-            <div>
-              Unfortunately, due to the perishable nature of the product (it can’t be brought back to the office/resold, in the event the client isn’t at the destination), we do not offer payment on delivery. <br/> <br/> This is also because we typically use Uber/ Bolt for delivery and they can’t receive payment on our behalf <br/> <br/> We however offer several payment options(see next question)
-            </div>
-          )
-      }
-    },
-    {
-      
-      name: "How do I make payment?",
-      acceptedAnswer: {
-        
-        text:
-          (
-            <div>
-              There are various payment options available for your convenience.
-              <br/> <br/>
-                 <ol className="faq-ol">
-                    <li className="faq-li">Website Online payment through Flutterwave</li>
-                    <li className="faq-li">Naira Bank Transfer to our parent account: <b>GTB, Faajihub Ltd, 0168164823</b></li>
-                    <li className="faq-li">Website Online through Paypal (you do not need to have an existing Paypal account). Please change site currency to USD or GBP to see Paypal option</li>
-                    <li className="faq-li">Transfer to our Paypal account: <b>paypalpayments@floralhub.com.ng</b></li>
-                    <li className="faq-li">Bitcoin to our wallet: <b>1NQfzJGzXSn5B5xqT4mfw48KpaoA4Ajmwy</b></li>
-              </ol>
-            </div>
-          )
-           }
-    },
-    {
-      
-      name: "What happens if the recipient is unavailable?",
-      acceptedAnswer: {
-        
-        text:
-          (
-            <div>
-              We typically use Bolt/Uber for deliveries and we encourage clients to ensure they give us accurate details for the recipient to avoid a failed delivery.
-              <br/><br/>
-                We usually make every attempt to reach the recipient at the delivery point, but if despite our attempts, the recipient is unreachable (e.g. phone switched off, or ringing), we would usually drop off the items with a guard or colleague.
-                <br/><br/>
-                  If there is no one to drop the items with and the client is also unreachable or unresponsive, we would be forced to return the items to our Ikoyi, Lagos or Wuse 2, Abuja office for pickup by the client or recipient.
-                  <br/><br/>
-                    We usually recommend the recipient/client picks up the flowers and other items from our office as soon as possible as they are perishable
-                    <br/><br/>
-                      We are also able to redeliver the items upon payment of another delivery fee.
-            </div>
-          )
-      }
-    },
-    {
-      
-      name: "What happens if the recipient changes the address?",
-      acceptedAnswer: {
-        
-        text:
-          
-          (
-            <div>
-              This happens often, we would typically request the difference in delivery fee from the client as we typically use Bolt/Uber drivers.
-              <br /><br />
-              Please note that this is also the case if the recipient delays the driver as they are 3rd party drivers
-            </div>
-          )
-     }
+  {
+    name: "How do I order flowers and gifts on FloralHub.com.ng?",
+    acceptedAnswer: {
+      text: (
+        <div>
+          There are several ways to order. Either online, or by Phone/Whatsapp
+          on +234 907 777 7994.
+          <br />
+          <br />
+          We can also customize a bouquet to fit your budget, preferred colors,
+          flower types, etc. Do feel free to reach our line, or email us{" "}
+          <a href="mailto:info@floralhub.com.ng">info@floralhub.com.ng</a>
+        </div>
+      )
     }
-
-  ]
-
+  },
+  {
+    name: "Is same day delivery possible?",
+    acceptedAnswer: {
+      text: (
+        <div>
+          Yes, we are able to deliver SAME DAY across Lagos, Nigeria as well as
+          Abuja, Nigeria.
+          <br /> <br /> We also offer deliveries to other states on a case by
+          case basis.Kindly contact us Phone/ Whatsapp on + 234 907 777 7994 or
+          email us info@floralhub.com.ng
+        </div>
+      )
+    }
+  },
+  {
+    name: "Are you open on weekends and public holidays?",
+    acceptedAnswer: {
+      text: (
+        <div>
+          Yes, Floralhub.com.ng is open 24hrs all day including weekends and
+          public holidays including Christmas Day.
+        </div>
+      )
+    }
+  },
+  {
+    name: "Can I return an item?",
+    acceptedAnswer: {
+      text: (
+        <div>
+          Due to the perishable nature of the product, flowers cannot be
+          returned.
+        </div>
+      )
+    }
+  },
+  {
+    name: "What time do you close?",
+    acceptedAnswer: {
+      text: (
+        <div>
+          We are open 24hrs, and are able to deliver same day across Lagos and
+          Abuja
+        </div>
+      )
+    }
+  },
+  {
+    name: "How do I take care of the flowers?",
+    acceptedAnswer: {
+      text: (
+        <div>
+          Fresh flowers should be kept somewhere cool, water changed regularly
+          and stems trimmed. To do this justice, pls read this article we wrote
+          on{" "}
+          <a
+            href="https://www.floralhub.com.ng/how-to-care-for-fresh-flowers-after-receiving-them/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {" "}
+            how to care for your flowers{" "}
+          </a>
+          . There might be some surprising facts there too
+        </div>
+      )
+    }
+  },
+  {
+    name: "Do you offer payment on delivery?",
+    acceptedAnswer: {
+      text: (
+        <div>
+          Unfortunately, due to the perishable nature of the product (it can’t
+          be brought back to the office/resold, in the event the client isn’t at
+          the destination), we do not offer payment on delivery. <br /> <br />{" "}
+          This is also because we typically use Uber/ Bolt for delivery and they
+          can’t receive payment on our behalf <br /> <br /> We however offer
+          several payment options(see next question)
+        </div>
+      )
+    }
+  },
+  {
+    name: "How do I make payment?",
+    acceptedAnswer: {
+      text: (
+        <div>
+          There are various payment options available for your convenience.
+          <br /> <br />
+          <ol className="faq-ol">
+            <li className="faq-li">
+              Website Online payment through Flutterwave
+            </li>
+            <li className="faq-li">
+              Naira Bank Transfer to our parent account:{" "}
+              <b>GTB, Faajihub Ltd, 0168164823</b>
+            </li>
+            <li className="faq-li">
+              Website Online through Paypal (you do not need to have an existing
+              Paypal account). Please change site currency to USD or GBP to see
+              Paypal option
+            </li>
+            <li className="faq-li">
+              Transfer to our Paypal account:{" "}
+              <b>paypalpayments@floralhub.com.ng</b>
+            </li>
+            <li className="faq-li">
+              Bitcoin to our wallet: <b>1NQfzJGzXSn5B5xqT4mfw48KpaoA4Ajmwy</b>
+            </li>
+          </ol>
+        </div>
+      )
+    }
+  },
+  {
+    name: "What happens if the recipient is unavailable?",
+    acceptedAnswer: {
+      text: (
+        <div>
+          We typically use Bolt/Uber for deliveries and we encourage clients to
+          ensure they give us accurate details for the recipient to avoid a
+          failed delivery.
+          <br />
+          <br />
+          We usually make every attempt to reach the recipient at the delivery
+          point, but if despite our attempts, the recipient is unreachable (e.g.
+          phone switched off, or ringing), we would usually drop off the items
+          with a guard or colleague.
+          <br />
+          <br />
+          If there is no one to drop the items with and the client is also
+          unreachable or unresponsive, we would be forced to return the items to
+          our Ikoyi, Lagos or Wuse 2, Abuja office for pickup by the client or
+          recipient.
+          <br />
+          <br />
+          We usually recommend the recipient/client picks up the flowers and
+          other items from our office as soon as possible as they are perishable
+          <br />
+          <br />
+          We are also able to redeliver the items upon payment of another
+          delivery fee.
+        </div>
+      )
+    }
+  },
+  {
+    name: "What happens if the recipient changes the address?",
+    acceptedAnswer: {
+      text: (
+        <div>
+          This happens often, we would typically request the difference in
+          delivery fee from the client as we typically use Bolt/Uber drivers.
+          <br />
+          <br />
+          Please note that this is also the case if the recipient delays the
+          driver as they are 3rd party drivers
+        </div>
+      )
+    }
+  }
+];
 
 export const breadcrumbItems: Breadcrumb[] = [
   {
@@ -429,6 +451,40 @@ export const footerContent: FooterContent = {
     "+234 701 000 6665",
     "+234 701 199 2888",
     "+234 911 200 0300"
+  ]
+};
+
+interface CheckoutContent {
+  paymentIcons: { alt: string; src: string }[];
+}
+
+export const checkoutContent: CheckoutContent = {
+  paymentIcons: [
+    {
+      alt: "visa",
+      src: "/icons/visa.svg"
+    },
+    {
+      alt: "master card",
+      src: "/icons/master-card.svg"
+    },
+    {
+      alt: "paypal",
+      src: "/icons/paypal-blue.svg"
+    },
+    {
+      alt: "bitcoin",
+      src: "/icons/bitcoin-gold.svg"
+    },
+
+    {
+      alt: "bank",
+      src: "/icons/building-primary.svg"
+    },
+    {
+      alt: "paystack",
+      src: "/icons/paystack.png"
+    }
   ]
 };
 
@@ -2321,7 +2377,7 @@ export const links: AppLink[] = [
         ]
       },
       {
-        title: "Bridal Bouquets & Accessories",
+        title: "Bridal",
         url: "",
         children: [
           {
@@ -2385,6 +2441,9 @@ export const links: AppLink[] = [
           }
         ]
       }
+    ],
+    featuredSlugs: [
+      "allure-bouquet-of-red-white-pink-yellow-or-purples-roses-select-size"
     ]
   },
   {
@@ -2491,16 +2550,17 @@ export const links: AppLink[] = [
           }
         ]
       }
-    ]
+    ],
+    featuredSlugs: ["purity-roses-arranged-with-sparkling-white-select-size"]
   },
   {
     url: "/vip",
-    title: "VIP Section",
+    title: "VIP Flowers",
     children: []
   },
 
   {
-    url: "#",
+    url: "",
     title: "Gifts",
     children: [
       {
@@ -2543,6 +2603,10 @@ export const links: AppLink[] = [
         title: "Scented Candles",
         children: []
       }
+    ],
+    featuredSlugs: [
+      "balloons",
+      "caravaggio-assorted-italian-unisex-gift-set-more"
     ]
   },
   {
@@ -2553,6 +2617,11 @@ export const links: AppLink[] = [
   {
     title: "FAQ",
     url: "/faq-how-to-buy-fresh-flowers-and-gifts-in-lagos-and-abuja",
+    children: []
+  },
+  {
+    title: "Contact",
+    url: "/contact",
     children: []
   }
 ];
@@ -3341,4 +3410,4 @@ export const contactUsPageConent: Record<string, any> = {
   }
 };
 
-export const business = "regalFlowers";
+export const business = "floralHub";

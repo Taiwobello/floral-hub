@@ -1,17 +1,3 @@
-@font-face {
-  font-family: "SharpSans";
-  src: url("../public/fonts/SharpSans.woff2") format("woff2");
-  font-display: swap;
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: "SharpSans";
-  src: url("../public/fonts/sharp-sans-semibold.woff2") format("woff2");
-  font-display: swap;
-  font-weight: bold;
-}
-
 html {
   scroll-behavior: smooth;
   font-size: 88%;
@@ -64,7 +50,7 @@ html {
 
 body {
   font-size: 0.9rem;
-  font-family: "SharpSans", segoe UI, sans-serif;
+  font-family: "Figtree", segoe UI, sans-serif;
 }
 a,
 a:visited {
@@ -132,6 +118,14 @@ span {
       margin: 0;
       margin-top: 1.2rem;
 
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    &.spaced-xl > * {
+      margin: 0;
+      margin-top: 2.4rem;
       &:first-child {
         margin-top: 0;
       }
@@ -227,7 +221,7 @@ span {
 .hr {
   outline: none;
   border: none;
-  background-color: #dadbdd;
+  background-color: #9ca3af;
   height: 0.1rem;
 }
 .margin {
@@ -467,11 +461,10 @@ span {
 
 .input-group {
   display: flex;
+  flex-direction: column;
   width: 100%;
-  justify-content: flex-end;
-  align-items: center;
   margin: 0.8rem 0;
-  text-align: right;
+
   &.responsive {
     width: unset;
   }
@@ -484,7 +477,7 @@ span {
   .question {
     font-weight: bold;
     font-size: 0.9rem;
-    margin-right: 1rem;
+    margin-bottom: 0.4rem;
 
     @media (max-width: 650px) {
       font-size: 1rem;
@@ -810,6 +803,10 @@ span {
   color: #2684ff;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .text-small {
   font-size: 1rem;
 }
@@ -843,15 +840,16 @@ span {
   word-wrap: break-word;
 }
 .faq-ol {
-  padding: 20px;
+  padding: 2rem;
 }
-.price{
-  margin-left: 10px;
-  text-align: center;
-}
-.search{
-  border: 1px solid #DADADA;
+.search {
+  border: 1px solid #dadada;
   padding: 0.5rem;
+}
+
+.white-bg {
+  background-color: #fff;
+  padding: 1rem;
 }
 // 16px: 1.2rem
 // 32px 2.3rem

@@ -69,11 +69,11 @@ const Modal = (props: ModalProps) => {
         ].join(" ")}
       >
         {children}
-        
-          <div onClick={() => cancel()} className={styles["close-icon"]}>
-            <div className={styles.bar} />
-            <div className={styles.bar} />
-          </div>
+
+        <div onClick={() => cancel()} className={styles["close-icon"]}>
+          <div className={styles.bar} />
+          <div className={styles.bar} />
+        </div>
       </div>
     </div>
   );
