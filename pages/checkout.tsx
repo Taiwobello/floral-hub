@@ -83,7 +83,7 @@ const initialData: CheckoutFormData = {
   senderEmail: "",
   senderPhoneNumber: "",
   senderPassword: "",
-  freeAccount: true,
+  freeAccount: false,
   coupon: "",
   deliveryMethod: "pick-up",
   state: "lagos",
@@ -435,8 +435,7 @@ const Checkout: FunctionComponent = () => {
       setDeliveryStage("delivery-type");
     } else {
       setFormData({
-        ...formData,
-        freeAccount: Boolean(!user)
+        ...formData
       });
     }
 

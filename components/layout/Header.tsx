@@ -6,7 +6,6 @@ import {
   MouseEvent as ReactMouseEvent,
   useMemo,
   useEffect,
-  FormEvent,
   useCallback
 } from "react";
 import Link from "next/link";
@@ -18,22 +17,22 @@ import Button from "../button/Button";
 import styles from "./Layout.module.scss";
 import { links } from "../../utils/constants";
 import ContextWrapper from "../context-wrapper/ContextWrapper";
-import AuthModal from "./AuthModal";
 import FlowerCard from "../flower-card/FlowerCard";
 import { AppLink } from "../../utils/types/Core";
 import { getProductsBySlugs } from "../../utils/helpers/data/products";
+import useOutsideClick from "../../utils/hooks/useOutsideClick";
+import SearchDropdown from "./SearchDropdown";
 
 const Header: FunctionComponent = () => {
   const [activeNavLink, setActiveNavLink] = useState("");
   const [showSidebar, setShowSidebar] = useState(false);
   const [activeSublinkNav, setActiveSublinkNav] = useState("");
-  const [showAuthModal, setShowAuthModal] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [linksWithFeaturedProducts, setLinksWithFeaturedProducts] = useState<
     AppLink[]
   >([...links]);
+  const [displaySearchDropdown, setDisplaySearchDropdown] = useState(false);
 
-  const searchInputRef = useRef<HTMLInputElement>(null);
   const hasScrolledRef = useRef(hasScrolled);
   useEffect(() => {
     hasScrolledRef.current = hasScrolled;
@@ -42,7 +41,7 @@ const Header: FunctionComponent = () => {
 
   const deviceType = useDeviceType();
 
-  const { pathname: _pathname, push, query } = useRouter();
+  const { pathname: _pathname, query } = useRouter();
   const pathname = _pathname.split("/")[1];
 
   const {
@@ -54,11 +53,15 @@ const Header: FunctionComponent = () => {
     setCurrentStage,
     orderId,
     setDeliveryDate,
-    searchText,
     setSearchText,
     setUser,
-    notify
+    notify,
+    setShouldShowAuthDropdown
   } = useContext(SettingsContext);
+
+  const searchDropdownRef = useOutsideClick<HTMLDivElement>(() => {
+    setDisplaySearchDropdown(false);
+  });
 
   const totalCartItems = useMemo(() => {
     if (!cartItems.length) return 0;
@@ -68,24 +71,6 @@ const Header: FunctionComponent = () => {
   const handleActiveNav = (title: string, e: ReactMouseEvent) => {
     setActiveNavLink(title);
     e.stopPropagation();
-  };
-
-  const handleSearch = (e: FormEvent) => {
-    e.preventDefault();
-
-    if (deviceType === "mobile") {
-      setShowSidebar(false);
-    }
-
-    if (searchText) {
-      push(`/filters?search=${searchText}`, undefined, { scroll: false });
-    } else {
-      push(
-        "/product-category/flowers-for-love-birthday-anniversary-etc",
-        undefined,
-        { scroll: false }
-      );
-    }
   };
 
   const onUserScroll = useCallback(() => {
@@ -142,7 +127,7 @@ const Header: FunctionComponent = () => {
   }, []);
 
   const handleDisplayAuthModal = () => {
-    if (!user) setShowAuthModal(true);
+    if (!user) setShouldShowAuthDropdown(true);
   };
 
   const handleLogout = async () => {
@@ -306,29 +291,6 @@ const Header: FunctionComponent = () => {
                 </div>
               </div>
             ))}
-            <form
-              className={[styles["search-wrapper"]].join(" ")}
-              onSubmit={handleSearch}
-            >
-              <input
-                type="text"
-                onChange={e => {
-                  setSearchText(e.target.value);
-                }}
-                placeholder="Search for products"
-                value={searchText}
-                className={[styles["search-input"]].join(" ")}
-                ref={searchInputRef}
-              />
-              <img
-                alt="search"
-                src="/icons/search-cancel.svg"
-                className={`${styles["search-icon"]} generic-icon medium clickable`}
-                onClick={() => {
-                  setSearchText("");
-                }}
-              />
-            </form>
           </nav>
         )}
         <div
@@ -481,17 +443,17 @@ const Header: FunctionComponent = () => {
           <div
             className={[
               styles["search-wrapper"],
-              showSearch ? styles.active : ""
+              displaySearchDropdown ? styles.active : ""
             ].join(" ")}
           >
             <form
               className={[
                 styles["search-form"],
-                showSearch ? styles.active : ""
+                displaySearchDropdown ? styles.active : ""
               ].join(" ")}
               onSubmit={handleSearch}
               onClick={() => {
-                setShowSearch(true);
+                setDisplaySearchDropdown(true);
                 searchInputRef.current?.focus();
               }}
             >
@@ -504,18 +466,18 @@ const Header: FunctionComponent = () => {
                 value={searchText}
                 className={[
                   styles["search-input"],
-                  showSearch ? styles.active : ""
+                  displaySearchDropdown ? styles.active : ""
                 ].join(" ")}
                 ref={searchInputRef}
               />
             </form>
-            {showSearch ? (
+            {displaySearchDropdown ? (
               <img
                 alt="search"
                 src="/icons/search-cancel.svg"
                 className={`${styles["search-icon"]} generic-icon medium clickable`}
                 onClick={() => {
-                  setShowSearch(false);
+                  setDisplaySearchDropdown(false);
                 }}
               />
             ) : (
@@ -524,7 +486,7 @@ const Header: FunctionComponent = () => {
                 src="/icons/search.svg"
                 className={`${styles["search-icon"]} generic-icon medium clickable`}
                 onClick={() => {
-                  setShowSearch(true);
+                  setDisplaySearchDropdown(true);
                   searchInputRef.current?.focus();
                 }}
               />
@@ -583,13 +545,29 @@ const Header: FunctionComponent = () => {
         </div>
         <div className={styles["controls-area"]}>
           <div className="flex spaced-lg center-align">
-            <Button className="flex column center-align" type="plain">
-              <img
-                alt="search"
-                src="/icons/search.svg"
-                className={styles["control-icon"]}
+            <div ref={searchDropdownRef}>
+              <Button
+                className="flex column center-align"
+                type="plain"
+                onClick={() => setDisplaySearchDropdown(!displaySearchDropdown)}
+              >
+                <img
+                  alt="search"
+                  src={
+                    displaySearchDropdown
+                      ? "/icons/search-cancel.svg"
+                      : "/icons/search.svg"
+                  }
+                  className={styles["control-icon"]}
+                />
+              </Button>
+
+              <SearchDropdown
+                visible={displaySearchDropdown}
+                cancel={() => setDisplaySearchDropdown(false)}
+                hasScrolled={hasScrolled}
               />
-            </Button>
+            </div>
             <Button className={[styles["cart-button"]].join(" ")} type="plain">
               <img
                 alt="cart"
@@ -622,10 +600,10 @@ const Header: FunctionComponent = () => {
           </div>
         </div>
       </header>
-      <AuthModal
+      {/* <AuthModal
         visible={showAuthModal}
         cancel={() => setShowAuthModal(false)}
-      />
+      /> */}
     </>
   );
 };
