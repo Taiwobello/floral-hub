@@ -301,35 +301,35 @@ const Cart: FunctionComponent<CartContextProps> = props => {
                         <p onClick={() => handleRemoveItem(item.SKU)}>Remove</p>
 
 
-                        <button className="flex center-align">
+                        {/* <button className="flex center-align">
                           <label className={`bold ${openItem[i] ? ["primary-color", styles.hide].join(" ") : ""}`} htmlFor={`open${i}`} onClick={() => toggleAnswer(i)}>{openItem[i] ? "Hide Details" : "View/Edit Details"}</label>
                           {openItem[i] ? (<img src="/icons/down-arrow-color.svg" alt="" className="" />) : (<img src="/icons/down-arrow.svg" alt="" className="" />)}
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   </div>
 
-                  <input id={`open${i}`} className="open-detail" type="checkbox" />
+                  {/* <input id={`open${i}`} className="open-detail" type="checkbox" /> */}
                   <div className={styles.details}>
-                    <div>
+                    {/* <div>
                       <p className="bold text-medium">Your  selections</p>
                       <p className="primary-color bold">Edit</p>
-                    </div>
-                    <div>
+                    </div> */}
+                    {/* <div>
                       <p>Budgets:</p>
                       <p>Regular size</p>
                       <p>12000</p>
-                    </div>
-                    <div>
+                    </div> */}
+                    {/* <div>
                       <p>Design</p>
                       <p>Wrapped Bouquet</p>
                       <p>12000</p>
-                    </div>
-                    <div>
+                    </div> */}
+                    {/* <div>
                       <p>Gifts Included:</p>
                       <p><img src="/images/flower.png" alt="" height={30} width={30} className="margin" /></p>
                       <p> 5000 </p>
-                    </div>
+                    </div> */}
                 
                   </div>
                 </>
