@@ -17,7 +17,6 @@ import Button from "../button/Button";
 import styles from "./Layout.module.scss";
 import { links } from "../../utils/constants";
 import ContextWrapper from "../context-wrapper/ContextWrapper";
-import AuthModal from "./AuthModal";
 import FlowerCard from "../flower-card/FlowerCard";
 import { AppLink } from "../../utils/types/Core";
 import { getProductsBySlugs } from "../../utils/helpers/data/products";
@@ -28,7 +27,6 @@ const Header: FunctionComponent = () => {
   const [activeNavLink, setActiveNavLink] = useState("");
   const [showSidebar, setShowSidebar] = useState(false);
   const [activeSublinkNav, setActiveSublinkNav] = useState("");
-  const [showAuthModal, setShowAuthModal] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [linksWithFeaturedProducts, setLinksWithFeaturedProducts] = useState<
     AppLink[]
@@ -57,7 +55,8 @@ const Header: FunctionComponent = () => {
     setDeliveryDate,
     setSearchText,
     setUser,
-    notify
+    notify,
+    setShouldShowAuthDropdown
   } = useContext(SettingsContext);
 
   const searchDropdownRef = useOutsideClick<HTMLDivElement>(() => {
@@ -128,7 +127,7 @@ const Header: FunctionComponent = () => {
   }, []);
 
   const handleDisplayAuthModal = () => {
-    if (!user) setShowAuthModal(true);
+    if (!user) setShouldShowAuthDropdown(true);
   };
 
   const handleLogout = async () => {
@@ -601,10 +600,10 @@ const Header: FunctionComponent = () => {
           </div>
         </div>
       </header>
-      <AuthModal
+      {/* <AuthModal
         visible={showAuthModal}
         cancel={() => setShowAuthModal(false)}
-      />
+      /> */}
     </>
   );
 };

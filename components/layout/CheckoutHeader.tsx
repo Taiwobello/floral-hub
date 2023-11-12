@@ -2,15 +2,9 @@ import { FunctionComponent, useContext } from "react";
 import SettingsContext from "../../utils/context/SettingsContext";
 import styles from "./Layout.module.scss";
 import Link from "next/link";
-import useOutsideClick from "../../utils/hooks/useOutsideClick";
 
 export const CheckoutHeader: FunctionComponent = () => {
-  const { currentStage, setShouldShowAuthDropdown } = useContext(
-    SettingsContext
-  );
-  const authDropdownRef = useOutsideClick<HTMLDivElement>(() => {
-    setShouldShowAuthDropdown(false);
-  });
+  const { currentStage } = useContext(SettingsContext);
 
   const stages = [
     {
@@ -84,7 +78,6 @@ export const CheckoutHeader: FunctionComponent = () => {
           </div>
         </div>
       </header>
-      <div className={styles["auth-wrapper"]} ref={authDropdownRef}></div>
     </>
   );
 };
