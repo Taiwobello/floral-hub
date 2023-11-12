@@ -174,32 +174,49 @@
     width: 15rem;
   }
 
-  .search-wrapper {
-    max-width: 4rem;
-    display: flex;
+  .search-dropdown {
+    font-weight: normal;
+    position: fixed;
+    padding: 3rem 5rem;
+    top: 8rem;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: white;
-    border: 0.1rem solid #e5e7eb;
-    padding: 0.5rem 0.7rem;
-    border-radius: 3rem;
-
+    width: 80vw;
+    box-shadow: 0 0.8rem 0.8rem rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    min-width: fit-content;
+    transition: all 0.6s ease-out;
+    pointer-events: none;
+    opacity: 0;
+    padding-bottom: 6rem;
     &.active {
-      max-width: 20rem;
+      opacity: 1;
+      z-index: 10;
+      pointer-events: all;
+    }
+
+    &.minimize {
+      top: 5rem;
     }
 
     .search-form {
-      width: 100%;
+      display: flex;
+      border-bottom: 0.1rem solid #9ca3af;
+      padding: 0.8rem;
+      margin-bottom: 2.5rem;
     }
 
     .search-input {
       border: none;
       outline: none;
       padding: 0rem;
-      font-size: 0.9rem;
+      font-size: 1.2rem;
       transition: 0.3s ease-out;
       width: 0;
-      font-weight: 600;
+      font-weight: 400;
       padding-left: 0.5rem;
-      width: 10%;
+      width: 100%;
       vertical-align: middle;
 
       &.active {
@@ -208,7 +225,13 @@
     }
 
     .search-icon {
-      margin-left: auto;
+      margin-right: 1rem;
+    }
+
+    .featured-product {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
     }
   }
 
@@ -232,22 +255,6 @@
 
     @media (min-width: 650px) {
       display: none;
-    }
-
-    .search-wrapper {
-      width: 90%;
-      max-width: 800%;
-      margin: 0 auto;
-      padding: 0.8rem;
-      background-color: white;
-      border: 0.1rem solid #d6d6d6;
-      border-radius: 3rem;
-      margin-top: 4rem;
-
-      .search-input {
-        width: 100%;
-        font-size: 1.3rem;
-      }
     }
 
     .arrow {
