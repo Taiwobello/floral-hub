@@ -128,13 +128,15 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
             />
           </div>
           <div className={styles.detail}>
-            <strong
-              className={[styles.name, onlyTitle && styles["only-name"]].join(
-                " "
-              )}
+            <span
+              className={[
+                styles.name,
+                onlyTitle && styles["only-name"],
+                "semibold"
+              ].join(" ")}
             >
               {name}
-            </strong>
+            </span>
             <p className={styles.subtitle}>{subTitle}</p>
             {!onlyTitle && (
               <div
@@ -144,21 +146,27 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
               >
                 {price && (
                   <>
-                    <div className={`flex between ${styles["price-text"]} center center-align`}>
-                    {product?.variants.length ? (
-                      <p className="smaller text-secondary">From</p>
-                    ) : (
-                      ""
-                    )}
-                    <p className="bold price">{getPriceDisplay(price, currency)}</p>
-                  </div>
+                    <div
+                      className={`flex spaced ${styles["price-text"]} semibold center-align`}
+                    >
+                      {(product?.variants.length || 0) > 0 && (
+                        <p className="text-secondary">FROM</p>
+                      )}
+                      <span>{getPriceDisplay(price, currency)}</span>
+                    </div>
                     <button
-                      className={`${styles["buy-btn"]} text-small bold`}
+                      className={`${styles["buy-btn"]} text-small semibold`}
                       onClick={e => cart && handleAddToCart(e)}
                       disabled={outOfStock}
-                    > 
-                    
-                      {deviceType === "mobile" ? "ADD TO CART" : (<><img src="/icons/add-box-line.svg" alt="" /> <p>ADD TO CART</p></>)}
+                    >
+                      {deviceType === "mobile" ? (
+                        "ADD TO CART"
+                      ) : (
+                        <>
+                          <img src="/icons/add-box-line.svg" alt="" />{" "}
+                          <p>ADD TO CART</p>
+                        </>
+                      )}
                     </button>
                   </>
                 )}

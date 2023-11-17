@@ -116,14 +116,17 @@
     }
   }
   .buy-btn {
-    height: 30px;
+    height: 2.5rem;
     transition: width 1s ease;
+    font-size: 0.8rem;
+    overflow: hidden;
+    white-space: nowrap;
 
-    @media (min-width:420px) {
-      width: 41%;
+    @media (min-width: 420px) {
+      width: 21%;
       text-align: end;
-      }
-    
+    }
+
     @media (max-width: 420px) {
       background-image: none;
       color: white;
@@ -132,37 +135,34 @@
       margin-top: 0.5rem;
     }
   }
-  .buy-btn:hover{
+  .buy-btn:hover {
     @media (min-width: 420px) {
-        background-image: none;
-          background-color: #B240DA;
-          color: white;
-          width: 50%;
-          text-align: center;
-      }
-
+      background-image: none;
+      background-color: #b240da;
+      color: white;
+      width: 35%;
+      text-align: center;
+    }
   }
-  .buy-btn:hover >img{
-     display: none;
+  .buy-btn:hover > img {
+    display: none;
   }
-  .buy-btn>img {
-  height: 30px;
-  width: 30px;
- 
-
-}
-  .buy-btn:hover>p{
+  .buy-btn > img {
+    height: 30px;
+    width: 30px;
+  }
+  .buy-btn:hover > p {
     display: inline;
   }
-  .buy-btn > p{
+  .buy-btn > p {
     display: none;
   }
 
-  .gift-btn{
+  .gift-btn {
     padding: 0.8rem 0.6rem;
     min-width: 6rem;
     font-weight: normal;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     width: 100%;
     @media (max-width: 400px) {
       margin-top: 0.5rem;
@@ -174,12 +174,12 @@
     margin-top: 0.5rem;
     &.price {
       justify-content: space-between;
-      font-size: 1rem;
+      font-size: 1.1rem;
     }
 
     @media (max-width: 420px) {
-      .price-text{
-       margin-right: 3.5rem;
+      .price-text {
+        margin-right: 3.5rem;
       }
       flex-direction: column;
       align-items: center;
