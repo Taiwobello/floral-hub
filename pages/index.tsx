@@ -21,7 +21,8 @@ import {
   giftItems,
   bestSellersRomance,
   defaultBreadcrumb,
-  regalWebsiteUrl
+  regalWebsiteUrl,
+  schemaProperties
 } from "../utils/constants";
 import ServiceCard from "../components/service-card/ServiceCard";
 import OccasionCard from "../components/occasion-card/OccasionCard";
@@ -40,124 +41,6 @@ import useDeviceType from "../utils/hooks/useDeviceType";
 import Link from "next/dist/client/link";
 import SchemaMarkup from "../components/schema-mark-up/SchemaMarkUp";
 import Meta from "../components/meta/Meta";
-
-const schemaProperties = {
-  "@type": "LocalBusiness",
-  name: "Regal Flowers",
-  url: "https://regalflowers.com.ng",
-  description:
-    "Order flowers and gifts online for same-day delivery or walk in 24/7. Send flowers to celebrate someone special from the top flower shop in Lagos & Abuja, Nigeria.",
-  image: [
-    "/images/popular-bundled.jpg",
-    "/images/occasions-love-bday.png",
-    "/images/calligraphy.jpg"
-  ],
-  telephone: [
-    "+234 701 000 6664",
-    "+234 701 000 6665",
-    "+234 701 199 2888",
-    "+234 911 200 0300"
-  ],
-  email: "info@regalflowers.com.ng",
-  openingHours: "24/7",
-  paymentAccepted: ["Credit/Debit Cards", "Paypal", "Bitcoin", "Bank Transfer"],
-  priceRange: "₦",
-  hasMap: [
-    "https://goo.gl/maps/cNB9Jx9sidQhJgtD6",
-    "https://goo.gl/maps/AsSEYaBUVV3NCRaa7",
-    "https://goo.gl/maps/5wQFMW5pR33n9k6G7",
-    "https://goo.gl/maps/JAKrvZAe5vfh4czr9"
-  ],
-  address: [
-    {
-      "@type": "PostalAddress",
-      streetAddress: "81b, Lafiaji Way, Dolphin Estate, Ikoyi, Lagos, Nigeria",
-      addressLocality: "Ikoyi",
-      addressRegion: "Lagos",
-      postalCode: "Nigeria"
-    },
-    {
-      "@type": "PostalAddress",
-      streetAddress: "Silverbird Galleria, 133, Ahmadu Bello Way",
-      addressLocality: "Victoria Island",
-      addressRegion: "Lagos",
-      postalCode: "Nigeria"
-    },
-    {
-      "@type": "PostalAddress",
-      streetAddress: "Muritala Muhammed Airport2",
-      addressLocality: "Ikeja",
-      addressRegion: "Lagos",
-      postalCode: "Nigeria"
-    },
-    {
-      "@type": "PostalAddress",
-      streetAddress: "5, Nairobi Street, off Aminu Kano Crescent, Wuse 2",
-      addressLocality: "Abuja",
-      addressRegion: "Nigeria"
-    }
-  ],
-  geo: [
-    {
-      "@type": "GeoCoordinates",
-      latitude: "6.431916",
-      longitude: "3.438313"
-    },
-    {
-      "@type": "GeoCoordinates",
-      latitude: "6.431130",
-      longitude: "3.421499"
-    },
-    {
-      "@type": "GeoCoordinates",
-      latitude: "6.579768",
-      longitude: "3.327780"
-    },
-    {
-      "@type": "GeoCoordinates",
-      latitude: "9.079727",
-      longitude: "7.495671"
-    }
-  ],
-  contactPoint: [
-    {
-      "@type": "ContactPoint",
-      telephone: "+2347011992888",
-      contactType: "customer service",
-      url: "https://wa.me/+2347011992888"
-    }
-  ],
-  sameAs: [
-    "https://instagram.com/regalflowers.com.ng",
-    "http://facebook.com/RegalFlowersNG/",
-    "https://www.linkedin.com/company/regalflowers-com-ng/"
-  ],
-  potentialAction: [
-    {
-      "@type": "ViewAction",
-      target:
-        "https://regalflowers.com.ng/product-category/flowers-for-love-birthday-anniversary-etc",
-      name: "Love, Birthday, Anniversary Flowers"
-    },
-    {
-      "@type": "ViewAction",
-      target: "https://regalflowers.com.ng/product-category/gifts",
-      name: "Gifts to Include"
-    },
-    {
-      "@type": "ViewAction",
-      target:
-        "https://regalflowers.com.ng/product-category/just-to-say-bouquets",
-      name: "Popular Options"
-    },
-    {
-      "@type": "ViewAction",
-      target: "https://regalflowers.com.ng/product-category/roses",
-      name: "Roses"
-    }
-  ],
-  logo: "/icons/logo.png"
-};
 
 const LandingPage: FunctionComponent<{
   locationName: LocationName;
@@ -193,15 +76,38 @@ const LandingPage: FunctionComponent<{
             " "
           )}
         >
-          <div className="hero-content flex column center center-align">
+          <div
+            className={[
+              "hero-content flex column center",
+              styles["hero-content"]
+            ].join(" ")}
+          >
             <h1 className={styles.title}>
-              They Deserve Regal Flowers.
-              <br /> Premium Same Day Flower Delivery in Lagos & Abuja, Nigeria
+              Send Fresh Flowers <br /> to Lagos
             </h1>
-            <FlowerDeliveryInput />
+            <p className={styles.subtitle}>
+              Your Favorite Online Fresh Flowers and Gifts Shop.
+            </p>
+            <a href="https://google.com" target="_blank" rel="noreferrer">
+              <div className="flex spaced center-align">
+                <span className={styles.stats}>
+                  <img
+                    className="generic-icon small"
+                    src="/icons/star.svg"
+                    alt="google"
+                  />
+                  <span>4.5 </span>{" "}
+                  <span className="underline">1,000+ reviews</span>
+                </span>
+              </div>
+            </a>
           </div>
         </div>
+
         <section className="featured-section-wrapper">
+          <div className={styles["hero-input"]}>
+            <FlowerDeliveryInput />
+          </div>
           <div className="featured-content">
             <div className="flex between">
               <h2 className="featured-title">{bestSellers[locationName]}</h2>
@@ -1032,7 +938,7 @@ const FlowerDeliveryInput: FunctionComponent = () => {
 
   return (
     <div className={styles["flower-input-wrapper"]}>
-      <div className="block">
+      <div className="full-width">
         <Select
           options={allOccasionOptions}
           value={occasion.id}
@@ -1048,7 +954,7 @@ const FlowerDeliveryInput: FunctionComponent = () => {
           value={deliveryDate}
           onChange={setDeliveryDate}
           format="D MMM YYYY"
-          className={styles["occasion-date"]}
+          className={styles["delivery-date"]}
           placeholder="Delivery Date"
           dropdownAlignment={deviceType === "mobile" ? "right" : "left"}
           iconAtLeft
@@ -1059,7 +965,7 @@ const FlowerDeliveryInput: FunctionComponent = () => {
         padded
         url={`/product-category/${occasion?.name ||
           "flowers-for-love-birthday-anniversary-etc"}`}
-        className={styles["occasion-submit"]}
+        className={styles["input-submit"]}
       >
         Send Flowers
       </Button>

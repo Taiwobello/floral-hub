@@ -1,12 +1,10 @@
 import {
   FunctionComponent,
   useContext,
-  useRef,
   useState,
   MouseEvent as ReactMouseEvent,
   useMemo,
-  useEffect,
-  useCallback
+  useEffect
 } from "react";
 import Link from "next/link";
 import SettingsContext from "../../utils/context/SettingsContext";
@@ -22,27 +20,22 @@ import { AppLink } from "../../utils/types/Core";
 import { getProductsBySlugs } from "../../utils/helpers/data/products";
 import useOutsideClick from "../../utils/hooks/useOutsideClick";
 import SearchDropdown from "./SearchDropdown";
+import useScrollCheck from "../../utils/hooks/useScrollCheck";
 
 const Header: FunctionComponent = () => {
   const [activeNavLink, setActiveNavLink] = useState("");
   const [showSidebar, setShowSidebar] = useState(false);
   const [activeSublinkNav, setActiveSublinkNav] = useState("");
-  const [hasScrolled, setHasScrolled] = useState(false);
+
   const [linksWithFeaturedProducts, setLinksWithFeaturedProducts] = useState<
     AppLink[]
   >([...links]);
   const [displaySearchDropdown, setDisplaySearchDropdown] = useState(false);
 
-  const hasScrolledRef = useRef(hasScrolled);
-  useEffect(() => {
-    hasScrolledRef.current = hasScrolled;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hasScrolled]);
-
   const deviceType = useDeviceType();
 
   const { pathname: _pathname, query } = useRouter();
-  const pathname = _pathname.split("/")[1];
+  const pathname = _pathname.split("/").pop();
 
   const {
     cartItems,
@@ -73,13 +66,7 @@ const Header: FunctionComponent = () => {
     e.stopPropagation();
   };
 
-  const onUserScroll = useCallback(() => {
-    if (hasScrolledRef.current && window.scrollY === 0) {
-      setHasScrolled(false);
-    } else if (!hasScrolledRef.current && window.scrollY > 0) {
-      setHasScrolled(true);
-    }
-  }, []);
+  const hasScrolled = useScrollCheck();
 
   useEffect(() => {
     if (!orderId && pathname !== "checkout") {
@@ -91,11 +78,6 @@ const Header: FunctionComponent = () => {
     if (!query.search) {
       setSearchText("");
     }
-
-    window.addEventListener("scroll", onUserScroll);
-    return () => {
-      window.removeEventListener("scroll", onUserScroll);
-    };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);

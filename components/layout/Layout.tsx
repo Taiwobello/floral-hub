@@ -8,6 +8,7 @@ import Header from "./Header";
 import CheckoutHeader from "./CheckoutHeader";
 import AuthModal from "./AuthModal";
 import SettingsContext from "../../utils/context/SettingsContext";
+import useScrollCheck from "../../utils/hooks/useScrollCheck";
 
 const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
   const { pathname: _pathname } = useRouter();
@@ -17,6 +18,8 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
   const { shouldShowAuthDropdown, setShouldShowAuthDropdown } = useContext(
     SettingsContext
   );
+
+  const hasScrolled = useScrollCheck();
 
   return (
     <>
@@ -29,7 +32,7 @@ const Layout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
       ) : (
         <Header />
       )}
-      <main className={styles.main}>
+      <main className={[styles.main, hasScrolled && "has-scrolled"].join(" ")}>
         <CurrencyController />
         {children}
         {pathname !== "checkout" && <Footer />}
