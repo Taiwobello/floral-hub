@@ -1,6 +1,11 @@
 import Link from "next/link";
 import Img from "next/image";
-import React, { forwardRef, MouseEvent, useContext } from "react";
+import React, {
+  CSSProperties,
+  forwardRef,
+  MouseEvent,
+  useContext
+} from "react";
 import SettingsContext from "../../utils/context/SettingsContext";
 import { getPriceDisplay } from "../../utils/helpers/type-conversions";
 import { CartItem } from "../../utils/types/Core";
@@ -22,6 +27,8 @@ interface IFlowerCardProps {
   product?: Product;
   cart?: boolean;
   onlyTitle?: boolean;
+  className?: string;
+  style?: CSSProperties;
 }
 
 const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
@@ -36,7 +43,9 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
       mode,
       product,
       cart,
-      onlyTitle
+      onlyTitle,
+      className,
+      style
     } = props;
 
     const {
@@ -115,8 +124,9 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
         <a
           className={`${styles["flower-card"]} center ${
             styles[mode || "four-x-grid"]
-          }`}
+          } ${className}`}
           ref={ref}
+          style={style}
         >
           <div className={styles["img-wrapper"]}>
             <Img

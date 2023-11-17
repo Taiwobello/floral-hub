@@ -3410,4 +3410,4 @@ export const contactUsPageConent: Record<string, any> = {
   }
 };
 
-export const business = "regalFlowers";
+export const business = "floralHub";

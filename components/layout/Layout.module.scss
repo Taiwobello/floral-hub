@@ -83,13 +83,13 @@
       .dropdown {
         position: fixed;
         padding: 3rem 5rem;
-        top: 8rem;
+        top: 7.8rem;
         left: 10vw;
         background-color: white;
         width: 80vw;
         box-shadow: 0 0.8rem 0.8rem rgba(0, 0, 0, 0.1);
         font-size: 1rem;
-        min-width: fit-content;
+        overflow: hidden;
         transition: all 0.6s ease-out;
         pointer-events: none;
         opacity: 0;
@@ -99,7 +99,13 @@
           pointer-events: all;
         }
         &.minimize {
-          top: 5rem;
+          top: 3.5rem;
+        }
+        @media (max-width: 1300px) {
+          width: 90vw;
+          left: 5vw;
+          padding: 3rem;
+          font-size: 0.9rem;
         }
 
         .subtitle {
@@ -108,7 +114,6 @@
           margin-bottom: 1rem;
         }
         .sub-link {
-          font-size: 1rem;
           font-weight: 400;
           & > * {
             margin-bottom: 1rem;
@@ -172,6 +177,8 @@
   .logo {
     height: auto;
     width: 15rem;
+    position: relative;
+    z-index: 14;
   }
 
   .search-dropdown {

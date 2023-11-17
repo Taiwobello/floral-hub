@@ -409,14 +409,14 @@ const Header: FunctionComponent = () => {
                         className={styles["card-wrapper"]}
                         style={{
                           width: `${(link.featuredProducts?.length || 0 + 1) *
-                            14}rem`
+                            15}rem`
                         }}
                       >
                         <h3 className="thin margin-bottom">
                           FEATURED PRODUCT
                           {link.featuredProducts?.length !== 1 ? "S" : ""}
                         </h3>
-                        <div className="flex spaced">
+                        <div className="flex spaced full-width">
                           {link.featuredProducts?.map((product, i) => (
                             <FlowerCard
                               name={product.name}
@@ -426,6 +426,7 @@ const Header: FunctionComponent = () => {
                               url={`/product/${product.slug}`}
                               price={product.price}
                               product={product}
+                              style={{ width: "14rem" }}
                             />
                           ))}
                         </div>
