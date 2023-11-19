@@ -107,7 +107,27 @@ const LandingPage: FunctionComponent<{
           <div className={styles["hero-input"]}>
             <FlowerDeliveryInput />
           </div>
-          <div className="featured-content">
+          <div className="vertical-margin xl">
+            <h2 className="featured-title text-center">
+              Flower Delivery For All Occasions
+            </h2>
+            <div className="featured-content">
+              <div className={[styles.section, styles.wrap].join(" ")}>
+                {regalOccasions.map(occasion => (
+                  <OccasionCard
+                    key={occasion.title}
+                    name={occasion.title}
+                    url={occasion.url}
+                    image={occasion.image}
+                    subTitle={occasion.subtitle}
+                    mode="three-x-grid"
+                    buttonText={occasion.cta}
+                    color={occasion.color}
+                  />
+                ))}
+              </div>
+            </div>
+
             <div className="flex between">
               <h2 className="featured-title">BEST SELLING FLOWERS</h2>
               {deviceType === "desktop" && (
@@ -170,26 +190,6 @@ const LandingPage: FunctionComponent<{
                 </Button>
               )}
             </div>
-            <div className={[styles.section, styles.wrap].join(" ")}>
-              {regalOccasions.map(occasion => (
-                <OccasionCard
-                  key={occasion.title}
-                  title={occasion.title}
-                  url={occasion.url}
-                  image={occasion.image}
-                />
-              ))}
-            </div>
-            {deviceType === "mobile" && (
-              <Button
-                url="/product-category/all"
-                type="accent"
-                minWidth
-                className={styles["see-all"]}
-              >
-                <h3 className="red margin-right">See All</h3>
-              </Button>
-            )}
 
             <br />
             <h2 className="featured-title">Popular Sections</h2>

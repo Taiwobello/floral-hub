@@ -654,6 +654,7 @@ span {
     position: relative;
     z-index: 1;
     min-height: 375rem;
+    padding-top: 6rem;
 
     @media (max-width: 600px) {
       margin-top: -7rem;
@@ -684,6 +685,7 @@ span {
     .featured-title {
       font-size: 1.8rem;
       font-weight: 400;
+      text-transform: uppercase;
 
       @media (max-width: 600px) {
         text-align: center;
