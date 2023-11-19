@@ -644,12 +644,13 @@ span {
 }
 .page-content {
   .featured-section-wrapper {
-    position: relative;
-    background-image: url(/images/pattern-bg.png);
-    background-repeat: no-repeat;
-    background-position: right;
-    background-attachment: fixed;
-    background-size: 23rem;
+    // position: relative;
+    // background-image: url(/images/pattern-bg.png);
+    // background-repeat: no-repeat;
+    // background-position: right;
+    // background-attachment: fixed;
+    // background-size: 23rem;
+    background-color: #cdcdcd;
     position: relative;
     z-index: 1;
     min-height: 375rem;

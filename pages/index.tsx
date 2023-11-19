@@ -115,14 +115,9 @@ const LandingPage: FunctionComponent<{
                 <Button
                   url="/product-category/flowers-for-love-birthday-anniversary-etc"
                   className="flex spaced center-align"
-                  type="transparent"
+                  type="plain"
                 >
                   <h3 className="red margin-right">See All</h3>
-                  <img
-                    alt="arrow"
-                    className="generic-icon xsmall"
-                    src="/icons/arrow-right.svg"
-                  />
                 </Button>
               )}
             </div>
@@ -159,14 +154,9 @@ const LandingPage: FunctionComponent<{
                 <Button
                   url="/product-category/just-to-say-bouquets"
                   className="flex spaced center-align"
-                  type="transparent"
+                  type="plain"
                 >
                   <h3 className="red margin-right">See All</h3>
-                  <img
-                    alt="arrow"
-                    className="generic-icon xsmall"
-                    src="/icons/arrow-right.svg"
-                  />
                 </Button>
               )}
             </div>
@@ -214,14 +204,9 @@ const LandingPage: FunctionComponent<{
                 <Button
                   url="/product-category/all"
                   className="flex spaced center-align"
-                  type="transparent"
+                  type="plain"
                 >
                   <h3 className="red margin-right">See All</h3>
-                  <img
-                    alt="arrow"
-                    className="generic-icon xsmall"
-                    src="/icons/arrow-right.svg"
-                  />
                 </Button>
               )}
             </div>
@@ -417,15 +402,10 @@ const LandingPage: FunctionComponent<{
               {deviceType === "desktop" && (
                 <Button
                   url="/product-category/gifts"
-                  className="flex spaced center center-align"
-                  type="transparent"
+                  className="flex spaced center-align"
+                  type="plain"
                 >
                   <h3 className="red margin-right">See All</h3>
-                  <img
-                    alt="arrow"
-                    className="generic-icon xsmall"
-                    src="/icons/arrow-right.svg"
-                  />
                 </Button>
               )}
             </div>
@@ -869,12 +849,6 @@ const LandingPage: FunctionComponent<{
     </>
   );
 };
-
-// const occasionOptions = regalOccasions.map(occasion => ({
-//   ...occasion,
-//   label: occasion.title,
-//   value: occasion.title
-// }));
 
 const FlowerDeliveryInput: FunctionComponent = () => {
   const [occasion, setOccasion] = useState<Category>({

@@ -2666,16 +2666,16 @@ export const bestSellersRomance: RegalContent = {
 
 export const featuredSlugs: Record<LocationName, string[]> = {
   "featured-birthday": [
-    "cool-and-classic",
-    "ferrero-rocher-roses-003-exquisite-combination",
-    "bellissimo-beautiful-luxurious-mix-of-red-white-pink-roses",
-    "mon-coeur-my-heart-roses-in-heart-shape"
+    "allure-bouquet-of-red-white-pink-yellow-or-purples-roses-select-size",
+    "purity-roses-arranged-with-sparkling-white-select-size",
+    "debonair-lilies-with-red-roses-white-roses-and-gypsophila-million-star-select-size",
+    "chrysant-delight-mixture-of-bright-and-vibrant-chrysanthemums-with-million-stars-gypsophila-more"
   ],
   "featured-romance": [
-    "belleza-regal-two-colors-rose-red-yellow-white-pink-orange",
-    "calligraphy-by-regal-red-roses-white-roses-lilies",
-    "classic-roses-are-red-box-arrangement-red-roses-and-million-stars",
-    "roses-and-mixed-chrysanthemums-roses-and-mixed-chrysanthemums"
+    "euphoria-roses-and-million-stars-or-statice-select-size",
+    "my-heart-concentric-mix-of-two-or-three-colours-of-roses-to-form-a-heart-shape-select-size",
+    "numero-uno-mix-of-different-colors-of-roses-with-a-different-shade-in-the-middle-and-million-stars-or-statice-select-size",
+    "dune-beautiful-arrangement-of-roses-with-mixed-chrysanthemums-and-million-stars"
   ],
   lagos: [
     "cool-and-classic",
