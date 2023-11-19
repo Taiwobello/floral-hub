@@ -616,19 +616,31 @@ export const regalFeatures: Service[] = [
 
 export const regalOccasions: Occasion[] = [
   {
-    title: "Love, Birthdays & Anniversary Flowers",
-    url: "/product-category/flowers-for-love-birthday-anniversary-etc",
-    image: "/images/occasions-love-bday.png"
-  },
-  {
     title: "Flowers to say Hi, Sorry, Thank You etc",
     url: "/product-category/just-to-say-bouquets",
-    image: "/images/occasions-sorry-thanks.png"
+    image: "/images/occasions-sorry-thanks.png",
+    subtitle:
+      "Say it with flowers. They deserve a handcrafted bouquet of fresh flowers",
+    cta: "SHOP FLOWERS",
+    color: "#EE5D76"
   },
   {
-    title: "Bridal Flowers",
-    url: "/product-category/bridal-bouquets",
-    image: "/images/occasions-bridal.png"
+    title: "Anniversary Flowers",
+    url: "/product-category/flowers-for-love-birthday-anniversary-etc",
+    image: "/images/occasions-love-bday.png",
+    subtitle:
+      "Celebrate the milestone with fresh flowers delivered to your partner's home or office",
+    cta: "SHOP ANNIVERSARY FLOWERS",
+    color: "#15803D"
+  },
+  {
+    title: "Condolence flowers",
+    url: "/product-category/funeral-and-condolence",
+    image: "/images/occasions-funeral-condolence.png",
+    subtitle:
+      "Say goodbye or how you feel with a thoughtful arrangement of flowers",
+    cta: "SHOP FUNERAL FLOWERS",
+    color: "#202020"
   }
 ];
 

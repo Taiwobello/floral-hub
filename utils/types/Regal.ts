@@ -8,6 +8,9 @@ export interface Occasion {
   title: string;
   image: string;
   url: string;
+  subtitle?: string;
+  cta?: string;
+  color?: string;
 }
 
 export interface UserReview {
