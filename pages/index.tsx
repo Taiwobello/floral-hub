@@ -14,12 +14,10 @@ import {
   blogPosts,
   aboutUsContent,
   featuredSlugs,
-  bestSellers,
   popularSections,
   mostLoved,
   allOccasionOptions,
   giftItems,
-  bestSellersRomance,
   defaultBreadcrumb,
   regalWebsiteUrl,
   schemaProperties
@@ -47,7 +45,7 @@ const LandingPage: FunctionComponent<{
   featuredBirthday?: Product[];
   featuredRomance?: Product[];
   featuredFlowers?: Product[];
-}> = ({ featuredBirthday, locationName, featuredRomance }) => {
+}> = ({ featuredBirthday, locationName }) => {
   const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
   const { setBreadcrumb } = useContext(SettingsContext);
 
@@ -83,7 +81,8 @@ const LandingPage: FunctionComponent<{
             ].join(" ")}
           >
             <h1 className={styles.title}>
-              Send Fresh Flowers <br /> to Lagos
+              Send Fresh Flowers <br />
+              to Lagos and Abuja, <br /> Nigeria
             </h1>
             <p className={styles.subtitle}>
               Your Favorite Online Fresh Flowers and Gifts Shop.
@@ -110,7 +109,7 @@ const LandingPage: FunctionComponent<{
           </div>
           <div className="featured-content">
             <div className="flex between">
-              <h2 className="featured-title">{bestSellers[locationName]}</h2>
+              <h2 className="featured-title">BEST SELLING FLOWERS</h2>
               {deviceType === "desktop" && (
                 <Button
                   url="/product-category/flowers-for-love-birthday-anniversary-etc"
@@ -123,45 +122,6 @@ const LandingPage: FunctionComponent<{
             </div>
             <div className={[styles.section, styles.wrap].join(" ")}>
               {featuredBirthday?.map(flower => (
-                <FlowerCard
-                  key={flower.key}
-                  image={flower.images[0]?.src || ""}
-                  name={flower.name.split("–")[0]}
-                  subTitle={flower.subtitle || flower.name.split("–")[1]}
-                  price={flower.price}
-                  url={`/product/${flower.slug}`}
-                  buttonText="Add to Cart"
-                  cart={flower.variants?.length ? false : true}
-                  product={flower}
-                />
-              ))}
-            </div>
-            {deviceType === "mobile" && (
-              <Button
-                url="/product-category/flowers-for-love-birthday-anniversary-etc"
-                type="accent"
-                minWidth
-                className={styles["see-all"]}
-              >
-                <h3 className="red margin-right">See All</h3>
-              </Button>
-            )}
-            <div className="flex between">
-              <h2 className="featured-title">
-                {bestSellersRomance[locationName]}
-              </h2>
-              {deviceType === "desktop" && (
-                <Button
-                  url="/product-category/just-to-say-bouquets"
-                  className="flex spaced center-align"
-                  type="plain"
-                >
-                  <h3 className="red margin-right">See All</h3>
-                </Button>
-              )}
-            </div>
-            <div className={[styles.section, styles.wrap].join(" ")}>
-              {featuredRomance?.map(flower => (
                 <FlowerCard
                   key={flower.key}
                   image={flower.images[0]?.src || ""}
@@ -949,9 +909,6 @@ const FlowerDeliveryInput: FunctionComponent = () => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const locationName = "featured-birthday";
-  const featuredRomance = await getProductsBySlugs(
-    featuredSlugs["featured-romance"]
-  );
   const { data, error, message } = await getProductsBySlugs(
     featuredSlugs[locationName]
   );
@@ -963,8 +920,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       locationName: "general",
-      featuredBirthday: data || [],
-      featuredRomance: featuredRomance.data || []
+      featuredBirthday: data || []
     }
   };
 };
