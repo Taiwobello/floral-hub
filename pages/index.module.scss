@@ -10,7 +10,9 @@
     font-size: 4.5rem;
     font-weight: 300;
     text-transform: uppercase;
-
+    @media (max-width: 1400px) {
+      font-size: 4rem;
+    }
     @media (max-width: 650px) {
       font-size: 1.5rem;
       width: 80%;
@@ -85,6 +87,35 @@
   justify-content: center;
   width: 100%;
   top: -3rem;
+}
+.featured-occasion-image {
+  width: 65vw;
+  margin-bottom: 2rem;
+}
+.featured-occasion-details {
+  position: absolute;
+  top: 30%;
+  right: 55vw;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: 0 0 1rem 0.5rem rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  align-items: center;
+  width: 25rem;
+  text-align: center;
+  .title {
+    font-weight: 400;
+    font-size: 1.5rem;
+  }
+  .subtitle {
+    margin: 2rem 0;
+    font-size: 1rem;
+  }
+  .button {
+    width: 100%;
+    padding: 0.8rem;
+  }
 }
 .reviews {
   display: flex;
