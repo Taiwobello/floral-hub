@@ -598,19 +598,28 @@ export const otherSampleProducts = {
 
 export const regalFeatures: Service[] = [
   {
-    image: "/images/truck.png",
-    title: "Same Day Delivery",
-    subtitle: "In Lagos & Abuja, Nigeria"
+    image: "/images/same-day.png",
+    title: "Fast Same Day Delivery",
+    subtitle:
+      "Delivery to suit you. Fast delivery in Lagos and Abuja everyday including weekends",
+    url: "/product-category/birthday-anniversary-and-romantic-flowers",
+    cta: "SHOP SAME DAY"
   },
   {
-    image: "/images/headset.png",
-    title: "Order Online or Walk-in 24/7",
-    subtitle: "Weekends and public holidays too"
+    image: "/images/care.png",
+    title: "Delivered fresh with care and attention",
+    subtitle:
+      "Our florists treat each order with care, from packaging to delivery, together with your complimentary message",
+    url: "/product-category/birthday-anniversary-and-romantic-flowers",
+    cta: "SHOP FLOWERS"
   },
   {
-    image: "/images/shield.png",
-    title: "Various Payment Options",
-    subtitle: "Change site to USD for PayPal/Bitcoin"
+    image: "/images/variety.png",
+    title: "A flower (and gift) for everyone",
+    subtitle:
+      "We stock a variety of flowers and gifts to delight your loved one. Fresh roses, lilies and more, as well as cakes, chocolates, teddies etc",
+    url: "/product-category/birthday-anniversary-and-romantic-flowers",
+    cta: "START SHOPPING"
   }
 ];
 

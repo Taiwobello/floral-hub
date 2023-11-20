@@ -2,6 +2,8 @@ export interface Service {
   title: string;
   subtitle: string;
   image: string;
+  cta?: string;
+  url?: string;
 }
 
 export interface Occasion {

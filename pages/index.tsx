@@ -5,9 +5,7 @@ import styles from "./index.module.scss";
 import {
   regalFeatures,
   regalOccasions,
-  regalReasons,
   reviews,
-  regalHowItWorks,
   regalAddresses,
   regalPhones,
   regalEmail,
@@ -257,7 +255,8 @@ const LandingPage: FunctionComponent<{
                     key={feature.title}
                     subtitle={feature.subtitle}
                     image={feature.image}
-                    size="small"
+                    buttonText={feature.cta}
+                    url={feature.url}
                   />
                 ))}
               </div>
@@ -410,40 +409,6 @@ const LandingPage: FunctionComponent<{
                 src={reviews[locationName][currentReviewIndex].image}
                 alt="review"
               />
-            )}
-          </div>
-
-          <div className="featured-content white-bg">
-            <h2 className="featured-title text-center">
-              Why Send with Regal Flowers
-            </h2>
-            <div className={[styles.section, styles.wrap].join(" ")}>
-              {regalReasons.map(reason => (
-                <ServiceCard
-                  title={reason.title}
-                  key={reason.title}
-                  subtitle={reason.subtitle}
-                  image={reason.image}
-                  size="default"
-                />
-              ))}
-            </div>
-
-            {deviceType === "desktop" && (
-              <>
-                <h2 className="featured-title text-center">How It Works</h2>
-                <div className={styles.section}>
-                  {regalHowItWorks.map(reason => (
-                    <ServiceCard
-                      title={reason.title}
-                      key={reason.title}
-                      subtitle={reason.subtitle}
-                      image={reason.image}
-                      size="default"
-                    />
-                  ))}
-                </div>
-              </>
             )}
           </div>
 

@@ -47,7 +47,7 @@
     .gift-btn {
       padding: 0.4rem;
       font-weight: normal;
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: rgb(217, 216, 216);
       width: 100%;
       @media (max-width: 400px) {
@@ -137,13 +137,13 @@
   }
   .buy-btn {
     height: 2.5rem;
-    transition: width 1s ease;
+    transition: width 0.2s ease;
     font-size: 0.8rem;
     overflow: hidden;
     white-space: nowrap;
 
     @media (min-width: 420px) {
-      width: 21%;
+      width: 2rem;
       text-align: end;
     }
 
@@ -160,8 +160,9 @@
       background-image: none;
       background-color: #b240da;
       color: white;
-      width: 35%;
+      width: 8rem;
       text-align: center;
+      padding: 0.4rem;
     }
   }
   .buy-btn:hover > img {
