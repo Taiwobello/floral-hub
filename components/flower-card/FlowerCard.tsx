@@ -59,7 +59,6 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
       setShouldShowCart
     } = useContext(SettingsContext);
      const [imageIndex, setImageIndex] = useState(0);
-     const [loading, setLoading] = useState(false);
 
      const image = slideImages?.[imageIndex].src || _image || ""
 
@@ -147,7 +146,7 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
               height={deviceType === "mobile" ? 800 : 2500}
               width={deviceType === "mobile" ? 800 : 2500}
               alt="featured flower"
-              onLoad={()=> setLoading(true)}
+
             />
           </div>
           <div className={styles.detail}>

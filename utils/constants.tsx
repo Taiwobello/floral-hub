@@ -3550,4 +3550,4 @@ export const schemaProperties = {
   logo: "/icons/logo.png"
 };
 
-export const business = "regalFlowers";
+export const business = "floralHub";

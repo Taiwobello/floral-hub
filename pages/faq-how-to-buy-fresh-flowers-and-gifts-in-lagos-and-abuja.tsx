@@ -170,7 +170,7 @@ const Index: FunctionComponent<{ featuredFlowers: Product[] }> = ({
             {question.name}
           </p>
           <div
-            className={`${styles["icon-container"]} ${
+            className={`flex ${styles["icon-container"]} ${
               isAnswerOpen ? styles["icon-container-open"] : ""
             }`}
           >
