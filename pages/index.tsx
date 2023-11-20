@@ -36,7 +36,7 @@ import Product from "../utils/types/Product";
 import { LocationName } from "../utils/types/Regal";
 import { GetStaticProps } from "next";
 import useDeviceType from "../utils/hooks/useDeviceType";
-import Link from "next/dist/client/link";
+import Link from "next/link";
 import SchemaMarkup from "../components/schema-mark-up/SchemaMarkUp";
 import Meta from "../components/meta/Meta";
 
@@ -107,17 +107,13 @@ const LandingPage: FunctionComponent<{
           <div className={styles["hero-input"]}>
             <FlowerDeliveryInput />
           </div>
-          <div className="vertical-margin xl">
-            <div className="featured-content">
-              <h2 className="featured-title text-center vertical-margin xl">
-                Flower Delivery For All Occasions
-              </h2>
-              <Button
-                className="flex end full-width relative cursor-pointer"
-                type="plain"
-                url="/product-category/birthday-flowers"
-              >
-                <div className={styles["featured-occasion-details"]}>
+          <div className="featured-content">
+            <h2 className="featured-title text-center vertical-margin xl">
+              Flower Delivery For All Occasions
+            </h2>
+            <div className="flex end full-width relative">
+              <Link href="/product-category/birthday-flowers">
+                <a className={styles["featured-occasion-details"]}>
                   <h3 className={styles.title}>BIRTHDAY FLOWERS</h3>
                   <span className={styles.subtitle}>
                     Celebrate them with beautiful handpicked fresh flowers
@@ -126,28 +122,28 @@ const LandingPage: FunctionComponent<{
                   <Button className={styles.button}>
                     SHOP BIRTHDAY FLOWERS
                   </Button>
-                </div>
-                <img
-                  alt="featured occasion"
-                  src="/images/occassions-birthday.png"
-                  className={styles["featured-occasion-image"]}
-                />
-              </Button>
+                </a>
+              </Link>
+              <img
+                alt="featured occasion"
+                src="/images/occassions-birthday.png"
+                className={styles["featured-occasion-image"]}
+              />
+            </div>
 
-              <div className={[styles.section, styles.wrap].join(" ")}>
-                {regalOccasions.map(occasion => (
-                  <OccasionCard
-                    key={occasion.title}
-                    name={occasion.title}
-                    url={occasion.url}
-                    image={occasion.image}
-                    subTitle={occasion.subtitle}
-                    mode="three-x-grid"
-                    buttonText={occasion.cta}
-                    color={occasion.color}
-                  />
-                ))}
-              </div>
+            <div className={[styles.section, styles.wrap].join(" ")}>
+              {regalOccasions.map(occasion => (
+                <OccasionCard
+                  key={occasion.title}
+                  name={occasion.title}
+                  url={occasion.url}
+                  image={occasion.image}
+                  subTitle={occasion.subtitle}
+                  mode="three-x-grid"
+                  buttonText={occasion.cta}
+                  color={occasion.color}
+                />
+              ))}
             </div>
 
             <div className="flex between">
@@ -200,18 +196,6 @@ const LandingPage: FunctionComponent<{
                 ))}
               </div>
             )}
-            <div className="flex between">
-              <h2 className="featured-title">Featured Occasions</h2>
-              {deviceType === "desktop" && (
-                <Button
-                  url="/product-category/all"
-                  className="flex spaced center-align"
-                  type="plain"
-                >
-                  <h3 className="red margin-right">See All</h3>
-                </Button>
-              )}
-            </div>
 
             <br />
             <h2 className="featured-title">Popular Sections</h2>

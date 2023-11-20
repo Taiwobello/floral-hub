@@ -679,9 +679,10 @@ span {
       }
     }
     .featured-title {
-      font-size: 1.8rem;
+      font-size: 2.2rem;
       font-weight: 400;
       text-transform: uppercase;
+      margin-bottom: 1rem;
 
       @media (max-width: 600px) {
         text-align: center;
