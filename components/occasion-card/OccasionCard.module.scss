@@ -59,6 +59,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
     height: 3rem;
+    @media (max-width: 1300px) {
+      height: 2.6rem;
+    }
     @media (max-width: 400px) {
       border-bottom: 1px solid #eff0f6;
     }

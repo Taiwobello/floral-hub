@@ -183,6 +183,31 @@ const LandingPage: FunctionComponent<{
                 <h3 className="red margin-right">See All</h3>
               </Button>
             )}
+
+            <div className="vertical-margin xl">
+              <h2 className="featured-title text-center full-width">
+                What Makes <span className="primary-color">FloralHub</span> So
+                Special?
+              </h2>
+              <div className={styles["quote-flex"]}>
+                <img
+                  alt="quote"
+                  src="/images/quote-1.png"
+                  className={styles["quote-img"]}
+                />
+                <div className={styles.quote}>
+                  "We don't just deliver flowers and gifts. Every flower and
+                  gift delivery is a special experience between you and the
+                  receiver, and we are happy to help create it.”
+                </div>
+                <img
+                  alt="quote"
+                  src="/images/quote-2.png"
+                  className={styles["quote-img"]}
+                />
+              </div>
+            </div>
+
             {deviceType === "desktop" && (
               <div className={styles.section}>
                 {regalFeatures.map(feature => (
