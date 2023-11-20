@@ -133,6 +133,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
         alt: product.images[0].alt
       },
       SKU: selectedSize?.sku as string,
+      description: product.subtitle
     };
 
     const existingCartItem = cartItems.find(

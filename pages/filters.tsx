@@ -265,7 +265,7 @@ const changeHeroContent = () =>{
       );
     }
   };
-
+  // console.log(products[0]["images"])
   const handleFilterChange = (filter: FilterOption) => {
     const newFilters = selectedFilter.includes(filter.tag || "")
       ? selectedFilter.filter(_filter => _filter !== filter.tag)
@@ -596,10 +596,15 @@ const changeHeroContent = () =>{
                       hideFilters ? "block" : ""
                     }`}
                   >
+
+                    {deviceType === "desktop" ? (<span className={`question ${styles.question}`}>
+                      Sorted By: 
+                    </span>) : (" ")}
+
                     <div className={`input-group ${styles.sort}`}>
-                      <span className="question">
-                        {deviceType === "desktop" ? "Sorted By:" : "Sort:"}{" "}
-                      </span>
+                      {deviceType === "mobile" ? (<span className={`question ${styles.question}`}>
+                       Sort: 
+                      </span>) : (" ")}
                       <Select
                         options={sortOptions}
                         value={sort}
@@ -767,6 +772,7 @@ const changeHeroContent = () =>{
                     key={index}
                     name={product.name.split("–")[0]}
                     image={product.images[0].src}
+                    slideImages={product["images"]}
                     price={product.price}
                     buttonText="Add to Cart"
                     subTitle={product.subtitle || product.name.split("–")[1]}

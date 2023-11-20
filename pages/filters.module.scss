@@ -1,5 +1,6 @@
 .filters {
   background-color: #F3F4F6;
+  padding-top: 4rem;
   .hero-bg {
     height: 28rem;
     width: 100%;
@@ -169,12 +170,19 @@
 
       .sort {
         min-width: 12rem;
-        text-align: right;
-        display: flex;
+        // text-align: left;
+        // display: flex;
         border: 0;
+        // background-color: inherit;
         @media (max-width: 650px) {
           width: 14rem;
         }
+      }
+      .question{
+        min-width:5rem;
+        @media (max-width: 420px) {
+            width: auto;
+          }
       }
     }
 
@@ -249,9 +257,11 @@
 .filter-mobile {
   display: none;
   position: relative;
+  top: 1rem;
   @media (max-width: 650px) {
     display: block;
     margin-left: 2.2rem;
+  
   }
 
   .btn {

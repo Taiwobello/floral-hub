@@ -218,6 +218,7 @@ export const breadcrumbItems: Breadcrumb[] = [
     label: "Romance, Birthdays & Anniversary"
   },
   { url: "just-to-say-bouquets", label: "Just To Say Hi, Sorry, Thank You" },
+  { url: "valentines-day-flowers-and-gifts", label: "Valentines Day" },
   { url: "get-well-soon", label: "Get Well Soon" },
   { url: "bridal-bouquets", label: "Bridal" },
   { url: "funeral-and-condolence", label: "Funeral & Condolence" },
@@ -3549,4 +3550,4 @@ export const schemaProperties = {
   logo: "/icons/logo.png"
 };
 
-export const business = "floralHub";
+export const business = "regalFlowers";
