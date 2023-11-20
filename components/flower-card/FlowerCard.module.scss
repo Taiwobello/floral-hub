@@ -31,7 +31,29 @@
   &.four-x-grid {
     width: 23%;
     min-width: 12rem;
-
+    .detail {
+      padding: 1.2rem;
+    }
+    .name {
+      font-size: 1.1rem;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      text-overflow: ellipsis;
+      height: 1.5rem;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+    }
+    .gift-btn {
+      padding: 0.4rem;
+      font-weight: normal;
+      font-size: 0.9rem;
+      color: rgb(217, 216, 216);
+      width: 100%;
+      @media (max-width: 400px) {
+        margin-top: 0.5rem;
+      }
+    }
     @media (max-width: 650px) {
       width: 47%;
     }

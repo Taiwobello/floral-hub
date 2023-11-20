@@ -189,7 +189,7 @@ const LandingPage: FunctionComponent<{
                 What Makes <span className="primary-color">FloralHub</span> So
                 Special?
               </h2>
-              <div className={styles["quote-flex"]}>
+              <div className={[styles["quote-flex"], styles.section].join(" ")}>
                 <img
                   alt="quote"
                   src="/images/quote-1.png"
@@ -207,6 +207,47 @@ const LandingPage: FunctionComponent<{
                 />
               </div>
             </div>
+
+            <div className="vertical-margin xl">
+              <div className="flex between">
+                <h2 className="featured-title">
+                  Gifts to Include with Flowers
+                </h2>
+                {deviceType === "desktop" && (
+                  <Button
+                    url="/product-category/gifts"
+                    className="flex spaced center-align"
+                    type="plain"
+                  >
+                    <h3 className="red margin-right">See All</h3>
+                  </Button>
+                )}
+              </div>
+              <div className={[styles.section, styles.wrap].join(" ")}>
+                {giftItems.map(gift => (
+                  <FlowerCard
+                    key={gift.name}
+                    image={gift.image}
+                    name={gift.name}
+                    subTitle={gift.description}
+                    url={gift.slug}
+                    buttonText="VIEW GIFTS"
+                    mode="four-x-grid"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {deviceType === "mobile" && (
+              <Button
+                url="/product-category/gifts"
+                type="accent"
+                minWidth
+                className={styles["see-all"]}
+              >
+                <h3 className="red margin-right">See All</h3>
+              </Button>
+            )}
 
             {deviceType === "desktop" && (
               <div className={styles.section}>
@@ -387,42 +428,6 @@ const LandingPage: FunctionComponent<{
                 />
               ))}
             </div>
-
-            <div className="flex between">
-              <h2 className="featured-title">Gifts to Include with Flowers</h2>
-              {deviceType === "desktop" && (
-                <Button
-                  url="/product-category/gifts"
-                  className="flex spaced center-align"
-                  type="plain"
-                >
-                  <h3 className="red margin-right">See All</h3>
-                </Button>
-              )}
-            </div>
-            <div className={[styles.section, styles.wrap].join(" ")}>
-              {giftItems.map(gift => (
-                <FlowerCard
-                  key={gift.name}
-                  image={gift.image}
-                  name={gift.name}
-                  subTitle={gift.description}
-                  url={gift.slug}
-                  buttonText="See More"
-                />
-              ))}
-            </div>
-
-            {deviceType === "mobile" && (
-              <Button
-                url="/product-category/gifts"
-                type="accent"
-                minWidth
-                className={styles["see-all"]}
-              >
-                <h3 className="red margin-right">See All</h3>
-              </Button>
-            )}
 
             {deviceType === "desktop" && (
               <>
