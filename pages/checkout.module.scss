@@ -190,7 +190,7 @@
   .pickup-locations {
     background-color: #f9fafb;
     padding: 1.5rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
   }
 
   .line-through {
@@ -715,7 +715,7 @@
       margin-left: 1rem;
     }
 
-    &.bitcoinTransfer {
+    &.bitcoinAddress {
       display: block;
 
       & > :nth-child(2) {

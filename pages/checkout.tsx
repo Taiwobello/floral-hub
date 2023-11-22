@@ -22,12 +22,15 @@ import Select, { Option } from "../components/select/Select";
 import {
   allDeliveryLocationOptions,
   allDeliveryLocationZones,
+  bitcoinAddress,
   checkoutContent,
   deliveryStates,
+  floralHubPaymentEmail,
   freeDeliveryThreshold,
   freeDeliveryThresholdVals,
   paymentMethods,
   pickupLocations,
+  pickupStates,
   placeholderEmail,
   regalEmail
 } from "../utils/constants";
@@ -108,7 +111,8 @@ const initialData: CheckoutFormData = {
   recipientCountryCodeAlt: "+234",
   zone: "",
   currency: "NGN",
-  deliveryInstruction: ""
+  deliveryInstruction: "",
+  pickupState: ""
 };
 
 type DeliverStage =
@@ -118,9 +122,9 @@ type DeliverStage =
   | "payment"
   | "customization-message";
 
-type TransferName = "gtbTransfer" | "natwestTransfer" | "bitcoinTransfer";
+type TransferName = "gtbTransfer" | "natwestTransfer" | "bitcoinAddress";
 
-const transferList = ["gtbTransfer", "natwestTransfer", "bitcoinTransfer"];
+const transferList = ["gtbTransfer", "natwestTransfer", "bitcoinAddress"];
 
 const breadcrumbItems = [{ label: "Home", link: "/" }, { label: "Checkout" }];
 
@@ -244,6 +248,24 @@ const Checkout: FunctionComponent = () => {
         pickUpLocation: "",
         deliveryLocation: null
       });
+      return;
+    }
+    if (key === "pickupState") {
+      if (value === "lagos") {
+        setFormData({
+          ...formData,
+          [key as string]: value,
+          pickUpLocation: "Lagos",
+          deliveryLocation: null
+        });
+      } else if (value === "abuja") {
+        setFormData({
+          ...formData,
+          [key as string]: value,
+          pickUpLocation: "Abuja",
+          deliveryLocation: null
+        });
+      }
       return;
     }
     if (key === "zone") {
@@ -725,8 +747,8 @@ const Checkout: FunctionComponent = () => {
       setShowBankDetails(true);
     },
     googlePay: () => {},
-    bitcoinTransfer: () => {
-      settransferName("bitcoinTransfer");
+    bitcoinAddress: () => {
+      settransferName("bitcoinAddress");
       setShowBankDetails(true);
     },
     gtbTransfer: () => {
@@ -1043,7 +1065,7 @@ const Checkout: FunctionComponent = () => {
                                     contact us on Phone/WhatsApp:
                                     <br />
                                     <a
-                                      href="tel:+2347011992888"
+                                      href="tel:+2349077777994"
                                       className="clickable neutral underline"
                                     >
                                       +234 7011992888
@@ -1092,27 +1114,78 @@ const Checkout: FunctionComponent = () => {
 
                         {formData.deliveryMethod === "pick-up" && (
                           <div className={styles["pickup-locations"]}>
-                            <p className="primary-color align-icon normal-text bold margin-bottom flex spaced">
+                            <p className="primary-color align-icon normal-text bold  flex spaced">
                               <span>Pick Up Locations</span>
                               <InfoRedIcon />
                             </p>
-                            <div>
-                              <Radio
-                                label="Lagos Pickup - 81b, Lafiaji Way, Dolphin Estate, Ikoyi, Lagos"
-                                onChange={() =>
-                                  handleChange("pickUpLocation", "Lagos")
-                                }
-                                checked={formData.pickUpLocation === "Lagos"}
+                            <div className="input-group">
+                              <span className="question">Delivery State</span>
+                              <Select
+                                onSelect={value => {
+                                  handleChange("pickupState", value);
+                                }}
+                                value={formData.pickupState}
+                                options={pickupStates}
+                                placeholder="Select a state"
+                                responsive
+                                dimmed
                               />
                             </div>
-                            <div className="vertical-margin">
-                              <Radio
-                                label="Abuja Pickup - 5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja"
-                                onChange={() =>
-                                  handleChange("pickUpLocation", "Abuja")
-                                }
-                                checked={formData.pickUpLocation === "Abuja"}
-                              />
+                            <div className="margin-top spaced">
+                              {formData.pickUpLocation === "Lagos" && (
+                                <div>
+                                  <Radio
+                                    label={
+                                      <span className="flex spaced column">
+                                        <span>Lagos, Ikoyi</span>
+                                        <span className="grayed">
+                                          7, Ikeja Way, Dolphin Estate, Ikoyi
+                                        </span>
+                                      </span>
+                                    }
+                                    onChange={() => {}}
+                                    checked={
+                                      formData.pickUpLocation === "Lagos"
+                                    }
+                                  />
+                                </div>
+                              )}
+                              {formData.pickUpLocation === "Abuja" && (
+                                <div className="vertical-margin">
+                                  <Radio
+                                    label="Abuja Pickup - 5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja"
+                                    onChange={() => {}}
+                                    checked={
+                                      formData.pickUpLocation === "Abuja"
+                                    }
+                                  />
+                                </div>
+                              )}
+
+                              {formData.pickupState === "other-locations" && (
+                                <div className="flex center-align primary-color normal-text margin-bottom spaced">
+                                  <InfoRedIcon className="generic-icon xl" />
+                                  <span>
+                                    At the moment, You can only pick up at our
+                                    Abuja or Lagos stores. Kindly contact us on
+                                    Phone/WhatsApp:
+                                    <br />
+                                    <a
+                                      href="tel:+2349077777994"
+                                      className="clickable neutral underline"
+                                    >
+                                      +234 7011992888
+                                    </a>
+                                    ,{" "}
+                                    <a
+                                      href="tel:+2347010006665"
+                                      className="clickable neutral underline"
+                                    >
+                                      +234 7010006665
+                                    </a>
+                                  </span>
+                                </div>
+                              )}
                             </div>
                           </div>
                         )}
@@ -1333,7 +1406,7 @@ const Checkout: FunctionComponent = () => {
                         loading={loading}
                         buttonType="submit"
                       >
-                        Proceed to Payment
+                        PROCEED TO PAYMENT
                       </Button>
                     )}
                   </>
@@ -1384,9 +1457,22 @@ const Checkout: FunctionComponent = () => {
                         >
                           <InfoIcon fill="#1C6DD0" />{" "}
                           <span>
-                            Payment issues? Simply Email
-                            payments@regalflowers.com.ng or Call/Whatsapp
-                            +2347011992888
+                            Payment issues? Simply Email{" "}
+                            <a
+                              href={`mailto:${floralHubPaymentEmail}`}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {floralHubPaymentEmail}
+                            </a>{" "}
+                            or{" "}
+                            <a
+                              href={`https://wa.me/+2349077777994`}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              Call/Whatsapp +2349077777994
+                            </a>{" "}
                           </span>{" "}
                         </p>
                         {paymentMethods.map((method, index) => (
@@ -1439,18 +1525,6 @@ const Checkout: FunctionComponent = () => {
                             </div>
                           </div>
                         ))}
-                      </div>
-                      <div className={styles.security}>
-                        {" "}
-                        <div className={styles["lock-icon"]}>
-                          <img
-                            src="icons/lock.svg"
-                            className={`generic-icon small `}
-                            alt="lock"
-                          />
-                        </div>{" "}
-                        We protect your payment information using encryption to
-                        provide bank-level security.
                       </div>
                     </div>
                   </>
@@ -1518,7 +1592,7 @@ const Checkout: FunctionComponent = () => {
                     </div>
                     {currentStage === 1 && (
                       <Button responsive buttonType="submit" loading={loading}>
-                        Proceed to Payment
+                        PROCEED TO PAYMENT
                       </Button>
                     )}
                   </div>
@@ -2100,13 +2174,13 @@ const BankDetailsModal: FunctionComponent<ModalProps & {
             </div>
           </>
         )}
-        {transferName === "bitcoinTransfer" && (
+        {transferName === "bitcoinAddress" && (
           <>
-            <div className={[styles.details, styles.bitcoinTransfer].join(" ")}>
+            <div className={[styles.details, styles.bitcoinAddress].join(" ")}>
               <strong className="primary-color">Bitcoins Wallet ID:</strong>
               <div className="flex spaced center-align">
-                <span>12W9vKCcCbKFmYr9bYfbd9SqVvhyK5j4E1</span>
-                {copyButton("12W9vKCcCbKFmYr9bYfbd9SqVvhyK5j4E1")}
+                <span>{bitcoinAddress}</span>
+                {copyButton(bitcoinAddress)}
               </div>
             </div>
           </>
@@ -2244,7 +2318,7 @@ const PaymentDetailsModal: FunctionComponent<ModalProps & {
             number
           />
         </div>
-        {transferName !== "bitcoinTransfer" && (
+        {transferName !== "bitcoinAddress" && (
           <div className="input-group vertical-margin spaced">
             <span className="question">Account Name</span>
             <Input
