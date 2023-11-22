@@ -471,7 +471,7 @@ const changeHeroContent = () =>{
                     icon="/icons/search.svg"
                     noBorder
                     responsive
-                    className={`search ${styles["search-input"]}`}
+                    className={`search`}
                   />
                 </form>
                 {filterCategories.map((filter, index) => (
@@ -577,7 +577,7 @@ const changeHeroContent = () =>{
                     )}
                   </div>
                 ))}
-                <Button className="primary-color" onClick={handleClearFIlter}>
+                <Button className="primary-color full-width" onClick={handleClearFIlter}>
                   RESET FILTER
                 </Button>
               </div>
