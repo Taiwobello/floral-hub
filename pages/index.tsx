@@ -12,7 +12,6 @@ import {
   blogPosts,
   aboutUsContent,
   featuredSlugs,
-  popularSections,
   mostLoved,
   allOccasionOptions,
   giftItems,
@@ -93,7 +92,7 @@ const LandingPage: FunctionComponent<{
                     src="/icons/star.svg"
                     alt="google"
                   />
-                  <span>4.5 </span>{" "}
+                  <span>4.99 </span>{" "}
                   <span className="underline">1,000+ reviews</span>
                 </span>
               </div>
@@ -247,36 +246,25 @@ const LandingPage: FunctionComponent<{
               </Button>
             )}
 
-            {deviceType === "desktop" && (
-              <div className={styles.section}>
-                {regalFeatures.map(feature => (
-                  <ServiceCard
-                    title={feature.title}
-                    key={feature.title}
-                    subtitle={feature.subtitle}
-                    image={feature.image}
-                    buttonText={feature.cta}
-                    url={feature.url}
-                  />
-                ))}
-              </div>
-            )}
-
-            <br />
-            <h2 className="featured-title">Popular Sections</h2>
-            <div className={[styles.section, styles.wrap].join(" ")}>
-              {popularSections.map(section => (
-                <FlowerCard
-                  key={section.title}
-                  image={section.image}
-                  name={section.title}
-                  url={section.url}
-                  mode="four-x-grid"
-                  onlyTitle
-                  buttonText="Add to Cart"
+            <h2 className="featured-title full-width text-center">
+              Why shop with us
+            </h2>
+            <div className={styles.section}>
+              {regalFeatures.map(feature => (
+                <ServiceCard
+                  title={feature.title}
+                  key={feature.title}
+                  subtitle={feature.subtitle}
+                  image={feature.image}
+                  buttonText={feature.cta}
+                  url={feature.url}
                 />
               ))}
             </div>
+
+            <h2 className="featured-title full-width text-center">
+              Customer reviews
+            </h2>
           </div>
           <div className={styles["full-width-section"]}>
             <div className={styles.left}>
@@ -403,13 +391,6 @@ const LandingPage: FunctionComponent<{
                 ))}
               </div>
             </div>
-            {deviceType === "desktop" && (
-              <img
-                className={styles.right}
-                src={reviews[locationName][currentReviewIndex].image}
-                alt="review"
-              />
-            )}
           </div>
 
           <div

@@ -2763,183 +2763,61 @@ export const reviews: RegalContent<UserReview[]> = {
   general: [
     {
       text:
-        "I'm in the US and I ordered flowers for my mother at short notice for same day. They delivered with minimal hassle, good customer service and worked within my budget. Highly recommended.",
-      date: "6 April, 2022",
+        "I am glad I ordered from them. To say they surpassed my expectations would be an understatement (I buy for my office reception weekly). This is my 9th order since offices opened back after the lockdown, and I am consistently impressed with their level of service and flowers. Would recommend them in a heartbeat",
+      date: "7 Dec 2021",
       rating: 5,
-      image: "/images/reviews/general-review-1.jpg",
       user: {
-        name: "Temi Agbaje",
+        name: "Marianne Kyari",
         avatar: ""
       }
     },
     {
       text:
-        "Flowers were exactly the same as shown on their page and it was delivered on time. Customer service was top notch too. Kudos",
-      date: "17 January, 2022",
+        "It was a delight buying flowers from Floral Hub. Their attention to detail and customer service was quite impressive. She loved the flowers too. I look forward to doing business with them again",
+      date: "26 Jun 2023",
       rating: 5,
-      image: "/images/reviews/general-review-2.jpg",
       user: {
-        name: "Tope Osowe",
+        name: "Tunde Quadri",
         avatar: ""
       }
     },
     {
       text:
-        "Thank you Regal Flowers and your team for your awesome customer service and timely delivery. I was scared when I made the order because the person who i was sending flowers to was scheduled to travel the following day but Regal Flowers assured me that they would be able to make the delivery and they made sure to communicate with my friend who was in Nigeria at the time to ensure the delivery was well organised. Overall thank you to the team at Regal Flowers for letting me send my message even though I was far away. Brilliant customer service !!!...!!",
-      date: "6 April, 2022",
+        "I have bought from bought twice now to my fiance in Lagos, Nigeria, and I must say, they are not just another Nigerian business. Keep it up guys. Providing PayPal made it so easy for me also.",
+      date: "5 Jul 2022",
       rating: 5,
-      image: "/images/reviews/general-review-3.jpg",
       user: {
-        name: "Chimwemwe Esau",
+        name: "Tom Cullens",
         avatar: ""
       }
     },
     {
       text:
-        "I had a great experience with Regal Flowers. I bought a cake on a Saturday and was delivered without issue on the next day. Even on the weekend the delivery was on time and they were very reasonably priced.",
-      date: "6 April, 2022",
-      image: "/images/reviews/general-review-4.jpg",
+        "If it were possible to give 6 stars, I would definitely have done so. They were amazing, from customer service, to delivery time, to product quality. Quite impressed with Floral Hub",
+      date: "11 Apr 2023",
       rating: 5,
       user: {
-        name: "Hunter Foote",
-        avatar: ""
-      }
-    }
-  ],
-  lagos: [
-    {
-      text:
-        "I walked into their Ikoyi store by 2am and they were open! Quite impressed as I had almost given up after trying 2 other flower shops who claimed to be 24hrs on their Google pages. Keep it up guys and thanks for your service, especially Dami who attended to me. I would definitely tell all my friends about you guys.",
-      date: "6 April, 2022",
-      image: "/images/reviews/lagos-review-1.jpg",
-      rating: 5,
-      user: {
-        name: "Segun Komolafe",
+        name: "Lara Suleiman",
         avatar: ""
       }
     },
     {
       text:
-        "Great customer service and fast delivery, reached out from Houston Texas, via WhatsApp chat, they took my order and payment in less than 2hrs flowers got delivered, well package and it was received with love ❤️. Thanks for making my day.7 Star 🌟. Guys they are reliable from anywhere round the world and your loved one back home would love it.",
-      date: "6 April, 2022",
-      image: "/images/reviews/lagos-review-2.jpg",
+        "I rarely write review but it is only fair I govve credit whre it is due. Their attention to detail and customer service is phenomenal. Keep it up guys",
+      date: "15 Apr 2021",
       rating: 5,
       user: {
-        name: "Hanz Thomas",
+        name: "Tunde Ikimi",
         avatar: ""
       }
     },
     {
       text:
-        "I have to say I got the best customer service off an online store with Regal Flowers,very considerate and even went out of there way to get my order to me,I am definitely coming back for a bigger order! You guys are simply the best!",
-      date: "6 April, 2022",
-      image: "/images/reviews/lagos-review-3.jpg",
+        "They delivered as they said they would. I was a bit hesitant due to the negative media about Nigeria I guess. Quite impressed and would definitely be back",
+      date: "19 Nov 2023",
       rating: 5,
       user: {
-        name: "Oyindamola Olanipekun",
-        avatar: ""
-      }
-    },
-    {
-      text:
-        "I had first visited Regal Flowers in an attempt to deliver roses to my girlfriend while she is in Lagos. Unfortunately I am in the States and my first attempt to pay was unable to process. Ola however contacted me and was very nice and customer service oriented. I got on PayPal and was able to process my order via PayPal. Thanks to Ola and her wonderful customer service my girlfriend was able to receive her wonderful flowers. She absolutely loved them and raved about how red they were. Thank you Ola and Regal Flowers!",
-      date: "6 April, 2022",
-      image: "/images/reviews/lagos-review-4.jpg",
-      rating: 5,
-      user: {
-        name: "Gregory Coté",
-        avatar: ""
-      }
-    }
-  ],
-  abuja: [
-    {
-      text:
-        "I had some cupcakes delivered from here to someone in Nigeria and the service was amazing! They were very thorough in ensuring they had all information correct and were dedicated to delivering my order promptly and smoothly. There were a few mistakes on my end with addresses and miscommunication, but they were extremely patient and kept me updated on the progress of my delivery. Despite the few hiccups (which were my fault) the delivery was successful and they made sure that I was informed throughout. I will definitely use this service again in the future, their products are great and their customer service is awesome!",
-      date: "6 April, 2022",
-      image: "/images/reviews/abuja-review-1.jpg",
-      rating: 5,
-      user: {
-        name: "Miriam Houghton",
-        avatar: ""
-      }
-    },
-    {
-      text:
-        "Regal flowers were excellent in regards to my order. They tailor made the package excellently and effortlessly for me. I'm in the UK and Mojisola has been brilliant in ensuring my flower packages are of an exceptional level for years now. Thank you guys! !",
-      date: "6 April, 2022",
-      image: "/images/reviews/abuja-review-2.jpg",
-      rating: 5,
-      user: {
-        name: "Gina Mensah",
-        avatar: ""
-      }
-    },
-    {
-      text:
-        "I was skeptical the first time a friend informed me about Regal flowers delivery, i didn't want to be disappointed because i needed a delivery to be done to my spouse. But then, i went ahead and i was really impressed to discover that such services with high quality flowers can be accessed here in Nigeria. Keep it up Regal flowers.",
-      date: "6 April, 2022",
-      image: "/images/reviews/abuja-review-3.jpg",
-      rating: 5,
-      user: {
-        name: "Ajiboye Jide",
-        avatar: ""
-      }
-    },
-    {
-      text:
-        "My boss wanted a quick delivery on Monday Night for Tuesday Morning. I wasn't sure where to go but i contacted Regal flowers and they delivered. The contact person was so calm and kept assuring me that they will deliver. They did deliver before time and it was really beautiful!",
-      date: "6 April, 2022",
-      image: "/images/reviews/abuja-review-4.jpg",
-      rating: 5,
-      user: {
-        name: "Oluwakemi Ogunbameru",
-        avatar: ""
-      }
-    }
-  ],
-  "other-locations": [
-    {
-      text:
-        "I'm from Canada and it was easy to order online and great customer service! Delivery on time and prompt to Lagos area. Items as described. Will definitely be returning for any other special occasion. Thanks Regal Flowers",
-      date: "6 April, 2022",
-      image: "/images/reviews/others-review-1.jpg",
-      rating: 5,
-      user: {
-        name: "Folashade Williams",
-        avatar: ""
-      }
-    },
-    {
-      text:
-        "By far the simple and easiest delivery I’ve ever used. Fast responds time and as promised same day delivery. If I could give them 10 stars I would. Wouldn’t even look anywhere else RegalFlowers are top notch A++",
-      date: "6 April, 2022",
-      image: "/images/reviews/others-review-2.jpg",
-      rating: 5,
-      user: {
-        name: "Brent Bastian",
-        avatar: ""
-      }
-    },
-    {
-      text:
-        "First off, regal flowers has the best florist website in the country! The pictures and categories are so clear and there are so many options to choose from. I really appreciate how they followed up on my order. I chose a flower arrangement and requested a few tweaks which were accommodated easily. I also requested that the flowers be delivered as late as possible as I needed them for 7am the next day. Flowers got to me at midnight meaning someone was definitely awake waiting for my call to say I was ready to receive it. Whats more? I know my delivery cost more than I paid for due to the timing yet I wasn't asked to pay the difference. The flowers were really beautiful and the arrangement amazing. Loved it very much. Customer care, service delivery, product quality- A++++++++",
-      date: "6 April, 2022",
-      image: "/images/reviews/others-review-3.jpg",
-      rating: 5,
-      user: {
-        name: "Mayowa S",
-        avatar: ""
-      }
-    },
-    {
-      text:
-        "the arrangement that I ordered and had delivered to my friend was absolutely gorgeous. I spoke to a customer service representative on the phone before and after placing my order and she was very helpful with helping me make a decision as well as ensuring that the details of my order were accurate. She also assured me the arrangement would be a great gift - and she was right! My friend loved them. Great service and incredible style!",
-      date: "6 April, 2022",
-      image: "/images/reviews/others-review-4.jpg",
-      rating: 5,
-      user: {
-        name: "Dade Aroloye",
+        name: "Ryan Seawworth",
         avatar: ""
       }
     }
