@@ -4,12 +4,13 @@ import React, {
   CSSProperties,
   forwardRef,
   MouseEvent,
-  useContext
+  useContext,
+  useState
 } from "react";
 import SettingsContext from "../../utils/context/SettingsContext";
 import { getPriceDisplay } from "../../utils/helpers/type-conversions";
 import { CartItem } from "../../utils/types/Core";
-import Product from "../../utils/types/Product";
+import Product, { ProductImage } from "../../utils/types/Product";
 import Button from "../button/Button";
 import styles from "./FlowerCard.module.scss";
 import useDeviceType from "../../utils/hooks/useDeviceType";
@@ -17,7 +18,7 @@ import { getMobileImageUrl } from "../../utils/helpers/formatters";
 
 interface IFlowerCardProps {
   buttonText?: string;
-  image: string;
+  image?: string;
   price?: number;
   name: string;
   subTitle?: string;
@@ -29,13 +30,14 @@ interface IFlowerCardProps {
   onlyTitle?: boolean;
   className?: string;
   style?: CSSProperties;
+  slideImages?: ProductImage[];
 }
 
 const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
   (props, ref) => {
     const {
       buttonText,
-      image,
+      image: _image,
       price,
       name,
       subTitle,
@@ -45,7 +47,8 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
       cart,
       onlyTitle,
       className,
-      style
+      style,
+      slideImages
     } = props;
 
     const {
@@ -56,9 +59,18 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
       shouldShowCart,
       setShouldShowCart
     } = useContext(SettingsContext);
+    const [imageIndex, setImageIndex] = useState(0);
+
+    const image = slideImages?.[imageIndex].src || _image || "";
+
+    const nextImage = () => {
+      if (slideImages && slideImages.length > 1) {
+        setImageIndex(1);
+      }
+    };
 
     const handleAddToCart = (e: MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
+      e.stopPropagation();
       if (!product) {
         return;
       }
@@ -112,7 +124,6 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
           </p>
         );
       }
-      e.stopPropagation();
     };
 
     const outOfStock = product && !product.sku && !product.variants.length;
@@ -124,11 +135,15 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
         <a
           className={`${styles["flower-card"]} center ${
             styles[mode || "four-x-grid"]
-          } ${className}`}
+          } ${className || ""}`}
           ref={ref}
           style={style}
         >
-          <div className={styles["img-wrapper"]}>
+          <div
+            className={styles["img-wrapper"]}
+            onMouseEnter={nextImage}
+            onMouseLeave={() => setImageIndex(0)}
+          >
             <Img
               className={styles["flower-image"]}
               src={deviceType === "mobile" ? getMobileImageUrl(image) : image}

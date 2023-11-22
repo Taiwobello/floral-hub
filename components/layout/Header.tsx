@@ -391,7 +391,7 @@ const Header: FunctionComponent = () => {
                         className={styles["card-wrapper"]}
                         style={{
                           width: `${(link.featuredProducts?.length || 0 + 1) *
-                            15}rem`
+                            16.5}rem`
                         }}
                       >
                         <h3 className="thin margin-bottom">
@@ -408,7 +408,7 @@ const Header: FunctionComponent = () => {
                               url={`/product/${product.slug}`}
                               price={product.price}
                               product={product}
-                              style={{ width: "14rem" }}
+                              style={{ width: "16rem" }}
                             />
                           ))}
                         </div>
@@ -551,7 +551,11 @@ const Header: FunctionComponent = () => {
                 hasScrolled={hasScrolled}
               />
             </div>
-            <Button className={[styles["cart-button"]].join(" ")} type="plain">
+            <Button
+              className={[styles["cart-button"]].join(" ")}
+              type="plain"
+              url="/cart"
+            >
               <img
                 alt="cart"
                 src="/icons/cart.svg"

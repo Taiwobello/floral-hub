@@ -9,7 +9,11 @@
     .img-wrapper {
       height: 10rem;
       .flower-image {
+        display: none;
         height: 10rem;
+      }
+      .flower-image2 {
+        display: none;
       }
     }
     .subtitle {
@@ -45,7 +49,7 @@
       font-size: 0.9rem;
     }
     .gift-btn {
-      padding: 0.4rem;
+      padding: 0.5rem;
       font-weight: normal;
       font-size: 1rem;
       color: rgb(217, 216, 216);
@@ -141,6 +145,9 @@
     font-size: 0.8rem;
     overflow: hidden;
     white-space: nowrap;
+    height: 30px;
+    width: auto;
+    transition: width 1s ease;
 
     @media (min-width: 420px) {
       width: 2rem;
@@ -174,6 +181,7 @@
   }
   .buy-btn:hover > p {
     display: inline;
+    width: 100%;
   }
   .buy-btn > p {
     display: none;
@@ -224,9 +232,9 @@
       }
       object-fit: cover;
       transition: 0.3s ease-out;
-      &:hover {
-        transform: scale(1.1);
-      }
     }
+  }
+  &:hover {
+    border: 1px solid #b88fc7;
   }
 }

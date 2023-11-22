@@ -1,6 +1,6 @@
 .service-card {
   width: 25vw;
-  height: 27vw;
+  height: 20vw;
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -8,7 +8,9 @@
   text-align: center;
   background-color: white;
   justify-content: space-between;
-
+  @media (max-width: 1300px) {
+    height: 27vw;
+  }
   @media (max-width: 650px) {
     width: 60vw;
     padding: 0;

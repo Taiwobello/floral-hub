@@ -12,7 +12,7 @@ interface BlogCardProps {
 }
 
 const BlogCard: FunctionComponent<BlogCardProps> = props => {
-  const { title, image, excerpt, date, readDuration, url } = props;
+  const { title, image, url } = props;
   return (
     <Link href={url || "#"}>
       <a className={`${styles["blog-card"]}`}>
@@ -24,12 +24,12 @@ const BlogCard: FunctionComponent<BlogCardProps> = props => {
           />
         </div>
         <div className={styles.detail}>
-          <div className="flex between center-align">
+          {/* <div className="flex between center-align">
             <span className={styles.date}>{date}</span>
             <span className={styles.duration}>{readDuration}</span>
-          </div>
+          </div> */}
           <h3 className={styles.title}>{title}</h3>
-          <span className={[styles.subtitle, "normal-text"].join(" ")}>
+          {/* <span className={[styles.subtitle, "normal-text"].join(" ")}>
             {excerpt}
           </span>
           <span className={styles.continue}>
@@ -39,7 +39,7 @@ const BlogCard: FunctionComponent<BlogCardProps> = props => {
               className="generic-icon xsmall"
               src="/icons/arrow-right.svg"
             />
-          </span>
+          </span> */}
         </div>
       </a>
     </Link>

@@ -1,10 +1,10 @@
 .wrapper {
-  padding: 4rem 5rem;
+  padding: 5rem;
 
   .cartitems {
     width: 50%;
-    border: 1px solid #9CA3AF;
-    border-radius: 4px;
+    border: 0.1rem solid #9CA3AF;
+    border-radius: 0.4rem;
     margin-bottom: 2rem;
     position: relative;
 
@@ -19,7 +19,7 @@
       width: 10rem;
       object-fit: cover;
       object-position: center center;
-      border-radius: 4px;
+      border-radius: 0.4rem;
     }
 
     .item>div {
@@ -29,29 +29,96 @@
     .itemcard {
       width: 70%;
 
+      //plus sign
+      .plus {
+          position: relative;
+          width: 1.7rem;
+          height: 1.7rem;
+          background: #B240DA;
+          cursor: pointer;
+          border-radius: 0.3rem;
+      
+          &::before,
+          &::after {
+            content: "";
+            position: absolute;
+            background: #fff;
+          }
+      
+          &::before {
+            left: 50%;
+            top: 7px;
+            /* this defines how much black "border" there should be */
+            bottom: 7px;
+            width: 0.15rem;
+            transform: translateX(-50%);
+          }
+      
+          &::after {
+            top: 50%;
+            left: 7px;
+            right: 7px;
+            height: 0.15rem;
+            transform: translateY(-50%);
+          }
+        }
+
+      //minus sign
+      .minus {
+        position: relative;
+        width: 1.7rem;
+        height: 1.7rem;
+        background: white;
+        border: 0.1rem solid #B240DA;
+        cursor: pointer;
+        border-radius: 0.3rem;
+
+        &::after {
+          content: "";
+          position: absolute;
+          background: #B240DA;
+          top: 50%;
+          left: 7px;
+          right: 7px;
+          height: 0.1rem;
+          transform: translateY(-50%);
+        }
+      }
+
       .btns>p {
         color: #DA4065;
-        border-bottom: 1px solid #DA4065;
+        border-bottom: 0.1rem solid #DA4065;
         cursor: pointer;
 
       }
 
       .btns>button>label {
-        border-bottom: 1px solid #202020;
+        border-bottom: 0.1rem solid #202020;
       }
 
       .btns>button>.hide {
-        border-bottom: 1px solid #B240DA;
+        border-bottom: 0.1rem solid #B240DA;
+      }
+
+      @media (max-width: 420px) {
+        &>*{
+         margin: 1rem 0;
+        }
       }
     }
-
+    .itemcard>p{
+      margin-bottom: .8rem;
+    }
+    .itemcard>.btns{
+      margin-top: 3.5rem;
+    }
     input {
       display: none;
     }
 
     .details {
       width: 100%;
-      border-top: 1px solid #9CA3AF;
+      border-top: 0.1rem solid #9CA3AF;
       height: 0;
       overflow: hidden;
       z-index: -1;
@@ -68,8 +135,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 2px 0;
+      padding: 0.2rem 0;
     }
+
     .details>div>p:nth-child(2) {
       width: 50%;
     }
@@ -80,16 +148,18 @@
 
     .details>div:nth-child(2)>p:nth-child(2) {
       margin-left: -.8rem;
-            @media (max-width: 420px) {
-                margin-left: auto;
-              }
+
+      @media (max-width: 420px) {
+        margin-left: auto;
+      }
     }
 
     .details>div:nth-child(4)>p:nth-child(2) {
       margin-left: -5rem;
-            @media (max-width: 420px) {
-                margin-left: auto;
-              }
+
+      @media (max-width: 420px) {
+        margin-left: auto;
+      }
     }
 
     input[type=checkbox]:checked+div {
@@ -111,7 +181,7 @@
         width: 8rem;
         object-fit: cover;
         object-position: center center;
-        border-radius: 4px;
+        border-radius: 0.4rem;
       }
     }
 
@@ -121,17 +191,17 @@
 
         p:first-of-type {
           color: #DA4065;
-          border-bottom: 1px solid #DA4065;
+          border-bottom: 0.1rem solid #DA4065;
           cursor: pointer;
 
         }
 
         button>label {
-          border-bottom: 1px solid #202020;
+          border-bottom: 0.1rem solid #202020;
         }
 
         button>.hide {
-          border-bottom: 1px solid #B240DA;
+          border-bottom: 0.1rem solid #B240DA;
         }
       }
     }
@@ -145,12 +215,12 @@
 
   .summary {
     width: 40%;
-    border: 1px solid #9CA3AF;
+    border: 0.1rem solid #9CA3AF;
     padding: 1rem;
     position: fixed;
-    top: 15rem;
+    top: 15.8rem;
     left: 55%;
-    border-radius: 4px;
+    border-radius: 0.4rem;
 
     .divider {
       @media (max-width: 420px) {
@@ -163,6 +233,18 @@
       width: auto;
       margin-bottom: 3rem;
     }
+  }
+
+  .empty{
+  width:25%;
+  margin: 0 auto;
+
+  &>*{
+    margin-top: 2.5rem;
+  }
+  @media (max-width: 500px) {
+      width:60%;
+  }
   }
 
   .summary>* {

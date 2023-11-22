@@ -1,4 +1,10 @@
-import { FunctionComponent, useContext, useState, useEffect } from "react";
+import {
+  FunctionComponent,
+  useContext,
+  useState,
+  useEffect,
+  FormEvent
+} from "react";
 import Button from "../components/button/Button";
 import FlowerCard from "../components/flower-card/FlowerCard";
 import styles from "./index.module.scss";
@@ -6,14 +12,9 @@ import {
   regalFeatures,
   regalOccasions,
   reviews,
-  regalAddresses,
-  regalPhones,
-  regalEmail,
   blogPosts,
   aboutUsContent,
   featuredSlugs,
-  popularSections,
-  mostLoved,
   allOccasionOptions,
   giftItems,
   defaultBreadcrumb,
@@ -31,12 +32,46 @@ import { FetchResourceParams } from "../utils/types/FetchResourceParams";
 import { Category } from "../utils/types/Category";
 import { getProductsBySlugs } from "../utils/helpers/data/products";
 import Product from "../utils/types/Product";
-import { LocationName } from "../utils/types/Regal";
+import { LocationName, UserReview } from "../utils/types/Regal";
 import { GetStaticProps } from "next";
 import useDeviceType from "../utils/hooks/useDeviceType";
 import Link from "next/link";
 import SchemaMarkup from "../components/schema-mark-up/SchemaMarkUp";
 import Meta from "../components/meta/Meta";
+import Input from "../components/input/Input";
+import { subscribeToNewsletter } from "../utils/helpers/data/core";
+
+const getReviewRender = (review: UserReview, i: number) => (
+  <div key={i} className={styles.review}>
+    <div className={styles.rating}>
+      <div>
+        {Array(review.rating)
+          .fill("")
+          .map((_, index) => (
+            <img
+              key={index}
+              className="generic-icon"
+              alt="star"
+              src="/icons/star.svg"
+            />
+          ))}
+        {Array(5 - review.rating)
+          .fill("")
+          .map((_, index) => (
+            <img
+              key={index}
+              className="generic-icon"
+              alt="star"
+              src="/icons/star-white.svg"
+            />
+          ))}
+      </div>
+      <strong className={styles["review-date"]}>{review.date}</strong>
+    </div>
+    <strong className="vertical-margin compact">{review.user.name}</strong>
+    <span className={styles.text}>“{review.text}”</span>
+  </div>
+);
 
 const LandingPage: FunctionComponent<{
   locationName: LocationName;
@@ -44,10 +79,26 @@ const LandingPage: FunctionComponent<{
   featuredRomance?: Product[];
   featuredFlowers?: Product[];
 }> = ({ featuredBirthday, locationName }) => {
-  const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
-  const { setBreadcrumb } = useContext(SettingsContext);
+  const [currentReviewPageIndex, setCurrentReviewPageIndex] = useState(0);
+  const [subscriptionEmail, setSubscriptionEmail] = useState("");
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const { setBreadcrumb, notify } = useContext(SettingsContext);
 
   const deviceType = useDeviceType();
+
+  const handleEmailSubscription = async (e: FormEvent) => {
+    e.preventDefault();
+    setIsSubscribing(true);
+    const { error, message } = await subscribeToNewsletter(subscriptionEmail);
+    setIsSubscribing(false);
+    if (error) {
+      notify("error", `Unable to subscribe email: ${message}`);
+      return;
+    }
+    notify("success", "Successfully subscribed to newsletter");
+  };
+
+  const reviewsPageCount = Math.ceil(reviews.general.length / 3);
 
   useEffect(() => {
     setBreadcrumb(defaultBreadcrumb);
@@ -93,7 +144,7 @@ const LandingPage: FunctionComponent<{
                     src="/icons/star.svg"
                     alt="google"
                   />
-                  <span>4.5 </span>{" "}
+                  <span>4.99 </span>{" "}
                   <span className="underline">1,000+ reviews</span>
                 </span>
               </div>
@@ -247,407 +298,216 @@ const LandingPage: FunctionComponent<{
               </Button>
             )}
 
-            {deviceType === "desktop" && (
-              <div className={styles.section}>
-                {regalFeatures.map(feature => (
-                  <ServiceCard
-                    title={feature.title}
-                    key={feature.title}
-                    subtitle={feature.subtitle}
-                    image={feature.image}
-                    buttonText={feature.cta}
-                    url={feature.url}
-                  />
-                ))}
-              </div>
-            )}
+            <h2 className="featured-title full-width text-center">
+              Why shop with us
+            </h2>
+            <div className={styles.section}>
+              {regalFeatures.map(feature => (
+                <ServiceCard
+                  title={feature.title}
+                  key={feature.title}
+                  subtitle={feature.subtitle}
+                  image={feature.image}
+                  buttonText={feature.cta}
+                  url={feature.url}
+                />
+              ))}
+            </div>
 
-            <br />
-            <h2 className="featured-title">Popular Sections</h2>
-            <div className={[styles.section, styles.wrap].join(" ")}>
-              {popularSections.map(section => (
-                <FlowerCard
-                  key={section.title}
-                  image={section.image}
-                  name={section.title}
-                  url={section.url}
-                  mode="four-x-grid"
-                  onlyTitle
-                  buttonText="Add to Cart"
+            <h2 className="featured-title full-width text-center">
+              Customer reviews
+            </h2>
+            <div className={styles["reviews-subtitle"]}>
+              We pride ourselves on delivering a first class experience and
+              always welcome feedback. This is key to helping us improve our
+              service in every aspect of our business.
+            </div>
+          </div>
+          <div className={styles["reviews-wrapper"]}>
+            <div
+              className={`flex center spaced-lg center-align ${deviceType ===
+                "mobile" && "column text-center"}`}
+            >
+              <div className="flex column spaced center-align">
+                <h2>Excellent</h2>
+                <a
+                  href="https://google.com"
+                  target="_blank"
+                  className={styles["google-review"]}
+                  rel="noreferrer"
+                >
+                  <img
+                    alt="stars"
+                    src="/icons/stars.png"
+                    className="generic-icon medium margin-bottom"
+                  />
+                  <div className="flex spaced center-align">
+                    <img
+                      className="generic-icon large"
+                      src="/icons/google.svg"
+                      alt="google"
+                    />
+                    <span className={styles.stats}>
+                      Over <strong>4.99 </strong> <span> average review</span>
+                    </span>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <img
+              className={[
+                styles["review-arrow"],
+                styles["left-arrow"],
+                currentReviewPageIndex > 0 && styles.active
+              ].join(" ")}
+              alt="previous"
+              role="button"
+              onClick={() =>
+                setCurrentReviewPageIndex(currentReviewPageIndex - 1)
+              }
+              src="/icons/caret-right.svg"
+            />
+            <div className={styles.reviews}>
+              {Array(reviewsPageCount)
+                .fill("")
+                .map((_, index) => (
+                  <div
+                    key={index}
+                    className={[
+                      styles["review-page"],
+                      index === currentReviewPageIndex && styles.active
+                    ].join(" ")}
+                  >
+                    {reviews[locationName]
+                      .slice(
+                        currentReviewPageIndex * 3,
+                        currentReviewPageIndex * 3 + 3
+                      )
+                      .map(getReviewRender)}
+                  </div>
+                ))}
+            </div>
+            <img
+              className={[
+                styles["review-arrow"],
+                currentReviewPageIndex < reviewsPageCount - 1 && styles.active
+              ].join(" ")}
+              alt="next"
+              src="/icons/caret-right.svg"
+              role="button"
+              onClick={() =>
+                setCurrentReviewPageIndex(currentReviewPageIndex + 1)
+              }
+            />
+            <div className={styles["review-dots"]}>
+              {Array(reviewsPageCount)
+                .fill("")
+                .map((_, index) => (
+                  <span
+                    key={index}
+                    role="button"
+                    onClick={() => setCurrentReviewPageIndex(index)}
+                    className={[
+                      styles.dot,
+                      index === currentReviewPageIndex && styles.active
+                    ].join(" ")}
+                  ></span>
+                ))}
+            </div>
+          </div>
+
+          <div className={[styles["full-width-section"]].join(" ")}>
+            <img
+              className={styles.left}
+              src="/images/landing-summary.png"
+              alt="review"
+            />
+            <div className={styles.right}>
+              <h2 className="featured-title">FINISHING TOUCHES</h2>
+              <span className={styles.subtitle}>
+                We know how important it is to make someone feel special. That's
+                why we've hand-picked a range of lovely little extras you can
+                add to your gift.
+              </span>
+              <Button
+                padded
+                url="/product-category/flowers-for-love-birthday-anniversary-etc"
+                className="margin-top"
+                size="large"
+                responsive
+              >
+                SHOP GIFTS
+              </Button>
+            </div>
+          </div>
+
+          <div className="featured-content">
+            <div className="flex between center-align">
+              <h2 className="featured-title text-center margin-bottom spaced">
+                Our Blog
+              </h2>
+              <Button
+                url="/product-category/gifts"
+                className="flex spaced center-align"
+                type="plain"
+              >
+                <h3 className="red margin-right">See All</h3>
+              </Button>
+            </div>
+            <div className={styles.section}>
+              {blogPosts.map(post => (
+                <BlogCard
+                  key={post.title}
+                  title={post.title}
+                  readDuration={post.readDuration}
+                  date={post.date}
+                  image={post.image}
+                  excerpt={post.excerpt}
+                  url="#"
                 />
               ))}
             </div>
           </div>
-          <div className={styles["full-width-section"]}>
-            <div className={styles.left}>
-              <div
-                className={`flex center spaced-lg center-align ${deviceType ===
-                  "mobile" && "column text-center"}`}
-              >
-                <h2
-                  className={`featured-title ${
-                    deviceType === "desktop" ? "half-width" : "block"
-                  }`}
-                >
-                  {mostLoved[locationName]}
+
+          <div className={styles["subscribe-section"]}>
+            <div className="flex column between">
+              <div className="flex column spaced">
+                <h2 className="featured-title unspaced">
+                  Stay Updated With Our Newsletter
                 </h2>
-                <div className="flex column spaced center-align">
-                  <span className="larger margin-bottom">Customer Reviews</span>
-                  <a
-                    href="https://google.com"
-                    target="_blank"
-                    className={styles["google-review"]}
-                    rel="noreferrer"
-                  >
-                    <img
-                      alt="stars"
-                      src="/icons/stars.png"
-                      className="generic-icon medium margin-bottom"
-                    />
-                    <div className="flex spaced center-align">
-                      <img
-                        className="generic-icon large"
-                        src="/icons/google.svg"
-                        alt="google"
-                      />
-                      <span className={styles.stats}>
-                        <strong>4.9 </strong> <span>from 1000+ reviews</span>
-                      </span>
-                    </div>
-                  </a>
+                <div className="grayed">
+                  Get blog updates and special deals direct to your inbox
                 </div>
               </div>
-              <br /> <br />
-              <div className={styles.reviews}>
-                {reviews[locationName].map((review, i) => (
-                  <div
-                    key={i}
-                    className={[
-                      styles.review,
-                      i === currentReviewIndex && styles.active
-                    ].join(" ")}
-                  >
-                    <div className="flex spaced">
-                      {Array(review.rating)
-                        .fill("")
-                        .map((_, index) => (
-                          <img
-                            key={index}
-                            className="generic-icon"
-                            alt="star"
-                            src="/icons/star.svg"
-                          />
-                        ))}
-                      {Array(5 - review.rating)
-                        .fill("")
-                        .map((_, index) => (
-                          <img
-                            key={index}
-                            className="generic-icon"
-                            alt="star"
-                            src="/icons/star-white.svg"
-                          />
-                        ))}
-                    </div>
-                    <span className={styles.text}>“{review.text}”</span>
-                    {review.user.avatar ? (
-                      <img
-                        className="generic-icon large"
-                        alt="review user"
-                        src={review.user.avatar}
-                      />
-                    ) : (
-                      <span className={styles.avatar}>
-                        {review.user.name[0]}
-                      </span>
-                    )}
-                    <strong className="vertical-margin compact">
-                      {review.user.name}
-                    </strong>
-                    <span className={styles["review-date"]}>{review.date}</span>
-                  </div>
-                ))}
+              <div>
+                <span className="grayed semibold">Subscribe to updates</span>
+                <form
+                  className="flex spaced"
+                  onSubmit={handleEmailSubscription}
+                >
+                  <Input
+                    value={subscriptionEmail}
+                    onChange={setSubscriptionEmail}
+                    className="full-width"
+                    placeholder="Enter email address"
+                    icon="/icons/envelope.svg"
+                    required
+                    type="email"
+                    name="email"
+                  />
+                  <Button buttonType="submit" loading={isSubscribing}>
+                    SUBSCRIBE
+                  </Button>
+                </form>
               </div>
-              {currentReviewIndex > 0 && (
-                <img
-                  className={[
-                    styles["review-arrow"],
-                    styles["left-arrow"]
-                  ].join(" ")}
-                  alt="previous"
-                  role="button"
-                  onClick={() => setCurrentReviewIndex(currentReviewIndex - 1)}
-                  src="/icons/arrow-right-circled.svg"
-                />
-              )}
-              {currentReviewIndex < reviews[locationName].length - 1 && (
-                <img
-                  className={styles["review-arrow"]}
-                  alt="next"
-                  src="/icons/arrow-right-circled.svg"
-                  role="button"
-                  onClick={() => setCurrentReviewIndex(currentReviewIndex + 1)}
-                />
-              )}
-              <div className="flex spaced-lg">
-                {reviews[locationName].map((_, index) => (
-                  <span
-                    key={index}
-                    role="button"
-                    onClick={() => setCurrentReviewIndex(index)}
-                    className={[
-                      styles.dot,
-                      index === currentReviewIndex && styles.active
-                    ].join(" ")}
-                  ></span>
-                ))}
-              </div>
-            </div>
-            {deviceType === "desktop" && (
-              <img
-                className={styles.right}
-                src={reviews[locationName][currentReviewIndex].image}
-                alt="review"
-              />
-            )}
-          </div>
-
-          <div
-            className={[styles["full-width-section"], styles.summary].join(" ")}
-          >
-            <div className={styles.left}>
-              <strong className="featured-title-small">
-                NOT JUST FLOWERS. REGAL FLOWERS
-              </strong>
-              <h2 className="featured-title">Now Let’s Send Yours</h2>
-              <span className="normal-text">
-                There's a reason people love Regal Flowers. ..because we make
-                every flower and gift delivery a special experience. We didn't
-                say so, the various recipients of our flowers did.
-              </span>
-              <Button
-                padded
-                url="/product-category/flowers-for-love-birthday-anniversary-etc"
-              >
-                Send Flowers
-              </Button>
             </div>
             <img
-              className={styles.right}
-              src="/images/landing-summary.png"
-              alt="review"
+              className={styles["subscribe-img"]}
+              alt="subscribe"
+              src="/images/subscribe-img.png"
             />
           </div>
 
-          <div className={[styles["summary-mobile"], ""].join(" ")}>
-            <div>
-              <strong className="featured-title-small">
-                NOT JUST FLOWERS. REGAL FLOWERS
-              </strong>
-              <h2 className="featured-title">Now Let’s Send Yours</h2>
-              <span className="normal-text">
-                There's a reason people love Regal Flowers. ..because we make
-                every flower and gift delivery a special experience. We didn't
-                say so, the various recipients of our flowers did.
-              </span>
-              <Button
-                padded
-                url="/product-category/flowers-for-love-birthday-anniversary-etc"
-              >
-                Send Flowers
-              </Button>
-            </div>
-          </div>
-
-          <div className={styles["contact-section-wrapper"]}>
-            <div className={styles["contact-section"]} id="contactSection">
-              <img
-                src="/images/landing-contact.png"
-                className={styles["contact-img"]}
-                alt="welcoming flower"
-              />
-              <div className={styles.details}>
-                <strong>GET IN TOUCH</strong>
-                <h2 className="featured-title vertical-margin spaced">
-                  Contact Us Today!
-                </h2>
-                {regalAddresses.map(address => (
-                  <div key={address.name} className={styles.detail}>
-                    <strong className={styles.key}>{address.name}</strong>
-                    <span className={styles.value}>
-                      <img
-                        className="generic-icon margin-right"
-                        src="/icons/map-drop.svg"
-                        alt="location"
-                      />
-                      <span className="flex column spaced">
-                        <a href={address.url} target="_blank" rel="noreferrer">
-                          {address.location}
-                        </a>
-                        <span className="grayed">{address.workingTimes}</span>
-                      </span>
-                    </span>
-                  </div>
-                ))}
-
-                <div className={styles.detail}>
-                  <strong className={styles.key}>
-                    Contact (Calls and WhatsApp)
-                  </strong>
-                  <span className={styles.value}>
-                    <span className="flex spaced">
-                      <img
-                        alt="phone"
-                        src="/icons/phone-solid.svg"
-                        className="generic-icon"
-                      />
-                      <span className="flex column spaced">
-                        {regalPhones.map(phone => (
-                          <a
-                            key={phone}
-                            href={`tel:${phone.replace(/[^\d\+]/g, "")}`}
-                          >
-                            {phone}
-                          </a>
-                        ))}
-                      </span>
-                    </span>
-                  </span>
-                </div>
-
-                <div className={styles.detail}>
-                  <strong className={styles.key}>Email</strong>
-                  <span className={styles.value}>
-                    <span className="flex spaced center-align">
-                      <img
-                        alt="phone"
-                        src="/icons/envelope.svg"
-                        className="generic-icon"
-                      />
-                      <a
-                        href={`mailto:${regalEmail}`}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {regalEmail}
-                      </a>
-                    </span>
-                  </span>
-                </div>
-
-                <Button
-                  type="accent"
-                  className={styles["hello-btn"]}
-                  padded
-                  url="https://wa.me/+2349077777994"
-                >
-                  <img
-                    src="/icons/whatsapp-green.svg"
-                    alt="whatsapp"
-                    className="margin-right"
-                  />
-                  Say Hello
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          <div
-            className={[styles["mobile-contact-details"], "mobile-margin"].join(
-              " "
-            )}
-          >
-            <strong>GET IN TOUCH</strong>
-            <h2 className=" vertical-margin spaced">Contact Us Today!</h2>
-            {regalAddresses.map(address => (
-              <div key={address.name} className={[styles.detail].join(" ")}>
-                <strong className={styles.key}>{address.name}</strong>
-                <span className={styles.value}>
-                  <img
-                    className="generic-icon margin-right"
-                    src="/icons/map-drop.svg"
-                    alt="location"
-                  />
-                  <span className="flex column spaced">
-                    <a href={address.url} target="_blank" rel="noreferrer">
-                      {address.location}
-                    </a>
-                    <span className="grayed">{address.workingTimes}</span>
-                  </span>
-                </span>
-              </div>
-            ))}
-
-            <div className={styles.detail}>
-              <strong className={styles.key}>
-                Contact (Calls and WhatsApp)
-              </strong>
-              <span className={styles.value}>
-                <span className="flex spaced">
-                  <img
-                    alt="phone"
-                    src="/icons/phone-solid.svg"
-                    className="generic-icon"
-                  />
-                  <span className="flex column spaced">
-                    {regalPhones.map(phone => (
-                      <a
-                        key={phone}
-                        href={`tel:${phone.replace(/[^\d\+]/g, "")}`}
-                      >
-                        {phone}
-                      </a>
-                    ))}
-                  </span>
-                </span>
-              </span>
-            </div>
-
-            <div className={styles.detail}>
-              <strong className={styles.key}>Email</strong>
-              <span className={styles.value}>
-                <span className="flex spaced center-align">
-                  <img
-                    alt="phone"
-                    src="/icons/envelope.svg"
-                    className="generic-icon"
-                  />
-                  <a
-                    href={`mailto:${regalEmail}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {regalEmail}
-                  </a>
-                </span>
-              </span>
-            </div>
-
-            <Button type="accent" className="margin-top" padded>
-              Say Hello
-            </Button>
-          </div>
-
-          {deviceType === "desktop" && (
-            <div className="featured-content">
-              <h2 className="featured-title text-center margin-bottom spaced">
-                Our Blog
-              </h2>
-              <div className={styles.section}>
-                {blogPosts.map(post => (
-                  <BlogCard
-                    key={post.title}
-                    title={post.title}
-                    readDuration={post.readDuration}
-                    date={post.date}
-                    image={post.image}
-                    excerpt={post.excerpt}
-                    url="#"
-                  />
-                ))}
-              </div>
-            </div>
-          )}
           <h2 className="featured-title text-center margin-bottom spaced">
             About Us
           </h2>

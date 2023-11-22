@@ -67,13 +67,17 @@
   padding: 0.3rem 1rem;
   border-radius: 0.3rem;
   background-color: white;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
   color: black;
+  .stats {
+    font-size: 0.85rem;
+  }
 }
 .stats {
-  background-color: rgba(255, 255, 255, 0.826);
+  background-color: rgba(255, 255, 255, 0.711);
   padding: 0.3rem 0.6rem;
   border-radius: 0.3rem;
   white-space: nowrap;
@@ -134,65 +138,97 @@
     background-color: #f1f1f1;
   }
 }
-.reviews {
+.reviews-subtitle {
+  font-size: 1.2rem;
+  width: 70%;
+  margin: 0 auto;
+  text-align: center;
+}
+.reviews-wrapper {
+  border: 0.1rem solid #e5e5e5;
+  height: fit-content;
+  margin: 1rem 6rem 6rem;
+  padding: 1.5rem;
   display: flex;
-  height: 17rem;
-  width: 80%;
-  .review {
+  position: relative;
+  .reviews {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: 0.3s ease-out;
-    overflow: hidden;
-    position: relative;
-    width: 0;
-    opacity: 0;
-    &.active {
-      width: 100%;
-      opacity: 1;
-    }
-    .text {
-      margin: 1rem 0;
-      width: 65%;
-      font-size: 1.1rem;
-      text-align: center;
-      display: -webkit-box;
-      -webkit-line-clamp: 5;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
-
-      @media (max-width: 650px) {
-        width: 80%;
-      }
-    }
-    .review-date {
-      margin: 0.1rem 0 1.5rem;
-    }
-    .avatar {
-      background-color: #f5e5e5;
+    .review-page {
+      width: 0;
+      opacity: 0;
       display: flex;
-      -moz-box-align: center;
-      align-items: center;
-      justify-content: center;
-      text-transform: uppercase;
-      height: 1.6rem;
-      width: 1.6rem;
-      margin: 0.6rem 0 0.1rem;
-      font-weight: bold;
-      color: #b240da;
-      border-radius: 50%;
-      font-size: 1.1rem;
+      justify-content: space-between;
+      &.active {
+        width: 100%;
+        opacity: 1;
+      }
+      .review {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: 0.3s ease-out;
+        overflow: hidden;
+        position: relative;
+        width: 28%;
+        .rating {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          img {
+            height: 0.8rem;
+            margin: 0 0.1rem;
+          }
+        }
+        .text {
+          margin-top: 0.7rem;
+          width: 100%;
+          display: -webkit-box;
+          line-clamp: 7;
+          -webkit-line-clamp: 7;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          @media (max-width: 650px) {
+            width: 80%;
+          }
+        }
+        .review-date {
+          margin: 0.1rem 0 1.5rem;
+        }
+        .avatar {
+          background-color: #f5e5e5;
+          display: flex;
+          -moz-box-align: center;
+          align-items: center;
+          justify-content: center;
+          text-transform: uppercase;
+          height: 1.6rem;
+          width: 1.6rem;
+          margin: 0.6rem 0 0.1rem;
+          font-weight: bold;
+          color: #b240da;
+          border-radius: 50%;
+          font-size: 1.1rem;
+        }
+      }
     }
   }
 }
 .review-arrow {
-  position: absolute;
-  top: 50%;
-  right: 15%;
   border-radius: 50%;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+  height: 2rem;
+  opacity: 0.2;
+  align-self: center;
+  margin: 1.5rem;
   cursor: pointer;
-
+  pointer-events: none;
+  transition: 0.3s ease-out;
+  &.active {
+    opacity: 1;
+    pointer-events: all;
+  }
   @media (max-width: 650px) {
     display: none;
   }
@@ -203,95 +239,65 @@
     left: 15%;
   }
 }
+.review-dots {
+  position: absolute;
+  bottom: 1rem;
+  left: 48%;
+  .dot {
+    display: inline-block;
+    cursor: pointer;
+    background-color: #e5e5e5;
+    border-radius: 50%;
+    padding: 0.5rem;
+    transition: 0.3s ease-out;
+    margin: 0 0.3rem;
+    &.active {
+      background-color: #b240da;
+      cursor: default;
+    }
+  }
+}
 .full-width-section {
   display: flex;
-  height: 34rem;
-  &.summary {
-    @media (max-width: 650px) {
-      display: none;
-    }
-    .left {
-      background-color: #e0e0ec;
-      color: #202020;
-      align-items: flex-start;
-      width: 65%;
-      padding: 0 15%;
-      & > * {
-        margin: 1rem 0;
-      }
-    }
-    .right {
-      width: 35%;
-    }
-  }
-  @media (max-width: 650px) {
-    flex-direction: column;
-    height: auto;
-  }
+  margin-bottom: 4rem;
   .left {
-    width: 70%;
-    justify-content: center;
-    background-color: #53674b;
-    color: white;
+    width: 45%;
+    object-fit: cover;
+  }
+  .right {
+    width: 55%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    background-color: #f1f1f1;
+    text-align: center;
     padding: 0 4rem;
-    position: relative;
-
-    @media (max-width: 650px) {
-      width: 100%;
-      padding: 2rem;
-    }
-
-    .dot {
-      display: inline-block;
-      cursor: pointer;
-      background-color: white;
-      border-radius: 50%;
-      padding: 0.4rem;
-      border: 0.2rem solid white;
-      transition: 0.3s ease-out;
-      &.active {
-        border-color: #195401;
-        cursor: default;
-        padding: 0.4rem;
-      }
-    }
+    padding-bottom: 2rem;
   }
-  .right {
-    width: 30%;
-    height: auto;
-    object-fit: cover;
-    transition: 0.3s ease-out;
+  .subtitle {
+    font-size: 1.2rem;
+    margin: 0.5rem 0 2rem;
+    width: 80%;
   }
 }
 
-.summary-mobile {
-  align-items: flex-start;
-
-  text-align: center;
-  width: 100%;
-  background-color: #e6e6ef;
-
-  & > div {
-    padding: 3rem;
-    background-color: #e0e0ec;
-    color: #202020;
-    width: 80%;
-    margin: 0 auto;
-
-    @media (max-width: 600px) {
+.subscribe-section {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  padding: 2rem 6rem;
+  margin: 2rem 6rem 4rem;
+  font-size: 1rem;
+  @media (max-width: 1300px) {
+    h2 {
       width: 90%;
     }
-
-    & > * {
-      margin: 1rem 0;
-    }
   }
-
-  @media (min-width: 650px) {
-    display: none;
+  .subscribe-img {
+    height: 14rem;
   }
 }
 

@@ -26,7 +26,7 @@ const ServiceCard: FunctionComponent<ServiceCardProps> = props => {
           </div>
         </div>
         {buttonText && (
-          <span className="primary-color underline">{buttonText}</span>
+          <span className="primary-color underline larger">{buttonText}</span>
         )}
       </a>
     </Link>

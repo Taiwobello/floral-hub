@@ -175,18 +175,19 @@ const ProductsPage: FunctionComponent<{
       setJustToSayText(JustToSayTexts[count]);
     }
   };
-const changeHeroContent = () =>{
-  const url = window.location.href.split("/").slice(3);
-  if (url[1] == "indoor-plants-and-cactus"){
-    setUpdateHeroContent("Indoor Plants and Cactus")
-  }else{
-    const content = breadcrumbItems.find(value => url[1] === value.url || url[0] === value.url)
-    content ? setUpdateHeroContent(content.label) : setUpdateHeroContent("Romance, Birthdays & Anniversary")
-  }
-
-  
-
-}
+  const changeHeroContent = () => {
+    const url = window.location.href.split("/").slice(3);
+    if (url[1] == "indoor-plants-and-cactus") {
+      setUpdateHeroContent("Indoor Plants and Cactus");
+    } else {
+      const content = breadcrumbItems.find(
+        value => url[1] === value.url || url[0] === value.url
+      );
+      content
+        ? setUpdateHeroContent(content.label)
+        : setUpdateHeroContent("Romance, Birthdays & Anniversary");
+    }
+  };
   const handleClearFIlter = () => {
     setSelectedFilter([]);
     router.push(`/product-category/${categorySlug}`, undefined, {
@@ -265,7 +266,7 @@ const changeHeroContent = () =>{
       );
     }
   };
-
+  // console.log(products[0]["images"])
   const handleFilterChange = (filter: FilterOption) => {
     const newFilters = selectedFilter.includes(filter.tag || "")
       ? selectedFilter.filter(_filter => _filter !== filter.tag)
@@ -398,16 +399,14 @@ const changeHeroContent = () =>{
                 <>
                   <div className={styles["hero-text"]}>
                     <Breadcrumb items={crumbItems} />
-                 
-                      <p>
+
+                    <p>
                       {!isGiftPage
                         ? updateHeroContent === "Indoor Plants and Cactus"
                           ? updateHeroContent.toUpperCase()
-                          : updateHeroContent.toUpperCase() + " FLOWERS" 
-                        : updateHeroContent.toUpperCase()
-                      }
-                    
-                      </p>
+                          : updateHeroContent.toUpperCase() + " FLOWERS"
+                        : updateHeroContent.toUpperCase()}
+                    </p>
                     <p className="text-small">
                       Congratulations! Another year of love and laughter with
                       your other half. Whether you’ve been together one year or
@@ -471,7 +470,7 @@ const changeHeroContent = () =>{
                     icon="/icons/search.svg"
                     noBorder
                     responsive
-                    className={`search ${styles["search-input"]}`}
+                    className={`search`}
                   />
                 </form>
                 {filterCategories.map((filter, index) => (
@@ -577,7 +576,10 @@ const changeHeroContent = () =>{
                     )}
                   </div>
                 ))}
-                <Button className="primary-color" onClick={handleClearFIlter}>
+                <Button
+                  className="primary-color full-width"
+                  onClick={handleClearFIlter}
+                >
                   RESET FILTER
                 </Button>
               </div>
@@ -596,10 +598,22 @@ const changeHeroContent = () =>{
                       hideFilters ? "block" : ""
                     }`}
                   >
-                    <div className={`input-group ${styles.sort}`}>
-                      <span className="question">
-                        {deviceType === "desktop" ? "Sorted By:" : "Sort:"}{" "}
+                    {deviceType === "desktop" ? (
+                      <span className={`question ${styles.question}`}>
+                        Sorted By:
                       </span>
+                    ) : (
+                      " "
+                    )}
+
+                    <div className={`input-group ${styles.sort}`}>
+                      {deviceType === "mobile" ? (
+                        <span className={`question ${styles.question}`}>
+                          Sort:
+                        </span>
+                      ) : (
+                        " "
+                      )}
                       <Select
                         options={sortOptions}
                         value={sort}
@@ -767,6 +781,7 @@ const changeHeroContent = () =>{
                     key={index}
                     name={product.name.split("–")[0]}
                     image={product.images[0].src}
+                    slideImages={product["images"]}
                     price={product.price}
                     buttonText="Add to Cart"
                     subTitle={product.subtitle || product.name.split("–")[1]}

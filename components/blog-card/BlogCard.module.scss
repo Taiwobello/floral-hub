@@ -13,9 +13,10 @@
     padding: 0.6rem 1rem 1rem;
   }
   .title {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    font-weight: 500;
     margin: 1rem 0;
-    height: 3.2rem;
+    height: fit-content;
     display: -webkit-box;
     line-clamp: 2;
     -webkit-line-clamp: 2;
@@ -40,10 +41,10 @@
   }
   .img-wrapper {
     overflow: hidden;
-    height: 11rem;
+    height: 16rem;
     border-radius: 0.4rem 0.4rem 0 0;
     .flower-image {
-      height: 11rem;
+      height: 16rem;
       width: 100%;
       object-fit: cover;
       border-radius: 0.4rem 0.4rem 0 0;
