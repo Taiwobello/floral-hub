@@ -421,9 +421,18 @@ const LandingPage: FunctionComponent<{
 
           {deviceType === "desktop" && (
             <div className="featured-content">
-              <h2 className="featured-title text-center margin-bottom spaced">
-                Our Blog
-              </h2>
+              <div className="flex between center-align">
+                <h2 className="featured-title text-center margin-bottom spaced">
+                  Our Blog
+                </h2>
+                <Button
+                  url="/product-category/gifts"
+                  className="flex spaced center-align"
+                  type="plain"
+                >
+                  <h3 className="red margin-right">See All</h3>
+                </Button>
+              </div>
               <div className={styles.section}>
                 {blogPosts.map(post => (
                   <BlogCard

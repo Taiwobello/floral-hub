@@ -677,28 +677,29 @@ export const regalReasons: Service[] = [
 
 export const giftItems: Gift[] = [
   {
-    name: "Cakes and Cupcakes",
-    description: "Cakes and cupcakes are a great choice",
-    image: "/images/sample-flowers/addon-group-1.png",
-    slug: "/product-category/cakes-and-cupcakes"
-  },
-  {
-    name: "Chocolates and Biscuits",
-    description: "What are flowers without chocolate?",
+    name: "Chocolates",
+    description: "A guilty pleasure and always a winning gift for most people",
     image: "/images/sample-flowers/addon-group-2.png",
     slug: "/product-category/chocolate-and-biscuits"
   },
   {
+    name: "Cakes and Cupcakes",
+    description: "What's an occasion without a cake, or cupcakes, or both",
+    image: "/images/sample-flowers/addon-group-1.png",
+    slug: "/product-category/cakes-and-cupcakes"
+  },
+
+  {
     name: "Teddy Bears",
-    description: "Various sizes of teddies, even Life Size",
+    description: "Soft, cuddly, lush and a gift loved by many ladies",
     image: "/images/sample-flowers/addon-group-3.png",
     slug: "/product-category/teddy-bears"
   },
   {
-    name: "Giftsets",
-    description: "Caravaggio Italian Giftsets are the ultimate luxury",
+    name: "PERFUMES & FRAGRANCES",
+    description: "Male, female and unisex perfumes to delight the senses",
     image: "/images/sample-flowers/addon-group-4.png",
-    slug: "/product-category/gift-packs "
+    slug: "/product-category/perfumes"
   }
 ];
 

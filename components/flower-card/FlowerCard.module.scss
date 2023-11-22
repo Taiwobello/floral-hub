@@ -12,7 +12,7 @@
         display: none;
         height: 10rem;
       }
-      .flower-image2{
+      .flower-image2 {
         display: none;
       }
     }
@@ -49,7 +49,7 @@
       font-size: 0.9rem;
     }
     .gift-btn {
-      padding: 0.4rem;
+      padding: 0.5rem;
       font-weight: normal;
       font-size: 1rem;
       color: rgb(217, 216, 216);
@@ -146,7 +146,7 @@
     overflow: hidden;
     white-space: nowrap;
     height: 30px;
-    width:auto;
+    width: auto;
     transition: width 1s ease;
 
     @media (min-width: 420px) {
@@ -234,7 +234,7 @@
       transition: 0.3s ease-out;
     }
   }
-  &:hover{
-    border: 1px solid #B88FC7
+  &:hover {
+    border: 1px solid #b88fc7;
   }
 }
