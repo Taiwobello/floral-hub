@@ -683,7 +683,9 @@ span {
       font-weight: 400;
       text-transform: uppercase;
       margin-bottom: 2rem;
-
+      &.unspaced {
+        margin-bottom: 0;
+      }
       @media (max-width: 600px) {
         text-align: center;
         margin: 1rem auto;

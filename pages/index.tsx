@@ -1,4 +1,10 @@
-import { FunctionComponent, useContext, useState, useEffect } from "react";
+import {
+  FunctionComponent,
+  useContext,
+  useState,
+  useEffect,
+  FormEvent
+} from "react";
 import Button from "../components/button/Button";
 import FlowerCard from "../components/flower-card/FlowerCard";
 import styles from "./index.module.scss";
@@ -32,6 +38,8 @@ import useDeviceType from "../utils/hooks/useDeviceType";
 import Link from "next/link";
 import SchemaMarkup from "../components/schema-mark-up/SchemaMarkUp";
 import Meta from "../components/meta/Meta";
+import Input from "../components/input/Input";
+import { subscribeToNewsletter } from "../utils/helpers/data/core";
 
 const getReviewRender = (review: UserReview, i: number) => (
   <div key={i} className={styles.review}>
@@ -72,9 +80,23 @@ const LandingPage: FunctionComponent<{
   featuredFlowers?: Product[];
 }> = ({ featuredBirthday, locationName }) => {
   const [currentReviewPageIndex, setCurrentReviewPageIndex] = useState(0);
-  const { setBreadcrumb } = useContext(SettingsContext);
+  const [subscriptionEmail, setSubscriptionEmail] = useState("");
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const { setBreadcrumb, notify } = useContext(SettingsContext);
 
   const deviceType = useDeviceType();
+
+  const handleEmailSubscription = async (e: FormEvent) => {
+    e.preventDefault();
+    setIsSubscribing(true);
+    const { error, message } = await subscribeToNewsletter(subscriptionEmail);
+    setIsSubscribing(false);
+    if (error) {
+      notify("error", `Unable to subscribe email: ${message}`);
+      return;
+    }
+    notify("success", "Successfully subscribed to newsletter");
+  };
 
   const reviewsPageCount = Math.ceil(reviews.general.length / 3);
 
@@ -419,35 +441,73 @@ const LandingPage: FunctionComponent<{
             </div>
           </div>
 
-          {deviceType === "desktop" && (
-            <div className="featured-content">
-              <div className="flex between center-align">
-                <h2 className="featured-title text-center margin-bottom spaced">
-                  Our Blog
+          <div className="featured-content">
+            <div className="flex between center-align">
+              <h2 className="featured-title text-center margin-bottom spaced">
+                Our Blog
+              </h2>
+              <Button
+                url="/product-category/gifts"
+                className="flex spaced center-align"
+                type="plain"
+              >
+                <h3 className="red margin-right">See All</h3>
+              </Button>
+            </div>
+            <div className={styles.section}>
+              {blogPosts.map(post => (
+                <BlogCard
+                  key={post.title}
+                  title={post.title}
+                  readDuration={post.readDuration}
+                  date={post.date}
+                  image={post.image}
+                  excerpt={post.excerpt}
+                  url="#"
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className={styles["subscribe-section"]}>
+            <div className="flex column between">
+              <div className="flex column spaced">
+                <h2 className="featured-title unspaced">
+                  Stay Updated With Our Newsletter
                 </h2>
-                <Button
-                  url="/product-category/gifts"
-                  className="flex spaced center-align"
-                  type="plain"
-                >
-                  <h3 className="red margin-right">See All</h3>
-                </Button>
+                <div className="grayed">
+                  Get blog updates and special deals direct to your inbox
+                </div>
               </div>
-              <div className={styles.section}>
-                {blogPosts.map(post => (
-                  <BlogCard
-                    key={post.title}
-                    title={post.title}
-                    readDuration={post.readDuration}
-                    date={post.date}
-                    image={post.image}
-                    excerpt={post.excerpt}
-                    url="#"
+              <div>
+                <span className="grayed semibold">Subscribe to updates</span>
+                <form
+                  className="flex spaced"
+                  onSubmit={handleEmailSubscription}
+                >
+                  <Input
+                    value={subscriptionEmail}
+                    onChange={setSubscriptionEmail}
+                    className="full-width"
+                    placeholder="Enter email address"
+                    icon="/icons/envelope.svg"
+                    required
+                    type="email"
+                    name="email"
                   />
-                ))}
+                  <Button buttonType="submit" loading={isSubscribing}>
+                    SUBSCRIBE
+                  </Button>
+                </form>
               </div>
             </div>
-          )}
+            <img
+              className={styles["subscribe-img"]}
+              alt="subscribe"
+              src="/images/subscribe-img.png"
+            />
+          </div>
+
           <h2 className="featured-title text-center margin-bottom spaced">
             About Us
           </h2>

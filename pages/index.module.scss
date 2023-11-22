@@ -182,7 +182,6 @@
         .text {
           margin-top: 0.7rem;
           width: 100%;
-          text-align: center;
           display: -webkit-box;
           line-clamp: 7;
           -webkit-line-clamp: 7;
@@ -283,31 +282,22 @@
   }
 }
 
-.summary-mobile {
-  align-items: flex-start;
-
-  text-align: center;
-  width: 100%;
-  background-color: #e6e6ef;
-
-  & > div {
-    padding: 3rem;
-    background-color: #e0e0ec;
-    color: #202020;
-    width: 80%;
-    margin: 0 auto;
-
-    @media (max-width: 600px) {
+.subscribe-section {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  padding: 2rem 6rem;
+  margin: 2rem 6rem 4rem;
+  font-size: 1rem;
+  @media (max-width: 1300px) {
+    h2 {
       width: 90%;
     }
-
-    & > * {
-      margin: 1rem 0;
-    }
   }
-
-  @media (min-width: 650px) {
-    display: none;
+  .subscribe-img {
+    height: 14rem;
   }
 }
 
