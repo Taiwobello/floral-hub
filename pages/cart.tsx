@@ -288,48 +288,60 @@ const Cart: FunctionComponent<CartContextProps> = props => {
                 <>
                   <div className={`flex ${styles.item}`}>
                     <img src={item.image.src} alt="" />
-                    <div className={`flex between column wrap ${styles.itemcard}`}>
+                    <div className={` ${styles.itemcard}`}>
                       <p className="text-mmedium bold">{item.name} {item.quantity > 1 ? <span className="text-medium margin-left">({item.quantity})</span> : ""}</p>
-                      <p className="vertical-margin">{item.description} </p>
-                      <p className="bold text-medium">{getPriceDisplay(item.price, currency)}</p>
-                      <div className={` flex center-align ${styles.gifts}`}>
+                      <p className="">{item.description} </p>
+                      <p className="bold text-medium flex between">{getPriceDisplay(item.price, currency)}                       
+                        <div className="flex center-align spaced-lg">
+                          <div
+                            className={styles.minus}
+                            onClick={() => handleRemoveItemQuantity(item.SKU)}
+                          ></div>
+                          <span className="small-text">{item.quantity}</span>
+                          <div
+                            className={styles.plus}
+                            onClick={() => handleAddItemQuantity(item.SKU)}
+                          ></div>
+                        </div>
+                      </p>
+                      {/* <div className={` flex center-align ${styles.gifts}`}>
                         <p>Gifts Included:</p>
                         <p><img src="/images/flower.png" alt="" height={30} width={30} className="margin" /></p>
-                      </div>
+                      </div> */}
                       <div className={`flex between ${styles.btns} center-align`}>
 
                         <p onClick={() => handleRemoveItem(item.SKU)}>Remove</p>
 
 
-                        <button className="flex center-align">
+                        {/* <button className="flex center-align">
                           <label className={`bold ${openItem[i] ? ["primary-color", styles.hide].join(" ") : ""}`} htmlFor={`open${i}`} onClick={() => toggleAnswer(i)}>{openItem[i] ? "Hide Details" : "View/Edit Details"}</label>
                           {openItem[i] ? (<img src="/icons/down-arrow-color.svg" alt="" className="" />) : (<img src="/icons/down-arrow.svg" alt="" className="" />)}
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   </div>
 
-                  <input id={`open${i}`} className="open-detail" type="checkbox" />
+                  {/* <input id={`open${i}`} className="open-detail" type="checkbox" /> */}
                   <div className={styles.details}>
-                    <div>
+                    {/* <div>
                       <p className="bold text-medium">Your  selections</p>
                       <p className="primary-color bold">Edit</p>
-                    </div>
-                    <div>
+                    </div> */}
+                    {/* <div>
                       <p>Budgets:</p>
                       <p>Regular size</p>
                       <p>12000</p>
-                    </div>
-                    <div>
+                    </div> */}
+                    {/* <div>
                       <p>Design</p>
                       <p>Wrapped Bouquet</p>
                       <p>12000</p>
-                    </div>
-                    <div>
+                    </div> */}
+                    {/* <div>
                       <p>Gifts Included:</p>
                       <p><img src="/images/flower.png" alt="" height={30} width={30} className="margin" /></p>
                       <p> 5000 </p>
-                    </div>
+                    </div> */}
                 
                   </div>
                 </>
@@ -339,13 +351,25 @@ const Cart: FunctionComponent<CartContextProps> = props => {
                   <>
                     <div className={`flex ${styles.item}`}>
                       <img src={item.image.src} alt="" />
-                      <div className={`flex between column wrap ${styles.itemcard}`}>
+                      <div className={` wrap ${styles.itemcard}`}>
                         <p className="text-mmedium bold">{item.name} {item.quantity > 1 ? <span className="text-medium margin-left">({item.quantity})</span> : ""}</p>
-                        <p className="vertical-margin">{item.description} </p>
-                        <div className={` flex center-align ${styles.gifts}`}>
+                        <p className="vertical-margin">{item.description} 
+                          <div className="flex center-align spaced-lg vertical-margin">
+                            <div
+                              className={styles.minus}
+                              onClick={() => handleRemoveItemQuantity(item.SKU)}
+                            ></div>
+                            <span className="small-text">{item.quantity}</span>
+                            <div
+                              className={styles.plus}
+                              onClick={() => handleAddItemQuantity(item.SKU)}
+                            ></div>
+                          </div>
+                        </p>
+                        {/* <div className={` flex center-align ${styles.gifts}`}>
                           <p>Gifts Included:</p>
                           <p><img src="/images/flower.png" alt="" height={30} width={30} className="margin" /></p>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                     <div className={`flex between ${styles.btns} center-align`}>
@@ -354,14 +378,14 @@ const Cart: FunctionComponent<CartContextProps> = props => {
 
                       <p className="bold text-medium">{getPriceDisplay(item.price, currency)}</p>
 
-                      <button className="flex center-align">
+                      {/* <button className="flex center-align">
                         <label className={`bold ${openItem[i] ? ["primary-color", styles.hide].join(" ") : ""}`} htmlFor={`open${i}`} onClick={() => toggleAnswer(i)}>{openItem[i] ? "Hide Details" : "View/Edit Details"}</label>
                         {openItem[i] ? (<img src="/icons/down-arrow-color.svg" alt="" className="" />) : (<img src="/icons/down-arrow.svg" alt="" className="" />)}
-                      </button>
+                      </button> */}
 
                     </div>
 
-                    <input id={`open${i}`} className="open-detail" type="checkbox" />
+                    {/* <input id={`open${i}`} className="open-detail" type="checkbox" />
                     <div className={styles.details}>
                       <div>
                         <p className="bold text-medium">Your  selections</p>
@@ -382,7 +406,7 @@ const Cart: FunctionComponent<CartContextProps> = props => {
                         <p><img src="/images/flower.png" alt="" height={30} width={30} className="margin" /></p>
                         <p> 5000 </p>
                       </div>
-                    </div>
+                    </div> */}
                   </>
                 )
               }
