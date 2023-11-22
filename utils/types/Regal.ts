@@ -40,4 +40,9 @@ export interface BlogPost {
   excerpt: string;
 }
 
-export type LocationName = "general" | "lagos" | "abuja" | "other-locations";
+export type LocationName =
+  | "general"
+  | "lagos"
+  | "abuja"
+  | "other-locations"
+  | string;

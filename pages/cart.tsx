@@ -7,13 +7,19 @@ import React, {
 } from "react";
 import { CartItem, Design } from "../utils/types/Core";
 import Breadcrumb from "../components/breadcrumb/Breadcrumb";
-import styles from './cart.module.scss'
+import styles from "./cart.module.scss";
 import Button from "../components/button/Button";
 import SettingsContext from "../utils/context/SettingsContext";
 import { useRouter } from "next/router";
-import { getOrder, createOrder, updateOrder } from "../utils/helpers/data/order";
+import {
+  getOrder,
+  createOrder,
+  updateOrder
+} from "../utils/helpers/data/order";
 import { ProductImage } from "../utils/types/Product";
-import AppStorage, { AppStorageConstants } from "../utils/helpers/storage-helpers";
+import AppStorage, {
+  AppStorageConstants
+} from "../utils/helpers/storage-helpers";
 import dayjs from "dayjs";
 import { getPriceDisplay } from "../utils/helpers/type-conversions";
 import useDeviceType from "../utils/hooks/useDeviceType";
@@ -28,7 +34,6 @@ interface CartContextProps {
 }
 const breadcrumbItems = [{ label: "Home", link: "/" }, { label: "Cart" }];
 const Cart: FunctionComponent<CartContextProps> = props => {
-
   const deviceType = useDeviceType();
   const { header = "main" } = props;
 
@@ -51,9 +56,9 @@ const Cart: FunctionComponent<CartContextProps> = props => {
   const [openItem, setOpenItem] = useState<OpenItems>({});
 
   const toggleAnswer = (index: number) => {
-    setOpenItem((prevsetOpenItem) => ({
+    setOpenItem(prevsetOpenItem => ({
       ...prevsetOpenItem,
-      [index]: !prevsetOpenItem[index],
+      [index]: !prevsetOpenItem[index]
     }));
   };
   const totalCartItems = useMemo(() => {
@@ -232,54 +237,62 @@ const Cart: FunctionComponent<CartContextProps> = props => {
   useEffect(() => {
     if (orderId) {
       fetchOrder(orderId);
-
     } else {
       const savedCartItems = AppStorage.get(AppStorageConstants.CART_ITEMS);
       if (savedCartItems) {
         setCartItems(savedCartItems || []);
-
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderId, currentStage]);
 
   return (
-    <section className={styles["wrapper"]} >
-
-      <div className="" >
+    <section className={styles["wrapper"]}>
+      <div className="">
         <Breadcrumb items={breadcrumbItems} />
-        <p className="text-large bold vertical-margin compact margin-bottom spaced"> CART </p>
+        <p className="text-large bold vertical-margin compact margin-bottom spaced">
+          {" "}
+          CART{" "}
+        </p>
       </div>
 
       <div className={` ${styles["content"]}`}>
-        {cartItems.length ? (<div className={`${styles.summary}`}>
-          <p className="text-medium  bold">Order Summary ({totalCartItems > 1 ? totalCartItems + " items" : totalCartItems})</p>
-          <div className="flex between"> <p>Order Subtotal</p>
-            <p className="bold">{getPriceDisplay(total, currency)}</p>
+        {cartItems.length ? (
+          <div className={`${styles.summary}`}>
+            <p className="text-medium  bold">
+              Order Summary (
+              {totalCartItems > 1 ? totalCartItems + " items" : totalCartItems})
+            </p>
+            <div className="flex between">
+              {" "}
+              <p>Order Subtotal</p>
+              <p className="bold">{getPriceDisplay(total, currency)}</p>
+            </div>
+            <div className="flex between">
+              <p>Delivery</p>
+              <p className="bold">₦0</p>
+            </div>
+            <hr className={styles.divider} />
+            <div className="flex between">
+              <p className="bold">Order Total</p>
+              <p className="bold">
+                {getPriceDisplay(total + designCharges, currency)}
+              </p>
+            </div>
+            <Button
+              responsive
+              onClick={() =>
+                orderId ? handleUpdateOrder(false) : handleCreateOrder()
+              }
+              loading={loading}
+              disabled={!cartItems.length}
+            >
+              {header === "main" ? "PROCCEED TO CHECKOUT" : "UPDATE CART"}
+            </Button>
           </div>
-          <div className="flex between">
-            <p>Delivery</p>
-            <p className="bold">₦0</p>
-
-          </div>
-          <hr className={styles.divider} />
-          <div className="flex between">
-            <p className="bold">Order Total</p>
-            <p className="bold">{getPriceDisplay(total + designCharges, currency)}</p>
-
-          </div>
-          <Button responsive
-            onClick={() =>
-              orderId ? handleUpdateOrder(false) : handleCreateOrder()
-            }
-            loading={loading}
-            disabled={!cartItems.length}
-          >
-            {header === "main" ? "PROCCEED TO CHECKOUT" : "UPDATE CART"}
-          </Button>
-        </div>) : (" ")}
-
-
+        ) : (
+          " "
+        )}
 
         {cartItems.length ? (
           cartItems.map((item, i) => (
@@ -289,9 +302,19 @@ const Cart: FunctionComponent<CartContextProps> = props => {
                   <div className={`flex ${styles.item}`}>
                     <img src={item.image.src} alt="" />
                     <div className={` ${styles.itemcard}`}>
-                      <p className="text-mmedium bold">{item.name} {item.quantity > 1 ? <span className="text-medium margin-left">({item.quantity})</span> : ""}</p>
+                      <p className="text-mmedium bold">
+                        {item.name}{" "}
+                        {item.quantity > 1 ? (
+                          <span className="text-medium margin-left">
+                            ({item.quantity})
+                          </span>
+                        ) : (
+                          ""
+                        )}
+                      </p>
                       <p className="">{item.description} </p>
-                      <p className="bold text-medium flex between">{getPriceDisplay(item.price, currency)}
+                      <p className="bold text-medium flex between">
+                        {getPriceDisplay(item.price, currency)}
                         <div className="flex center-align spaced-lg">
                           <div
                             className={styles.minus}
@@ -308,10 +331,10 @@ const Cart: FunctionComponent<CartContextProps> = props => {
                         <p>Gifts Included:</p>
                         <p><img src="/images/flower.png" alt="" height={30} width={30} className="margin" /></p>
                       </div> */}
-                      <div className={`flex between ${styles.btns} center-align`}>
-
+                      <div
+                        className={`flex between ${styles.btns} center-align`}
+                      >
                         <p onClick={() => handleRemoveItem(item.SKU)}>Remove</p>
-
 
                         {/* <button className="flex center-align">
                           <label className={`bold ${openItem[i] ? ["primary-color", styles.hide].join(" ") : ""}`} htmlFor={`open${i}`} onClick={() => toggleAnswer(i)}>{openItem[i] ? "Hide Details" : "View/Edit Details"}</label>
@@ -342,50 +365,58 @@ const Cart: FunctionComponent<CartContextProps> = props => {
                       <p><img src="/images/flower.png" alt="" height={30} width={30} className="margin" /></p>
                       <p> 5000 </p>
                     </div> */}
-
                   </div>
                 </>
               )}
-              {
-                deviceType === "mobile" && (
-                  <>
-                    <div className={`flex ${styles.item}`}>
-                      <img src={item.image.src} alt="" />
-                      <div className={` wrap ${styles.itemcard}`}>
-                        <p className="text-mmedium bold">{item.name} {item.quantity > 1 ? <span className="text-medium margin-left">({item.quantity})</span> : ""}</p>
-                        <p className="vertical-margin">{item.description}
-                          <div className="flex center-align spaced-lg vertical-margin">
-                            <div
-                              className={styles.minus}
-                              onClick={() => handleRemoveItemQuantity(item.SKU)}
-                            ></div>
-                            <span className="small-text">{item.quantity}</span>
-                            <div
-                              className={styles.plus}
-                              onClick={() => handleAddItemQuantity(item.SKU)}
-                            ></div>
-                          </div>
-                        </p>
-                        {/* <div className={` flex center-align ${styles.gifts}`}>
+              {deviceType === "mobile" && (
+                <>
+                  <div className={`flex ${styles.item}`}>
+                    <img src={item.image.src} alt="" />
+                    <div className={` wrap ${styles.itemcard}`}>
+                      <p className="text-mmedium bold">
+                        {item.name}{" "}
+                        {item.quantity > 1 ? (
+                          <span className="text-medium margin-left">
+                            ({item.quantity})
+                          </span>
+                        ) : (
+                          ""
+                        )}
+                      </p>
+                      <p className="vertical-margin">
+                        {item.description}
+                        <div className="flex center-align spaced-lg vertical-margin">
+                          <div
+                            className={styles.minus}
+                            onClick={() => handleRemoveItemQuantity(item.SKU)}
+                          ></div>
+                          <span className="small-text">{item.quantity}</span>
+                          <div
+                            className={styles.plus}
+                            onClick={() => handleAddItemQuantity(item.SKU)}
+                          ></div>
+                        </div>
+                      </p>
+                      {/* <div className={` flex center-align ${styles.gifts}`}>
                           <p>Gifts Included:</p>
                           <p><img src="/images/flower.png" alt="" height={30} width={30} className="margin" /></p>
                         </div> */}
-                      </div>
                     </div>
-                    <div className={`flex between ${styles.btns} center-align`}>
+                  </div>
+                  <div className={`flex between ${styles.btns} center-align`}>
+                    <p onClick={() => handleRemoveItem(item.SKU)}>Remove</p>
 
-                      <p onClick={() => handleRemoveItem(item.SKU)}>Remove</p>
+                    <p className="bold text-medium">
+                      {getPriceDisplay(item.price, currency)}
+                    </p>
 
-                      <p className="bold text-medium">{getPriceDisplay(item.price, currency)}</p>
-
-                      {/* <button className="flex center-align">
+                    {/* <button className="flex center-align">
                         <label className={`bold ${openItem[i] ? ["primary-color", styles.hide].join(" ") : ""}`} htmlFor={`open${i}`} onClick={() => toggleAnswer(i)}>{openItem[i] ? "Hide Details" : "View/Edit Details"}</label>
                         {openItem[i] ? (<img src="/icons/down-arrow-color.svg" alt="" className="" />) : (<img src="/icons/down-arrow.svg" alt="" className="" />)}
                       </button> */}
+                  </div>
 
-                    </div>
-
-                    {/* <input id={`open${i}`} className="open-detail" type="checkbox" />
+                  {/* <input id={`open${i}`} className="open-detail" type="checkbox" />
                     <div className={styles.details}>
                       <div>
                         <p className="bold text-medium">Your  selections</p>
@@ -407,23 +438,22 @@ const Cart: FunctionComponent<CartContextProps> = props => {
                         <p> 5000 </p>
                       </div>
                     </div> */}
-                  </>
-                )
-              }
+                </>
+              )}
             </div>
           ))
-        ) : (<div className={`text-regular text-center ${styles.empty}`}> Empty Cart...
-        
-          <Button url="/product-category/just-to-say-bouquets ">
-            Continue Shopping
-          </Button>
-        </div>)
-        }
-
-
+        ) : (
+          <div className={`text-regular text-center ${styles.empty}`}>
+            {" "}
+            Empty Cart...
+            <Button url="/product-category/just-to-say-bouquets ">
+              Continue Shopping
+            </Button>
+          </div>
+        )}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Cart
+export default Cart;
