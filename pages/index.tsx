@@ -539,7 +539,7 @@ const LandingPage: FunctionComponent<{
                   type="accent"
                   className={styles["hello-btn"]}
                   padded
-                  url="https://wa.me/+2347011992888"
+                  url="https://wa.me/+2349077777994"
                 >
                   <img
                     src="/icons/whatsapp-green.svg"
