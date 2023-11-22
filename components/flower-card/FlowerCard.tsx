@@ -4,7 +4,8 @@ import React, {
   CSSProperties,
   forwardRef,
   MouseEvent,
-  useContext,useState
+  useContext,
+  useState
 } from "react";
 import SettingsContext from "../../utils/context/SettingsContext";
 import { getPriceDisplay } from "../../utils/helpers/type-conversions";
@@ -29,7 +30,7 @@ interface IFlowerCardProps {
   onlyTitle?: boolean;
   className?: string;
   style?: CSSProperties;
-  slideImages?: ProductImage[]
+  slideImages?: ProductImage[];
 }
 
 const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
@@ -58,23 +59,22 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
       shouldShowCart,
       setShouldShowCart
     } = useContext(SettingsContext);
-     const [imageIndex, setImageIndex] = useState(0);
+    const [imageIndex, setImageIndex] = useState(0);
 
-     const image = slideImages?.[imageIndex].src || _image || ""
+    const image = slideImages?.[imageIndex].src || _image || "";
 
-     const nextImage = () =>{
-       if (slideImages && slideImages.length > 1) {
-        setImageIndex(1)
-       }
- 
-     }
+    const nextImage = () => {
+      if (slideImages && slideImages.length > 1) {
+        setImageIndex(1);
+      }
+    };
 
     const handleAddToCart = (e: MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
+      e.stopPropagation();
       if (!product) {
         return;
       }
-      
+
       const cartItem: CartItem = {
         key: product.key,
         name: product.name,
@@ -124,9 +124,8 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
           </p>
         );
       }
-      e.stopPropagation();
     };
-     
+
     const outOfStock = product && !product.sku && !product.variants.length;
 
     const deviceType = useDeviceType();
@@ -136,17 +135,21 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
         <a
           className={`${styles["flower-card"]} center ${
             styles[mode || "four-x-grid"]
-          }`}
+          } ${className || ""}`}
           ref={ref}
+          style={style}
         >
-          <div className={styles["img-wrapper"]} onMouseEnter={nextImage} onMouseLeave={()=> setImageIndex(0)}>
+          <div
+            className={styles["img-wrapper"]}
+            onMouseEnter={nextImage}
+            onMouseLeave={() => setImageIndex(0)}
+          >
             <Img
               className={styles["flower-image"]}
               src={deviceType === "mobile" ? getMobileImageUrl(image) : image}
               height={deviceType === "mobile" ? 800 : 2500}
               width={deviceType === "mobile" ? 800 : 2500}
               alt="featured flower"
-
             />
           </div>
           <div className={styles.detail}>

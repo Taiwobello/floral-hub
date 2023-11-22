@@ -551,18 +551,22 @@ const Header: FunctionComponent = () => {
                 hasScrolled={hasScrolled}
               />
             </div>
-              <Button className={[styles["cart-button"]].join(" ")} type="plain" url="/cart">
-                <img
-                  alt="cart"
-                  src="/icons/cart.svg"
-                  className={styles["control-icon"]}
-                />
-                {cartItems.length > 0 && (
-                  <span className={styles["items-count"]}>
-                    {cartItems.length > 9 ? "9+" : cartItems.length}
-                  </span>
-                )}
-              </Button>
+            <Button
+              className={[styles["cart-button"]].join(" ")}
+              type="plain"
+              url="/cart"
+            >
+              <img
+                alt="cart"
+                src="/icons/cart.svg"
+                className={styles["control-icon"]}
+              />
+              {cartItems.length > 0 && (
+                <span className={styles["items-count"]}>
+                  {cartItems.length > 9 ? "9+" : cartItems.length}
+                </span>
+              )}
+            </Button>
             <ContextWrapper
               anchor={accountAnchor}
               className={styles["auth-wrapper"]}

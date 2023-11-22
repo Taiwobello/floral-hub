@@ -2686,7 +2686,7 @@ export const bestSellersRomance: RegalContent = {
   "other-locations": "Bestselling Flowers in Ibadan, Port Harcourt etc"
 };
 
-export const featuredSlugs: Record<LocationName, string[]> = {
+export const featuredSlugs: Record<string, string[]> = {
   "featured-birthday": [
     "allure-bouquet-of-red-white-pink-yellow-or-purples-roses-select-size",
     "purity-roses-arranged-with-sparkling-white-select-size",
@@ -2698,24 +2698,6 @@ export const featuredSlugs: Record<LocationName, string[]> = {
     "my-heart-concentric-mix-of-two-or-three-colours-of-roses-to-form-a-heart-shape-select-size",
     "numero-uno-mix-of-different-colors-of-roses-with-a-different-shade-in-the-middle-and-million-stars-or-statice-select-size",
     "dune-beautiful-arrangement-of-roses-with-mixed-chrysanthemums-and-million-stars"
-  ],
-  lagos: [
-    "cool-and-classic",
-    "roses-are-red-red-roses-accentuated-with-sparkling-million-star-gypsophila",
-    "bellissimo-beautiful-box-arrangement-box-of-mixed-red-white-or-pink-roses",
-    "calligraphy-by-regal-red-roses-white-roses-lilies"
-  ],
-  abuja: [
-    "dozen-red-roses-luxurious-bouquet-of-red-roses",
-    "cool-and-classic",
-    "classic-red-box-arrangement-box-of-red-roses",
-    "belleza-regal-two-colors-rose-red-yellow-white-pink-orange"
-  ],
-  "other-locations": [
-    "cool-and-classic",
-    "classic-roses-are-red-box-arrangement-red-roses-and-million-stars",
-    "ferrero-rocher-roses-003-exquisite-combination",
-    "mon-coeur-my-heart-roses-in-heart-shape"
   ]
 };
 
@@ -2822,7 +2804,10 @@ export const reviews: RegalContent<UserReview[]> = {
         avatar: ""
       }
     }
-  ]
+  ],
+  abuja: [],
+  lagos: [],
+  "other-locations": []
 };
 
 export const sortOptions: Option[] = [
@@ -3007,7 +2992,8 @@ export const allDeliveryLocationZones: Record<
             }-zone3`
     }
   ],
-  "other-locations": () => []
+  "other-locations": () => [],
+  general: () => []
 };
 
 export const allDeliveryLocationOptions: Record<

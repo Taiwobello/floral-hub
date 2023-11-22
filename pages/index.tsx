@@ -12,7 +12,6 @@ import {
   blogPosts,
   aboutUsContent,
   featuredSlugs,
-  mostLoved,
   allOccasionOptions,
   giftItems,
   defaultBreadcrumb,
@@ -30,12 +29,44 @@ import { FetchResourceParams } from "../utils/types/FetchResourceParams";
 import { Category } from "../utils/types/Category";
 import { getProductsBySlugs } from "../utils/helpers/data/products";
 import Product from "../utils/types/Product";
-import { LocationName } from "../utils/types/Regal";
+import { LocationName, UserReview } from "../utils/types/Regal";
 import { GetStaticProps } from "next";
 import useDeviceType from "../utils/hooks/useDeviceType";
 import Link from "next/link";
 import SchemaMarkup from "../components/schema-mark-up/SchemaMarkUp";
 import Meta from "../components/meta/Meta";
+
+const getReviewRender = (review: UserReview, i: number) => (
+  <div key={i} className={styles.review}>
+    <div className={styles.rating}>
+      <div>
+        {Array(review.rating)
+          .fill("")
+          .map((_, index) => (
+            <img
+              key={index}
+              className="generic-icon"
+              alt="star"
+              src="/icons/star.svg"
+            />
+          ))}
+        {Array(5 - review.rating)
+          .fill("")
+          .map((_, index) => (
+            <img
+              key={index}
+              className="generic-icon"
+              alt="star"
+              src="/icons/star-white.svg"
+            />
+          ))}
+      </div>
+      <strong className={styles["review-date"]}>{review.date}</strong>
+    </div>
+    <strong className="vertical-margin compact">{review.user.name}</strong>
+    <span className={styles.text}>“{review.text}”</span>
+  </div>
+);
 
 const LandingPage: FunctionComponent<{
   locationName: LocationName;
@@ -43,10 +74,12 @@ const LandingPage: FunctionComponent<{
   featuredRomance?: Product[];
   featuredFlowers?: Product[];
 }> = ({ featuredBirthday, locationName }) => {
-  const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
+  const [currentReviewPageIndex, setCurrentReviewPageIndex] = useState(0);
   const { setBreadcrumb } = useContext(SettingsContext);
 
   const deviceType = useDeviceType();
+
+  const reviewsPageCount = Math.ceil(reviews.general.length / 3);
 
   useEffect(() => {
     setBreadcrumb(defaultBreadcrumb);
@@ -265,131 +298,102 @@ const LandingPage: FunctionComponent<{
             <h2 className="featured-title full-width text-center">
               Customer reviews
             </h2>
+            <div className={styles["reviews-subtitle"]}>
+              We pride ourselves on delivering a first class experience and
+              always welcome feedback. This is key to helping us improve our
+              service in every aspect of our business.
+            </div>
           </div>
-          <div className={styles["full-width-section"]}>
-            <div className={styles.left}>
-              <div
-                className={`flex center spaced-lg center-align ${deviceType ===
-                  "mobile" && "column text-center"}`}
-              >
-                <h2
-                  className={`featured-title ${
-                    deviceType === "desktop" ? "half-width" : "block"
-                  }`}
+          <div className={styles["reviews-wrapper"]}>
+            <div
+              className={`flex center spaced-lg center-align ${deviceType ===
+                "mobile" && "column text-center"}`}
+            >
+              <div className="flex column spaced center-align">
+                <h2>Excellent</h2>
+                <a
+                  href="https://google.com"
+                  target="_blank"
+                  className={styles["google-review"]}
+                  rel="noreferrer"
                 >
-                  {mostLoved[locationName]}
-                </h2>
-                <div className="flex column spaced center-align">
-                  <span className="larger margin-bottom">Customer Reviews</span>
-                  <a
-                    href="https://google.com"
-                    target="_blank"
-                    className={styles["google-review"]}
-                    rel="noreferrer"
-                  >
+                  <img
+                    alt="stars"
+                    src="/icons/stars.png"
+                    className="generic-icon medium margin-bottom"
+                  />
+                  <div className="flex spaced center-align">
                     <img
-                      alt="stars"
-                      src="/icons/stars.png"
-                      className="generic-icon medium margin-bottom"
+                      className="generic-icon large"
+                      src="/icons/google.svg"
+                      alt="google"
                     />
-                    <div className="flex spaced center-align">
-                      <img
-                        className="generic-icon large"
-                        src="/icons/google.svg"
-                        alt="google"
-                      />
-                      <span className={styles.stats}>
-                        <strong>4.9 </strong> <span>from 1000+ reviews</span>
-                      </span>
-                    </div>
-                  </a>
-                </div>
+                    <span className={styles.stats}>
+                      Over <strong>4.99 </strong> <span> average review</span>
+                    </span>
+                  </div>
+                </a>
               </div>
-              <br /> <br />
-              <div className={styles.reviews}>
-                {reviews[locationName].map((review, i) => (
+            </div>
+            <img
+              className={[
+                styles["review-arrow"],
+                styles["left-arrow"],
+                currentReviewPageIndex > 0 && styles.active
+              ].join(" ")}
+              alt="previous"
+              role="button"
+              onClick={() =>
+                setCurrentReviewPageIndex(currentReviewPageIndex - 1)
+              }
+              src="/icons/caret-right.svg"
+            />
+            <div className={styles.reviews}>
+              {Array(reviewsPageCount)
+                .fill("")
+                .map((_, index) => (
                   <div
-                    key={i}
+                    key={index}
                     className={[
-                      styles.review,
-                      i === currentReviewIndex && styles.active
+                      styles["review-page"],
+                      index === currentReviewPageIndex && styles.active
                     ].join(" ")}
                   >
-                    <div className="flex spaced">
-                      {Array(review.rating)
-                        .fill("")
-                        .map((_, index) => (
-                          <img
-                            key={index}
-                            className="generic-icon"
-                            alt="star"
-                            src="/icons/star.svg"
-                          />
-                        ))}
-                      {Array(5 - review.rating)
-                        .fill("")
-                        .map((_, index) => (
-                          <img
-                            key={index}
-                            className="generic-icon"
-                            alt="star"
-                            src="/icons/star-white.svg"
-                          />
-                        ))}
-                    </div>
-                    <span className={styles.text}>“{review.text}”</span>
-                    {review.user.avatar ? (
-                      <img
-                        className="generic-icon large"
-                        alt="review user"
-                        src={review.user.avatar}
-                      />
-                    ) : (
-                      <span className={styles.avatar}>
-                        {review.user.name[0]}
-                      </span>
-                    )}
-                    <strong className="vertical-margin compact">
-                      {review.user.name}
-                    </strong>
-                    <span className={styles["review-date"]}>{review.date}</span>
+                    {reviews[locationName]
+                      .slice(
+                        currentReviewPageIndex * 3,
+                        currentReviewPageIndex * 3 + 3
+                      )
+                      .map(getReviewRender)}
                   </div>
                 ))}
-              </div>
-              {currentReviewIndex > 0 && (
-                <img
-                  className={[
-                    styles["review-arrow"],
-                    styles["left-arrow"]
-                  ].join(" ")}
-                  alt="previous"
-                  role="button"
-                  onClick={() => setCurrentReviewIndex(currentReviewIndex - 1)}
-                  src="/icons/arrow-right-circled.svg"
-                />
-              )}
-              {currentReviewIndex < reviews[locationName].length - 1 && (
-                <img
-                  className={styles["review-arrow"]}
-                  alt="next"
-                  src="/icons/arrow-right-circled.svg"
-                  role="button"
-                  onClick={() => setCurrentReviewIndex(currentReviewIndex + 1)}
-                />
-              )}
-              <div className="flex spaced-lg">
-                {reviews[locationName].map((_, index) => (
+            </div>
+            <img
+              className={[
+                styles["review-arrow"],
+                currentReviewPageIndex < reviewsPageCount - 1 && styles.active
+              ].join(" ")}
+              alt="next"
+              src="/icons/caret-right.svg"
+              role="button"
+              onClick={() =>
+                setCurrentReviewPageIndex(currentReviewPageIndex + 1)
+              }
+            />
+            <div className={styles["review-dots"]}>
+              {Array(reviewsPageCount)
+                .fill("")
+                .map((_, index) => (
                   <span
                     key={index}
                     role="button"
-                    onClick={() => setCurrentReviewIndex(index)}
+                    onClick={() => setCurrentReviewPageIndex(index)}
                     className={[
                       styles.dot,
-                      index === currentReviewIndex && styles.active
+                      index === currentReviewPageIndex && styles.active
                     ].join(" ")}
                   ></span>
                 ))}
-              </div>
             </div>
           </div>
 
