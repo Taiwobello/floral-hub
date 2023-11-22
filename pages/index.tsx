@@ -6,9 +6,6 @@ import {
   regalFeatures,
   regalOccasions,
   reviews,
-  regalAddresses,
-  regalPhones,
-  regalEmail,
   blogPosts,
   aboutUsContent,
   featuredSlugs,
@@ -397,220 +394,29 @@ const LandingPage: FunctionComponent<{
             </div>
           </div>
 
-          <div
-            className={[styles["full-width-section"], styles.summary].join(" ")}
-          >
-            <div className={styles.left}>
-              <strong className="featured-title-small">
-                NOT JUST FLOWERS. REGAL FLOWERS
-              </strong>
-              <h2 className="featured-title">Now Let’s Send Yours</h2>
-              <span className="normal-text">
-                There's a reason people love Regal Flowers. ..because we make
-                every flower and gift delivery a special experience. We didn't
-                say so, the various recipients of our flowers did.
-              </span>
-              <Button
-                padded
-                url="/product-category/flowers-for-love-birthday-anniversary-etc"
-              >
-                Send Flowers
-              </Button>
-            </div>
+          <div className={[styles["full-width-section"]].join(" ")}>
             <img
-              className={styles.right}
+              className={styles.left}
               src="/images/landing-summary.png"
               alt="review"
             />
-          </div>
-
-          <div className={[styles["summary-mobile"], ""].join(" ")}>
-            <div>
-              <strong className="featured-title-small">
-                NOT JUST FLOWERS. REGAL FLOWERS
-              </strong>
-              <h2 className="featured-title">Now Let’s Send Yours</h2>
-              <span className="normal-text">
-                There's a reason people love Regal Flowers. ..because we make
-                every flower and gift delivery a special experience. We didn't
-                say so, the various recipients of our flowers did.
+            <div className={styles.right}>
+              <h2 className="featured-title">FINISHING TOUCHES</h2>
+              <span className={styles.subtitle}>
+                We know how important it is to make someone feel special. That's
+                why we've hand-picked a range of lovely little extras you can
+                add to your gift.
               </span>
               <Button
                 padded
                 url="/product-category/flowers-for-love-birthday-anniversary-etc"
+                className="margin-top"
+                size="large"
+                responsive
               >
-                Send Flowers
+                SHOP GIFTS
               </Button>
             </div>
-          </div>
-
-          <div className={styles["contact-section-wrapper"]}>
-            <div className={styles["contact-section"]} id="contactSection">
-              <img
-                src="/images/landing-contact.png"
-                className={styles["contact-img"]}
-                alt="welcoming flower"
-              />
-              <div className={styles.details}>
-                <strong>GET IN TOUCH</strong>
-                <h2 className="featured-title vertical-margin spaced">
-                  Contact Us Today!
-                </h2>
-                {regalAddresses.map(address => (
-                  <div key={address.name} className={styles.detail}>
-                    <strong className={styles.key}>{address.name}</strong>
-                    <span className={styles.value}>
-                      <img
-                        className="generic-icon margin-right"
-                        src="/icons/map-drop.svg"
-                        alt="location"
-                      />
-                      <span className="flex column spaced">
-                        <a href={address.url} target="_blank" rel="noreferrer">
-                          {address.location}
-                        </a>
-                        <span className="grayed">{address.workingTimes}</span>
-                      </span>
-                    </span>
-                  </div>
-                ))}
-
-                <div className={styles.detail}>
-                  <strong className={styles.key}>
-                    Contact (Calls and WhatsApp)
-                  </strong>
-                  <span className={styles.value}>
-                    <span className="flex spaced">
-                      <img
-                        alt="phone"
-                        src="/icons/phone-solid.svg"
-                        className="generic-icon"
-                      />
-                      <span className="flex column spaced">
-                        {regalPhones.map(phone => (
-                          <a
-                            key={phone}
-                            href={`tel:${phone.replace(/[^\d\+]/g, "")}`}
-                          >
-                            {phone}
-                          </a>
-                        ))}
-                      </span>
-                    </span>
-                  </span>
-                </div>
-
-                <div className={styles.detail}>
-                  <strong className={styles.key}>Email</strong>
-                  <span className={styles.value}>
-                    <span className="flex spaced center-align">
-                      <img
-                        alt="phone"
-                        src="/icons/envelope.svg"
-                        className="generic-icon"
-                      />
-                      <a
-                        href={`mailto:${regalEmail}`}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {regalEmail}
-                      </a>
-                    </span>
-                  </span>
-                </div>
-
-                <Button
-                  type="accent"
-                  className={styles["hello-btn"]}
-                  padded
-                  url="https://wa.me/+2347011992888"
-                >
-                  <img
-                    src="/icons/whatsapp-green.svg"
-                    alt="whatsapp"
-                    className="margin-right"
-                  />
-                  Say Hello
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          <div
-            className={[styles["mobile-contact-details"], "mobile-margin"].join(
-              " "
-            )}
-          >
-            <strong>GET IN TOUCH</strong>
-            <h2 className=" vertical-margin spaced">Contact Us Today!</h2>
-            {regalAddresses.map(address => (
-              <div key={address.name} className={[styles.detail].join(" ")}>
-                <strong className={styles.key}>{address.name}</strong>
-                <span className={styles.value}>
-                  <img
-                    className="generic-icon margin-right"
-                    src="/icons/map-drop.svg"
-                    alt="location"
-                  />
-                  <span className="flex column spaced">
-                    <a href={address.url} target="_blank" rel="noreferrer">
-                      {address.location}
-                    </a>
-                    <span className="grayed">{address.workingTimes}</span>
-                  </span>
-                </span>
-              </div>
-            ))}
-
-            <div className={styles.detail}>
-              <strong className={styles.key}>
-                Contact (Calls and WhatsApp)
-              </strong>
-              <span className={styles.value}>
-                <span className="flex spaced">
-                  <img
-                    alt="phone"
-                    src="/icons/phone-solid.svg"
-                    className="generic-icon"
-                  />
-                  <span className="flex column spaced">
-                    {regalPhones.map(phone => (
-                      <a
-                        key={phone}
-                        href={`tel:${phone.replace(/[^\d\+]/g, "")}`}
-                      >
-                        {phone}
-                      </a>
-                    ))}
-                  </span>
-                </span>
-              </span>
-            </div>
-
-            <div className={styles.detail}>
-              <strong className={styles.key}>Email</strong>
-              <span className={styles.value}>
-                <span className="flex spaced center-align">
-                  <img
-                    alt="phone"
-                    src="/icons/envelope.svg"
-                    className="generic-icon"
-                  />
-                  <a
-                    href={`mailto:${regalEmail}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {regalEmail}
-                  </a>
-                </span>
-              </span>
-            </div>
-
-            <Button type="accent" className="margin-top" padded>
-              Say Hello
-            </Button>
           </div>
 
           {deviceType === "desktop" && (

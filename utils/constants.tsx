@@ -762,7 +762,7 @@ export const regalPhones = [
 
 export const blogPosts: BlogPost[] = [
   {
-    title: "5 awesome methods of receiving payment in your store",
+    title: "How to take care of flowers in hot weather",
     excerpt:
       "Most of us wonder if there is a God and if He really is the God of the Bible. In the Bible of a there is a God  the God of the Bible. In the Bible of a there is a God, then He must like flowers, because, what's there not to like?",
     date: "7 May, 2022",
@@ -783,7 +783,7 @@ export const blogPosts: BlogPost[] = [
       "Most of us wonder if there is a God and if He really is the God of the Bible. In the Bible of a there is a God  the God of the Bible. In the Bible of a there is a God, then He must like flowers, because, what's there not to like?",
     date: "18 Mar, 2022",
     readDuration: "2 mins read",
-    image: "/images/sample-flowers/blog-1.png"
+    image: "/images/sample-flowers/blog-3.png"
   }
 ];
 

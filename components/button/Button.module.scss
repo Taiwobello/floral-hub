@@ -72,7 +72,8 @@
     width: 100%;
   }
   &.large {
-    padding: 0.8rem 2rem;
+    padding: 1rem 2rem;
+    min-width: 15rem;
   }
   &.small {
     padding: 0.3rem 0.8rem;
