@@ -551,8 +551,7 @@ const Header: FunctionComponent = () => {
                 hasScrolled={hasScrolled}
               />
             </div>
-            <Link href={"/cart"}>
-              <Button className={[styles["cart-button"]].join(" ")} type="plain">
+              <Button className={[styles["cart-button"]].join(" ")} type="plain" url="/cart">
                 <img
                   alt="cart"
                   src="/icons/cart.svg"
@@ -564,7 +563,6 @@ const Header: FunctionComponent = () => {
                   </span>
                 )}
               </Button>
-            </Link>
             <ContextWrapper
               anchor={accountAnchor}
               className={styles["auth-wrapper"]}

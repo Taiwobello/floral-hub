@@ -68,7 +68,7 @@
         justify-content: space-between;
         align-items: center;
         font-size: 1.5rem;
-        border-bottom: 1px solid #F4F4F4;
+        border-bottom: 0.1rem solid #F4F4F4;
         padding: 20px 10px;
         transition: background-color 1s linear;
         .icon-container{
@@ -137,7 +137,7 @@
       background-color: #FAF2FD;
     }
     .faq-question-open{
-      border-bottom: 1px solid #EED4F7;
+      border-bottom: 0.1rem solid #EED4F7;
       background-color: #FAF2FD;
       border-radius: 4px;
     }

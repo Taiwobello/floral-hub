@@ -291,7 +291,7 @@ const Cart: FunctionComponent<CartContextProps> = props => {
                     <div className={` ${styles.itemcard}`}>
                       <p className="text-mmedium bold">{item.name} {item.quantity > 1 ? <span className="text-medium margin-left">({item.quantity})</span> : ""}</p>
                       <p className="">{item.description} </p>
-                      <p className="bold text-medium flex between">{getPriceDisplay(item.price, currency)}                       
+                      <p className="bold text-medium flex between">{getPriceDisplay(item.price, currency)}
                         <div className="flex center-align spaced-lg">
                           <div
                             className={styles.minus}
@@ -342,7 +342,7 @@ const Cart: FunctionComponent<CartContextProps> = props => {
                       <p><img src="/images/flower.png" alt="" height={30} width={30} className="margin" /></p>
                       <p> 5000 </p>
                     </div> */}
-                
+
                   </div>
                 </>
               )}
@@ -353,7 +353,7 @@ const Cart: FunctionComponent<CartContextProps> = props => {
                       <img src={item.image.src} alt="" />
                       <div className={` wrap ${styles.itemcard}`}>
                         <p className="text-mmedium bold">{item.name} {item.quantity > 1 ? <span className="text-medium margin-left">({item.quantity})</span> : ""}</p>
-                        <p className="vertical-margin">{item.description} 
+                        <p className="vertical-margin">{item.description}
                           <div className="flex center-align spaced-lg vertical-margin">
                             <div
                               className={styles.minus}
@@ -412,7 +412,12 @@ const Cart: FunctionComponent<CartContextProps> = props => {
               }
             </div>
           ))
-        ) : (<div className="text-large text-center"> Empty Cart...</div>)
+        ) : (<div className={`text-regular text-center ${styles.empty}`}> Empty Cart...
+        
+          <Button url="/product-category/just-to-say-bouquets ">
+            Continue Shopping
+          </Button>
+        </div>)
         }
 
 
