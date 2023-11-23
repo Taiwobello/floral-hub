@@ -28,7 +28,7 @@ export const CheckoutHeader: FunctionComponent = () => {
           <a>
             <img
               alt="regal flowers logo"
-              src="/icons/logo.png"
+              src="/icons/logo.svg"
               className={styles.logo}
             />
           </a>
