@@ -172,7 +172,8 @@ const Checkout: FunctionComponent = () => {
     cartItems,
     setDeliveryFee,
     setOrderLoading,
-    setOrder
+    setOrder,
+    setDeliveryFee
   } = useContext(SettingsContext);
 
   const deviceType = useDeviceType();
