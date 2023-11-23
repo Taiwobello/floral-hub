@@ -165,7 +165,8 @@ const Checkout: FunctionComponent = () => {
     setCartItems,
     setOrderId,
     orderLoading,
-    cartItems
+    cartItems,
+    setDeliveryFee
   } = useContext(SettingsContext);
 
   const deviceType = useDeviceType();
@@ -178,6 +179,8 @@ const Checkout: FunctionComponent = () => {
         (acc, item) => acc + item.price * item.quantity,
         0
       ) || 0;
+
+    setDeliveryFee(formData.deliveryLocation?.amount || 0)
 
     return total + (formData.deliveryLocation?.amount || 0);
   }, [order?.orderProducts, formData.deliveryLocation]);
@@ -1461,12 +1464,14 @@ const Checkout: FunctionComponent = () => {
                       <p className="text-medium">
                         Order Summary ({cartItems.length} items)
                       </p>
+                      <Link href={"/cart"}>
                       <p
                         className="text-medium primary-color underline clickable"
                         onClick={() => setShouldShowCart(true)}
                       >
                         View Cart
                       </p>
+                      </Link>
                     </div>
                     <div className="flex between ">
                       <span className="normal-text">Subtotal</span>

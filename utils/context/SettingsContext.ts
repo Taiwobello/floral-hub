@@ -40,6 +40,8 @@ export interface SettingsControls extends Settings {
   setOrderLoading: (orderLoading: boolean) => void;
   searchText: string;
   setSearchText: (searchText: string) => void;
+  deliveryFee: number;
+  setDeliveryFee: (deliveryFee:number) => void;
 }
 
 const SettingsContext = createContext<SettingsControls>({
@@ -71,7 +73,9 @@ const SettingsContext = createContext<SettingsControls>({
   orderLoading: false,
   setOrderLoading: () => {},
   searchText: "",
-  setSearchText: () => {}
+  setSearchText: () => {},
+  deliveryFee: 0,
+  setDeliveryFee: () =>{}
 });
 
 export default SettingsContext;

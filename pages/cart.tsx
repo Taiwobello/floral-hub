@@ -50,7 +50,8 @@ const Cart: FunctionComponent<CartContextProps> = props => {
     setShouldShowCart,
     currentStage,
     setOrderLoading,
-    setCurrentStage
+    setCurrentStage,
+    deliveryFee
   } = useContext(SettingsContext);
   const [loading, setLoading] = useState(false);
   const [openItem, setOpenItem] = useState<OpenItems>({});
@@ -161,7 +162,7 @@ const Cart: FunctionComponent<CartContextProps> = props => {
   };
 
   const total = cartItems?.reduce(
-    (acc, item) => acc + item.price * item.quantity,
+    (acc, item) => acc + (item.price * item.quantity),
     0
   );
 
@@ -270,13 +271,13 @@ const Cart: FunctionComponent<CartContextProps> = props => {
             </div>
             <div className="flex between">
               <p>Delivery</p>
-              <p className="bold">₦0</p>
+              <p className="bold">{getPriceDisplay(deliveryFee , currency)}</p>
             </div>
             <hr className={styles.divider} />
             <div className="flex between">
               <p className="bold">Order Total</p>
               <p className="bold">
-                {getPriceDisplay(total + designCharges, currency)}
+                {getPriceDisplay(total + designCharges + deliveryFee, currency)}
               </p>
             </div>
             <Button
@@ -287,7 +288,7 @@ const Cart: FunctionComponent<CartContextProps> = props => {
               loading={loading}
               disabled={!cartItems.length}
             >
-              {header === "main" ? "PROCCEED TO CHECKOUT" : "UPDATE CART"}
+              {header === "main" ? "PROCEED TO CHECKOUT" : "UPDATE CART"}
             </Button>
           </div>
         ) : (
@@ -327,6 +328,14 @@ const Cart: FunctionComponent<CartContextProps> = props => {
                           ></div>
                         </div>
                       </p>
+
+{/* 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+                                    PLEASE DO NOT DELETED ANY COMMENTED OUT CODE. THEY WLL STILL BE ADDED LATER ON !!!!!!!
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+*/}
                       {/* <div className={` flex center-align ${styles.gifts}`}>
                         <p>Gifts Included:</p>
                         <p><img src="/images/flower.png" alt="" height={30} width={30} className="margin" /></p>
