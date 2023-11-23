@@ -36,6 +36,7 @@ import {
 } from "../utils/constants";
 import SettingsContext from "../utils/context/SettingsContext";
 import {
+  getOrder,
   saveSenderInfo,
   updateCheckoutState,
   updatePaymentMethodDetails
@@ -162,14 +163,15 @@ const Checkout: FunctionComponent = () => {
     notify,
     deliveryDate,
     setDeliveryDate,
-    setShouldShowCart,
     setShouldShowAuthDropdown,
     order,
     confirm,
     setCartItems,
     setOrderId,
     orderLoading,
-    cartItems
+    cartItems,
+    setOrderLoading,
+    setOrder
   } = useContext(SettingsContext);
 
   const deviceType = useDeviceType();
@@ -232,8 +234,9 @@ const Checkout: FunctionComponent = () => {
 
   const router = useRouter();
   const {
-    query: { orderId: _orderId },
-    isReady
+    query: { orderId },
+    isReady,
+    push
   } = router;
 
   const handleChange = (key: keyof CheckoutFormData, value: unknown) => {
@@ -317,6 +320,37 @@ const Checkout: FunctionComponent = () => {
 
   const { initializeMonnify, isMonnifyReady } = useMonnify();
 
+  const fetchOrder = async (orderId: string) => {
+    setOrderLoading(true);
+    const { error, data, status } = await getOrder(orderId);
+
+    if (error) {
+      if (status === 404) {
+        setOrderId("");
+        setOrder(null);
+        setCartItems([]);
+        setDeliveryDate(null);
+        push("/");
+      }
+    } else {
+      setOrder(data);
+      setDeliveryDate(data?.deliveryDate ? dayjs(data?.deliveryDate) : null);
+    }
+    setOrderLoading(false);
+  };
+
+  useEffect(() => {
+    if (orderId && isReady) {
+      fetchOrder(orderId as string);
+    } else {
+      const savedCartItems = AppStorage.get(AppStorageConstants.CART_ITEMS);
+      if (savedCartItems) {
+        setCartItems(savedCartItems || []);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orderId, currentStage, isReady]);
+
   useEffect(() => {
     if (selectedRecipient) {
       setFormData({
@@ -399,10 +433,10 @@ const Checkout: FunctionComponent = () => {
 
   useEffect(() => {
     if (isReady) {
-      setOrderId(_orderId as string);
+      setOrderId(orderId as string);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [_orderId, isReady]);
+  }, [orderId, isReady]);
 
   useEffect(() => {
     const _isPaid =
@@ -529,7 +563,7 @@ const Checkout: FunctionComponent = () => {
     }
 
     setLoading(true);
-    const { error, message } = await updateCheckoutState(_orderId as string, {
+    const { error, message } = await updateCheckoutState(orderId as string, {
       ...formData,
       deliveryDate,
       currency: currency.name
@@ -549,7 +583,7 @@ const Checkout: FunctionComponent = () => {
           okText: "Login",
           onCancel: async () => {
             const { error, message } = await updateCheckoutState(
-              _orderId as string,
+              orderId as string,
               {
                 ...formData,
                 deliveryDate,
@@ -601,7 +635,7 @@ const Checkout: FunctionComponent = () => {
       return;
     }
     setSavingSenderInfo(true);
-    const { error, message } = await saveSenderInfo(_orderId as string, {
+    const { error, message } = await saveSenderInfo(orderId as string, {
       userData: {
         email: formData.senderEmail,
         name: formData.senderName,
@@ -703,7 +737,7 @@ const Checkout: FunctionComponent = () => {
       };
       initializePayment(successHandler, async () => {
         await updatePaymentMethodDetails({
-          orderId: _orderId as string,
+          orderId: orderId as string,
           currency: currency.name,
           paymentMethod: "paystack"
         });
@@ -1116,7 +1150,7 @@ const Checkout: FunctionComponent = () => {
                               <InfoRedIcon />
                             </p>
                             <div className="input-group">
-                              <span className="question">Delivery State</span>
+                              <span className="question">Pick Up State</span>
                               <Select
                                 onSelect={value => {
                                   handleChange("pickupState", value);
@@ -1535,12 +1569,16 @@ const Checkout: FunctionComponent = () => {
                       <p className="text-medium">
                         Order Summary ({cartItems.length} items)
                       </p>
-                      <p
-                        className="text-medium primary-color underline clickable"
-                        onClick={() => setShouldShowCart(true)}
-                      >
-                        View Cart
-                      </p>
+                      <Link href="/cart">
+                        <a
+                          className="text-medium underline"
+                          style={{
+                            color: "#b240da"
+                          }}
+                        >
+                          View Cart
+                        </a>
+                      </Link>
                     </div>
                     <div className="flex between ">
                       <span className="normal-text">Subtotal</span>
@@ -2258,7 +2296,7 @@ const PaymentDetailsModal: FunctionComponent<ModalProps & {
 
   const router = useRouter();
   const {
-    query: { orderId: _orderId }
+    query: { orderId: orderId }
   } = router;
 
   const handleChange = (key: string, value: unknown) => {
@@ -2278,7 +2316,7 @@ const PaymentDetailsModal: FunctionComponent<ModalProps & {
     const { error, message } = await manualTransferPayment({
       ...formData,
       currency: currency.name,
-      orderId: _orderId as string,
+      orderId: orderId as string,
       amount: getNumber(formData.amount)
     });
     setLoading(false);
