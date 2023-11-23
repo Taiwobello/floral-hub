@@ -284,6 +284,7 @@ export interface CheckoutFormData {
   zone: string;
   currency: AppCurrencyName;
   deliveryInstruction: string;
+  pickupState: LocationName;
 }
 
 export type PaymentName =
@@ -294,7 +295,7 @@ export type PaymentName =
   | "manualTransfer"
   | "gtbTransfer"
   | "natwestTransfer"
-  | "bitcoinTransfer";
+  | "bitcoinAddress";
 
 export interface PaymentMethod {
   title: string;

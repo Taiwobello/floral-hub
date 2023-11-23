@@ -22,17 +22,21 @@ import Select, { Option } from "../components/select/Select";
 import {
   allDeliveryLocationOptions,
   allDeliveryLocationZones,
+  bitcoinAddress,
   checkoutContent,
   deliveryStates,
+  floralHubPaymentEmail,
   freeDeliveryThreshold,
   freeDeliveryThresholdVals,
   paymentMethods,
   pickupLocations,
+  pickupStates,
   placeholderEmail,
   regalEmail
 } from "../utils/constants";
 import SettingsContext from "../utils/context/SettingsContext";
 import {
+  getOrder,
   saveSenderInfo,
   updateCheckoutState,
   updatePaymentMethodDetails
@@ -108,7 +112,8 @@ const initialData: CheckoutFormData = {
   recipientCountryCodeAlt: "+234",
   zone: "",
   currency: "NGN",
-  deliveryInstruction: ""
+  deliveryInstruction: "",
+  pickupState: ""
 };
 
 type DeliverStage =
@@ -118,9 +123,9 @@ type DeliverStage =
   | "payment"
   | "customization-message";
 
-type TransferName = "gtbTransfer" | "natwestTransfer" | "bitcoinTransfer";
+type TransferName = "gtbTransfer" | "natwestTransfer" | "bitcoinAddress";
 
-const transferList = ["gtbTransfer", "natwestTransfer", "bitcoinTransfer"];
+const transferList = ["gtbTransfer", "natwestTransfer", "bitcoinAddress"];
 
 const breadcrumbItems = [{ label: "Home", link: "/" }, { label: "Checkout" }];
 
@@ -158,14 +163,15 @@ const Checkout: FunctionComponent = () => {
     notify,
     deliveryDate,
     setDeliveryDate,
-    setShouldShowCart,
     setShouldShowAuthDropdown,
     order,
     confirm,
     setCartItems,
     setOrderId,
     orderLoading,
-    cartItems
+    cartItems,
+    setOrderLoading,
+    setOrder
   } = useContext(SettingsContext);
 
   const deviceType = useDeviceType();
@@ -228,8 +234,9 @@ const Checkout: FunctionComponent = () => {
 
   const router = useRouter();
   const {
-    query: { orderId: _orderId },
-    isReady
+    query: { orderId },
+    isReady,
+    push
   } = router;
 
   const handleChange = (key: keyof CheckoutFormData, value: unknown) => {
@@ -241,6 +248,24 @@ const Checkout: FunctionComponent = () => {
         pickUpLocation: "",
         deliveryLocation: null
       });
+      return;
+    }
+    if (key === "pickupState") {
+      if (value === "lagos") {
+        setFormData({
+          ...formData,
+          [key as string]: value,
+          pickUpLocation: "Lagos",
+          deliveryLocation: null
+        });
+      } else if (value === "abuja") {
+        setFormData({
+          ...formData,
+          [key as string]: value,
+          pickUpLocation: "Abuja",
+          deliveryLocation: null
+        });
+      }
       return;
     }
     if (key === "zone") {
@@ -294,6 +319,37 @@ const Checkout: FunctionComponent = () => {
   };
 
   const { initializeMonnify, isMonnifyReady } = useMonnify();
+
+  const fetchOrder = async (orderId: string) => {
+    setOrderLoading(true);
+    const { error, data, status } = await getOrder(orderId);
+
+    if (error) {
+      if (status === 404) {
+        setOrderId("");
+        setOrder(null);
+        setCartItems([]);
+        setDeliveryDate(null);
+        push("/");
+      }
+    } else {
+      setOrder(data);
+      setDeliveryDate(data?.deliveryDate ? dayjs(data?.deliveryDate) : null);
+    }
+    setOrderLoading(false);
+  };
+
+  useEffect(() => {
+    if (orderId && isReady) {
+      fetchOrder(orderId as string);
+    } else {
+      const savedCartItems = AppStorage.get(AppStorageConstants.CART_ITEMS);
+      if (savedCartItems) {
+        setCartItems(savedCartItems || []);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orderId, currentStage, isReady]);
 
   useEffect(() => {
     if (selectedRecipient) {
@@ -377,10 +433,10 @@ const Checkout: FunctionComponent = () => {
 
   useEffect(() => {
     if (isReady) {
-      setOrderId(_orderId as string);
+      setOrderId(orderId as string);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [_orderId, isReady]);
+  }, [orderId, isReady]);
 
   useEffect(() => {
     const _isPaid =
@@ -507,7 +563,7 @@ const Checkout: FunctionComponent = () => {
     }
 
     setLoading(true);
-    const { error, message } = await updateCheckoutState(_orderId as string, {
+    const { error, message } = await updateCheckoutState(orderId as string, {
       ...formData,
       deliveryDate,
       currency: currency.name
@@ -527,7 +583,7 @@ const Checkout: FunctionComponent = () => {
           okText: "Login",
           onCancel: async () => {
             const { error, message } = await updateCheckoutState(
-              _orderId as string,
+              orderId as string,
               {
                 ...formData,
                 deliveryDate,
@@ -579,7 +635,7 @@ const Checkout: FunctionComponent = () => {
       return;
     }
     setSavingSenderInfo(true);
-    const { error, message } = await saveSenderInfo(_orderId as string, {
+    const { error, message } = await saveSenderInfo(orderId as string, {
       userData: {
         email: formData.senderEmail,
         name: formData.senderName,
@@ -681,7 +737,7 @@ const Checkout: FunctionComponent = () => {
       };
       initializePayment(successHandler, async () => {
         await updatePaymentMethodDetails({
-          orderId: _orderId as string,
+          orderId: orderId as string,
           currency: currency.name,
           paymentMethod: "paystack"
         });
@@ -722,8 +778,8 @@ const Checkout: FunctionComponent = () => {
       setShowBankDetails(true);
     },
     googlePay: () => {},
-    bitcoinTransfer: () => {
-      settransferName("bitcoinTransfer");
+    bitcoinAddress: () => {
+      settransferName("bitcoinAddress");
       setShowBankDetails(true);
     },
     gtbTransfer: () => {
@@ -1040,7 +1096,7 @@ const Checkout: FunctionComponent = () => {
                                     contact us on Phone/WhatsApp:
                                     <br />
                                     <a
-                                      href="tel:+2347011992888"
+                                      href="tel:+2349077777994"
                                       className="clickable neutral underline"
                                     >
                                       +234 7011992888
@@ -1089,27 +1145,78 @@ const Checkout: FunctionComponent = () => {
 
                         {formData.deliveryMethod === "pick-up" && (
                           <div className={styles["pickup-locations"]}>
-                            <p className="primary-color align-icon normal-text bold margin-bottom flex spaced">
+                            <p className="primary-color align-icon normal-text bold  flex spaced">
                               <span>Pick Up Locations</span>
                               <InfoRedIcon />
                             </p>
-                            <div>
-                              <Radio
-                                label="Lagos Pickup - 81b, Lafiaji Way, Dolphin Estate, Ikoyi, Lagos"
-                                onChange={() =>
-                                  handleChange("pickUpLocation", "Lagos")
-                                }
-                                checked={formData.pickUpLocation === "Lagos"}
+                            <div className="input-group">
+                              <span className="question">Pick Up State</span>
+                              <Select
+                                onSelect={value => {
+                                  handleChange("pickupState", value);
+                                }}
+                                value={formData.pickupState}
+                                options={pickupStates}
+                                placeholder="Select a state"
+                                responsive
+                                dimmed
                               />
                             </div>
-                            <div className="vertical-margin">
-                              <Radio
-                                label="Abuja Pickup - 5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja"
-                                onChange={() =>
-                                  handleChange("pickUpLocation", "Abuja")
-                                }
-                                checked={formData.pickUpLocation === "Abuja"}
-                              />
+                            <div className="margin-top spaced">
+                              {formData.pickUpLocation === "Lagos" && (
+                                <div>
+                                  <Radio
+                                    label={
+                                      <span className="flex spaced column">
+                                        <span>Lagos, Ikoyi</span>
+                                        <span className="grayed">
+                                          7, Ikeja Way, Dolphin Estate, Ikoyi
+                                        </span>
+                                      </span>
+                                    }
+                                    onChange={() => {}}
+                                    checked={
+                                      formData.pickUpLocation === "Lagos"
+                                    }
+                                  />
+                                </div>
+                              )}
+                              {formData.pickUpLocation === "Abuja" && (
+                                <div className="vertical-margin">
+                                  <Radio
+                                    label="Abuja Pickup - 5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja"
+                                    onChange={() => {}}
+                                    checked={
+                                      formData.pickUpLocation === "Abuja"
+                                    }
+                                  />
+                                </div>
+                              )}
+
+                              {formData.pickupState === "other-locations" && (
+                                <div className="flex center-align primary-color normal-text margin-bottom spaced">
+                                  <InfoRedIcon className="generic-icon xl" />
+                                  <span>
+                                    At the moment, You can only pick up at our
+                                    Abuja or Lagos stores. Kindly contact us on
+                                    Phone/WhatsApp:
+                                    <br />
+                                    <a
+                                      href="tel:+2349077777994"
+                                      className="clickable neutral underline"
+                                    >
+                                      +234 7011992888
+                                    </a>
+                                    ,{" "}
+                                    <a
+                                      href="tel:+2347010006665"
+                                      className="clickable neutral underline"
+                                    >
+                                      +234 7010006665
+                                    </a>
+                                  </span>
+                                </div>
+                              )}
                             </div>
                           </div>
                         )}
@@ -1330,7 +1437,7 @@ const Checkout: FunctionComponent = () => {
                         loading={loading}
                         buttonType="submit"
                       >
-                        Proceed to Payment
+                        PROCEED TO PAYMENT
                       </Button>
                     )}
                   </>
@@ -1381,9 +1488,22 @@ const Checkout: FunctionComponent = () => {
                         >
                           <InfoIcon fill="#1C6DD0" />{" "}
                           <span>
-                            Payment issues? Simply Email
-                            payments@regalflowers.com.ng or Call/Whatsapp
-                            +2347011992888
+                            Payment issues? Simply Email{" "}
+                            <a
+                              href={`mailto:${floralHubPaymentEmail}`}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {floralHubPaymentEmail}
+                            </a>{" "}
+                            or{" "}
+                            <a
+                              href={`https://wa.me/+2349077777994`}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              Call/Whatsapp +2349077777994
+                            </a>{" "}
                           </span>{" "}
                         </p>
                         {paymentMethods.map((method, index) => (
@@ -1437,18 +1557,6 @@ const Checkout: FunctionComponent = () => {
                           </div>
                         ))}
                       </div>
-                      <div className={styles.security}>
-                        {" "}
-                        <div className={styles["lock-icon"]}>
-                          <img
-                            src="icons/lock.svg"
-                            className={`generic-icon small `}
-                            alt="lock"
-                          />
-                        </div>{" "}
-                        We protect your payment information using encryption to
-                        provide bank-level security.
-                      </div>
                     </div>
                   </>
                 )}
@@ -1461,12 +1569,16 @@ const Checkout: FunctionComponent = () => {
                       <p className="text-medium">
                         Order Summary ({cartItems.length} items)
                       </p>
-                      <p
-                        className="text-medium primary-color underline clickable"
-                        onClick={() => setShouldShowCart(true)}
-                      >
-                        View Cart
-                      </p>
+                      <Link href="/cart">
+                        <a
+                          className="text-medium underline"
+                          style={{
+                            color: "#b240da"
+                          }}
+                        >
+                          View Cart
+                        </a>
+                      </Link>
                     </div>
                     <div className="flex between ">
                       <span className="normal-text">Subtotal</span>
@@ -1513,7 +1625,7 @@ const Checkout: FunctionComponent = () => {
                     </div>
                     {currentStage === 1 && (
                       <Button responsive buttonType="submit" loading={loading}>
-                        Proceed to Payment
+                        PROCEED TO PAYMENT
                       </Button>
                     )}
                   </div>
@@ -2095,13 +2207,13 @@ const BankDetailsModal: FunctionComponent<ModalProps & {
             </div>
           </>
         )}
-        {transferName === "bitcoinTransfer" && (
+        {transferName === "bitcoinAddress" && (
           <>
-            <div className={[styles.details, styles.bitcoinTransfer].join(" ")}>
+            <div className={[styles.details, styles.bitcoinAddress].join(" ")}>
               <strong className="primary-color">Bitcoins Wallet ID:</strong>
               <div className="flex spaced center-align">
-                <span>12W9vKCcCbKFmYr9bYfbd9SqVvhyK5j4E1</span>
-                {copyButton("12W9vKCcCbKFmYr9bYfbd9SqVvhyK5j4E1")}
+                <span>{bitcoinAddress}</span>
+                {copyButton(bitcoinAddress)}
               </div>
             </div>
           </>
@@ -2184,7 +2296,7 @@ const PaymentDetailsModal: FunctionComponent<ModalProps & {
 
   const router = useRouter();
   const {
-    query: { orderId: _orderId }
+    query: { orderId: orderId }
   } = router;
 
   const handleChange = (key: string, value: unknown) => {
@@ -2204,7 +2316,7 @@ const PaymentDetailsModal: FunctionComponent<ModalProps & {
     const { error, message } = await manualTransferPayment({
       ...formData,
       currency: currency.name,
-      orderId: _orderId as string,
+      orderId: orderId as string,
       amount: getNumber(formData.amount)
     });
     setLoading(false);
@@ -2239,7 +2351,7 @@ const PaymentDetailsModal: FunctionComponent<ModalProps & {
             number
           />
         </div>
-        {transferName !== "bitcoinTransfer" && (
+        {transferName !== "bitcoinAddress" && (
           <div className="input-group vertical-margin spaced">
             <span className="question">Account Name</span>
             <Input
