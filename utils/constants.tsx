@@ -3419,7 +3419,7 @@ export const schemaProperties = {
       name: "Roses"
     }
   ],
-  logo: "/icons/logo.png"
+  logo: "/icons/logo.svg"
 };
 
 export const business = "floralHub";
