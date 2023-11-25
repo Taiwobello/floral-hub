@@ -214,10 +214,13 @@ export const FAQs = [
 
 export const breadcrumbItems: Breadcrumb[] = [
   {
-    url: "flowers-for-love-birthday-anniversary-etc",
+    url: "anniversary-flowers",
     label: "Romance, Birthdays & Anniversary"
   },
-  { url: "just-to-say-bouquets", label: "Just To Say Hi, Sorry, Thank You" },
+  {
+    url: "flowers-to-say-thanks-sorry-etc",
+    label: "Just To Say Hi, Sorry, Thank You"
+  },
   { url: "valentines-day-flowers-and-gifts", label: "Valentines Day" },
   { url: "get-well-soon", label: "Get Well Soon" },
   { url: "bridal-bouquets", label: "Bridal" },
@@ -261,16 +264,19 @@ export const breadcrumbItems: Breadcrumb[] = [
 ];
 
 export const defaultBreadcrumb: Breadcrumb = {
-  url: "/product-category/flowers-for-love-birthday-anniversary-etc",
+  url: "/product-category/anniversary-flowers",
   label: "Romance, Birthdays & Anniversary"
 };
 
 export const allOccasionOptions: Option[] = [
   {
-    value: "flowers-for-love-birthday-anniversary-etc",
+    value: "anniversary-flowers",
     label: "Romance, Birthdays & Anniversary"
   },
-  { value: "just-to-say-bouquets", label: "Just To Say Hi, Sorry, Thank You" },
+  {
+    value: "flowers-to-say-thanks-sorry-etc",
+    label: "Just To Say Hi, Sorry, Thank You"
+  },
   { value: "get-well-soon", label: "Get Well Soon" },
   { value: "bridal-bouquets", label: "Bridal" },
   { value: "funeral-and-condolence", label: "Funeral & Condolence" },
@@ -291,7 +297,7 @@ export const defaultCurrency: AppCurrency = {
 
 export const defaultRedirect = {
   title: "Love, Birthdays & Anniversary",
-  url: "/product-category/flowers-for-love-birthday-anniversary-etc"
+  url: "/product-category/anniversary-flowers"
 };
 
 export const currencyOptions: AppCurrency[] = [
@@ -381,7 +387,7 @@ export const footerContent: FooterContent = {
   occassions: [
     {
       title: "Love, Birthday & Anniversary",
-      url: "/product-category/flowers-for-love-birthday-anniversary-etc"
+      url: "/product-category/anniversary-flowers"
     },
     {
       title: "Bridal Flowers",
@@ -627,7 +633,7 @@ export const regalFeatures: Service[] = [
 export const regalOccasions: Occasion[] = [
   {
     title: "Flowers to say Hi, Sorry, Thank You etc",
-    url: "/product-category/just-to-say-bouquets",
+    url: "/product-category/flowers-to-say-thanks-sorry-etc",
     image: "/images/occasions-sorry-thanks.png",
     subtitle:
       "Say it with flowers. They deserve a handcrafted bouquet of fresh flowers",
@@ -636,7 +642,7 @@ export const regalOccasions: Occasion[] = [
   },
   {
     title: "Anniversary Flowers",
-    url: "/product-category/flowers-for-love-birthday-anniversary-etc",
+    url: "/product-category/anniversary-flowers",
     image: "/images/occasions-love-bday.png",
     subtitle:
       "Celebrate the milestone with fresh flowers delivered to your partner's home or office",
@@ -2028,9 +2034,8 @@ export const gifts: { title: string; url: string; category?: string }[] = [
 ];
 
 export const occasionsPageTitle: Record<string, string> = {
-  "flowers-for-love-birthday-anniversary-etc":
-    "Love, Birthdays & Anniversary Flowers",
-  "just-to-say-bouquets": "Just to Say Flowers",
+  "anniversary-flowers": "Love, Birthdays & Anniversary Flowers",
+  "flowers-to-say-thanks-sorry-etc": "Just to Say Flowers",
   "bridal-bouquets": "Bridal Bouquets & Accessories Flowers",
   "funeral-and-condolence": "Funeral & Condolence Flowers",
   all: "All Occasions Flowers",
@@ -2057,12 +2062,12 @@ export const occasionsPageTitle: Record<string, string> = {
 export const occasions: { title: string; url: string; category?: string }[] = [
   {
     title: "Love, Birthdays & Anniversary",
-    url: "/product-category/flowers-for-love-birthday-anniversary-etc",
+    url: "/product-category/anniversary-flowers",
     category: "Anniversary Flowers"
   },
   {
     title: "Just to Say",
-    url: "/product-category/just-to-say-bouquets",
+    url: "/product-category/flowers-to-say-thanks-sorry-etc",
     category: "Just to Say Bouquets"
   },
   {
@@ -2339,17 +2344,17 @@ export const links: AppLink[] = [
     subtitle: "Select Occasion",
     children: [
       {
-        title: "Romance, Birthdays & Anniversary",
+        title: "Birthday Flowers",
         url: "",
         children: [
           {
             title: "Flowers",
-            url: "/product-category/flowers-for-love-birthday-anniversary-etc",
+            url: "/product-category/birthday-flowers",
             children: []
           },
           {
             title: "VIP Flowers",
-            url: "/vip",
+            url: "/vip-flowers",
             children: []
           },
           {
@@ -2360,17 +2365,17 @@ export const links: AppLink[] = [
         ]
       },
       {
-        title: "Just to say Hi, Sorry, Thank You",
+        title: "Flowers for Romance, Sorry, Thanks, Get Well Soon etc",
         url: "",
         children: [
           {
             title: "Flowers",
-            url: "/product-category/just-to-say-bouquets",
+            url: "/product-category/flowers-to-say-thanks-sorry-etc",
             children: []
           },
           {
             title: "VIP Flowers",
-            url: "/vip",
+            url: "/vip-flowers",
             children: []
           },
           {
@@ -2381,17 +2386,17 @@ export const links: AppLink[] = [
         ]
       },
       {
-        title: "Get Well Soon",
+        title: "Anniversary Flowers",
         url: "",
         children: [
           {
             title: "Flowers",
-            url: "/product-category/get-well-soon",
+            url: "/product-category/anniversary-flowers",
             children: []
           },
           {
             title: "VIP Flowers",
-            url: "/vip",
+            url: "/vip-flowers",
             children: []
           },
           {
@@ -2429,12 +2434,12 @@ export const links: AppLink[] = [
         children: [
           {
             title: "Wreaths & Flowers",
-            url: "/product-category/funeral-and-condolence",
+            url: "/product-category/funeral-amp-condolence-flowers",
             children: []
           },
           {
             title: "VIP Flowers",
-            url: "/vip",
+            url: "/vip-flowers",
             children: []
           }
         ]
@@ -2446,22 +2451,22 @@ export const links: AppLink[] = [
         children: [
           {
             title: "Valentine's Day",
-            url: "/product-category/valentines-day-flowers-and-gifts",
+            url: "/product-category/valentines-day-flowers",
             children: []
           },
           {
             title: "Events & Centerpiece",
-            url: "/product-category/event-amp-centerpiece",
+            url: "/product-category/event-centerpiece",
             children: []
           },
           {
             title: "Father's Day",
-            url: "/product-category/fathers-day-flowers",
+            url: "/product-category/flowers-to-say-thanks-sorry-etc",
             children: []
           },
           {
             title: "Mother's Day",
-            url: "/product-category/mothers-day-flowers",
+            url: "/product-category/flowers-to-say-thanks-sorry-etc",
             children: []
           }
         ]
@@ -2518,7 +2523,7 @@ export const links: AppLink[] = [
         children: [
           {
             title: "View Bundled Products",
-            url: "/product-category/packages-and-bundled-products",
+            url: "/product-category/product-packages",
             children: []
           }
         ]
@@ -2579,7 +2584,7 @@ export const links: AppLink[] = [
     featuredSlugs: ["purity-roses-arranged-with-sparkling-white-select-size"]
   },
   {
-    url: "/vip",
+    url: "/vip-flowers",
     title: "VIP Flowers",
     children: []
   },
@@ -2619,7 +2624,7 @@ export const links: AppLink[] = [
         children: []
       },
       {
-        url: "/product-category/gift-packs ",
+        url: "/product-category/gift-sets",
         title: "Giftsets",
         children: []
       },
@@ -2769,7 +2774,7 @@ export const reviews: RegalContent<UserReview[]> = {
     },
     {
       text:
-        "I have bought from bought twice now to my fiance in Lagos, Nigeria, and I must say, they are not just another Nigerian business. Keep it up guys. Providing PayPal made it so easy for me also.",
+        "I have bought Flowers and chocolates from Floralhub twice now to my fiance in Lagos, Nigeria, and I must say, they are not just another Nigerian business. Keep it up guys. Providing PayPal made it so easy for me also.",
       date: "5 Jul 2022",
       rating: 5,
       user: {
@@ -2789,7 +2794,7 @@ export const reviews: RegalContent<UserReview[]> = {
     },
     {
       text:
-        "I rarely write review but it is only fair I govve credit whre it is due. Their attention to detail and customer service is phenomenal. Keep it up guys",
+        "I rarely write reviews but it is only fair I give credit where it is due. Their attention to detail and customer service is phenomenal. Keep it up guys",
       date: "15 Apr 2021",
       rating: 5,
       user: {
@@ -3188,12 +3193,12 @@ export const occasionsPageMetaData: Record<
   string,
   { title: string; description: string }
 > = {
-  "flowers-for-love-birthday-anniversary-etc": {
+  "anniversary-flowers": {
     title: "Flowers for Romance, Birthday, Anniversary etc | Regal Flowers",
     description:
       "Choose from our delightful assortment of Birthday, Anniversary, Romantic Flowers, Valentine’s Flowers, or Mother’s Day Flowers…and don’t forget to add a gift too"
   },
-  "just-to-say-bouquets": {
+  "flowers-to-say-thanks-sorry-etc": {
     title: "Flowers to Say Sorry, Thank You, Congrats, Happy Mothers Day etc",
     description:
       "Say it with flowers. Various flowers to say, Thank You, I am Sorry, Congratulations and more"
@@ -3394,7 +3399,7 @@ export const schemaProperties = {
     {
       "@type": "ViewAction",
       target:
-        "https://regalflowers.com.ng/product-category/flowers-for-love-birthday-anniversary-etc",
+        "https://regalflowers.com.ng/product-category/anniversary-flowers",
       name: "Love, Birthday, Anniversary Flowers"
     },
     {
@@ -3405,7 +3410,7 @@ export const schemaProperties = {
     {
       "@type": "ViewAction",
       target:
-        "https://regalflowers.com.ng/product-category/just-to-say-bouquets",
+        "https://regalflowers.com.ng/product-category/flowers-to-say-thanks-sorry-etc",
       name: "Popular Options"
     },
     {

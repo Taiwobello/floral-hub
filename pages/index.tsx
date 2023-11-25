@@ -199,7 +199,7 @@ const LandingPage: FunctionComponent<{
               <h2 className="featured-title">BEST SELLING FLOWERS</h2>
               {deviceType === "desktop" && (
                 <Button
-                  url="/product-category/flowers-for-love-birthday-anniversary-etc"
+                  url="/product-category/anniversary-flowers"
                   className="flex spaced center-align"
                   type="plain"
                 >
@@ -224,7 +224,7 @@ const LandingPage: FunctionComponent<{
             </div>
             {deviceType === "mobile" && (
               <Button
-                url="/product-category/flowers-for-love-birthday-anniversary-etc"
+                url="/product-category/anniversary-flowers"
                 type="accent"
                 minWidth
                 className={styles["see-all"]}
@@ -431,7 +431,7 @@ const LandingPage: FunctionComponent<{
               </span>
               <Button
                 padded
-                url="/product-category/flowers-for-love-birthday-anniversary-etc"
+                url="/product-category/anniversary-flowers"
                 className="margin-top"
                 size="large"
                 responsive
@@ -611,7 +611,7 @@ const LandingPage: FunctionComponent<{
               </p>
               <p className="normal-text">
                 We offer fast and same-day delivery of{" "}
-                <Link href="/product-category/just-to-say-bouquets">
+                <Link href="/product-category/flowers-to-say-thanks-sorry-etc">
                   <a className={styles.red}>flower bouquets</a>
                 </Link>{" "}
                 and gifts everywhere in Lagos and Abuja. <br /> <br />
@@ -633,7 +633,7 @@ const LandingPage: FunctionComponent<{
               </p>
               <p className="normal-text">
                 We stock flowers for various occasions such as{" "}
-                <Link href="/product-category/flowers-for-love-birthday-anniversary-etc">
+                <Link href="/product-category/anniversary-flowers">
                   <a className={styles.red}>
                     Birthday Flowers, Romantic Flowers, Anniversary Flowers
                   </a>
@@ -758,8 +758,7 @@ const FlowerDeliveryInput: FunctionComponent = () => {
       </div>
       <Button
         padded
-        url={`/product-category/${occasion?.name ||
-          "flowers-for-love-birthday-anniversary-etc"}`}
+        url={`/product-category/${occasion?.name || "anniversary-flowers"}`}
         className={styles["input-submit"]}
       >
         Send Flowers

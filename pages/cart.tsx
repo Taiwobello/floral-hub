@@ -446,7 +446,7 @@ const Cart: FunctionComponent<CartContextProps> = props => {
           <div className={`text-regular text-center ${styles.empty}`}>
             {" "}
             Empty Cart...
-            <Button url="/product-category/just-to-say-bouquets ">
+            <Button url="/product-category/flowers-to-say-thanks-sorry-etc ">
               Continue Shopping
             </Button>
           </div>

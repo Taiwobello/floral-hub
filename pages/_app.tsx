@@ -39,7 +39,7 @@ const defaultSettings: Settings = {
   deliveryDate: null,
   cartItems: [],
   shouldShowCart: false,
-  redirect: "/product-category/flowers-for-love-birthday-anniversary-etc",
+  redirect: "/product-category/anniversary-flowers",
   shouldShowAuthDropdown: false,
   orderId: "",
   order: null,

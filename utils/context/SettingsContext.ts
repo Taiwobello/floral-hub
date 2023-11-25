@@ -57,7 +57,7 @@ const SettingsContext = createContext<SettingsControls>({
   setUser: () => {},
   setShouldShowCart: () => {},
   shouldShowCart: false,
-  redirect: "/product-category/flowers-for-love-birthday-anniversary-etc",
+  redirect: "/product-category/anniversary-flowers",
   setRedirectUrl: () => {},
   setShouldShowAuthDropdown: () => {},
   shouldShowAuthDropdown: false,

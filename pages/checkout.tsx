@@ -1705,9 +1705,7 @@ const Checkout: FunctionComponent = () => {
                   <Button
                     className={styles["shopping-btn"]}
                     onClick={() =>
-                      router.push(
-                        "/product-category/flowers-for-love-birthday-anniversary-etc"
-                      )
+                      router.push("/product-category/anniversary-flowers")
                     }
                   >
                     Continue Shopping
