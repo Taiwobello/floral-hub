@@ -40,6 +40,7 @@ import SchemaMarkup from "../components/schema-mark-up/SchemaMarkUp";
 import Meta from "../components/meta/Meta";
 import Input from "../components/input/Input";
 import { subscribeToNewsletter } from "../utils/helpers/data/core";
+import InstagramFeed from "../components/instagram-feed/InstagramFeed";
 
 const getReviewRender = (review: UserReview, i: number) => (
   <div key={i} className={styles.review}>
@@ -507,6 +508,12 @@ const LandingPage: FunctionComponent<{
               src="/images/subscribe-img.png"
             />
           </div>
+
+          <InstagramFeed
+            accessToken={
+              process.env.NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN as string
+            }
+          />
 
           <h2 className="featured-title text-center margin-bottom spaced">
             About Us
