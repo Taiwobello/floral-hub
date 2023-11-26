@@ -1,0 +1,33 @@
+.wrapper {
+  margin: 6rem 6rem;
+
+  .posts {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 48rem;
+    width: 100%;
+    .post {
+      width: 33.3%;
+      transition: 0.3s ease-out;
+      position: relative;
+      &:hover {
+        background-color: rgba(128, 128, 128, 0.181);
+      }
+      .post-img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+      .post-author {
+        position: absolute;
+        bottom: 0.5rem;
+        left: 0;
+        padding: 0.3rem 0.6rem;
+        font-weight: 500;
+        background-color: rgba(255, 255, 255, 0.755);
+        border-radius: 0 0.5rem 0 0;
+      }
+    }
+  }
+}
