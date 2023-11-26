@@ -221,12 +221,11 @@ const Checkout: FunctionComponent = () => {
   const refNumber = new Date().getTime().toString();
 
   const payStackConfig: PaystackProps = {
-    reference: `${order?.id}-${refNumber}` as string,
+    reference: `${order?.fullOrderId}-${order?.id}-${refNumber}` as string,
     email: formData.senderEmail || placeholderEmail,
     amount: Math.ceil((total || 0) / currency.conversionRate) * 100,
     currency: currency.name === "GBP" ? undefined : currency.name, // Does not support GBP
-    publicKey: "pk_live_1077b3af566a8ecdaaef2f5cb48b3486b0e6a521",
-    // publicKey: "pk_test_3840ef4162a5542a0b92ba1eca94147059df955d",
+    publicKey: "pk_test_cd20e6c09cdb5ba2395a7c0f4acd63145e3c8aff",
     channels: ["card", "bank", "ussd", "qr", "mobile_money"]
   };
 
@@ -1403,18 +1402,7 @@ const Checkout: FunctionComponent = () => {
                             rows={3}
                           />
                         </div>
-                        <div className="input-group">
-                          <span className="question">Personalized Message</span>
 
-                          <TextArea
-                            value={formData.additionalInfo}
-                            onChange={value =>
-                              handleChange("additionalInfo", value)
-                            }
-                            dimmed
-                            rows={3}
-                          />
-                        </div>
                         <div className="input-group half-width">
                           <span className="question">Occasion</span>
 
@@ -1598,16 +1586,20 @@ const Checkout: FunctionComponent = () => {
                         </span>
                       </div>
                     )}
-                    <div className="flex center-align">
-                      <div className="input-group">
-                        <Input
-                          placeholder="Enter Coupon Code"
-                          value={formData.coupon}
-                          onChange={value => handleChange("coupon", value)}
-                          dimmed
-                          responsive
-                        />
-                      </div>
+                    <div
+                      className={[
+                        "flex center-align",
+                        styles["cupon-input-wrapper"]
+                      ].join(" ")}
+                    >
+                      <Input
+                        placeholder="Enter Coupon Code"
+                        value={formData.coupon}
+                        onChange={value => handleChange("coupon", value)}
+                        dimmed
+                        responsive
+                        className={styles["cupon-input"]}
+                      />
                       <Button
                         rounded
                         type="accent"
@@ -1705,9 +1697,7 @@ const Checkout: FunctionComponent = () => {
                   <Button
                     className={styles["shopping-btn"]}
                     onClick={() =>
-                      router.push(
-                        "/product-category/flowers-for-love-birthday-anniversary-etc"
-                      )
+                      router.push("/product-category/anniversary-flowers")
                     }
                   >
                     Continue Shopping
