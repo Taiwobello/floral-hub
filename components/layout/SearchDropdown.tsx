@@ -26,11 +26,9 @@ const SearchDropdown: FunctionComponent<Props> = props => {
       push(`/filters?search=${searchText}`, undefined, { scroll: false });
       cancel();
     } else {
-      push(
-        "/product-category/flowers-for-love-birthday-anniversary-etc",
-        undefined,
-        { scroll: false }
-      );
+      push("/product-category/anniversary-flowers", undefined, {
+        scroll: false
+      });
     }
   };
   return (
@@ -68,7 +66,7 @@ const SearchDropdown: FunctionComponent<Props> = props => {
       <div className="flex between center-align">
         <p className="text-regular">BEST SELLING PRODUCT</p>
         <Button
-          url="/product-category/flowers-for-love-birthday-anniversary-etc"
+          url="/product-category/anniversary-flowers"
           className="flex spaced center-align primary-color"
           type="transparent"
         >

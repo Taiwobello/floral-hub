@@ -388,7 +388,7 @@ const ProductsPage: FunctionComponent<{
     <>
       {router.pathname === "/filters" && (
         <Meta
-          canonicalUrl={`${regalWebsiteUrl}/product-category/flowers-for-love-birthday-anniversary-etc`}
+          canonicalUrl={`${regalWebsiteUrl}/product-category/anniversary-flowers`}
         ></Meta>
       )}
       <section className={styles.filters} ref={rootRef}>
@@ -968,7 +968,7 @@ const ProductsPage: FunctionComponent<{
                 </p>
                 <p className="normal-text">
                   We offer fast and same-day delivery of{" "}
-                  <Link href="/product-category/just-to-say-bouquets">
+                  <Link href="/product-category/flowers-to-say-thanks-sorry-etc">
                     <a className={styles.red}>flower bouquets</a>
                   </Link>{" "}
                   and gifts everywhere in Lagos and Abuja. <br /> <br />
@@ -991,11 +991,11 @@ const ProductsPage: FunctionComponent<{
                 </p>
                 <p className="normal-text">
                   We stock flowers for various occasions such as{" "}
-                  <Link href="/product-category/just-to-say-bouquets">
+                  <Link href="/product-category/flowers-to-say-thanks-sorry-etc">
                     <a className={styles.red}> Birthday Flowers</a>
                   </Link>
                   ,
-                  <Link href="/product-category/just-to-say-bouquets">
+                  <Link href="/product-category/flowers-to-say-thanks-sorry-etc">
                     <a className={styles.red}> Romantic Flowers</a>
                   </Link>
                   ,{" "}
