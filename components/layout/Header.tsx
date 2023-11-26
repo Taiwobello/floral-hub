@@ -574,7 +574,7 @@ const Header: FunctionComponent = () => {
               {user ? (
                 <div className={styles["user-area"]}>
                   <div className="flex column center-align">
-                    <em className="margin-bottom spaced">
+                    <em className="margin-bottom spaced text-center">
                       Logged in as {user.email}
                     </em>
                     <Button onClick={handleLogout}>Logout</Button>

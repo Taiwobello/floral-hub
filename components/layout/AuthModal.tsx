@@ -240,7 +240,7 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
       <div className={styles["auth-form"]}>
         {["login", "signup", "guestCheckout"].includes(formType) ? (
           <>
-            <h2 className="text-center text-large">
+            <h2 className="text-center text-large margin-bottom">
               {_pathname === "checkout"
                 ? "WELCOME TO SECURE CHECKOUT"
                 : "WELCOME TO FLORALHUB"}
@@ -251,7 +251,7 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
               >
                 <Checkbox
                   text={
-                    <span className="flex spaced column">
+                    <span className={styles["checkbox-text"]}>
                       <strong className="text-regular">Guest Checkout</strong>
                     </span>
                   }
@@ -274,83 +274,11 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
               </div>
             )}
             <div
-              className={[styles["form-wrapper"], styles["login"]].join(" ")}
-            >
-              <Checkbox
-                text={
-                  <span className="flex spaced column">
-                    <strong className="text-regular">Login</strong>
-                    <span className="grayed">
-                      If you’ve already registered.
-                    </span>
-                  </span>
-                }
-                type="primary"
-                checked={formType === "login"}
-                onChange={() => setFormType("login")}
-                rounded
-              />
-
-              <form
-                className={[
-                  styles["login-form"],
-                  formType !== "login" && styles.collapse
-                ].join(" ")}
-                onSubmit={handleSubmit}
-              >
-                <div className="input-group">
-                  <span className="question">Email address</span>
-                  <Input
-                    value={email}
-                    onChange={setEmail}
-                    placeholder="Enter email"
-                    type="email"
-                    name="email"
-                    required
-                    responsive
-                  />
-                </div>
-
-                <div className="input-group vertical-margin spaced">
-                  <span className="question">Password</span>
-                  <Input
-                    value={password}
-                    onChange={setPassword}
-                    type="password"
-                    autoComplete={
-                      formType === "signup" ? "new-password" : "password"
-                    }
-                    placeholder="Enter password"
-                    required
-                    showPasswordIcon
-                    responsive
-                  />
-                </div>
-
-                <button
-                  type="button"
-                  className="primary-color bold underline"
-                  onClick={() => setFormType("forgotPassword")}
-                >
-                  Reset your password
-                </button>
-
-                <Button
-                  buttonType="submit"
-                  loading={loading}
-                  className="vertical-margin spaced"
-                  responsive
-                >
-                  Login
-                </Button>
-              </form>
-            </div>
-            <div
               className={[styles["form-wrapper"], styles["signup"]].join(" ")}
             >
               <Checkbox
                 text={
-                  <span className="flex spaced column">
+                  <span className={styles["checkbox-text"]}>
                     <strong className="text-regular">Register</strong>
                     <span className="grayed">
                       Don’t have an account? Register below to:
@@ -451,6 +379,78 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
                   responsive
                 >
                   Register
+                </Button>
+              </form>
+            </div>
+            <div
+              className={[styles["form-wrapper"], styles["login"]].join(" ")}
+            >
+              <Checkbox
+                text={
+                  <span className={styles["checkbox-text"]}>
+                    <strong className="text-regular">Login</strong>
+                    <span className="grayed">
+                      If you’ve already registered.
+                    </span>
+                  </span>
+                }
+                type="primary"
+                checked={formType === "login"}
+                onChange={() => setFormType("login")}
+                rounded
+              />
+
+              <form
+                className={[
+                  styles["login-form"],
+                  formType !== "login" && styles.collapse
+                ].join(" ")}
+                onSubmit={handleSubmit}
+              >
+                <div className="input-group">
+                  <span className="question">Email address</span>
+                  <Input
+                    value={email}
+                    onChange={setEmail}
+                    placeholder="Enter email"
+                    type="email"
+                    name="email"
+                    required
+                    responsive
+                  />
+                </div>
+
+                <div className="input-group vertical-margin spaced">
+                  <span className="question">Password</span>
+                  <Input
+                    value={password}
+                    onChange={setPassword}
+                    type="password"
+                    autoComplete={
+                      formType === "signup" ? "new-password" : "password"
+                    }
+                    placeholder="Enter password"
+                    required
+                    showPasswordIcon
+                    responsive
+                  />
+                </div>
+
+                <button
+                  type="button"
+                  className="primary-color bold underline"
+                  onClick={() => setFormType("forgotPassword")}
+                >
+                  Reset your password
+                </button>
+
+                <Button
+                  buttonType="submit"
+                  loading={loading}
+                  className="vertical-margin spaced"
+                  responsive
+                >
+                  Login
                 </Button>
               </form>
             </div>
