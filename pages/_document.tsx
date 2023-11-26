@@ -17,10 +17,6 @@ class MyDocument extends Document {
             href="https://fonts.gstatic.com"
             crossOrigin="anonymous"
           />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap"
-            rel="stylesheet"
-          />
           {/* <script
             dangerouslySetInnerHTML={{
               __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
