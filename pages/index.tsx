@@ -13,7 +13,6 @@ import {
   regalOccasions,
   reviews,
   blogPosts,
-  aboutUsContent,
   featuredSlugs,
   allOccasionOptions,
   giftItems,
@@ -83,6 +82,8 @@ const LandingPage: FunctionComponent<{
   const [currentReviewPageIndex, setCurrentReviewPageIndex] = useState(0);
   const [subscriptionEmail, setSubscriptionEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
+  const [minimizedStory, setMinimizedStory] = useState(true);
+
   const { setBreadcrumb, notify } = useContext(SettingsContext);
 
   const deviceType = useDeviceType();
@@ -515,161 +516,82 @@ const LandingPage: FunctionComponent<{
             }
           />
 
-          <h2 className="featured-title text-center margin-bottom spaced">
-            About Us
-          </h2>
-          <div className={[styles["about-section"], "white-bg"].join(" ")}>
-            <div>
-              <p className="title small bold margin-bottom">
-                {aboutUsContent.howItBegan.title}
-              </p>
-              <p className="normal-text">
-                It was a Sunday morning, the year was 2016, in the vibrant city
-                of Lagos, Nigeria, and our founder, reeling from the very recent
-                heartbreak of his relationship (Hint: She left him) was
-                determined to get his girlfriend back.
-                <br />
-                <br />
-                She was traveling to Abuja, Nigeria that afternoon, and he
-                wanted to buy fresh flowers for her so he decided to check
-                prices of bouquet of flowers online. He specifically wanted
-                flower shops in Lagos or Abuja that could deliver a bouquet of{" "}
-                <Link href="/product/classic-red-roses-luxurious-bouquet-of-red-roses">
-                  <a className={styles.red}>red roses</a>
-                </Link>{" "}
-                and chocolates to her the same day.
-                <br />
-                <br />
-                He searched high and low, and while he found some online flower
-                delivery shops in Lagos and Abuja, Nigeria, he couldn’t find one
-                that ticked all the right boxes.
-                <br />
-                <br />
-                The flower shops he found either didn’t look reputable enough
-                (after all he was already heartbroken, he couldn’t afford to
-                lose his money too, and this is Nigeria, where you have to be
-                vigilant), were not picking up or returning his calls, or they
-                didn’t have enough options for various budgets.
-                <br />
-                <br />
-                He finally found one that claimed to be open 24 hours on their
-                Google Maps, and when they also didn’t pick up the phone, he
-                drove down there, only to meet it closed. Ouch.
-                <br />
-                <br />
-                No, he eventually didn’t get her back, and No, it wasn't because
-                he couldn't send her the red roses and chocolates.
-                <br />
-                <br />
-                Instead, it was, as the dictionary would say, irreconcilable
-                differences, and they remain friends, but he instead gained the
-                passion for flowers and gifts that would eventually see him open
-                his own online and walk-in fresh flower shop in Lagos and Abuja,
-                Nigeria.
-                <br />
-                An online flower shop that would precisely tick all the right
-                boxes.
-              </p>
-              <p className="title small bold vertical-margin xl margin-bottom spaced">
-                {aboutUsContent.openingHour.title}
-              </p>
-              <p className="normal-text">
-                Our flower shops in Lagos (Ikoyi Head office) and Abuja (Wuse 2
-                Branch) are open 24 hours not only for website orders but also
-                for walk-ins. We once had a client take us up on the offer by
-                walking in by 3 am. He was on his way to pick up his wife at the
-                airport and wanted to buy red roses to welcome her. He was
-                shocked we were actually open.
-                <br />
-                <br />
-                Many clients are often surprised that unlike others out there,
-                it is not just a slogan for us.
-                <br />
-                <br />
-                Regal Flowers and Gifts is also open every day of the year
-                including weekends and public holidays (yes, Christmas, Easter,
-                and New Year's Day too). We are badass like that
-              </p>
-            </div>
-            <div>
-              <p className="title small bold vertical-margin xl margin-bottom spaced">
-                {aboutUsContent.reputation.title}
-              </p>
-              <p className="normal-text">
-                Once you place your order, you can completely relax, as we
-                deliver on time, and you can walk into any of our branches
-                anytime. We have the highest rating (4.97 stars on average) and
-                the highest number of Google Reviews in Nigeria (over 1000
-                reviews from our 4 branches).
-                <br />
-                <br />
-                Regal Flowers has delivered to over 10,000 people including
-                various celebrities and 2 Nigerian Presidents. We have very
-                likely delivered roses for and to someone you know.
-                <br />
-                <br />
-                Furthermore, the flowers are always fresh and imported into
-                Nigeria every week from rose farms across the world. You can
-                definitely say Regal flowers is your plug for reputable and
-                premium fresh flowers in Nigeria.
-              </p>
-              <p className="title small bold vertical-margin xl margin-bottom spaced">
-                {aboutUsContent.deliveryTime.title}
-              </p>
-              <p className="normal-text">
-                We offer fast and same-day delivery of{" "}
-                <Link href="/product-category/flowers-to-say-thanks-sorry-etc">
-                  <a className={styles.red}>flower bouquets</a>
-                </Link>{" "}
-                and gifts everywhere in Lagos and Abuja. <br /> <br />
-                Some locations we offer delivery of fresh flowers in Lagos
-                include Ikoyi, Victoria Island, Ikeja, Lekki Phase 1, Chevron,
-                Lekki, Ajah, Ikate, Sangotedo, Gbagada, Yaba, Surulere, Ilupeju,
-                Magodo, Maryland, Opebi, Ogba, Ogudu, Allen Avenue.
-                <br /> <br />
-                We opened our Abuja branch in 2021 and it is also open for
-                walk-ins 24 hours. We offer delivery of fresh flowers everywhere
-                in Abuja, including in Wuse 2, Maitama, Central Area, Garki,
-                Jabi, Asokoro, Gwarinpa, Jahi, Lokogoma, Apo, Life Camp, Lugbe,
-                Dawaki, Abuja Municipal Area Council etcetera.
-                <br /> <br />
-                In essence, we deliver EVERYWHERE in Lagos and Abuja
-              </p>
-              <p className="title small bold vertical-margin xl margin-bottom spaced">
-                {aboutUsContent.budget.title}
-              </p>
-              <p className="normal-text">
-                We stock flowers for various occasions such as{" "}
-                <Link href="/product-category/anniversary-flowers">
-                  <a className={styles.red}>
-                    Birthday Flowers, Romantic Flowers, Anniversary Flowers
-                  </a>
-                </Link>
-                , Mothers’ Day Flowers, Get Well Soon Flowers,{" "}
-                <Link href="/product-category/funeral-and-condolence">
-                  <a className={styles.red}>
-                    {" "}
-                    Funeral Wreaths, Condolence Flowers
-                  </a>
-                </Link>{" "}
-                <Link href="/product-category/bridal-bouquets">
-                  <a className={styles.red}>Bridal Bouquets</a>
-                </Link>{" "}
-                , and of course,{" "}
-                <Link href="/product-category/valentines-day-flowers-and-gifts">
-                  <a className={styles.red}> Valentine’s Day flowers</a>
-                </Link>{" "}
-                available
-                <br />
-                <br />
-                And finally, there are suitable options for all budgets, so when
-                you see a design you like, you can simply pick the size that
-                suits your budget. Want to go all out too? We got you, with our{" "}
-                <Link href="/vip">
-                  <a className={styles.red}>VIP</a>
-                </Link>{" "}
-                Category of roses.
-              </p>
+          <div className={styles["story-section"]}>
+            <div className={styles["story-wrapper"]}>
+              <div
+                className={[
+                  styles.story,
+                  minimizedStory && styles.minimized
+                ].join(" ")}
+              >
+                <div className="flex column spaced margin-right">
+                  <h2 className={styles["story-topic"]}>OUR STORY</h2>
+                  <div className="flex column spaced">
+                    <p className={styles.para}>
+                      Deciding on where to buy fresh flowers in Lagos or where
+                      to buy fresh flowers in Abuja? Floralhub.com.ng is the top
+                      online fresh Flower Shop in Lagos, Nigeria and flower shop
+                      in Abuja, Nigeria for same day delivery of all your fresh
+                      flowers and gifts in Lagos, Nigeria and in Abuja, Nigeria.
+                    </p>
+                    <p className={styles.para}>
+                      Whatever the occassion: Valentine’s Day flowers, Birthday
+                      flowers, Anniversary flowers, Romance flowers, I am sorry
+                      flowers, Bridal Bouquets, Mother’s Day flowers, Get Well
+                      Soon flowers, Funeral Wreaths, or more, FloralHub.com is
+                      the place to buy flowers online and get them delivered the
+                      same day or in the future.
+                    </p>
+                    <p className={styles.para}>
+                      You can buy various fresh flowers ranging from red roses,
+                      white roses, pink roses, lilies, chrysanthemums,
+                      hydrangeas, million stars, tulips, lily and more ans well
+                      as various types of gifts such as cakes and cupcakes,
+                      chocolates (such as Ferrero Rocher, Lindt chocolate etc),
+                      wine and champagne (Moet Champagne, Veuve Clicquot, etc),
+                      and red, white, pink or cream Teddy Bears in various
+                      sizes.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex column spaced">
+                  <h2 className={styles["story-topic"]}>HOW TO ORDER</h2>
+                  <div className="flex column spaced">
+                    <p className={styles.para}>
+                      Deciding on where to buy fresh flowers in Lagos or where
+                      to buy fresh flowers in Abuja? Floralhub.com.ng is the top
+                      online fresh Flower Shop in Lagos, Nigeria and flower shop
+                      in Abuja, Nigeria for same day delivery of all your fresh
+                      flowers and gifts in Lagos, Nigeria and in Abuja, Nigeria.
+                    </p>
+                    <p className={styles.para}>
+                      Whatever the occassion: Valentine’s Day flowers, Birthday
+                      flowers, Anniversary flowers, Romance flowers, I am sorry
+                      flowers, Bridal Bouquets, Mother’s Day flowers, Get Well
+                      Soon flowers, Funeral Wreaths, or more, FloralHub.com is
+                      the place to buy flowers online and get them delivered the
+                      same day or in the future.
+                    </p>
+                    <p className={styles.para}>
+                      You can buy various fresh flowers ranging from red roses,
+                      white roses, pink roses, lilies, chrysanthemums,
+                      hydrangeas, million stars, tulips, lily and more ans well
+                      as various types of gifts such as cakes and cupcakes,
+                      chocolates (such as Ferrero Rocher, Lindt chocolate etc),
+                      wine and champagne (Moet Champagne, Veuve Clicquot, etc),
+                      and red, white, pink or cream Teddy Bears in various
+                      sizes.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <Button
+                className={styles.continue}
+                type="plain"
+                onClick={() => setMinimizedStory(!minimizedStory)}
+              >
+                {minimizedStory ? "Continue reading" : "See less"}
+              </Button>
             </div>
           </div>
         </section>

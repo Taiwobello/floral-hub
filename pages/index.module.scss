@@ -501,3 +501,45 @@
 .occasion-card {
   width: 100%;
 }
+
+.story-section {
+  background-color: rgb(219, 182, 189);
+  margin: 3rem 6rem 22rem;
+  padding: 4rem;
+  height: 20rem;
+  padding-top: 8rem;
+  @media (max-width: 1300px) {
+    margin: 3rem 6rem 28rem;
+  }
+  .story-wrapper {
+    background-color: white;
+    padding: 2rem;
+    position: relative;
+    margin-bottom: -10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .story {
+      display: flex;
+      max-height: 100rem;
+      overflow: hidden;
+      transition: 0.3s ease-out;
+      &.minimized {
+        max-height: 14rem;
+      }
+      .story-topic {
+        font-weight: 400;
+        font-size: 1.8rem;
+      }
+      .para {
+        font-size: 1rem;
+      }
+    }
+    .continue {
+      font-size: 1.1rem;
+      color: #b240da;
+      font-weight: 700;
+      margin-top: 2rem;
+    }
+  }
+}
