@@ -21,10 +21,10 @@
     margin-top: 2rem;
 
     & > div {
-      flex-basis: 51%;
+      flex-basis: 43%;
 
       &.left-content {
-        flex-basis: 45%;
+        flex-basis: 53%;
       }
 
       margin-left: 1.2rem;
@@ -64,7 +64,6 @@
       position: relative;
       max-height: 38rem;
       margin-right: 1rem;
-      width: 20%;
       min-width: 8rem;
 
       @media (max-width: 650px) {

@@ -795,8 +795,22 @@
       margin-top: 2rem;
     }
 
+    .checkbox-text {
+      margin-top: -0.3rem;
+      display: flex;
+      flex-direction: column;
+
+      & > * {
+        margin-bottom: 0.5rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
     .list {
-      margin-top: 1.5rem;
+      margin-top: 1rem;
 
       @media (max-width: 650px) {
         padding-left: 2rem;
@@ -807,7 +821,7 @@
       }
 
       li:first-child {
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
       }
     }
   }
@@ -1104,6 +1118,6 @@
 }
 
 .user-area {
-  padding: 1.5rem;
-  width: 22rem;
+  padding: 1rem 0;
+  width: 20rem;
 }

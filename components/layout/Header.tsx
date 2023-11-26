@@ -34,7 +34,7 @@ const Header: FunctionComponent = () => {
 
   const deviceType = useDeviceType();
 
-  const { pathname: _pathname, query } = useRouter();
+  const { pathname: _pathname, query, asPath } = useRouter();
   const pathname = _pathname.split("/").pop();
 
   const {
@@ -81,6 +81,10 @@ const Header: FunctionComponent = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
+
+  useEffect(() => {
+    setDisplaySearchDropdown(false);
+  }, [asPath]);
 
   useEffect(() => {
     const fetchFeaturedProducts = async () => {
@@ -574,7 +578,7 @@ const Header: FunctionComponent = () => {
               {user ? (
                 <div className={styles["user-area"]}>
                   <div className="flex column center-align">
-                    <em className="margin-bottom spaced">
+                    <em className="margin-bottom spaced text-center">
                       Logged in as {user.email}
                     </em>
                     <Button onClick={handleLogout}>Logout</Button>

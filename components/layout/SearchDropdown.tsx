@@ -1,10 +1,18 @@
-import { FormEvent, FunctionComponent, useContext } from "react";
+import {
+  FormEvent,
+  FunctionComponent,
+  useContext,
+  useEffect,
+  useState
+} from "react";
 import styles from "./Layout.module.scss";
 import SettingsContext from "../../utils/context/SettingsContext";
 import { useRouter } from "next/router";
 import Button from "../button/Button";
-import { giftItems } from "../../utils/constants";
+import { featuredSlugs } from "../../utils/constants";
 import FlowerCard from "../flower-card/FlowerCard";
+import { getProductsBySlugs } from "../../utils/helpers/data/products";
+import Product from "../../utils/types/Product";
 
 interface Props {
   visible: boolean;
@@ -14,6 +22,8 @@ interface Props {
 
 const SearchDropdown: FunctionComponent<Props> = props => {
   const { visible, hasScrolled, cancel } = props;
+
+  const [bestSellingProducts, setBestSellingProducts] = useState<Product[]>([]);
 
   const { searchText, setSearchText } = useContext(SettingsContext);
 
@@ -31,6 +41,22 @@ const SearchDropdown: FunctionComponent<Props> = props => {
       });
     }
   };
+
+  const fetchBestProducts = async () => {
+    const { data, error, message } = await getProductsBySlugs(
+      featuredSlugs["featured-birthday"]
+    );
+    if (error) {
+      console.error("Unable to fetch products by slugs: ", message);
+    } else {
+      setBestSellingProducts(data || []);
+    }
+  };
+
+  useEffect(() => {
+    fetchBestProducts();
+  }, []);
+
   return (
     <div
       className={[
@@ -74,14 +100,17 @@ const SearchDropdown: FunctionComponent<Props> = props => {
         </Button>
       </div>
       <div className={[styles["featured-product"]].join(" ")}>
-        {giftItems.map(gift => (
+        {bestSellingProducts.map(product => (
           <FlowerCard
-            key={gift.name}
-            image={gift.image}
-            name={gift.name}
-            subTitle={gift.description}
-            url={gift.slug}
-            buttonText="See More"
+            key={product.key}
+            image={product.images[0]?.src || ""}
+            name={product.name.split("–")[0]}
+            subTitle={product.subtitle || product.name.split("–")[1]}
+            price={product.price}
+            url={`/product/${product.slug}`}
+            buttonText="Add to Cart"
+            cart={product.variants?.length ? false : true}
+            product={product}
           />
         ))}
       </div>
