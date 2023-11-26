@@ -31,7 +31,7 @@ export const getInstagramPosts: (params: {
         ...json.data
           .map(adaptInstagramPostRecord)
           .filter((post: InstagramPost) => post.mediaType === "IMAGE")
-      ];
+      ].slice(0, count);
       nextUrl = json.paging.next;
     }
     return {
