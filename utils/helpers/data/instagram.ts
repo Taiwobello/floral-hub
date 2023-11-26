@@ -5,7 +5,8 @@ const adaptInstagramPostRecord: (record: any) => InstagramPost = record => {
   return {
     id: record.id,
     mediaType: record.media_type,
-    mediaUrl: record.media_url
+    mediaUrl: record.media_url,
+    permalink: record.permalink
   };
 };
 
@@ -18,7 +19,7 @@ export const getInstagramPosts: (params: {
 }) => {
   try {
     let igPosts: InstagramPost[] = [];
-    let nextUrl = `https://graph.instagram.com/me/media?fields=id,media_type,media_url&limit=${10}&access_token=${accessToken}`;
+    let nextUrl = `https://graph.instagram.com/me/media?fields=id,media_type,permalink,media_url&limit=${10}&access_token=${accessToken}`;
     while (igPosts.length < count) {
       const response = await fetch(nextUrl, {
         method: "GET",
