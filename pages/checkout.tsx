@@ -170,6 +170,7 @@ const Checkout: FunctionComponent = () => {
     setOrderId,
     orderLoading,
     cartItems,
+    setDeliveryFee,
     setOrderLoading,
     setOrder
   } = useContext(SettingsContext);
@@ -184,6 +185,8 @@ const Checkout: FunctionComponent = () => {
         (acc, item) => acc + item.price * item.quantity,
         0
       ) || 0;
+
+    setDeliveryFee(formData.deliveryLocation?.amount || 0)
 
     return total + (formData.deliveryLocation?.amount || 0);
   }, [order?.orderProducts, formData.deliveryLocation]);
