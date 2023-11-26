@@ -23,6 +23,16 @@
     }
   }
 
+  .cupon-input-wrapper {
+    border: 0.1rem solid #e5e7eb;
+    padding: 0.1rem;
+    border-radius: 0.3rem;
+
+    .cupon-input {
+      border: none;
+    }
+  }
+
   .password {
     width: 48%;
 
