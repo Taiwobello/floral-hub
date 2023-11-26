@@ -17,6 +17,8 @@ const renderIgPost = (post: InstagramPost, heightFactor: number) => (
     href={post.permalink}
     className={styles.post}
     style={{ height: `${4 * heightFactor}rem` }}
+    target="_blank"
+    rel="noreferrer"
   >
     <img
       key={post.id}
