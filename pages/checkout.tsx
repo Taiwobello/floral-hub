@@ -1402,18 +1402,7 @@ const Checkout: FunctionComponent = () => {
                             rows={3}
                           />
                         </div>
-                        <div className="input-group">
-                          <span className="question">Personalized Message</span>
 
-                          <TextArea
-                            value={formData.additionalInfo}
-                            onChange={value =>
-                              handleChange("additionalInfo", value)
-                            }
-                            dimmed
-                            rows={3}
-                          />
-                        </div>
                         <div className="input-group half-width">
                           <span className="question">Occasion</span>
 
@@ -1597,16 +1586,20 @@ const Checkout: FunctionComponent = () => {
                         </span>
                       </div>
                     )}
-                    <div className="flex center-align">
-                      <div className="input-group">
-                        <Input
-                          placeholder="Enter Coupon Code"
-                          value={formData.coupon}
-                          onChange={value => handleChange("coupon", value)}
-                          dimmed
-                          responsive
-                        />
-                      </div>
+                    <div
+                      className={[
+                        "flex center-align",
+                        styles["cupon-input-wrapper"]
+                      ].join(" ")}
+                    >
+                      <Input
+                        placeholder="Enter Coupon Code"
+                        value={formData.coupon}
+                        onChange={value => handleChange("coupon", value)}
+                        dimmed
+                        responsive
+                        className={styles["cupon-input"]}
+                      />
                       <Button
                         rounded
                         type="accent"
