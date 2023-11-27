@@ -25,6 +25,9 @@ export const getInstagramPosts: (params: {
         method: "GET",
         redirect: "follow"
       });
+      if (response.status >= 400) {
+        throw await response.text();
+      }
       const json = await response.json();
 
       igPosts = [

@@ -14,6 +14,7 @@ interface InstagramFeedProps {
 
 const renderIgPost = (post: InstagramPost, heightFactor: number) => (
   <a
+    key={post.id}
     href={post.permalink}
     className={styles.post}
     style={{ height: `${4 * heightFactor}rem` }}
@@ -21,7 +22,6 @@ const renderIgPost = (post: InstagramPost, heightFactor: number) => (
     rel="noreferrer"
   >
     <img
-      key={post.id}
       src={post.mediaUrl}
       className={styles["post-img"]}
       alt="instagram post by floralhub.com.ng"
@@ -53,7 +53,7 @@ const InstagramFeed: FunctionComponent<InstagramFeedProps> = ({
     setTimeout(fetchIgContent, delayBeforeFetching);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [delayBeforeFetching, accessToken]);
-  return (
+  return igPosts.length ? (
     <section className={styles.wrapper}>
       <h2 className="featured-title text-center">INSTAGRAM INSPIRATION</h2>
       <div className={styles.posts}>
@@ -69,7 +69,7 @@ const InstagramFeed: FunctionComponent<InstagramFeedProps> = ({
         })}
       </div>
     </section>
-  );
+  ) : null;
 };
 
 export default InstagramFeed;

@@ -520,11 +520,10 @@
     .story {
       display: flex;
       max-height: 30rem;
-      overflow: auto;
+      overflow: hidden;
       transition: 0.3s ease-out;
       &.minimized {
         max-height: 14rem;
-        overflow: hidden;
         @media (max-width: 1300px) {
           max-height: 16rem;
         }
