@@ -7,7 +7,7 @@ function useDeviceType(): DeviceType {
 
   useEffect(() => {
     function handleResize() {
-      setDeviceType(window.innerWidth > 650 ? "desktop" : "mobile");
+      setDeviceType(window.innerWidth > 768 ? "desktop" : "mobile");
     }
 
     window.addEventListener("resize", handleResize);
