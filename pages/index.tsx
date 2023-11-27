@@ -525,7 +525,9 @@ const LandingPage: FunctionComponent<{
                 ].join(" ")}
               >
                 <div className="flex column spaced margin-right">
-                  <h2 className={styles["story-topic"]}>OUR STORY</h2>
+                  <h2 className={styles["story-topic"]}>
+                    FLORALHUB - The top flower shop in Lagos and Abuja
+                  </h2>
                   <div className="flex column spaced">
                     <p className={styles.para}>
                       Deciding on where to buy fresh flowers in Lagos or where
@@ -538,49 +540,138 @@ const LandingPage: FunctionComponent<{
                       Whatever the occassion: Valentine’s Day flowers, Birthday
                       flowers, Anniversary flowers, Romance flowers, I am sorry
                       flowers, Bridal Bouquets, Mother’s Day flowers, Get Well
-                      Soon flowers, Funeral Wreaths, or more, FloralHub.com is
-                      the place to buy flowers online and get them delivered the
-                      same day or in the future.
+                      Soon flowers, Funeral Wreaths, or more, FloralHub.com.ng
+                      is the place to buy flowers online and get them delivered
+                      the same day or in the future.
                     </p>
+                    <h2 className={styles["story-topic"]}>WHY FLORALHUB?</h2>
+                    <p className={styles.para}>
+                      At Floralhub.com.ng , our trained florists bring that
+                      special touch to every arrangement, and with our
+                      unparalleled customer service and beautiful flower and
+                      gift options, we help you remind your loved ones in Lagos,
+                      Nigeria just how much they mean to you, now and everyday.
+                    </p>
+                    <p className={styles.para}>
+                      Floral Hub is Nigeria’s top online fresh flower shop in
+                      Lagos, Nigeria. We are the one stop online shop for your
+                      flowers and gifts, and we deliver same day in Lagos,
+                      Nigeria. Buy flowers online today for same day delivery in
+                      Lagos, Nigeria – Shop Fresh Flower & Rose Bouquets.
+                    </p>
+                    <p className={styles.para}>
+                      Choose your desired flower bouquets and gifts, and select
+                      delivery information. Order and make payment online (Card
+                      or PayPal), Nigeria or UK Bank Transfer, PayPal to email,
+                      Bitcoins etc.
+                    </p>
+
+                    <h2 className={styles["story-topic"]}>
+                      WHAT TYPES OF FLOWERS AND GIFTS CAN I BUY?
+                    </h2>
                     <p className={styles.para}>
                       You can buy various fresh flowers ranging from red roses,
                       white roses, pink roses, lilies, chrysanthemums,
-                      hydrangeas, million stars, tulips, lily and more ans well
+                      hydrangeas, million stars, tulips, lily and more and well
                       as various types of gifts such as cakes and cupcakes,
                       chocolates (such as Ferrero Rocher, Lindt chocolate etc),
                       wine and champagne (Moet Champagne, Veuve Clicquot, etc),
-                      and red, white, pink or cream Teddy Bears in various
-                      sizes.
+                      and red, white, pink or cream Teddy Bears in various sizes
+                    </p>
+                    <h2 className={styles["story-topic"]}>
+                      WHERE DO WE DELIVER FLOWERS TO IN LAGOS & ABUJA?
+                    </h2>
+                    <p className={styles.para}>
+                      We deliver everywhere in Lagos and Abuja and same day too.
+                    </p>
+                    <p className={styles.para}>
+                      When considering flower shops in Lagos, Nigeria or Flower
+                      shops in Abuja, Nigeria, Floral Hub is the top flower shop
+                      that offers same day delivery of luxurious fresh flowers,
+                      gifts, bridal bouquets, gifts, wreaths and other
+                      arrangements to Victoria Island, Ikoyi Ikeja, Lekki Phase
+                      1, Chevron, Lekki, Ajah, Gbagada, Yaba, Surulere, Ilupeju,
+                      Magodo, Maryland, Opebi, Ogba, Ogudu, Allen Avenue, Festac
+                      and all other parts of Lagos, Nigeria and flowers shops in
+                      Abuja, Nigeria covering areas such as Wuse 2, Maitama,
+                      Garki, Jabi, Asokoro, and all other areas of Abuja. To Buy
+                      flowers in Lagos & Abuja, Nigeria, Floralhub is the
+                      one-stop solution. Buy flowers and gifts in Lagos & Abuja,
+                      Nigeria. Same Day Delivery
                     </p>
                   </div>
                 </div>
                 <div className="flex column spaced">
-                  <h2 className={styles["story-topic"]}>HOW TO ORDER</h2>
+                  <h2 className={styles["story-topic"]}>
+                    HOW TO BUY FLOWERS IN LAGOS & ABUJA
+                  </h2>
                   <div className="flex column spaced">
                     <p className={styles.para}>
-                      Deciding on where to buy fresh flowers in Lagos or where
-                      to buy fresh flowers in Abuja? Floralhub.com.ng is the top
-                      online fresh Flower Shop in Lagos, Nigeria and flower shop
-                      in Abuja, Nigeria for same day delivery of all your fresh
-                      flowers and gifts in Lagos, Nigeria and in Abuja, Nigeria.
+                      To buy flowers and gifts in Lagos, Nigeria or to buy
+                      flowers and gifts in Abuja, Nigeria, for delivery to your
+                      loved ones, simply order online, or call us on phone or
+                      Whatsapp to make your orders. There are various purchase
+                      methods and you can make a bank transfer, or make payment
+                      online. At FloralHub, we are not just one of the best
+                      Fresh Flower Shops in Lagos, Nigeria, or Fresh Flower
+                      Shops in Abuja, Nigeria, we are the one-stop location as
+                      we are the fresh flowers and gifts shop in Lagos, Nigeria
+                      and fresh flowers and gifts shop in Abuja, Nigeria that
+                      offers a one-stop experience for buying fresh flowers and
+                      gifts for your wife, girlfriend, husband, boyfriend,
+                      friends, and loved ones. Buy flowers and gifts in Lagos &
+                      Abuja, Nigeria. Same Day Delivery
                     </p>
                     <p className={styles.para}>
-                      Whatever the occassion: Valentine’s Day flowers, Birthday
-                      flowers, Anniversary flowers, Romance flowers, I am sorry
-                      flowers, Bridal Bouquets, Mother’s Day flowers, Get Well
-                      Soon flowers, Funeral Wreaths, or more, FloralHub.com is
-                      the place to buy flowers online and get them delivered the
-                      same day or in the future.
+                      Order now, to buy & send flowers online or phone today for
+                      fast, reliable same day delivery in Lagos, Nigeria.
                     </p>
                     <p className={styles.para}>
-                      You can buy various fresh flowers ranging from red roses,
-                      white roses, pink roses, lilies, chrysanthemums,
-                      hydrangeas, million stars, tulips, lily and more ans well
-                      as various types of gifts such as cakes and cupcakes,
-                      chocolates (such as Ferrero Rocher, Lindt chocolate etc),
-                      wine and champagne (Moet Champagne, Veuve Clicquot, etc),
-                      and red, white, pink or cream Teddy Bears in various
-                      sizes.
+                      Buy online or Call/WhatsApp: +234 907 777 7994 for
+                      assistance with your order. Buy flowers and gifts in Lagos
+                      & Abuja, Nigeria. Open 24hrs. Same Day Delivery
+                    </p>
+
+                    <h2 className={styles["story-topic"]}>
+                      HOW MUCH ARE FRESH FLOWERS IN LAGOS & ABUJA
+                    </h2>
+                    <p className={styles.para}>
+                      At FloralHub, you can either order flowers online or we
+                      can also work to suit your budget. Reach us at +234 907
+                      777 7994 today to make your order from one of the best
+                      flower shops in Lagos, Nigeria.
+                    </p>
+                    <p className={styles.para}>
+                      Buy flowers in Lagos, Nigeria online, or by phone today –
+                      Shop for your Fresh Flower & Rose Bouquets today from
+                      Nigeria’s best rated fresh flowers, roses & gifts store.
+                      We offer fast, reliable delivery. Buy flowers in Lagos,
+                      Nigeria online for all occasions, Birthdays, Weddings,
+                      Romantic, Vals gestures and more from the top Flower shop
+                      in Lagos, Nigeria.
+                    </p>
+                    <p className={styles.para}>
+                      Buy flowers and gifts in Lagos & Abuja, Nigeria. Same Day
+                      Delivery
+                    </p>
+                    <p className={styles.para}>Terms & Conditions apply.</p>
+                    <p className={styles.para}>
+                      On another note, be sure to read this post on how to care
+                      for flowers. It’s a great read.
+                    </p>
+
+                    <h2 className={styles["story-topic"]}>
+                      HOW TO PAY FOR FRESH FLOWERS DELIVERY IN LAGOS AND ABUJA
+                    </h2>
+                    <p className={styles.para}>
+                      There are various payment methods you can use on our
+                      website to pay for delivery of fresh flowers and gifts in
+                      Lagos and Abuja.
+                    </p>
+                    <p className={styles.para}>
+                      Most people choose to pay online when placing their order.
+                      Other methods available to clients include: bank transfer
+                      method, Bitcoin and Western Union by request.
                     </p>
                   </div>
                 </div>
