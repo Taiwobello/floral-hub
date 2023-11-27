@@ -504,13 +504,10 @@
 
 .story-section {
   background-color: rgb(219, 182, 189);
-  margin: 3rem 6rem 22rem;
+  margin: 3rem 6rem 12rem;
   padding: 4rem;
-  height: 20rem;
+  height: fit-content;
   padding-top: 8rem;
-  @media (max-width: 1300px) {
-    margin: 3rem 6rem 28rem;
-  }
   .story-wrapper {
     background-color: white;
     padding: 2rem;
@@ -518,14 +515,19 @@
     margin-bottom: -10rem;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
     align-items: center;
     .story {
       display: flex;
-      max-height: 100rem;
-      overflow: hidden;
+      max-height: 30rem;
+      overflow: auto;
       transition: 0.3s ease-out;
       &.minimized {
         max-height: 14rem;
+        overflow: hidden;
+        @media (max-width: 1300px) {
+          max-height: 16rem;
+        }
       }
       .story-topic {
         font-weight: 400;
