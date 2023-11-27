@@ -316,7 +316,7 @@ const Header: FunctionComponent = () => {
                 onMouseLeave={() => setActiveNavLink("")}
               >
                 <Button
-                  className={`flex center-align spaced  ${
+                  className={`flex center-align spaced ${
                     styles.title
                   } ${activeNavLink === link.title && styles.active}`}
                   key={link.title}

@@ -7,7 +7,7 @@
     min-height: 3rem;
   }
 
-  @media (max-width: 650px) {
+  @media (max-width: 768px) {
     // padding: 1rem 3rem;
     padding: 0;
 
@@ -34,7 +34,7 @@
       }
     }
 
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       flex-direction: column;
       margin-bottom: 1rem;
       margin-top: 1rem;
@@ -56,7 +56,7 @@
   }
 
   .left-content {
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       padding: 0rem 2rem;
     }
 
@@ -66,7 +66,7 @@
       margin-right: 1rem;
       min-width: 8rem;
 
-      @media (max-width: 650px) {
+      @media (max-width: 768px) {
         max-height: 10rem;
       }
 
@@ -84,7 +84,7 @@
         flex-direction: column;
         transition: transform 0.5s ease;
         justify-content: center;
-        @media (max-width: 650px) {
+        @media (max-width: 768px) {
           flex-direction: row;
         }
       }
@@ -122,7 +122,7 @@
         align-items: center;
         filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.15));
 
-        @media (max-width: 650px) {
+        @media (max-width: 768px) {
           display: none;
         }
       }
@@ -146,7 +146,7 @@
       overflow: hidden;
       margin-bottom: 2.3rem;
 
-      @media (max-width: 650px) {
+      @media (max-width: 768px) {
         flex-direction: column;
         justify-content: flex-start;
         margin-bottom: 0;
@@ -160,7 +160,7 @@
         position: relative;
         height: 100%;
 
-        @media (max-width: 650px) {
+        @media (max-width: 768px) {
           height: 28rem;
           border-radius: 0.7rem;
         }
@@ -174,7 +174,7 @@
           transition: 0.5s ease-out;
           position: absolute;
 
-          @media (max-width: 650px) {
+          @media (max-width: 768px) {
             height: 28rem;
             margin-bottom: 0;
           }
@@ -187,7 +187,7 @@
             transition: 0.3s ease-out;
             position: relative;
 
-            @media (max-width: 650px) {
+            @media (max-width: 768px) {
               margin-bottom: 0;
             }
           }
@@ -197,7 +197,7 @@
             height: 40rem;
             object-fit: cover;
 
-            @media (max-width: 650px) {
+            @media (max-width: 768px) {
               height: 28rem;
             }
           }
@@ -257,7 +257,7 @@
       right: 1rem;
     }
 
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       display: none;
     }
   }
@@ -332,7 +332,7 @@
   }
 
   .social-icons {
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       margin: 15px 0 0 25px;
     }
 
@@ -354,7 +354,7 @@
         width: 1.4rem;
       }
 
-      @media (max-width: 650px) {
+      @media (max-width: 768px) {
         height: 1.3rem;
         width: 1.3rem;
 

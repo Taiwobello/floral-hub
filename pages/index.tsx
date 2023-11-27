@@ -601,7 +601,7 @@ const LandingPage: FunctionComponent<{
                     </p>
                   </div>
                 </div>
-                <div className="flex column spaced">
+                <div className="flex column spaced margin-left">
                   <h2 className={styles["story-topic"]}>
                     HOW TO BUY FLOWERS IN LAGOS & ABUJA
                   </h2>
