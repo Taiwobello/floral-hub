@@ -482,7 +482,7 @@ const LandingPage: FunctionComponent<{
             </div>
           </div>
 
-          {/* <div className={styles["subscribe-section"]}>
+          <div className={styles["subscribe-section"]}>
             <div className="flex column between">
               <div className="flex column spaced">
                 <h2 className="featured-title unspaced">
@@ -492,10 +492,10 @@ const LandingPage: FunctionComponent<{
                   Get blog updates and special deals direct to your inbox
                 </div>
               </div>
-              <div>
+              <div className={styles["subscribe-form-wrapper"]}>
                 <span className="grayed semibold">Subscribe to updates</span>
                 <form
-                  className="flex spaced"
+                  className={`flex spaced responsive`}
                   onSubmit={handleEmailSubscription}
                 >
                   <Input
@@ -519,7 +519,7 @@ const LandingPage: FunctionComponent<{
               alt="subscribe"
               src="/images/subscribe-img.png"
             />
-          </div> */}
+          </div>
 
           <InstagramFeed
             accessToken={
@@ -535,7 +535,7 @@ const LandingPage: FunctionComponent<{
                   minimizedStory && styles.minimized
                 ].join(" ")}
               >
-                <div className="flex column spaced margin-right">
+                <div className="flex column spaced">
                   <h2 className={styles["story-topic"]}>
                     FLORALHUB - The top flower shop in Lagos and Abuja
                   </h2>
@@ -612,7 +612,7 @@ const LandingPage: FunctionComponent<{
                     </p>
                   </div>
                 </div>
-                <div className="flex column spaced margin-left">
+                <div className="flex column spaced">
                   <h2 className={styles["story-topic"]}>
                     HOW TO BUY FLOWERS IN LAGOS & ABUJA
                   </h2>
