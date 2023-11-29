@@ -78,10 +78,6 @@
     font-size: 0.8rem;
     overflow: hidden;
     white-space: nowrap;
-    @media (max-width: 768px) {
-      height: 2rem;
-      font-weight: 400 !important;
-    }
   }
   .buy-btn:hover > img {
     display: none;
@@ -104,8 +100,8 @@
     font-size: 0.9rem;
     width: 100%;
     margin-top: 1rem;
-    @media (max-width: 400px) {
-      margin-top: 0.5rem;
+    @media (max-width: 768px) {
+      padding: 0.6rem;
     }
   }
 
