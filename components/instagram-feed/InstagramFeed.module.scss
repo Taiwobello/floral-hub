@@ -1,12 +1,17 @@
 .wrapper {
   margin: 6rem 6rem;
-
+  @media (max-width: 768px) {
+    margin: 3rem 1.5rem;
+  }
   .posts {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     height: 48rem;
     width: 100%;
+    @media (max-width: 768px) {
+      height: 25rem;
+    }
     .post {
       width: 33.3%;
       transition: 0.3s ease-out;
@@ -35,6 +40,9 @@
         border-radius: 0 0.5rem 0 0;
         transition: 0.3s ease-out;
         opacity: 0.5;
+        @media (max-width: 768px) {
+          font-size: 0.85rem;
+        }
       }
     }
   }
