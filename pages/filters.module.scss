@@ -1,84 +1,92 @@
 .filters {
-  background-color: #F3F4F6;
+  background-color: #f3f4f6;
   padding-top: 4rem;
   .hero-bg {
     height: 28rem;
     width: 100%;
     position: relative;
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       height: 25rem;
     }
 
-    
     .hero-image {
-        background-image: url("/images/Rectangle-3040.png");
-        background-position: center center;
-        align-self: flex-end;
-        background-size: cover;
-        height: 25rem;
-        width: 65%;
-    
+      background-image: url("/images/Rectangle-3040.png");
+      background-position: center center;
+      align-self: flex-end;
+      background-size: cover;
+      height: 25rem;
+      width: 65%;
+    }
+    .hero-text {
+      position: absolute;
+      height: 18rem;
+      width: 50%;
+      background: #fafafa;
+      left: 5rem;
+      top: 3.5rem;
+      padding: 2rem;
+      border-radius: 0.8rem;
+      opacity: 0.9;
+
+      p:first-of-type {
+        font-size: 2.3rem;
+        font-weight: 800;
+        width: 90%;
+        color: #1f1f1f;
+        vertical-align: top;
+        line-height: 3rem;
+        margin: 1rem 0;
       }
-      .hero-text{
-        position: absolute;
-        height: 18rem;
-        width: 50%;
-        background:#FAFAFA;
-        left:5rem;
-        top:3.5rem;
-        padding: 2rem;
-        border-radius: 0.8rem;
-        opacity: 0.9;
-        
+      p:nth-child(2) {
+        color: #1f1f1f;
+      }
+    }
+    .hero-text > ul {
+      background: linear-gradient(to right, #f3f3f3 100%, #e3d7d7 0%);
+      padding: 0.5rem;
+      border: 0.1rem solid #fafafa;
+      border-radius: 0.4rem;
+    }
+    .occasions-mobile {
+      background-image: url("/images/Rectangle-3040-mobile.png");
+      height: 20rem;
+      background-position: center center;
+      background-size: cover;
+
+      .mobile-card {
         p:first-of-type {
-            font-size: 2.3rem;
-            font-weight: 800;
-            width: 90%;
-            color:#1F1F1F;
-            vertical-align: top;
-            line-height: 3rem;
-            margin: 1rem 0;
-          }
-          p:nth-child(2){
-            color: #1F1F1F;
-          }
-      }
-      .occasions-mobile {
-        background-image: url("/images/Rectangle-3040-mobile.png");
-        height: 20rem;
-        background-position: center center;
-        background-size: cover;
-        
-        
-        .mobile-card {
-             p:first-of-type{
-              font-size: 1.8rem;
-              font-weight: 700;
-             }
+          font-size: 1.8rem;
+          font-weight: 700;
+        }
 
-          position:relative;
-          top: 170px;
-          width: 90%;
-          background-color: white;
-          margin: auto;
-          padding: 1rem;
-          border-radius: 0.8rem;
+        position: relative;
+        top: 170px;
+        width: 90%;
+        background-color: white;
+        margin: auto;
+        padding: 1rem;
+        border-radius: 0.8rem;
 
-          p:last-of-type{
-            margin-top: 1rem;
-            width:10rem;
-            border-bottom: 0.1rem solid ;
-          }
+        p:last-of-type {
+          margin-top: 1rem;
+          width: 10rem;
+          border-bottom: 0.1rem solid;
         }
       }
-    
+      .mobile-card > ul {
+        background: linear-gradient(to right, #f3f3f3 100%, #e3d7d7 0%);
+        padding: 0.5rem;
+        border-radius: 0.4rem;
+        border: 0.1rem solid #fafafa;
+      }
+    }
   }
 
   .title {
     font-size: 2.3rem;
     font-weight: 700;
 
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       font-size: 1.8rem;
     }
   }
@@ -91,14 +99,14 @@
   .content {
     padding: 0 7rem 4rem 7rem;
 
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       padding: 3rem 2rem;
     }
 
     .left-side {
       margin-top: 2rem;
 
-      @media (max-width: 650px) {
+      @media (max-width: 768px) {
         display: none;
       }
     }
@@ -139,29 +147,28 @@
       margin-left: 0.5rem;
       width: 12rem;
 
-      @media (max-width: 650px) {
+      @media (max-width: 768px) {
         width: 47%;
       }
     }
 
     .product-wrapper {
       width: 100%;
-       .sorts{
+      .sorts {
         justify-content: end;
-       }
-       .sorts-mobile{
-        @media (max-width: 650px) {
-
+      }
+      .sorts-mobile {
+        @media (max-width: 768px) {
           margin: 12rem 0 1rem 0;
-          }
-       }
+        }
+      }
       .date-wrapper {
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 100%;
 
-        @media (max-width: 650px) {
+        @media (max-width: 768px) {
           flex-direction: column;
           gap: 1rem;
           align-items: flex-start;
@@ -174,15 +181,15 @@
         // display: flex;
         border: 0;
         // background-color: inherit;
-        @media (max-width: 650px) {
+        @media (max-width: 768px) {
           width: 14rem;
         }
       }
-      .question{
-        min-width:5rem;
+      .question {
+        min-width: 5rem;
         @media (max-width: 420px) {
-            width: auto;
-          }
+          width: auto;
+        }
       }
     }
 
@@ -213,7 +220,7 @@
 
     padding-bottom: 3rem;
 
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       padding: 0 2rem;
     }
   }
@@ -234,7 +241,6 @@
     border-bottom: 0.1rem solid;
     margin-right: 1rem;
   }
-  
 }
 
 .spinner {
@@ -258,10 +264,9 @@
   display: none;
   position: relative;
   top: 1rem;
-  @media (max-width: 650px) {
+  @media (max-width: 768px) {
     display: block;
     margin-left: 2.2rem;
-  
   }
 
   .btn {
@@ -318,7 +323,7 @@
   & > *:first-child {
     margin-right: 2rem;
 
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       margin-right: 0;
     }
   }
@@ -326,7 +331,7 @@
   & > * {
     width: 50%;
 
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       width: 100%;
       margin: 0;
       margin-top: 1rem;
@@ -336,7 +341,7 @@
     }
   }
 
-  @media (max-width: 650px) {
+  @media (max-width: 768px) {
     flex-direction: column;
   }
 
@@ -346,10 +351,10 @@
 }
 
 .search-wrapper {
-    width: 100%;
-    border: 0.1rem solid #DADADA;
-    border-radius: 0.4rem;
-  @media (max-width: 650px) {
+  width: 100%;
+  border: 0.1rem solid #dadada;
+  border-radius: 0.4rem;
+  @media (max-width: 768px) {
     width: 50%;
   }
 }

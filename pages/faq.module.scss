@@ -1,14 +1,14 @@
 .hero-bg {
   background-image: url("/images/faq-hero-desktop.png");
-    @media (max-width: 650px) {
-      background-image: url("/images/faq-hero.png");
-    }
+  @media (max-width: 768px) {
+    background-image: url("/images/faq-hero.png");
+  }
   .title {
     font-size: 2.5rem;
     font-weight: 800;
     width: 50%;
-    color: #1F1F1F;
-    @media (max-width: 650px) {
+    color: #1f1f1f;
+    @media (max-width: 768px) {
       font-size: 2.2rem;
       width: 100%;
     }
@@ -26,18 +26,16 @@
   font-weight: 600;
   margin-bottom: 1.6rem;
 
-  @media (max-width: 650px) {
+  @media (max-width: 768px) {
     font-size: 2rem;
   }
 }
-
 
 .container {
   padding: 0 6rem;
   // width: 100%;
 
-
-  @media (max-width: 650px) {
+  @media (max-width: 768px) {
     padding: 0 2rem;
   }
 }
@@ -46,131 +44,129 @@
   margin: 4rem 0;
   display: flex;
 
-  @media (max-width: 650px) {
+  @media (max-width: 768px) {
     flex-direction: column;
     justify-content: center;
   }
 
-  .faq-body{
-    width:100%;
+  .faq-body {
+    width: 100%;
     .sub-title {
       text-align: center;
       margin-bottom: 20px;
-        @media (max-width: 650px) {
-          font-size: 2rem;
-          font-weight: 600;
-          line-height: 28px;
-        }
+      @media (max-width: 768px) {
+        font-size: 2rem;
+        font-weight: 600;
+        line-height: 28px;
       }
+    }
 
     .faq-question {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 1.5rem;
-        border-bottom: 0.1rem solid #F4F4F4;
-        padding: 20px 10px;
-        transition: background-color 1s linear;
-        .icon-container{
-            .expand-icon {
-                vertical-align: bottom;
-              }
-        }
-        .icon-container:hover{
-            cursor: pointer;
-        }
-        .icon-container-open {
-          background-color: #B240DA;
-          border-radius: 100px;
-          @media (min-width: 1000px) {
-              border-radius: 15px;
-              height: 30px;
-              width: 30px;
-              text-align: center;
-            }
-        }
-        .question-text{
-          max-width: 80%;
-        }
-        .question-text-open {
-          color: #470F5B;
-          font-weight:800;
-        }
-        @media (max-width: 650px) {
-        transition: background-color .5s ease-out;
-        font-size: 1.3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.5rem;
+      border-bottom: 0.1rem solid #f4f4f4;
+      padding: 20px 10px;
+      transition: background-color 1s linear;
+      .icon-container {
+        .expand-icon {
+          vertical-align: bottom;
         }
       }
-    .faq-answer{
+      .icon-container:hover {
+        cursor: pointer;
+      }
+      .icon-container-open {
+        background-color: #b240da;
+        border-radius: 100px;
+        @media (min-width: 1000px) {
+          border-radius: 15px;
+          height: 30px;
+          width: 30px;
+          text-align: center;
+        }
+      }
+      .question-text {
+        max-width: 80%;
+      }
+      .question-text-open {
+        color: #470f5b;
+        font-weight: 800;
+      }
+      @media (max-width: 768px) {
+        transition: background-color 0.5s ease-out;
+        font-size: 1.3rem;
+      }
+    }
+    .faq-answer {
       font-size: 1.2rem;
-     background-color: #FAF2FD;
+      background-color: #faf2fd;
       padding: 10px;
-      color: #470F5B;
+      color: #470f5b;
       margin-bottom: 20px;
-      -webkit-transition:opacity 1s ease;
-      -moz-transition:opacity 1s ease;
-      -o-transition:opacity 1s ease;
-      transition:opacity 1s ease;
+      -webkit-transition: opacity 1s ease;
+      -moz-transition: opacity 1s ease;
+      -o-transition: opacity 1s ease;
+      transition: opacity 1s ease;
 
-
-      a{
-        color: #B240DA;
+      a {
+        color: #b240da;
         font-weight: 700;
       }
-      @media (max-width: 650px) {
+      @media (max-width: 768px) {
         font-size: 1rem;
       }
     }
-        .faq-answer-closed{
-            height: 0;
-            overflow: hidden;
-            z-index: -1;
-            position: relative;
-            opacity: 0;
-            -webkit-transition: 1s ease;
-            -moz-transition: 1s ease;
-            -o-transition: 1s ease;
-            transition: 1s ease;
-          
-        }
-    .faq-question:hover{
-      background-color: #FAF2FD;
+    .faq-answer-closed {
+      height: 0;
+      overflow: hidden;
+      z-index: -1;
+      position: relative;
+      opacity: 0;
+      -webkit-transition: 1s ease;
+      -moz-transition: 1s ease;
+      -o-transition: 1s ease;
+      transition: 1s ease;
     }
-    .faq-question-open{
-      border-bottom: 0.1rem solid #EED4F7;
-      background-color: #FAF2FD;
+    .faq-question:hover {
+      background-color: #faf2fd;
+    }
+    .faq-question-open {
+      border-bottom: 0.1rem solid #eed4f7;
+      background-color: #faf2fd;
       border-radius: 4px;
     }
-    @media (max-width: 650px) {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        text-align: unset;
-        }
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: unset;
     }
+  }
 
-    .links {
-      width: 30%;
-      border: 0.1rem solid #f3f4f6;
-      height: fit-content;
-      padding: 1rem 0;
-      padding-left: 1rem;
+  .links {
+    width: 30%;
+    border: 0.1rem solid #f3f4f6;
+    height: fit-content;
+    padding: 1rem 0;
+    padding-left: 1rem;
 
-      @media (max-width: 650px) {
-        width: 100%;
-        margin-bottom: 3rem;
-        border: none;
-      }
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-bottom: 3rem;
+      border: none;
     }
+  }
 
   .linked-content {
-      display: none;
+    display: none;
     width: 66%;
     & > div {
       margin-bottom: 2.5rem;
     }
 
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       margin-left: 0;
       width: 100%;
     }
@@ -218,7 +214,7 @@
     margin-bottom: 4rem;
   }
 
-  @media (max-width: 650px) {
+  @media (max-width: 768px) {
     .title {
       font-size: 1.5rem;
       margin-bottom: 0;

@@ -72,7 +72,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
   };
   const handleShare = (platform: string) => {
     const currentURL = encodeURIComponent(
-      `https://regalflowers.com.ng/product/${product.slug}`
+      `https://www.floralhub.com.ng/product/${product.slug}`
     );
     if (platform === Platform.TWITTER) {
       const twitterShareLink = `https://twitter.com/intent/tweet?url=${currentURL}`;
@@ -145,6 +145,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
       setCartItems([...cartItems, cartItem]);
       notify(
         "success",
+        <Link href={"/cart"}>
         <p>
           Item Added To Cart{" "}
           <span
@@ -154,6 +155,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
             View Cart
           </span>
         </p>
+        </Link>
       );
     } else {
       if (existingCartItem.SKU !== selectedSize?.sku) {
