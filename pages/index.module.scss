@@ -84,14 +84,21 @@
 .google-review {
   padding: 0.3rem 1rem;
   border-radius: 0.3rem;
+  width: 100%;
   background-color: white;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
   color: black;
+  @media (max-width: 768px) {
+    margin-bottom: 1rem;
+  }
   .stats {
     font-size: 0.85rem;
+    @media (max-width: 768px) {
+      font-size: 1.1rem;
+    }
   }
 }
 .stats {
@@ -142,7 +149,7 @@
     right: unset;
     top: unset;
     width: 90%;
-    margin: -5rem auto 0;
+    margin: -5rem auto 1rem;
     border-radius: 0.5rem;
   }
   .title {
@@ -165,9 +172,14 @@
 .quote-flex {
   display: flex;
   width: 100%;
+  position: relative;
   .quote,
   .quote-img {
     width: 33%;
+    @media (max-width: 768px) {
+      width: 49%;
+      border-radius: 0.5rem;
+    }
   }
   .quote {
     display: flex;
@@ -177,6 +189,13 @@
     font-size: 1.7rem;
     padding: 1rem;
     background-color: #f1f1f1;
+    @media (max-width: 768px) {
+      position: absolute;
+      font-size: 1.1rem;
+      width: 65%;
+      top: 20%;
+      left: 18%;
+    }
   }
 }
 .reviews-subtitle {
@@ -184,6 +203,11 @@
   width: 70%;
   margin: 0 auto;
   text-align: center;
+  margin-bottom: 2rem;
+  @media (max-width: 768px) {
+    width: 90%;
+    margin-bottom: 1rem;
+  }
 }
 .reviews-wrapper {
   border: 0.1rem solid #e5e5e5;
@@ -192,6 +216,11 @@
   padding: 1.5rem;
   display: flex;
   position: relative;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    margin: 1rem 1rem 4rem;
+    border: none;
+  }
   .reviews {
     display: flex;
     .review-page {
@@ -211,6 +240,12 @@
         overflow: hidden;
         position: relative;
         width: 28%;
+        @media (max-width: 768px) {
+          margin-top: 2rem;
+          width: 100%;
+          padding: 1rem;
+          background-color: white;
+        }
         .rating {
           display: flex;
           justify-content: space-between;
@@ -231,7 +266,8 @@
           text-overflow: ellipsis;
 
           @media (max-width: 768px) {
-            width: 80%;
+            width: 100%;
+            font-size: 1.2rem;
           }
         }
         .review-date {
@@ -284,6 +320,9 @@
   position: absolute;
   bottom: 1rem;
   left: 48%;
+  @media (max-width: 768px) {
+    left: 35%;
+  }
   .dot {
     display: inline-block;
     cursor: pointer;
@@ -301,9 +340,13 @@
 .full-width-section {
   display: flex;
   margin-bottom: 4rem;
+  position: relative;
   .left {
     width: 45%;
     object-fit: cover;
+    @media (max-width: 768px) {
+      width: 100%;
+    }
   }
   .right {
     width: 55%;
@@ -315,6 +358,15 @@
     text-align: center;
     padding: 0 4rem;
     padding-bottom: 2rem;
+    @media (max-width: 768px) {
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      position: absolute;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
   }
   .subtitle {
     font-size: 1.2rem;
@@ -528,16 +580,18 @@
 }
 
 .see-all {
-  width: 12rem;
   margin: 1.5rem 0;
-  padding: 0.5rem 1rem;
-
+  color: #b240da;
+  margin: auto;
+  font-weight: 400;
   h3 {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
+    margin-right: 1rem;
+    font-weight: 500;
+    border-bottom: 0.15rem solid #b240da;
   }
-
-  @media (max-width: 768px) {
-    margin: auto;
+  img {
+    width: 2rem;
   }
 }
 
