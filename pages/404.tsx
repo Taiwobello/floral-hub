@@ -23,9 +23,11 @@ const Custom404Page: FunctionComponent<{ featuredFlowers: Product[] }> = ({
             We couldn’t find the page you were looking for. Please crosscheck
             your URL. If this issue persists, kindly contact us.
           </p>
-          <Button className="button" url="/">
-            GO TO HOME
-          </Button>
+          <div className={styles["button"]}>
+            <Button className="" url="/">
+              GO TO HOME
+            </Button>
+          </div>
         </div>
       </div>
       <div className={styles["popular-sections"]}>
