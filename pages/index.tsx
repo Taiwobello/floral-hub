@@ -185,19 +185,23 @@ const LandingPage: FunctionComponent<{
             <div className={[styles.section, styles.wrap].join(" ")}>
               {regalOccasions.map(
                 occasion =>
-                  deviceType === "desktop" ||
-                  (occasion.title !== "Condolence flowers" && (
+                  (deviceType === "desktop" ||
+                    occasion.title !== "Condolence flowers") && (
                     <OccasionCard
                       key={occasion.title}
                       name={occasion.title}
                       url={occasion.url}
                       image={occasion.image}
                       subTitle={occasion.subtitle}
-                      mode="three-x-grid"
-                      buttonText={occasion.cta}
+                      mode={
+                        deviceType === "mobile" ? "two-x-grid" : "three-x-grid"
+                      }
+                      buttonText={
+                        deviceType === "desktop" ? occasion.cta : "SHOP FLOWERS"
+                      }
                       color={occasion.color}
                     />
-                  ))
+                  )
               )}
             </div>
 
