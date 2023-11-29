@@ -50,11 +50,11 @@ const giftMap: Record<string, string> = {
   "teddy-bears": "teddy-bears",
   "wine-and-champagne": "wine-and-champagne",
   "gift-packs": "gift-packs",
-  "perfumes-eau-de-toilette-cologne-and-parfums":
-    "perfumes-eau-de-toilette-cologne-and-parfums",
+  perfumes: "perfumes",
   balloons: "balloons",
   "scented-candles": "scented-candles",
-  gifts: "gifts"
+  gifts: "gifts",
+  "gift-sets": "gift-sets"
 };
 
 type ProductClass = "vip" | "regular";
@@ -85,7 +85,7 @@ const ProductsPage: FunctionComponent<{
 
   const bridalCategories = [
     "cascading-bridal-bouquets",
-    "accessories-boutonnieres-bridesmaids-flowers-amp-corsages",
+    "accessories-boutonnieres-bridesmaids-flowers-corsages",
     "bridal-bouquets"
   ];
   const funeralCategories = ["funeral-and-condolence"];
