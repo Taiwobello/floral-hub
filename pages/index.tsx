@@ -132,8 +132,8 @@ const LandingPage: FunctionComponent<{
             ].join(" ")}
           >
             <h1 className={styles.title}>
-              Send Fresh Flowers <br />
-              to Lagos and Abuja, <br /> Nigeria
+              Send Fresh Flowers {deviceType === "desktop" && <br />}
+              to Lagos and Abuja, {deviceType === "desktop" && <br />} Nigeria
             </h1>
             <p className={styles.subtitle}>
               Your Favorite Online Fresh Flowers and Gifts Shop.
@@ -162,7 +162,12 @@ const LandingPage: FunctionComponent<{
             <h2 className="featured-title text-center vertical-margin xl">
               Flower Delivery For All Occasions
             </h2>
-            <div className="flex end full-width relative">
+            <div className="flex end full-width relative responsive">
+              <img
+                alt="featured occasion"
+                src="/images/occassions-birthday.png"
+                className={styles["featured-occasion-image"]}
+              />
               <Link href="/product-category/birthday-flowers">
                 <a className={styles["featured-occasion-details"]}>
                   <h3 className={styles.title}>BIRTHDAY FLOWERS</h3>
@@ -175,26 +180,25 @@ const LandingPage: FunctionComponent<{
                   </Button>
                 </a>
               </Link>
-              <img
-                alt="featured occasion"
-                src="/images/occassions-birthday.png"
-                className={styles["featured-occasion-image"]}
-              />
             </div>
 
             <div className={[styles.section, styles.wrap].join(" ")}>
-              {regalOccasions.map(occasion => (
-                <OccasionCard
-                  key={occasion.title}
-                  name={occasion.title}
-                  url={occasion.url}
-                  image={occasion.image}
-                  subTitle={occasion.subtitle}
-                  mode="three-x-grid"
-                  buttonText={occasion.cta}
-                  color={occasion.color}
-                />
-              ))}
+              {regalOccasions.map(
+                occasion =>
+                  deviceType === "desktop" ||
+                  (occasion.title !== "Condolence flowers" && (
+                    <OccasionCard
+                      key={occasion.title}
+                      name={occasion.title}
+                      url={occasion.url}
+                      image={occasion.image}
+                      subTitle={occasion.subtitle}
+                      mode="three-x-grid"
+                      buttonText={occasion.cta}
+                      color={occasion.color}
+                    />
+                  ))
+              )}
             </div>
 
             <div className="flex between">

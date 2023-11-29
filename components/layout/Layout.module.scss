@@ -16,7 +16,7 @@
     transition: 0.3s ease-out;
     position: relative;
     @media (max-width: 768px) {
-      margin-left: -7rem;
+      margin-left: -6rem;
     }
     .logo {
       height: auto;
@@ -24,7 +24,7 @@
       position: relative;
       z-index: 14;
       @media (max-width: 768px) {
-        width: 13rem;
+        width: 12rem;
       }
     }
     &.minimize {
