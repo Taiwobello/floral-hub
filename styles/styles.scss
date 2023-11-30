@@ -2,7 +2,6 @@
   font-family: "Gotham";
   src: url("../public/fonts/Gotham-Light.otf") format("otf");
   font-display: swap;
-  font-weight: normal;
 }
 
 @font-face {
@@ -28,13 +27,13 @@ html {
     font-size: 58%;
   }
   @media (max-width: 768px) {
-    font-size: 80%;
+    font-size: 85%;
   }
   @media (max-width: 400px) {
-    font-size: 75%;
+    font-size: 80%;
   }
   @media (max-width: 350px) {
-    font-size: 60%;
+    font-size: 70%;
   }
 
   @media (min-width: 1500px) {
@@ -66,6 +65,9 @@ body {
   font-size: 0.9rem;
   font-family: "Gotham", segoe UI, sans-serif;
   color: #1f1f1f;
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
 }
 a,
 a:visited {
@@ -120,6 +122,18 @@ span {
 }
 .flex {
   display: flex;
+  &.responsive {
+    @media (max-width: 768px) {
+      flex-direction: column;
+      &.spaced > * {
+        margin: 0;
+        margin-top: 1rem;
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+    }
+  }
   &.column {
     flex-direction: column;
     &.spaced > * {
@@ -643,7 +657,6 @@ span {
   @media (max-width: 1250px) {
     height: 35rem;
     background-size: 100vw auto;
-    background-position: 0 9rem;
   }
 }
 .has-scrolled .hero-bg {
@@ -658,34 +671,19 @@ span {
 }
 .page-content {
   .featured-section-wrapper {
-    // position: relative;
-    // background-image: url(/images/pattern-bg.png);
-    // background-repeat: no-repeat;
-    // background-position: right;
-    // background-attachment: fixed;
-    // background-size: 23rem;
-    background-color: #cdcdcd;
+    background-color: #f9f9f9;
     position: relative;
-    z-index: 1;
-    min-height: 375rem;
+    z-index: 2;
     padding-top: 0.01rem;
-
-    &:before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      background-color: rgba(255, 255, 255, 0.8);
-      width: 100%;
-      height: 100%;
-      z-index: -2;
+    @media (max-width: 768px) {
+      padding-top: 6rem;
     }
 
     .featured-content {
       padding: 4rem 7rem;
-
-      @media (max-width: 600px) {
-        padding: 3rem 2rem;
+      background-color: #f9f9f9;
+      @media (max-width: 768px) {
+        padding: 1rem;
       }
 
       @media (max-width: 400px) {
@@ -700,7 +698,7 @@ span {
       &.unspaced {
         margin-bottom: 0;
       }
-      @media (max-width: 600px) {
+      @media (max-width: 768px) {
         text-align: center;
         margin: 1rem auto;
       }
@@ -708,7 +706,7 @@ span {
 
     .featured-title-small {
       font-size: 1.5rem;
-      @media (max-width: 600px) {
+      @media (max-width: 768px) {
         font-size: 1.1rem;
         text-align: center;
         margin: 0 auto;
@@ -725,7 +723,7 @@ span {
   width: 80%;
   margin: 0 auto;
 
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     width: 90%;
   }
 }

@@ -3,6 +3,7 @@ import styles from "./InstagramFeed.module.scss";
 import { getInstagramPosts } from "../../utils/helpers/data/instagram";
 import SettingsContext from "../../utils/context/SettingsContext";
 import { InstagramPost } from "../../utils/types/Instagram";
+import useDeviceType from "../../utils/hooks/useDeviceType";
 
 interface InstagramFeedProps {
   accessToken: string;
@@ -17,7 +18,7 @@ const renderIgPost = (post: InstagramPost, heightFactor: number) => (
     key={post.id}
     href={post.permalink}
     className={styles.post}
-    style={{ height: `${4 * heightFactor}rem` }}
+    style={{ height: `${heightFactor}rem` }}
     target="_blank"
     rel="noreferrer"
   >
@@ -37,6 +38,8 @@ const InstagramFeed: FunctionComponent<InstagramFeedProps> = ({
   const [igPosts, setIgPosts] = useState<InstagramPost[]>([]);
 
   const { notify } = useContext(SettingsContext);
+
+  const deviceType = useDeviceType();
 
   useEffect(() => {
     const fetchIgContent = async () => {
@@ -65,7 +68,8 @@ const InstagramFeed: FunctionComponent<InstagramFeedProps> = ({
             3: 4,
             4: 8
           };
-          return renderIgPost(post, heightFactorMap[i]);
+          const remFactor = deviceType === "desktop" ? 4 : 2;
+          return renderIgPost(post, heightFactorMap[i] * remFactor);
         })}
       </div>
     </section>

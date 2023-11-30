@@ -1,11 +1,25 @@
 .hero-bg {
   background-image: url("/images/landing-bg.png");
-  @media (max-width: 600px) {
-    background-size: 100vw 21rem;
+  @media (max-width: 768px) {
+    background-image: url("/images/landing-bg-mobile.png");
+    height: 24rem;
+    background-position: 0 1rem;
+    background-size: 100vw auto;
+    color: white;
   }
 }
 .hero-content {
   padding: 2rem 4rem;
+  @media (max-width: 768px) {
+    background-color: rgba(0, 0, 0, 0.3);
+    text-align: center;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin-top: -2rem;
+  }
   .title {
     font-size: 4.5rem;
     font-weight: 300;
@@ -14,13 +28,17 @@
       font-size: 4rem;
     }
     @media (max-width: 768px) {
-      font-size: 1.5rem;
-      width: 80%;
+      font-size: 2rem;
+      font-stretch: extra-expanded;
+      width: 100%;
     }
   }
   .subtitle {
     font-size: 1.3rem;
     margin: 1rem 0;
+    @media (max-width: 768px) {
+      width: 80%;
+    }
   }
 }
 
@@ -66,14 +84,21 @@
 .google-review {
   padding: 0.3rem 1rem;
   border-radius: 0.3rem;
+  width: 100%;
   background-color: white;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
   color: black;
+  @media (max-width: 768px) {
+    margin-bottom: 1rem;
+  }
   .stats {
     font-size: 0.85rem;
+    @media (max-width: 768px) {
+      font-size: 1.1rem;
+    }
   }
 }
 .stats {
@@ -84,6 +109,13 @@
   font-weight: 300;
   font-size: 1.1rem;
   color: #7c7d7c;
+  @media (max-width: 768px) {
+    font-weight: 400;
+    color: #151414;
+    & > *:nth-child(2) {
+      font-weight: 700;
+    }
+  }
 }
 .hero-input {
   position: absolute;
@@ -95,6 +127,10 @@
 .featured-occasion-image {
   width: 65vw;
   margin-bottom: 2rem;
+  @media (max-width: 768px) {
+    width: 100%;
+    border-radius: 0.5rem;
+  }
 }
 .featured-occasion-details {
   position: absolute;
@@ -108,6 +144,14 @@
   align-items: center;
   width: 25rem;
   text-align: center;
+  @media (max-width: 768px) {
+    position: relative;
+    right: unset;
+    top: unset;
+    width: 90%;
+    margin: -5rem auto 1rem;
+    border-radius: 0.5rem;
+  }
   .title {
     font-weight: 400;
     font-size: 1.5rem;
@@ -115,6 +159,10 @@
   .subtitle {
     margin: 2rem 0;
     font-size: 1rem;
+    @media (max-width: 768px) {
+      font-size: 1.1rem;
+      margin: 1rem 0;
+    }
   }
   .button {
     width: 100%;
@@ -124,9 +172,14 @@
 .quote-flex {
   display: flex;
   width: 100%;
+  position: relative;
   .quote,
   .quote-img {
     width: 33%;
+    @media (max-width: 768px) {
+      width: 49%;
+      border-radius: 0.5rem;
+    }
   }
   .quote {
     display: flex;
@@ -136,6 +189,13 @@
     font-size: 1.7rem;
     padding: 1rem;
     background-color: #f1f1f1;
+    @media (max-width: 768px) {
+      position: absolute;
+      font-size: 1.1rem;
+      width: 65%;
+      top: 20%;
+      left: 18%;
+    }
   }
 }
 .reviews-subtitle {
@@ -143,6 +203,11 @@
   width: 70%;
   margin: 0 auto;
   text-align: center;
+  margin-bottom: 2rem;
+  @media (max-width: 768px) {
+    width: 90%;
+    margin-bottom: 1rem;
+  }
 }
 .reviews-wrapper {
   border: 0.1rem solid #e5e5e5;
@@ -151,6 +216,11 @@
   padding: 1.5rem;
   display: flex;
   position: relative;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    margin: 1rem 1rem 4rem;
+    border: none;
+  }
   .reviews {
     display: flex;
     .review-page {
@@ -170,6 +240,12 @@
         overflow: hidden;
         position: relative;
         width: 28%;
+        @media (max-width: 768px) {
+          margin-top: 2rem;
+          width: 100%;
+          padding: 1rem;
+          background-color: white;
+        }
         .rating {
           display: flex;
           justify-content: space-between;
@@ -190,7 +266,8 @@
           text-overflow: ellipsis;
 
           @media (max-width: 768px) {
-            width: 80%;
+            width: 100%;
+            font-size: 1.2rem;
           }
         }
         .review-date {
@@ -243,6 +320,9 @@
   position: absolute;
   bottom: 1rem;
   left: 48%;
+  @media (max-width: 768px) {
+    left: 35%;
+  }
   .dot {
     display: inline-block;
     cursor: pointer;
@@ -260,9 +340,13 @@
 .full-width-section {
   display: flex;
   margin-bottom: 4rem;
+  position: relative;
   .left {
     width: 45%;
     object-fit: cover;
+    @media (max-width: 768px) {
+      width: 100%;
+    }
   }
   .right {
     width: 55%;
@@ -274,6 +358,15 @@
     text-align: center;
     padding: 0 4rem;
     padding-bottom: 2rem;
+    @media (max-width: 768px) {
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      position: absolute;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
   }
   .subtitle {
     font-size: 1.2rem;
@@ -296,8 +389,27 @@
       width: 90%;
     }
   }
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 2rem;
+    margin: 2rem 2rem 4rem;
+    h2 {
+      width: 100%;
+      font-size: 1.3rem;
+    }
+    .subscribe-form-wrapper {
+      margin: 1.5rem 0 1rem;
+      & > * {
+        margin: 0.5rem;
+      }
+    }
+  }
   .subscribe-img {
     height: 14rem;
+    @media (max-width: 768px) {
+      width: 100%;
+      height: auto;
+    }
   }
 }
 
@@ -435,18 +547,19 @@
   margin-top: 1rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
   font-size: 1rem;
+  z-index: 2;
 
   @media (max-width: 768px) {
     flex-direction: column;
     padding: 1rem;
     height: auto;
-    width: 80%;
-    box-shadow: 3px 10px 13px 0px rgb(0 0 0 / 16%);
+    margin-top: 0;
+    width: 90%;
+    font-size: 1.1rem;
+    box-shadow: 0.3rem 1rem 1rem 0 rgb(0 0 0 / 16%);
+    border-radius: 0.3rem;
   }
 
-  @media (max-width: 500px) {
-    width: 90%;
-  }
   .occasion-select {
     border: none;
     padding: 0 0.4rem;
@@ -454,8 +567,8 @@
     @media (max-width: 1300px) {
       width: 16rem;
     }
-    @media (max-width: 500px) {
-      width: 49%;
+    @media (max-width: 768px) {
+      width: 59%;
     }
   }
   .delivery-date {
@@ -464,8 +577,8 @@
     @media (max-width: 1300px) {
       width: 12rem;
     }
-    @media (max-width: 500px) {
-      width: 49%;
+    @media (max-width: 768px) {
+      width: 39%;
     }
   }
   .input-submit {
@@ -480,21 +593,24 @@
     }
     @media (max-width: 768px) {
       margin-top: 0.5rem;
+      width: 100%;
     }
   }
 }
 
 .see-all {
-  width: 12rem;
   margin: 1.5rem 0;
-  padding: 0.5rem 1rem;
-
+  color: #b240da;
+  margin: auto;
+  font-weight: 400;
   h3 {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
+    margin-right: 1rem;
+    font-weight: 500;
+    border-bottom: 0.15rem solid #b240da;
   }
-
-  @media (max-width: 768px) {
-    margin: auto;
+  img {
+    width: 2rem;
   }
 }
 
@@ -508,6 +624,10 @@
   padding: 4rem;
   height: fit-content;
   padding-top: 8rem;
+  @media (max-width: 768px) {
+    margin: 4rem 1rem 14rem;
+    padding: 2rem;
+  }
   .story-wrapper {
     background-color: white;
     padding: 2rem;
@@ -517,15 +637,32 @@
     flex-direction: column;
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
     align-items: center;
+    @media (max-width: 768px) {
+      padding: 1.5rem;
+    }
     .story {
       display: flex;
       max-height: 90rem;
       overflow: hidden;
       transition: 0.3s ease-out;
+      & > *:last-child {
+        margin-left: 2rem;
+        @media (max-width: 768px) {
+          margin-left: 0;
+          margin-top: 2rem;
+        }
+      }
+      @media (max-width: 768px) {
+        flex-direction: column;
+        max-height: 200rem;
+      }
       &.minimized {
         max-height: 14rem;
         @media (max-width: 1300px) {
           max-height: 16rem;
+        }
+        @media (max-width: 768px) {
+          max-height: 27rem;
         }
       }
       .story-topic {

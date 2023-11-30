@@ -36,7 +36,7 @@
     color: rgba(0, 0, 0, 0.8);
 
     @media (max-width: 768px) {
-      padding: 0.6rem;
+      padding: 1.3rem;
     }
     &.small {
       font-size: 0.75rem;
@@ -44,6 +44,9 @@
     }
     &.with-icon {
       padding: 0.5rem 0;
+      @media (max-width: 768px) {
+        padding: 0.8rem 0;
+      }
     }
     &.dimmed {
       background-color: #f9fafb;

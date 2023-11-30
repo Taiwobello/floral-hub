@@ -8,9 +8,14 @@
   &:hover {
     box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
   }
-
+  @media (max-width: 768px) {
+    width: 90%;
+  }
   .detail {
     padding: 0.6rem 1rem 1rem;
+    @media (max-width: 768px) {
+      padding: 0.6rem;
+    }
   }
   .title {
     font-size: 1.4rem;
@@ -23,6 +28,10 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+      margin: 0.6rem;
+    }
   }
   .duration {
     background-color: #f4f4f4;

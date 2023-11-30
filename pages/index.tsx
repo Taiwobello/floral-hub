@@ -100,7 +100,8 @@ const LandingPage: FunctionComponent<{
     notify("success", "Successfully subscribed to newsletter");
   };
 
-  const reviewsPageCount = Math.ceil(reviews.general.length / 3);
+  const reviewsPerPage = deviceType === "desktop" ? 3 : 1;
+  const reviewsPageCount = Math.ceil(reviews.general.length / reviewsPerPage);
 
   useEffect(() => {
     setBreadcrumb(defaultBreadcrumb);
@@ -132,8 +133,8 @@ const LandingPage: FunctionComponent<{
             ].join(" ")}
           >
             <h1 className={styles.title}>
-              Send Fresh Flowers <br />
-              to Lagos and Abuja, <br /> Nigeria
+              Send Fresh Flowers {deviceType === "desktop" && <br />}
+              to Lagos and Abuja, {deviceType === "desktop" && <br />} Nigeria
             </h1>
             <p className={styles.subtitle}>
               Your Favorite Online Fresh Flowers and Gifts Shop.
@@ -162,7 +163,12 @@ const LandingPage: FunctionComponent<{
             <h2 className="featured-title text-center vertical-margin xl">
               Flower Delivery For All Occasions
             </h2>
-            <div className="flex end full-width relative">
+            <div className="flex end full-width relative responsive">
+              <img
+                alt="featured occasion"
+                src="/images/occassions-birthday.png"
+                className={styles["featured-occasion-image"]}
+              />
               <Link href="/product-category/birthday-flowers">
                 <a className={styles["featured-occasion-details"]}>
                   <h3 className={styles.title}>BIRTHDAY FLOWERS</h3>
@@ -175,26 +181,29 @@ const LandingPage: FunctionComponent<{
                   </Button>
                 </a>
               </Link>
-              <img
-                alt="featured occasion"
-                src="/images/occassions-birthday.png"
-                className={styles["featured-occasion-image"]}
-              />
             </div>
 
             <div className={[styles.section, styles.wrap].join(" ")}>
-              {regalOccasions.map(occasion => (
-                <OccasionCard
-                  key={occasion.title}
-                  name={occasion.title}
-                  url={occasion.url}
-                  image={occasion.image}
-                  subTitle={occasion.subtitle}
-                  mode="three-x-grid"
-                  buttonText={occasion.cta}
-                  color={occasion.color}
-                />
-              ))}
+              {regalOccasions.map(
+                occasion =>
+                  (deviceType === "desktop" ||
+                    occasion.title !== "Condolence flowers") && (
+                    <OccasionCard
+                      key={occasion.title}
+                      name={occasion.title}
+                      url={occasion.url}
+                      image={occasion.image}
+                      subTitle={occasion.subtitle}
+                      mode={
+                        deviceType === "mobile" ? "two-x-grid" : "three-x-grid"
+                      }
+                      buttonText={
+                        deviceType === "desktop" ? occasion.cta : "SHOP FLOWERS"
+                      }
+                      color={occasion.color}
+                    />
+                  )
+              )}
             </div>
 
             <div className="flex between">
@@ -227,11 +236,12 @@ const LandingPage: FunctionComponent<{
             {deviceType === "mobile" && (
               <Button
                 url="/product-category/anniversary-flowers"
-                type="accent"
+                type="plain"
                 minWidth
                 className={styles["see-all"]}
               >
-                <h3 className="red margin-right">See All</h3>
+                <h3 className="red margin-right">Browse All Flowers</h3>
+                <img alt="see all" src="/icons/arrow-right.svg" />
               </Button>
             )}
 
@@ -291,84 +301,83 @@ const LandingPage: FunctionComponent<{
 
             {deviceType === "mobile" && (
               <Button
-                url="/product-category/gifts"
-                type="accent"
+                url="/product-category/anniversary-flowers"
+                type="plain"
                 minWidth
                 className={styles["see-all"]}
               >
-                <h3 className="red margin-right">See All</h3>
+                <h3 className="red margin-right">Browse All Gifts</h3>
+                <img alt="see all" src="/icons/arrow-right.svg" />
               </Button>
             )}
-
-            <h2 className="featured-title full-width text-center">
-              Why shop with us
-            </h2>
-            <div className={styles.section}>
-              {regalFeatures.map(feature => (
-                <ServiceCard
-                  title={feature.title}
-                  key={feature.title}
-                  subtitle={feature.subtitle}
-                  image={feature.image}
-                  buttonText={feature.cta}
-                  url={feature.url}
-                />
-              ))}
-            </div>
-
-            <h2 className="featured-title full-width text-center">
-              Customer reviews
-            </h2>
-            <div className={styles["reviews-subtitle"]}>
-              We pride ourselves on delivering a first class experience and
-              always welcome feedback. This is key to helping us improve our
-              service in every aspect of our business.
-            </div>
-          </div>
-          <div className={styles["reviews-wrapper"]}>
-            <div
-              className={`flex center spaced-lg center-align ${deviceType ===
-                "mobile" && "column text-center"}`}
-            >
-              <div className="flex column spaced center-align">
-                <h2>Excellent</h2>
-                <a
-                  href="https://google.com"
-                  target="_blank"
-                  className={styles["google-review"]}
-                  rel="noreferrer"
-                >
-                  <img
-                    alt="stars"
-                    src="/icons/stars.png"
-                    className="generic-icon medium margin-bottom"
+            <div className="vertical-margin xl">
+              <h2 className="featured-title full-width text-center">
+                Why shop with us
+              </h2>
+              <div className={[styles.section, styles.wrap].join(" ")}>
+                {regalFeatures.map(feature => (
+                  <ServiceCard
+                    title={feature.title}
+                    key={feature.title}
+                    subtitle={feature.subtitle}
+                    image={feature.image}
+                    buttonText={feature.cta}
+                    url={feature.url}
                   />
-                  <div className="flex spaced center-align">
-                    <img
-                      className="generic-icon large"
-                      src="/icons/google.svg"
-                      alt="google"
-                    />
-                    <span className={styles.stats}>
-                      Over <strong>4.99 </strong> <span> average review</span>
-                    </span>
-                  </div>
-                </a>
+                ))}
               </div>
             </div>
-            <img
-              className={[
-                styles["review-arrow"],
-                styles["left-arrow"],
-                currentReviewPageIndex > 0 && styles.active
-              ].join(" ")}
-              alt="previous"
-              role="button"
-              onClick={() =>
-                setCurrentReviewPageIndex(currentReviewPageIndex - 1)
-              }
-              src="/icons/caret-right.svg"
-            />
+          </div>
+
+          <h2 className="featured-title full-width text-center">
+            Customer reviews
+          </h2>
+          <div className={styles["reviews-subtitle"]}>
+            We pride ourselves on delivering a first class experience and always
+            welcome feedback. This is key to helping us improve our service in
+            every aspect of our business.
+          </div>
+          <div className={styles["reviews-wrapper"]}>
+            <div className="flex column center spaced center-align full-width">
+              {deviceType === "desktop" && <h2>Excellent</h2>}
+              <a
+                href="https://google.com"
+                target="_blank"
+                className={styles["google-review"]}
+                rel="noreferrer"
+              >
+                <img
+                  alt="stars"
+                  src="/icons/stars.png"
+                  className="generic-icon medium margin-bottom"
+                />
+                <div className="flex spaced center-align">
+                  <img
+                    className="generic-icon large"
+                    src="/icons/google.svg"
+                    alt="google"
+                  />
+                  <span className={styles.stats}>
+                    Over <strong>4.99 </strong> <span> average review</span>
+                  </span>
+                </div>
+              </a>
+            </div>
+            {deviceType === "desktop" && (
+              <img
+                className={[
+                  styles["review-arrow"],
+                  styles["left-arrow"],
+                  currentReviewPageIndex > 0 && styles.active
+                ].join(" ")}
+                alt="previous"
+                role="button"
+                onClick={() =>
+                  setCurrentReviewPageIndex(currentReviewPageIndex - 1)
+                }
+                src="/icons/caret-right.svg"
+              />
+            )}
             <div className={styles.reviews}>
               {Array(reviewsPageCount)
                 .fill("")
@@ -382,25 +391,27 @@ const LandingPage: FunctionComponent<{
                   >
                     {reviews[locationName]
                       .slice(
-                        currentReviewPageIndex * 3,
-                        currentReviewPageIndex * 3 + 3
+                        currentReviewPageIndex * reviewsPerPage,
+                        currentReviewPageIndex * reviewsPerPage + reviewsPerPage
                       )
                       .map(getReviewRender)}
                   </div>
                 ))}
             </div>
-            <img
-              className={[
-                styles["review-arrow"],
-                currentReviewPageIndex < reviewsPageCount - 1 && styles.active
-              ].join(" ")}
-              alt="next"
-              src="/icons/caret-right.svg"
-              role="button"
-              onClick={() =>
-                setCurrentReviewPageIndex(currentReviewPageIndex + 1)
-              }
-            />
+            {deviceType === "desktop" && (
+              <img
+                className={[
+                  styles["review-arrow"],
+                  currentReviewPageIndex < reviewsPageCount - 1 && styles.active
+                ].join(" ")}
+                alt="next"
+                src="/icons/caret-right.svg"
+                role="button"
+                onClick={() =>
+                  setCurrentReviewPageIndex(currentReviewPageIndex + 1)
+                }
+              />
+            )}
             <div className={styles["review-dots"]}>
               {Array(reviewsPageCount)
                 .fill("")
@@ -456,7 +467,7 @@ const LandingPage: FunctionComponent<{
                 <h3 className="red margin-right">See All</h3>
               </Button>
             </div>
-            <div className={styles.section}>
+            <div className={[styles.section, styles.wrap].join(" ")}>
               {blogPosts.map(post => (
                 <BlogCard
                   key={post.title}
@@ -481,10 +492,10 @@ const LandingPage: FunctionComponent<{
                   Get blog updates and special deals direct to your inbox
                 </div>
               </div>
-              <div>
+              <div className={styles["subscribe-form-wrapper"]}>
                 <span className="grayed semibold">Subscribe to updates</span>
                 <form
-                  className="flex spaced"
+                  className={`flex spaced responsive`}
                   onSubmit={handleEmailSubscription}
                 >
                   <Input
@@ -524,7 +535,7 @@ const LandingPage: FunctionComponent<{
                   minimizedStory && styles.minimized
                 ].join(" ")}
               >
-                <div className="flex column spaced margin-right">
+                <div className="flex column spaced">
                   <h2 className={styles["story-topic"]}>
                     FLORALHUB - The top flower shop in Lagos and Abuja
                   </h2>
@@ -601,7 +612,7 @@ const LandingPage: FunctionComponent<{
                     </p>
                   </div>
                 </div>
-                <div className="flex column spaced margin-left">
+                <div className="flex column spaced">
                   <h2 className={styles["story-topic"]}>
                     HOW TO BUY FLOWERS IN LAGOS & ABUJA
                   </h2>

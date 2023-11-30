@@ -9,11 +9,15 @@
   background-color: white;
   justify-content: space-between;
   @media (max-width: 1300px) {
-    height: 27vw;
+    height: 29vw;
   }
   @media (max-width: 768px) {
-    width: 60vw;
-    padding: 0;
+    width: 100%;
+    height: unset;
+    flex-direction: row;
+    margin: 0.5rem 0;
+    text-align: unset;
+    padding: 1.5rem 1rem;
   }
 
   @media (max-width: 500px) {
@@ -25,12 +29,21 @@
     height: 6rem;
     margin-bottom: 1rem;
 
-    @media (max-width: 500px) {
-      height: 5rem;
+    @media (max-width: 768px) {
+      margin-bottom: unset;
+      margin-right: 1.5rem;
+      height: 4rem;
     }
   }
-  .description {
-    text-align: center;
+  .button-text {
+    color: #b240da;
+    text-decoration: underline;
+    font-size: 1.3rem;
+    @media (max-width: 768px) {
+      font-size: 1.1rem;
+      color: black;
+      font-weight: 600;
+    }
   }
   .title {
     font-size: 1.4rem;
