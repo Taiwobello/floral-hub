@@ -11,12 +11,19 @@
     top: 12rem;
     max-width: 300px;
     z-index: 1;
-    p:first-of-type {
-      font-size: 5rem;
-      font-weight: 800;
+      font-weight: 400;
+    p:first-of-type{
+        font-size: 5rem;
+        font-weight: 600;
+    }
+    p:nth-child(2){
+      font-weight: 600;
+        }
+    p:nth-child(2), p:nth-child(3){
+     margin: 15px 0;
     }
     p:nth-child(2) {
-      font-weight: 800;
+      font-weight: 600;
     }
     p:nth-child(2),
     p:nth-child(3) {
@@ -36,23 +43,28 @@
     background-image: url("/images/404-mobile.png");
     .text {
       width: 100%;
-      top: 22rem;
-      left: 2rem;
-      p:first-of-type {
-        font-size: 3rem;
-        font-weight: 800;
-      }
-
-      p:nth-child(2),
-      p:nth-child(3) {
-        margin: 10px 0;
-      }
-      button {
-        width: 60%;
-      }
+      top:22rem;
+      left:2rem;
+          z-index: 1;
+            font-weight: 400;
+        p:first-of-type {
+            font-size: 3rem;
+            font-weight: 600;
+          }
+        
+          p:nth-child(2),
+          p:nth-child(3) {
+            margin: 10px 0;
+          }
+          div {
+            width: 10%;
+          
+          }
     }
   }
-}
+
+  }
+
 
 .popular-sections {
   padding: 0 7rem;

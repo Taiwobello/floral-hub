@@ -30,15 +30,18 @@
 
       p:first-of-type {
         font-size: 2.3rem;
-        font-weight: 800;
         width: 90%;
         color: #1f1f1f;
         vertical-align: top;
         line-height: 3rem;
         margin: 1rem 0;
+            font-weight: 400;
+            line-height: 45.94px;
       }
       p:nth-child(2) {
         color: #1f1f1f;
+        font-weight: 400;
+        line-height: 28px;
       }
     }
     .hero-text > ul {
@@ -46,6 +49,7 @@
       padding: 0.5rem;
       border: 0.1rem solid #fafafa;
       border-radius: 0.4rem;
+      font-weight: 300;
     }
     .occasions-mobile {
       background-image: url("/images/Rectangle-3040-mobile.png");
@@ -56,7 +60,7 @@
       .mobile-card {
         p:first-of-type {
           font-size: 1.8rem;
-          font-weight: 700;
+          font-weight: 400;
         }
 
         position: relative;
@@ -66,11 +70,14 @@
         margin: auto;
         padding: 1rem;
         border-radius: 0.8rem;
+        font-size: 1rem;
+        font-weight: 400;
 
         p:last-of-type {
           margin-top: 1rem;
           width: 10rem;
           border-bottom: 0.1rem solid;
+          font-size: 1.25rem;
         }
       }
       .mobile-card > ul {
@@ -83,8 +90,8 @@
   }
 
   .title {
-    font-size: 2.3rem;
-    font-weight: 700;
+    font-size: 2.5rem;
+    font-weight: 400;
 
     @media (max-width: 768px) {
       font-size: 1.8rem;
@@ -92,8 +99,8 @@
   }
 
   .sub-title {
-    font-size: 1.6rem;
-    font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 400;
   }
 
   .content {
@@ -155,7 +162,14 @@
     .product-wrapper {
       width: 100%;
       .sorts {
+ 
         justify-content: end;
+        @media (min-width: 768px) {
+                margin: 1.8rem 2.5rem 1.8rem 0;
+          }
+        @media (min-width: 1400px) {
+                margin-right:4rem;
+          }
       }
       .sorts-mobile {
         @media (max-width: 768px) {
@@ -179,11 +193,34 @@
         min-width: 12rem;
         // text-align: left;
         // display: flex;
-        border: 0;
-        // background-color: inherit;
+
         @media (max-width: 768px) {
           width: 14rem;
         }
+        @media (min-width: 768px) {
+        border: 1px solid;
+        border-radius: 0.25rem;
+          background-color: white;
+        }
+      }
+
+      .sort > div > svg{
+        @media (min-width: 768px) {
+          margin: 0.1rem 0;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+
+          }
+      }
+      .sort > div{
+        @media (min-width: 768px) {
+          margin: 0.1rem 0;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           border: 0;
+          }
       }
       .question {
         min-width: 5rem;
@@ -216,8 +253,6 @@
   }
   .gifts {
     padding: 0 6rem;
-    background-image: url("/icons/flower-bg.svg");
-
     padding-bottom: 3rem;
 
     @media (max-width: 768px) {
@@ -237,7 +272,6 @@
   margin: 1.5rem auto;
 
   h3 {
-    font-size: 1.3rem;
     border-bottom: 0.1rem solid;
     margin-right: 1rem;
   }
@@ -263,10 +297,10 @@
 .filter-mobile {
   display: none;
   position: relative;
-  top: 1rem;
+  top: 0.7rem;
   @media (max-width: 768px) {
     display: block;
-    margin-left: 2.2rem;
+    margin-right: 0.5rem;
   }
 
   .btn {
@@ -286,6 +320,10 @@
         margin-right: 0;
       }
     }
+  }
+  .btn > h3{
+    font-weight: 400;
+    color: #1f1f1f;
   }
 
   .btn-view {

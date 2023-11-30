@@ -18,6 +18,8 @@
     }
     .subtitle {
       height: 1rem;
+      font-size: 0.875rem;
+      font-weight: 400;
     }
 
     @media (max-width: 768px) {
@@ -50,9 +52,9 @@
     }
     .gift-btn {
       padding: 0.5rem;
-      font-weight: normal;
+      font-weight: 400;
       font-size: 1rem;
-      color: rgb(217, 216, 216);
+      color: #FFFFFF;
       width: 100%;
       @media (max-width: 400px) {
         margin-top: 0.5rem;
@@ -118,8 +120,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
     text-transform: uppercase;
-    height: 2.8rem;
-    font-size: 1.1rem;
+    height: auto;
+    font-size: 1.25rem;
+    font-weight: 400;
     &.only-name {
       font-size: 1.3rem;
     }
@@ -178,8 +181,8 @@
     display: none;
   }
   .buy-btn > img {
-    height: 30px;
-    width: 30px;
+    height: 2.2rem;
+    width: 2.2rem;
   }
   .buy-btn:hover > p {
     display: inline;
@@ -192,7 +195,7 @@
   .gift-btn {
     padding: 0.8rem 0.6rem;
     min-width: 6rem;
-    font-weight: normal;
+    font-weight: 400;
     font-size: 1.1rem;
     width: 100%;
     @media (max-width: 400px) {
@@ -208,7 +211,11 @@
       font-size: 1.1rem;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 420px) {
+      font-size: 0.875rem;
+      .price-text {
+        margin-right: 3.5rem;
+      }
       flex-direction: column;
       justify-content: center;
     }

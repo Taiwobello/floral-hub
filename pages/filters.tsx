@@ -424,9 +424,15 @@ const ProductsPage: FunctionComponent<{
                     <Breadcrumb items={crumbItems} />
 
                     <p className="vertical-margin spaced">
-                      {category?.topHeading}
+                      {category?.topHeading.toUpperCase()}
                     </p>
-                    <p>{category?.heroDescription}</p>
+                    <p className="text-medium">
+                      Congratulations! Another year of love and laughter with
+                      your other half. Whether you’ve been together one year or
+                      60, our anniversary flowers are hand-crafted by local
+                      florists so you can give that special someone a warm and
+                      fuzzy feeling.
+                    </p>
                   </div>
                   <div
                     className={styles["hero-image"]}
@@ -442,10 +448,13 @@ const ProductsPage: FunctionComponent<{
                   <div className={`text-medium ${styles["mobile-card"]}`}>
                     <Breadcrumb items={crumbItems} />
                     <p className="vertical-margin spaced">
-                      {category?.topHeading}
+                      {category?.topHeading.toUpperCase()}
                     </p>
-                    <p>{category?.heroDescription}</p>
-                    <p className="primary-color text-medium bold">
+                    Congratulations! Another year of love and laughter with your
+                    other half. Whether you’ve been together one year or 60, our
+                    anniversary flowers are hand-crafted by local florists so
+                    you can give that special someone a warm and fuzzy feeling.
+                    <p className="primary-color semibold">
                       Continue reading
                     </p>
                   </div>
@@ -462,7 +471,7 @@ const ProductsPage: FunctionComponent<{
             <div className={styles["left-side"]}>
               {!hideFilterInfo && (
                 <div className="vertical-margin spaced">
-                  <span className={`bold margin-right ${styles["sub-title"]}`}>
+                  <span className={`margin-right ${styles["sub-title"]}`}>
                     FILTERS ({selectedFilter.length})
                   </span>
                 </div>
@@ -489,13 +498,13 @@ const ProductsPage: FunctionComponent<{
                 </form>
                 {filterCategories.map((filter, index) => (
                   <div key={index} className="vertical-margin spaced">
-                    <p className="bold vertical-margin spaced">{filter.name}</p>
+                    <p className="normal vertical-margin spaced text-medium ">{filter.name.toUpperCase()}</p>
                     <div>
                       {(filter.viewMore
                         ? filter.options
                         : filter.options.slice(0, filter.limit)
                       ).map((child, i) => (
-                        <div key={i} className="margin-bottom">
+                        <div key={i} className="margin-bottom text-small">
                           {filter.name === "Budget" ? (
                             <>
                               <div className="margin-bottom">
@@ -601,7 +610,7 @@ const ProductsPage: FunctionComponent<{
           )}
           <div className={styles["product-wrapper"]}>
             <div
-              className={`flex between block center-align ${!hideFilters &&
+              className={`flex between block center-align normal text-small ${!hideFilters &&
                 deviceType === "desktop" &&
                 [styles.sorts].join(" ")} ${styles["sorts-mobile"]}`}
             >
@@ -620,7 +629,7 @@ const ProductsPage: FunctionComponent<{
                       " "
                     )}
 
-                    <div className={`input-group ${styles.sort}`}>
+                    <div className={`normal text-small ${styles.sort}`}>
                       {deviceType === "mobile" ? (
                         <span className={`question ${styles.question}`}>
                           Sort:
@@ -634,6 +643,7 @@ const ProductsPage: FunctionComponent<{
                         onSelect={value => setSort(value as Sort)}
                         placeholder="Default"
                         className={`${styles["sort"]}`}
+                 
                       />
                     </div>
                   </div>
@@ -778,12 +788,12 @@ const ProductsPage: FunctionComponent<{
             <div>
               <h1 className={`${styles.title} bold vertical-margin spaced`}>
                 {search
-                  ? `Search Results for "${searchText}"`
-                  : (category?.topHeading
-                      ? category.topHeading
-                      : occasionsPageTitle &&
-                        occasionsPageTitle[categorySlug || ""]) ||
-                    "All Occasions"}
+                  && (`Search Results for "${searchText}"`)
+                  // : (occasionsPageTitle &&
+                  //     occasionsPageTitle[categorySlug || ""]) ||
+                  //   "All Occasions"
+                    
+                    }
               </h1>
 
               <div className={[styles.products].join(" ")}>
@@ -836,9 +846,9 @@ const ProductsPage: FunctionComponent<{
         <div className={styles.gifts}>
           {!isGiftPage && (
             <>
-              <div className="flex between margin-bottom spaced">
+              <div className="flex between margin-bottom spaced normal">
                 <span className={styles.title}>
-                  Gifts to Include with Flowers
+                 GIFTS TO INCLUDE
                 </span>
                 {deviceType === "desktop" && (
                   <Button
@@ -846,7 +856,7 @@ const ProductsPage: FunctionComponent<{
                     className="flex spaced center center-align"
                     type="transparent"
                   >
-                    <h3 className="red margin-right">See All</h3>
+                    <h3 className="red margin-right normal text-semilarge">See All</h3>
                   </Button>
                 )}
               </div>
@@ -869,7 +879,7 @@ const ProductsPage: FunctionComponent<{
                   minWidth
                   className={`${styles["see-all"]}`}
                 >
-                  <h3 className="bold">Browse All Gifts</h3>
+                  <h3 className="normal text-small">Browse All Gifts</h3>
                   <img
                     alt="arrow"
                     className="generic-icon xsmall"
@@ -879,16 +889,6 @@ const ProductsPage: FunctionComponent<{
               )}{" "}
             </>
           )}
-          <div className={styles.stories}>
-            <h1 className={`text-center ${styles.title}`}>
-              {category?.bottomHeading || "Flower Delivery for all Occasions"}
-            </h1>
-
-            <p
-              id="category-description"
-              className="description category normal-text"
-            ></p>
-          </div>
         </div>
       </section>
     </>

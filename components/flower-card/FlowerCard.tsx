@@ -172,10 +172,10 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
                 {price && (
                   <>
                     <div
-                      className={`flex spaced ${styles["price-text"]} semibold center-align`}
+                      className={`flex spaced ${styles["price-text"]} normal center-align`}
                     >
                       {(product?.variants.length || 0) > 0 && (
-                        <p className="text-secondary">FROM</p>
+                        <p className="">FROM</p>
                       )}
                       <span>{getPriceDisplay(price, currency)}</span>
                     </div>
