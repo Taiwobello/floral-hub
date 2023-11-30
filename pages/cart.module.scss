@@ -107,6 +107,9 @@
     .itemcard > p {
       margin-bottom: 0.8rem;
     }
+    .itemcard > p:first-of-type, .itemcard > p:nth-child(3) {
+      font-size: 1.5rem;
+    }
     .itemcard > .btns {
       margin-top: 3.5rem;
     }
@@ -206,7 +209,7 @@
   .summary {
     width: 40%;
     border: 0.1rem solid #9ca3af;
-    padding: 1rem;
+    // padding: 1rem;
     position: fixed;
     top: 15.8rem;
     left: 55%;
@@ -224,6 +227,12 @@
       margin-bottom: 3rem;
     }
   }
+  .summary > div, .summary > p{
+    margin: 1rem;
+  }
+  .summary > p{
+    font-size: 1.5rem;
+  }
 
   .empty {
     width: 25%;
@@ -235,8 +244,12 @@
     @media (max-width: 500px) {
       width: 60%;
     }
-  }
 
+  }
+                .mobletitle {
+                  font-size: 1.5rem;
+                  line-height: 24px;
+                }
   .summary > * {
     margin: 1rem 0;
   }

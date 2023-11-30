@@ -249,7 +249,7 @@ export const breadcrumbItems: Breadcrumb[] = [
     url: "gifts",
     label: "Gift Packs"
   },
-  { url: "perfumes", label: "Perfumes" },
+  { url: "perfumes-eau-de-toilette-cologne-and-parfums", label: "Perfumes" },
   { url: "balloons", label: "Balloons" },
   {
     url: "scented-candles",
@@ -257,7 +257,7 @@ export const breadcrumbItems: Breadcrumb[] = [
   },
   { url: "cascading-bridal-bouquets", label: "Cascading Bridal Bouquets" },
   {
-    url: "accessories-boutonnieres-bridesmaids-flowers-corsages",
+    url: "accessories-boutonnieres-bridesmaids-flowers-amp-corsages",
     label: "Accessories & Boutonnieress"
   },
   { label: "VIP", url: "vip" }
@@ -2018,7 +2018,7 @@ export const gifts: { title: string; url: string; category?: string }[] = [
   },
   {
     title: "Perfumes",
-    url: "/product-category/perfumes",
+    url: "/product-category/perfumes-eau-de-toilette-cologne-and-parfums",
     category: "perfumes"
   },
   {
@@ -2040,7 +2040,7 @@ export const occasionsPageTitle: Record<string, string> = {
   "funeral-and-condolence": "Funeral & Condolence Flowers",
   all: "All Occasions Flowers",
   "cascading-bridal-bouquets": "Cascading Bouquets & Accessories Flowers",
-  "accessories-boutonnieres-bridesmaids-flowers-corsages":
+  "accessories-boutonnieres-bridesmaids-flowers-amp-corsages":
     "Accessories & Boutonnieres Flowers",
   "indoor-plants-and-cactus": "Plants",
   vip: "VIP Flower Arrangements",
@@ -2049,7 +2049,7 @@ export const occasionsPageTitle: Record<string, string> = {
   "teddy-bears": "Teddy Bears",
   balloons: "Balloons",
   "wine-and-champagne": "Wine and Champagne",
-  perfumes: "Perfumes",
+  "perfumes-eau-de-toilette-cologne-and-parfums": "Perfumes",
   "gift-packs": "Giftsets",
   "scented-candles": "Scented Candles",
   roses: "Roses",
@@ -2121,7 +2121,7 @@ export const bridalOccasionFilters: Filter[] = [
         name: "Accessories & Boutonnieres",
         tag: "bridal accessories",
         link:
-          "/product-category/accessories-boutonnieres-bridesmaids-flowers-corsages"
+          "/product-category/accessories-boutonnieres-bridesmaids-flowers-amp-corsages"
       }
     ],
     limit: 3
@@ -2423,7 +2423,7 @@ export const links: AppLink[] = [
           {
             title: "Accessories & Boutonnieres",
             url:
-              "/product-category/accessories-boutonnieres-bridesmaids-flowers-corsages",
+              "/product-category/accessories-boutonnieres-bridesmaids-flowers-amp-corsages",
             children: []
           }
         ]
@@ -2434,7 +2434,7 @@ export const links: AppLink[] = [
         children: [
           {
             title: "Wreaths & Flowers",
-            url: "/product-category/funeral-condolence-flowers",
+            url: "/product-category/funeral-amp-condolence-flowers",
             children: []
           },
           {
@@ -2619,7 +2619,7 @@ export const links: AppLink[] = [
         children: []
       },
       {
-        url: "/product-category/perfumes",
+        url: "/product-category/perfumes-eau-de-toilette-cologne-and-parfums",
         title: "Perfumes",
         children: []
       },
@@ -3221,7 +3221,7 @@ export const occasionsPageMetaData: Record<
       "Cascading Bridal Bouquets With Fresh Flowers Or Roses | Regal Flowers",
     description: ""
   },
-  "accessories-boutonnieres-bridesmaids-flowers-corsages": {
+  "accessories-boutonnieres-bridesmaids-flowers-amp-corsages": {
     title:
       "Fresh flower bridal train and groomsmen accessories | Regal Flowers",
     description: ""
@@ -3255,7 +3255,7 @@ export const occasionsPageMetaData: Record<
     title: "",
     description: ""
   },
-  perfumes: {
+  "perfumes-eau-de-toilette-cologne-and-parfums": {
     title: "",
     description: ""
   },
