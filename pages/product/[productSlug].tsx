@@ -502,15 +502,29 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
               </div>
             </div>
             <br />
-            <div
-              className={`flex spaced center-align text-medium ${styles["delivery-info"]}`}
-            >
-              <InfoIcon fill="#B240DA" />
-              <span>
-                For same day delivery, order in <strong>10mins 4secs</strong>
-              </span>
-            </div>
-            <br />
+            {product.info1 && (
+              <>
+                <div
+                  className={`flex spaced center-align text-medium ${styles["delivery-info"]}`}
+                >
+                  <InfoIcon fill="#B240DA" />
+                  <span>{product.info1}</span>
+                </div>
+                <br />
+              </>
+            )}
+            {product.info2 && (
+              <>
+                <div
+                  className={`flex spaced center-align text-medium ${styles["delivery-info"]}`}
+                >
+                  <InfoIcon fill="#B240DA" />
+                  <span>{product.info2}</span>
+                </div>
+                <br />
+              </>
+            )}
+
             {product.temporaryNotes && (
               <div className={styles["temporary-notes"]}>
                 {product.temporaryNotes &&

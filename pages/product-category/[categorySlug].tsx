@@ -9,6 +9,7 @@ import { occasionsPageMetaData, regalWebsiteUrl } from "../../utils/constants";
 const CategoryPage: FunctionComponent<{
   category: Category;
 }> = ({ category }) => {
+  console.log("category", category);
   return (
     <>
       <Meta
@@ -22,7 +23,11 @@ const CategoryPage: FunctionComponent<{
           occasionsPageMetaData[category.slug].title
         }
       ></Meta>
-      <ProductsPage productCategory="occasion" categorySlug={category.slug} />
+      <ProductsPage
+        productCategory="occasion"
+        categorySlug={category.slug}
+        category={category}
+      />
     </>
   );
 };
