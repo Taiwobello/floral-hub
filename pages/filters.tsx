@@ -424,7 +424,7 @@ const ProductsPage: FunctionComponent<{
                     <Breadcrumb items={crumbItems} />
 
                     <p className="vertical-margin spaced">
-                      {category?.topHeading}
+                      {category?.topHeading.toUpperCase()}
                     </p>
                     <p className="text-medium">
                       Congratulations! Another year of love and laughter with
@@ -448,7 +448,7 @@ const ProductsPage: FunctionComponent<{
                   <div className={`text-medium ${styles["mobile-card"]}`}>
                     <Breadcrumb items={crumbItems} />
                     <p className="vertical-margin spaced">
-                      {category?.topHeading}
+                      {category?.topHeading.toUpperCase()}
                     </p>
                     Congratulations! Another year of love and laughter with your
                     other half. Whether you’ve been together one year or 60, our
