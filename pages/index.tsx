@@ -708,7 +708,14 @@ const FlowerDeliveryInput: FunctionComponent = () => {
     id: "",
     slug: "",
     image: "",
-    description: ""
+    description: "",
+    altImage: "",
+    bottomHeading: "",
+    heroDescription: "",
+    heroImage: "",
+    shortDescription: "",
+    title: "",
+    topHeading: ""
   });
   const { deliveryDate, setDeliveryDate } = useContext(SettingsContext);
   const [occassionOptions, setOccassionOptions] = useState<
@@ -748,11 +755,18 @@ const FlowerDeliveryInput: FunctionComponent = () => {
 
     setOccasion(
       {
-        name: _selectedOccasion,
-        id: value,
+        name: "",
+        id: "",
         slug: "",
         image: "",
-        description: ""
+        description: "",
+        altImage: "",
+        bottomHeading: "",
+        heroDescription: "",
+        heroImage: "",
+        shortDescription: "",
+        title: "",
+        topHeading: ""
       } || null
     );
   };
