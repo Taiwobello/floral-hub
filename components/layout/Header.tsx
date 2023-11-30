@@ -3,7 +3,6 @@ import {
   useContext,
   useState,
   MouseEvent as ReactMouseEvent,
-  useMemo,
   useEffect
 } from "react";
 import Link from "next/link";
@@ -40,8 +39,6 @@ const Header: FunctionComponent = () => {
   const {
     cartItems,
     user,
-    setShouldShowCart,
-    shouldShowCart,
     setOrder,
     setCurrentStage,
     orderId,
@@ -55,11 +52,6 @@ const Header: FunctionComponent = () => {
   const searchDropdownRef = useOutsideClick<HTMLDivElement>(() => {
     setDisplaySearchDropdown(false);
   });
-
-  const totalCartItems = useMemo(() => {
-    if (!cartItems.length) return 0;
-    return cartItems.reduce((acc, item) => acc + item.quantity, 0);
-  }, [cartItems]);
 
   const handleActiveNav = (title: string, e: ReactMouseEvent) => {
     setActiveNavLink(title);
@@ -158,40 +150,47 @@ const Header: FunctionComponent = () => {
               showSidebar && styles.active
             ].join(" ")}
           >
-            {links.map((link, index) => (
-              <div className={styles.link} key={index}>
-                {link.url ? (
-                  <Link href={link.url} key={link.title}>
-                    <a
+            <div>
+              {links.map((link, index) => (
+                <div className={styles.link} key={index}>
+                  {link.url ? (
+                    <Link href={link.url} key={link.title}>
+                      <a
+                        className={`flex center-align spaced ${styles.title}`}
+                        onClick={() => {
+                          setActiveNavLink(link.title);
+                          !link.children.length && setShowSidebar(false);
+                        }}
+                      >
+                        <span>{link.title}</span>
+                        {link.children.length > 0 && (
+                          <div className={[styles.arrow].join(" ")}></div>
+                        )}
+                      </a>
+                    </Link>
+                  ) : (
+                    <div
                       className={`flex center-align spaced ${styles.title}`}
                       onClick={() => {
-                        setActiveNavLink(link.title);
+                        setActiveNavLink(
+                          activeNavLink === link.title ? "" : link.title
+                        );
                         !link.children.length && setShowSidebar(false);
                       }}
+                      key={link.title}
                     >
-                      <strong>{link.title}</strong>
+                      <span>{link.title}</span>
                       {link.children.length > 0 && (
-                        <div className={[styles.arrow].join(" ")}></div>
+                        <div
+                          className={[
+                            styles.arrow,
+                            activeNavLink === link.title && styles.active
+                          ].join(" ")}
+                        ></div>
                       )}
-                    </a>
-                  </Link>
-                ) : (
-                  <div
-                    className={`flex center-align spaced ${styles.title}`}
-                    onClick={() => {
-                      setActiveNavLink(link.title);
-                      !link.children.length && setShowSidebar(false);
-                    }}
-                    key={link.title}
-                  >
-                    <strong>{link.title}</strong>
-                    {link.children.length > 0 && (
-                      <div className={[styles.arrow].join(" ")}></div>
-                    )}
-                  </div>
-                )}
+                    </div>
+                  )}
 
-                <div>
                   {link.children.length > 0 && (
                     <div
                       className={[
@@ -199,17 +198,6 @@ const Header: FunctionComponent = () => {
                         activeNavLink === link.title && styles.active
                       ].join(" ")}
                     >
-                      <div
-                        className={styles.back}
-                        onClick={() => {
-                          setActiveNavLink("");
-                          setShowSidebar(true);
-                        }}
-                      >
-                        <div className={styles["back-arrow"]}></div>
-                        Back
-                      </div>
-
                       {link.children.map((child, index) => (
                         <div key={index}>
                           {child.url ? (
@@ -229,13 +217,23 @@ const Header: FunctionComponent = () => {
                             <div
                               className={styles["sub-link-title"]}
                               onClick={() => {
-                                setActiveSublinkNav(child.title);
+                                setActiveSublinkNav(
+                                  activeSublinkNav === child.title
+                                    ? ""
+                                    : child.title
+                                );
                               }}
                               key={index}
                             >
-                              <strong>{child.title}</strong>
+                              <span>{child.title}</span>
                               {child.children.length > 0 && (
-                                <div className={[styles.arrow].join(" ")}></div>
+                                <div
+                                  className={[
+                                    styles.arrow,
+                                    activeSublinkNav === child.title &&
+                                      styles.active
+                                  ].join(" ")}
+                                ></div>
                               )}
                             </div>
                           )}
@@ -245,16 +243,6 @@ const Header: FunctionComponent = () => {
                               activeSublinkNav === child.title && styles.active
                             ].join(" ")}
                           >
-                            <div
-                              className={styles.back}
-                              onClick={() => {
-                                setActiveNavLink(link.title);
-                                setActiveSublinkNav("");
-                              }}
-                            >
-                              <div className={styles["back-arrow"]}></div>
-                              Back
-                            </div>
                             {child.children.map((subChild, index) => (
                               <Link href={subChild.url} key={index}>
                                 <a
@@ -265,7 +253,9 @@ const Header: FunctionComponent = () => {
                                     setActiveSublinkNav("");
                                   }}
                                 >
-                                  {subChild.title && <p>{subChild.title}</p>}
+                                  {subChild.title && (
+                                    <span>{subChild.title}</span>
+                                  )}
                                 </a>
                               </Link>
                             ))}
@@ -275,8 +265,28 @@ const Header: FunctionComponent = () => {
                     </div>
                   )}
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <div className={styles["mobile-user-area"]}>
+              {user ? (
+                <div className="flex column center-align">
+                  <em className="margin-bottom spaced text-center">
+                    Logged in as {user.email}
+                  </em>
+                  <Button onClick={handleLogout} size="small">
+                    Logout
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  onClick={handleDisplayAuthModal}
+                  size="large"
+                  responsive
+                >
+                  LOGIN / REGISTER
+                </Button>
+              )}
+            </div>
           </nav>
         )}
         <div
@@ -316,7 +326,7 @@ const Header: FunctionComponent = () => {
                 onMouseLeave={() => setActiveNavLink("")}
               >
                 <Button
-                  className={`flex center-align spaced  ${
+                  className={`flex center-align spaced ${
                     styles.title
                   } ${activeNavLink === link.title && styles.active}`}
                   key={link.title}
@@ -424,112 +434,6 @@ const Header: FunctionComponent = () => {
             ))}
           </nav>
         </div>
-
-        {/* <div className="flex spaced center-align">
-          
-          <div
-            className={[
-              styles["search-wrapper"],
-              displaySearchDropdown ? styles.active : ""
-            ].join(" ")}
-          >
-            <form
-              className={[
-                styles["search-form"],
-                displaySearchDropdown ? styles.active : ""
-              ].join(" ")}
-              onSubmit={handleSearch}
-              onClick={() => {
-                setDisplaySearchDropdown(true);
-                searchInputRef.current?.focus();
-              }}
-            >
-              <input
-                type="text"
-                onChange={e => {
-                  setSearchText(e.target.value);
-                }}
-                placeholder="Search for products"
-                value={searchText}
-                className={[
-                  styles["search-input"],
-                  displaySearchDropdown ? styles.active : ""
-                ].join(" ")}
-                ref={searchInputRef}
-              />
-            </form>
-            {displaySearchDropdown ? (
-              <img
-                alt="search"
-                src="/icons/search-cancel.svg"
-                className={`${styles["search-icon"]} generic-icon medium clickable`}
-                onClick={() => {
-                  setDisplaySearchDropdown(false);
-                }}
-              />
-            ) : (
-              <img
-                alt="search"
-                src="/icons/search.svg"
-                className={`${styles["search-icon"]} generic-icon medium clickable`}
-                onClick={() => {
-                  setDisplaySearchDropdown(true);
-                  searchInputRef.current?.focus();
-                }}
-              />
-            )}
-          </div>
-        </div> */}
-
-        <div
-          className={[styles["controls-area-mobile"], "flex spaced-lg"].join(
-            " "
-          )}
-        >
-          <ContextWrapper
-            anchor={accountAnchor}
-            className={styles["auth-wrapper"]}
-          >
-            {user ? (
-              <div className={styles["user-area"]}>
-                <div className="flex column center-align">
-                  <em className="margin-bottom spaced">
-                    Logged in as {user.email}
-                  </em>
-                  <Button onClick={handleLogout}>Logout</Button>
-                </div>
-              </div>
-            ) : (
-              ""
-            )}
-          </ContextWrapper>
-
-          <button
-            className={[styles["cart-btn"]].join(" ")}
-            onClick={() => {
-              setShouldShowCart(!shouldShowCart);
-            }}
-          >
-            <svg
-              width="29"
-              height="24"
-              viewBox="0 0 24 17"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className={styles["control-icon"]}
-            >
-              <path
-                d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-
-            <span className={styles["items-count"]}>{totalCartItems}</span>
-          </button>
-        </div>
         <div className={styles["controls-area"]}>
           <div className="flex spaced-lg center-align">
             <div ref={searchDropdownRef}>
@@ -571,23 +475,25 @@ const Header: FunctionComponent = () => {
                 </span>
               )}
             </Button>
-            <ContextWrapper
-              anchor={accountAnchor}
-              className={styles["auth-wrapper"]}
-            >
-              {user ? (
-                <div className={styles["user-area"]}>
-                  <div className="flex column center-align">
-                    <em className="margin-bottom spaced text-center">
-                      Logged in as {user.email}
-                    </em>
-                    <Button onClick={handleLogout}>Logout</Button>
+            {deviceType === "desktop" && (
+              <ContextWrapper
+                anchor={accountAnchor}
+                className={styles["auth-wrapper"]}
+              >
+                {user ? (
+                  <div className={styles["user-area"]}>
+                    <div className="flex column center-align">
+                      <em className="margin-bottom spaced text-center">
+                        Logged in as {user.email}
+                      </em>
+                      <Button onClick={handleLogout}>Logout</Button>
+                    </div>
                   </div>
-                </div>
-              ) : (
-                ""
-              )}
-            </ContextWrapper>
+                ) : (
+                  ""
+                )}
+              </ContextWrapper>
+            )}
           </div>
         </div>
       </header>

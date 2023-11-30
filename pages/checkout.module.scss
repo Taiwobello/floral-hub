@@ -18,7 +18,7 @@
     position: relative;
     display: flex;
 
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       flex-direction: column;
     }
   }
@@ -36,7 +36,7 @@
   .password {
     width: 48%;
 
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       width: 100%;
     }
   }
@@ -45,7 +45,7 @@
     width: 60%;
     padding-bottom: 6rem;
 
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       width: 100%;
       order: 3;
     }
@@ -58,7 +58,7 @@
     right: 0;
     height: 81vh;
 
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       width: 100%;
       order: 1;
       position: relative;
@@ -295,7 +295,7 @@
     width: 45%;
     padding-bottom: 2rem;
 
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       width: 100%;
       padding: 0;
     }
@@ -371,7 +371,7 @@
     height: fit-content;
     background-color: white;
 
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       width: 100%;
     }
     .detail {
@@ -487,7 +487,7 @@
       font-size: 1.4rem;
     }
 
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       font-size: 1.2rem;
     }
   }
@@ -739,7 +739,7 @@
     width: 70%;
   }
 
-  @media (max-width: 650px) {
+  @media (max-width: 768px) {
     width: 90%;
   }
 }
