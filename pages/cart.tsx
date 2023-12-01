@@ -162,7 +162,7 @@ const Cart: FunctionComponent<CartContextProps> = props => {
   };
 
   const total = cartItems?.reduce(
-    (acc, item) => acc + (item.price * item.quantity),
+    (acc, item) => acc + item.price * item.quantity,
     0
   );
 
@@ -264,7 +264,7 @@ const Cart: FunctionComponent<CartContextProps> = props => {
               ORDER SUMMARY (
               {totalCartItems > 1 ? totalCartItems + " ITEMS" : totalCartItems})
             </p>
-            {deviceType === "mobile" && (<hr/>)}
+            {deviceType === "mobile" && <hr />}
             <div className="flex between">
               {" "}
               <p className="faint-text">Order Subtotal</p>
@@ -272,7 +272,9 @@ const Cart: FunctionComponent<CartContextProps> = props => {
             </div>
             <div className="flex between">
               <p className="faint-text">Delivery</p>
-              <p className="semibold">{getPriceDisplay(deliveryFee , currency)}</p>
+              <p className="semibold">
+                {getPriceDisplay(deliveryFee, currency)}
+              </p>
             </div>
             <hr className={styles.divider} />
             <div className="flex between">
@@ -282,23 +284,25 @@ const Cart: FunctionComponent<CartContextProps> = props => {
               </p>
             </div>
             <div>
-            <Button
-              responsive
-              onClick={() =>
-                orderId ? handleUpdateOrder(false) : handleCreateOrder()
-              }
-              loading={loading}
-              disabled={!cartItems.length}
-            >
-              {header === "main" ? "PROCEED TO CHECKOUT" : "UPDATE CART"}
-            </Button>
+              <Button
+                responsive
+                onClick={() =>
+                  orderId ? handleUpdateOrder(false) : handleCreateOrder()
+                }
+                loading={loading}
+                disabled={!cartItems.length}
+              >
+                {header === "main" ? "PROCEED TO CHECKOUT" : "UPDATE CART"}
+              </Button>
             </div>
           </div>
         ) : (
           " "
         )}
         {deviceType === "mobile" && (
-          <p className={` semi-bold ${styles.mobletitle} vertical-margin xl`}>YOUR ORDER LIST</p>
+          <p className={` semi-bold ${styles.mobletitle} vertical-margin xl`}>
+            YOUR ORDER LIST
+          </p>
         )}
 
         {cartItems.length ? (
@@ -319,7 +323,9 @@ const Cart: FunctionComponent<CartContextProps> = props => {
                           ""
                         )} */}
                       </p>
-                      <p className="text-medium faint-text">{item.description} </p>
+                      <p className="text-medium faint-text">
+                        {item.description}{" "}
+                      </p>
                       <p className="semibold flex between">
                         {getPriceDisplay(item.price, currency)}
                         <div className="flex center-align spaced-lg">
@@ -335,7 +341,7 @@ const Cart: FunctionComponent<CartContextProps> = props => {
                         </div>
                       </p>
 
-{/* 
+                      {/* 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
                                     PLEASE DO NOT DELETED ANY COMMENTED OUT CODE. THEY WLL STILL BE ADDED LATER ON !!!!!!!
@@ -349,7 +355,12 @@ const Cart: FunctionComponent<CartContextProps> = props => {
                       <div
                         className={`flex between ${styles.btns} center-align normal`}
                       >
-                        <p className="text-medium " onClick={() => handleRemoveItem(item.SKU)}>Remove</p>
+                        <p
+                          className="text-medium "
+                          onClick={() => handleRemoveItem(item.SKU)}
+                        >
+                          Remove
+                        </p>
 
                         {/* <button className="flex center-align">
                           <label className={`bold ${openItem[i] ? ["primary-color", styles.hide].join(" ") : ""}`} htmlFor={`open${i}`} onClick={() => toggleAnswer(i)}>{openItem[i] ? "Hide Details" : "View/Edit Details"}</label>
@@ -418,8 +429,15 @@ const Cart: FunctionComponent<CartContextProps> = props => {
                         </div> */}
                     </div>
                   </div>
-                  <div className={`flex between ${styles.btns} center-align normal`}>
-                    <p onClick={() => handleRemoveItem(item.SKU)} className="text-medium">Remove</p>
+                  <div
+                    className={`flex between ${styles.btns} center-align normal`}
+                  >
+                    <p
+                      onClick={() => handleRemoveItem(item.SKU)}
+                      className="text-medium"
+                    >
+                      Remove
+                    </p>
 
                     <p className="semibold text-medium">
                       {getPriceDisplay(item.price, currency)}

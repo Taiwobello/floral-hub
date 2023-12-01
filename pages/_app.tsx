@@ -81,7 +81,7 @@ const App: FunctionComponent<AppProps> = props => {
   const [deliveryDate, setDeliveryDate] = useState<null | Dayjs>(null);
   const [orderId, setOrderId] = useState("");
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [deliveryFee, setDeliveryFee] = useState(0)
+  const [deliveryFee, setDeliveryFee] = useState(0);
   const [breadcrumb, setBreadcrumb] = useState<Breadcrumb>(defaultBreadcrumb);
   const [orderLoading, setOrderLoading] = useState(false);
   const [currentStage, setCurrentStage] = useState<Stage>(1);

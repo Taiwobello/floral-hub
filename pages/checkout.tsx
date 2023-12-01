@@ -81,6 +81,7 @@ import AppStorage, {
   AppStorageConstants
 } from "../utils/helpers/storage-helpers";
 import Breadcrumb from "../components/breadcrumb/Breadcrumb";
+import { LocationName } from "../utils/types/Regal";
 
 const initialData: CheckoutFormData = {
   senderName: "",
@@ -186,9 +187,10 @@ const Checkout: FunctionComponent = () => {
         0
       ) || 0;
 
-    setDeliveryFee(formData.deliveryLocation?.amount || 0)
+    setDeliveryFee(formData.deliveryLocation?.amount || 0);
 
     return total + (formData.deliveryLocation?.amount || 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [order?.orderProducts, formData.deliveryLocation]);
 
   const subTotal = useMemo(() => {
@@ -202,7 +204,7 @@ const Checkout: FunctionComponent = () => {
 
   const deliveryZoneOptions = useMemo(() => {
     return formData.state
-      ? allDeliveryLocationZones[formData.state](
+      ? allDeliveryLocationZones[formData.state as LocationName](
           subTotal / currency.conversionRate,
           currency,
           deliveryDate || dayjs()
@@ -276,7 +278,7 @@ const Checkout: FunctionComponent = () => {
         [key as string]: value,
         deliveryLocation:
           deliveryLocationOptions.find(
-            option => option.name === (value as string).split("-")[0]
+            (option: any) => option.name === (value as string).split("-")[0]
           ) || null
       });
       return;
@@ -463,10 +465,9 @@ const Checkout: FunctionComponent = () => {
         state: isZoneValid ? order.deliveryDetails.state : "",
         zone: isZoneValid ? order.deliveryDetails.zone : "",
         deliveryLocation:
-          allDeliveryLocationOptions[order.deliveryDetails.state]?.(
-            currency,
-            dayjs(order.deliveryDate) || dayjs()
-          ).find(
+          allDeliveryLocationOptions[
+            order.deliveryDetails.state as LocationName
+          ]?.(currency, dayjs(order.deliveryDate) || dayjs()).find(
             option => option.name === order.deliveryDetails.zone.split("-")[0]
           ) || null
       });
@@ -682,7 +683,7 @@ const Checkout: FunctionComponent = () => {
 
   const deliveryLocationOptions = useMemo(() => {
     return (
-      allDeliveryLocationOptions[formData.state]?.(
+      allDeliveryLocationOptions[formData.state as LocationName]?.(
         currency,
         deliveryDate || dayjs()
       ) || []
@@ -692,7 +693,7 @@ const Checkout: FunctionComponent = () => {
   const selectedZone = useMemo(() => {
     const amount = Math.ceil(subTotal / currency.conversionRate);
     return (
-      allDeliveryLocationZones[formData.state]?.(
+      allDeliveryLocationZones[formData.state as LocationName]?.(
         amount,
         currency,
         deliveryDate || dayjs()

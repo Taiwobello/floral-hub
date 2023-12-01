@@ -146,15 +146,15 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
       notify(
         "success",
         <Link href={"/cart"}>
-        <p>
-          Item Added To Cart{" "}
-          <span
-            className="view-cart"
-            onClick={() => setShouldShowCart(!shouldShowCart)}
-          >
-            View Cart
-          </span>
-        </p>
+          <p>
+            Item Added To Cart{" "}
+            <span
+              className="view-cart"
+              onClick={() => setShouldShowCart(!shouldShowCart)}
+            >
+              View Cart
+            </span>
+          </p>
         </Link>
       );
     } else {

@@ -454,9 +454,7 @@ const ProductsPage: FunctionComponent<{
                     other half. Whether you’ve been together one year or 60, our
                     anniversary flowers are hand-crafted by local florists so
                     you can give that special someone a warm and fuzzy feeling.
-                    <p className="primary-color semibold">
-                      Continue reading
-                    </p>
+                    <p className="primary-color semibold">Continue reading</p>
                   </div>
                 </div>
               )}
@@ -498,7 +496,9 @@ const ProductsPage: FunctionComponent<{
                 </form>
                 {filterCategories.map((filter, index) => (
                   <div key={index} className="vertical-margin spaced">
-                    <p className="normal vertical-margin spaced text-medium ">{filter.name.toUpperCase()}</p>
+                    <p className="normal vertical-margin spaced text-medium ">
+                      {filter.name.toUpperCase()}
+                    </p>
                     <div>
                       {(filter.viewMore
                         ? filter.options
@@ -643,7 +643,6 @@ const ProductsPage: FunctionComponent<{
                         onSelect={value => setSort(value as Sort)}
                         placeholder="Default"
                         className={`${styles["sort"]}`}
-                 
                       />
                     </div>
                   </div>
@@ -787,13 +786,11 @@ const ProductsPage: FunctionComponent<{
 
             <div>
               <h1 className={`${styles.title} bold vertical-margin spaced`}>
-                {search
-                  && (`Search Results for "${searchText}"`)
-                  // : (occasionsPageTitle &&
-                  //     occasionsPageTitle[categorySlug || ""]) ||
-                  //   "All Occasions"
-                    
-                    }
+                {search && `Search Results for "${searchText}"`
+                // : (occasionsPageTitle &&
+                //     occasionsPageTitle[categorySlug || ""]) ||
+                //   "All Occasions"
+                }
               </h1>
 
               <div className={[styles.products].join(" ")}>
@@ -847,16 +844,16 @@ const ProductsPage: FunctionComponent<{
           {!isGiftPage && (
             <>
               <div className="flex between margin-bottom spaced normal">
-                <span className={styles.title}>
-                 GIFTS TO INCLUDE
-                </span>
+                <span className={styles.title}>GIFTS TO INCLUDE</span>
                 {deviceType === "desktop" && (
                   <Button
                     url="/product-category/gifts"
                     className="flex spaced center center-align"
                     type="transparent"
                   >
-                    <h3 className="red margin-right normal text-semilarge">See All</h3>
+                    <h3 className="red margin-right normal text-semilarge">
+                      See All
+                    </h3>
                   </Button>
                 )}
               </div>

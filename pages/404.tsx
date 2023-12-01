@@ -50,7 +50,11 @@ const Custom404Page: FunctionComponent<{ featuredFlowers: Product[] }> = ({
         </div>
         {deviceType === "desktop" && (
           <div className="featured-content">
-            <h2 className={`${styles.title} featured-title margin-bottom spaced normal`}>OUR BLOG</h2>
+            <h2
+              className={`${styles.title} featured-title margin-bottom spaced normal`}
+            >
+              OUR BLOG
+            </h2>
             <div className={styles.section}>
               {blogPosts.map(post => (
                 <BlogCard
