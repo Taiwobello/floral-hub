@@ -1034,8 +1034,8 @@ export const paymentMethods: PaymentMethod[] = [
 
 export const gtbTransfer = {
   bankName: "Guaranty Trust Bank (or GTBank)",
-  accountNumber: "0252862666",
-  accountName: "Regal Flowers Ltd"
+  accountNumber: "0812257604",
+  accountName: "FLORAL SERVICES & EVENTS HUB LTD"
 };
 
 export const bitcoinAddress = "1NQfzJGzXSn5B5xqT4mfw48KpaoA4Ajmwy";

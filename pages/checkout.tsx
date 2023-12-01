@@ -2190,13 +2190,13 @@ const BankDetailsModal: FunctionComponent<ModalProps & {
             </p>
             <p className={[styles.details, "vertical-margin spaced"].join(" ")}>
               <strong className="primary-color">Account Name:</strong>
-              <span>Regal Flowers Ltd</span>
+              <span>FLORAL SERVICES & EVENTS HUB LTD</span>
             </p>
             <div className={styles.details}>
               <strong className="primary-color">Account Number:</strong>
               <div className="flex spaced center-align">
-                <span>0252862666</span>
-                {copyButton("0252862666")}
+                <span>0812257604</span>
+                {copyButton("0812257604")}
               </div>
             </div>
           </>

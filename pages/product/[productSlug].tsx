@@ -16,7 +16,7 @@ import { DesignOption, regalWebsiteUrl } from "../../utils/constants";
 import Link from "next/dist/client/link";
 import Meta from "../../components/meta/Meta";
 import SchemaMarkup from "../../components/schema-mark-up/SchemaMarkUp";
-import { InfoIcon } from "../../utils/resources";
+import { DeliveryIcon, InfoIcon } from "../../utils/resources";
 
 interface Size {
   name: string;
@@ -520,7 +520,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                 <div
                   className={`flex spaced center-align text-medium ${styles["delivery-info"]}`}
                 >
-                  <InfoIcon fill="#B240DA" />
+                  <DeliveryIcon />
                   <span>{product.info2}</span>
                 </div>
                 <br />
