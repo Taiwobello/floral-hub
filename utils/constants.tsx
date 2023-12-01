@@ -12,7 +12,8 @@ import {
   UserReview,
   OfficeAddress,
   BlogPost,
-  LocationName
+  LocationName,
+  LocationAddress
 } from "./types/Regal";
 import { Breadcrumb } from "./context/SettingsContext";
 
@@ -3289,14 +3290,17 @@ export const occasionsPageMetaData: Record<
   }
 };
 
-export const contactUsPageConent: Record<string, any> = {
-  lagosDetails: {
+export const contactUsPageContent: Partial<Record<
+  LocationName,
+  LocationAddress
+>> = {
+  lagos: {
     text: "Lagos Head Office/Delivery Center",
     address: "7, Ikeja Way, Dolphin Estate, Ikoyi",
     phoneNo: "+234 907 777 7994",
     whatsappNo: "+234 907 777 7994"
   },
-  abujaDetails: {
+  abuja: {
     text: "Abuja",
     address: "5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja.",
     phoneNo: "+234 907 777 7994",
