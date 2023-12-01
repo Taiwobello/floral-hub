@@ -40,6 +40,7 @@ import Input from "../components/input/Input";
 import Meta from "../components/meta/Meta";
 import Breadcrumb from "../components/breadcrumb/Breadcrumb";
 import { Category } from "../utils/types/Category";
+import { InfoIcon } from "../utils/resources";
 
 const giftMap: Record<string, string> = {
   "gift-items-perfumes-cakes-chocolate-wine-giftsets-and-teddy-bears":
@@ -118,7 +119,7 @@ const ProductsPage: FunctionComponent<{
   const [sort, setSort] = useState<Sort>("name-asc");
   const [hasMore, setHasMore] = useState(false);
   const [shouldShowFilter, setShouldShowFilter] = useState(false);
-  const [updateHeroContent, setUpdateHeroContent] = useState("");
+  const [, setUpdateHeroContent] = useState("");
 
   const filterDropdownRef = useOutsideClick<HTMLDivElement>(() => {
     setShouldShowFilter(false);
@@ -401,10 +402,7 @@ const ProductsPage: FunctionComponent<{
   }, [categorySlug]);
 
   const hideHero = search;
-  const crumbItems = [
-    { label: "Home", link: "/" },
-    { label: updateHeroContent }
-  ];
+
   return (
     <>
       {router.pathname === "/filters" && (
@@ -419,39 +417,42 @@ const ProductsPage: FunctionComponent<{
               {deviceType === "desktop" && (
                 <>
                   <div className={styles["hero-text"]}>
-                    <Breadcrumb items={crumbItems} />
+                    <Breadcrumb
+                      items={[
+                        { label: "Home", link: "/" },
+                        { label: category?.topHeading || "" }
+                      ]}
+                    />
 
                     <p className="vertical-margin spaced uppercase">
                       {category?.topHeading}
                     </p>
-                    <p className="text-medium">
-                      Congratulations! Another year of love and laughter with
-                      your other half. Whether you’ve been together one year or
-                      60, our anniversary flowers are hand-crafted by local
-                      florists so you can give that special someone a warm and
-                      fuzzy feeling.
-                    </p>
+                    <p className="text-medium">{category?.heroDescription}</p>
+                    {category?.info && (
+                      <div
+                        className={`flex spaced center-align text-medium ${styles["info"]}`}
+                      >
+                        <InfoIcon fill="#B240DA" />
+                        <span>{category.info}</span>
+                      </div>
+                    )}
                   </div>
-                  <div
-                    className={styles["hero-image"]}
-                    style={{
-                      backgroundImage: `url(${!category?.heroImage ||
-                        "/images/Rectangle-3040.png"})`
-                    }}
-                  ></div>
+                  <div className={styles["hero-image"]}></div>
                 </>
               )}
               {deviceType === "mobile" && (
                 <div className={styles["occasions-mobile"]}>
                   <div className={`text-medium ${styles["mobile-card"]}`}>
-                    <Breadcrumb items={crumbItems} />
+                    <Breadcrumb
+                      items={[
+                        { label: "Home", link: "/" },
+                        { label: category?.topHeading || "" }
+                      ]}
+                    />
                     <p className="vertical-margin spaced uppercase">
                       {category?.topHeading}
                     </p>
-                    Congratulations! Another year of love and laughter with your
-                    other half. Whether you’ve been together one year or 60, our
-                    anniversary flowers are hand-crafted by local florists so
-                    you can give that special someone a warm and fuzzy feeling.
+                    {category?.heroDescription}
                     <p className="primary-color semibold">Continue reading</p>
                   </div>
                 </div>
