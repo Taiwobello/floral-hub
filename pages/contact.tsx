@@ -24,11 +24,6 @@ const initialContactData = {
   message: ""
 };
 
-const center = {
-  lat: 6.458329,
-  lng: 3.413628
-};
-
 const containerStyle: CSSProperties = {
   width: "100%",
   height: "33rem",
@@ -41,7 +36,6 @@ const Index: FunctionComponent = () => {
   const [formData, setFormData] = useState(initialContactData);
   const { notify } = useContext(SettingsContext);
   const [loading, setLoading] = useState(false);
-  const [, setMap] = useState(null);
 
   const deviceType = useDeviceType();
 
@@ -81,16 +75,21 @@ const Index: FunctionComponent = () => {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ""
   });
 
-  const onLoad = useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
-
-    setMap(map);
-  }, []);
-
-  const onUnmount = useCallback(function callback() {
-    setMap(null);
-  }, []);
+  const onLoad: Partial<Record<
+    LocationName,
+    (map: google.maps.Map) => void
+  >> = {
+    lagos: useCallback(function callback(map: google.maps.Map) {
+      map.setCenter(
+        contactUsPageContent.lagos?.coord as google.maps.LatLngAltitudeLiteral
+      );
+    }, []),
+    abuja: useCallback(function callback(map: google.maps.Map) {
+      map.setCenter(
+        contactUsPageContent.abuja?.coord as google.maps.LatLngAltitudeLiteral
+      );
+    }, [])
+  };
 
   return (
     <section className={[styles["page-wrapper"], "text-medium"].join(" ")}>
@@ -99,59 +98,83 @@ const Index: FunctionComponent = () => {
 
       <p className="text-large primary-color">Our Offices</p>
       <div className={styles.offices}>
-        {Object.keys((key: LocationName) => (
-          <div className={styles.office}>
-            <strong className="text-medium margin-bottom spaced">
-              {contactUsPageContent[key]?.text}
-            </strong>
-            <div className={styles.info}>
-              <div className="flex spaced">
-                <img
-                  src="/icons/map-pin.svg"
-                  alt="map pin"
-                  className="generic-icon medium"
-                />
-                <p>{contactUsPageContent[key]?.address}</p>
-              </div>
-              <div>
-                <p className="flex spaced center-align margin-bottom">
+        {(Object.keys(contactUsPageContent) as LocationName[]).map(
+          (key: LocationName) => (
+            <div className={styles.office} key={key}>
+              <strong className="text-medium margin-bottom spaced">
+                {contactUsPageContent[key]?.name}
+              </strong>
+              <div className={styles.info}>
+                <a
+                  className="flex spaced"
+                  href={contactUsPageContent[key]?.url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
-                    src="/icons/phone.svg"
-                    alt="phone"
+                    src="/icons/map-pin.svg"
+                    alt="map pin"
                     className="generic-icon medium"
-                  />{" "}
-                  <span>{contactUsPageContent[key]?.phoneNo}</span>{" "}
-                </p>
-                <p className="flex spaced center-align">
-                  <img
-                    src="/icons/whatsapp.svg"
-                    alt="whatsapp"
-                    className="generic-icon medium"
-                  />{" "}
-                  <span>{contactUsPageContent[key]?.phoneNo}</span>{" "}
-                </p>
+                  />
+                  <p>{contactUsPageContent[key]?.location}</p>
+                </a>
+                <div>
+                  <a
+                    className="flex spaced center-align margin-bottom"
+                    href={`tel:${contactUsPageContent[key]?.phoneNo?.replace(
+                      /\s/g,
+                      ""
+                    )}`}
+                  >
+                    <img
+                      src="/icons/phone.svg"
+                      alt="phone"
+                      className="generic-icon medium"
+                    />{" "}
+                    <span>{contactUsPageContent[key]?.phoneNo}</span>{" "}
+                  </a>
+                  <a
+                    className="flex spaced center-align"
+                    href={`https://wa.me/${contactUsPageContent[
+                      key
+                    ]?.whatsappNo?.replace(/\s/g, "")}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <img
+                      src="/icons/whatsapp.svg"
+                      alt="whatsapp"
+                      className="generic-icon medium"
+                    />{" "}
+                    <span>{contactUsPageContent[key]?.phoneNo}</span>{" "}
+                  </a>
+                </div>
               </div>
+              {isLoaded ? (
+                <GoogleMap
+                  mapContainerStyle={containerStyle}
+                  center={contactUsPageContent[key]?.coord}
+                  zoom={15}
+                  onLoad={onLoad[key]}
+                >
+                  <Marker
+                    position={
+                      contactUsPageContent[key]
+                        ?.coord as google.maps.LatLngLiteral
+                    }
+                  />
+                </GoogleMap>
+              ) : (
+                <></>
+              )}
             </div>
-            {isLoaded ? (
-              <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={center}
-                zoom={12}
-                onLoad={onLoad}
-                onUnmount={onUnmount}
-              >
-                <Marker position={center} />
-              </GoogleMap>
-            ) : (
-              <></>
-            )}
-          </div>
-        ))}
+          )
+        )}
       </div>
       <div>
         <p
-          className={`primary-color margin-bottom text-large ${
-            deviceType === "desktop" ? "bold" : ""
+          className={`primary-color margin-bottom text-large uppercase ${
+            deviceType === "desktop" ? "semibold" : ""
           }`}
         >
           Leave Us a Message

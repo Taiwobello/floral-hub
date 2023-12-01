@@ -47,10 +47,10 @@
       .info {
         display: flex;
         justify-content: space-between;
-        width: 90%;
+        width: 95%;
         margin-bottom: 2rem;
 
-        div:first-child {
+        & > *:first-child {
           width: 55%;
 
           @media (max-width: 768px) {

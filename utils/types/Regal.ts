@@ -25,13 +25,6 @@ export interface UserReview {
   };
 }
 
-export interface OfficeAddress {
-  name: string;
-  location: string;
-  workingTimes: string;
-  url: string;
-}
-
 export interface BlogPost {
   image: string;
   date: string;
@@ -43,8 +36,14 @@ export interface BlogPost {
 export type LocationName = "general" | "lagos" | "abuja" | "other-locations";
 
 export interface LocationAddress {
-  text: string;
-  address: string;
-  phoneNo: string;
-  whatsappNo: string;
+  name: string;
+  location: string;
+  phoneNo?: string;
+  url: string;
+  whatsappNo?: string;
+  workingTimes?: string;
+  coord?: {
+    lat: number;
+    lng: number;
+  };
 }

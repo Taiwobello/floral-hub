@@ -10,7 +10,6 @@ import {
   Service,
   Occasion,
   UserReview,
-  OfficeAddress,
   BlogPost,
   LocationName,
   LocationAddress
@@ -317,8 +316,8 @@ interface FooterContent {
   socialIcons: { name: string; src: string; url: string }[];
   quickLinks: { title: string; url: string; phoneNumber?: string }[];
   phoneNumbers: string[];
-  lagosBranch: OfficeAddress;
-  abujaBranch: OfficeAddress;
+  lagosBranch: LocationAddress;
+  abujaBranch: LocationAddress;
   about: FooterLinks[];
   occassions: FooterLinks[];
   gifts: FooterLinks[];
@@ -731,7 +730,7 @@ export const regalHowItWorks: Service[] = [
   }
 ];
 
-export const regalAddresses: OfficeAddress[] = [
+export const regalAddresses: LocationAddress[] = [
   {
     name: "Lagos Head Office/Delivery Center",
     url: "https://goo.gl/maps/cNB9Jx9sidQhJgtD6",
@@ -3295,16 +3294,26 @@ export const contactUsPageContent: Partial<Record<
   LocationAddress
 >> = {
   lagos: {
-    text: "Lagos Head Office/Delivery Center",
-    address: "7, Ikeja Way, Dolphin Estate, Ikoyi",
+    name: "Lagos Head Office/Delivery Center",
+    location: "7, Ikeja Way, Dolphin Estate, Ikoyi",
     phoneNo: "+234 907 777 7994",
-    whatsappNo: "+234 907 777 7994"
+    whatsappNo: "+234 907 777 7994",
+    url: "https://goo.gl/maps/cNB9Jx9sidQhJgtD6",
+    coord: {
+      lat: 6.458329,
+      lng: 3.413628
+    }
   },
   abuja: {
-    text: "Abuja",
-    address: "5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja.",
+    name: "Abuja",
+    location: "5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja.",
     phoneNo: "+234 907 777 7994",
-    whatsappNo: "+234 907 777 7994"
+    whatsappNo: "+234 907 777 7994",
+    url: "https://goo.gl/maps/JAKrvZAe5vfh4czr9",
+    coord: {
+      lat: 9.077785485443458,
+      lng: 7.464068439137416
+    }
   }
 };
 
