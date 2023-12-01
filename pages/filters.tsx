@@ -14,14 +14,12 @@ import Checkbox from "../components/checkbox/Checkbox";
 import FlowerCard from "../components/flower-card/FlowerCard";
 import {
   FilterOption,
-  aboutUsContent,
   breadcrumbItems,
   bridalOccasionFilters,
   defaultBreadcrumb,
   filtersCatgories,
   funeralOccasion,
   giftItems,
-  occasionsPageTitle,
   regalWebsiteUrl,
   sortOptions,
   tagsMap
@@ -112,7 +110,7 @@ const ProductsPage: FunctionComponent<{
   const [selectedFilter, setSelectedFilter] = useState<string[]>(["regular"]);
   const [products, setProducts] = useState<Product[]>([]);
   const [count, setCount] = useState(1);
-  const [JustToSayText, setJustToSayText] = useState(JustToSayTexts[0]);
+  const [, setJustToSayText] = useState(JustToSayTexts[0]);
 
   const [infiniteLoading, setInfiniteLoading] = useState(false);
   const [productsLoading, setProductsLoading] = useState(false);
@@ -273,7 +271,7 @@ const ProductsPage: FunctionComponent<{
       );
     }
   };
-  // console.log(products[0]["images"])
+
   const handleFilterChange = (filter: FilterOption) => {
     const newFilters = selectedFilter.includes(filter.tag || "")
       ? selectedFilter.filter(_filter => _filter !== filter.tag)
@@ -423,8 +421,8 @@ const ProductsPage: FunctionComponent<{
                   <div className={styles["hero-text"]}>
                     <Breadcrumb items={crumbItems} />
 
-                    <p className="vertical-margin spaced">
-                      {category?.topHeading.toUpperCase()}
+                    <p className="vertical-margin spaced uppercase">
+                      {category?.topHeading}
                     </p>
                     <p className="text-medium">
                       Congratulations! Another year of love and laughter with
@@ -447,8 +445,8 @@ const ProductsPage: FunctionComponent<{
                 <div className={styles["occasions-mobile"]}>
                   <div className={`text-medium ${styles["mobile-card"]}`}>
                     <Breadcrumb items={crumbItems} />
-                    <p className="vertical-margin spaced">
-                      {category?.topHeading.toUpperCase()}
+                    <p className="vertical-margin spaced uppercase">
+                      {category?.topHeading}
                     </p>
                     Congratulations! Another year of love and laughter with your
                     other half. Whether you’ve been together one year or 60, our
@@ -496,8 +494,8 @@ const ProductsPage: FunctionComponent<{
                 </form>
                 {filterCategories.map((filter, index) => (
                   <div key={index} className="vertical-margin spaced">
-                    <p className="normal vertical-margin spaced text-medium ">
-                      {filter.name.toUpperCase()}
+                    <p className="normal vertical-margin spaced text-medium uppercase">
+                      {filter.name}
                     </p>
                     <div>
                       {(filter.viewMore

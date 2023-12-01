@@ -9,7 +9,6 @@ import { occasionsPageMetaData, regalWebsiteUrl } from "../../utils/constants";
 const CategoryPage: FunctionComponent<{
   category: Category;
 }> = ({ category }) => {
-  console.log("category", category);
   return (
     <>
       <Meta
