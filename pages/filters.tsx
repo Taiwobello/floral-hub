@@ -783,7 +783,7 @@ const ProductsPage: FunctionComponent<{
             </div>
 
             <div>
-              <h1 className={`${styles.title} bold vertical-margin spaced uppercase`}>
+              <h1 className={`${styles.title} bold  uppercase`}>
                 {search
                   ? `Search Results for "${searchText}"`
                   :  category?.topHeading || "All Occasions"
