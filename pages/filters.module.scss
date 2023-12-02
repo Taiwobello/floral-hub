@@ -71,13 +71,6 @@
         border-radius: 0.8rem;
         font-size: 1rem;
         font-weight: 400;
-
-        p:last-of-type {
-          margin-top: 1rem;
-          width: 10rem;
-          border-bottom: 0.1rem solid;
-          font-size: 1.25rem;
-        }
       }
       .mobile-card > ul {
         background: linear-gradient(to right, #f3f3f3 100%, #e3d7d7 0%);
@@ -171,7 +164,7 @@
       }
       .sorts-mobile {
         @media (max-width: 768px) {
-          margin: 12rem 0 1rem 0;
+          margin-top: 1rem;
         }
       }
       .date-wrapper {
