@@ -352,9 +352,9 @@ export const footerContent: FooterContent = {
     }
   ],
   accountName: "Floral Services & Events Hub Ltd",
-  accountNo: "1024853047",
+  accountNo: "0812257604",
   bitcoinAddress: "1NQfzJGzXSn5B5xqT4mfw48KpaoA4Ajmwy",
-  bankName: "UBA",
+  bankName: "GTB",
   legals: [
     {
       title: "FAQ",
@@ -365,17 +365,27 @@ export const footerContent: FooterContent = {
   ],
   gifts: [
     {
-      title: "Christmas Flowers",
-      url: "/product-category/christmas-flowers"
+      title: "Valentine’s Day Flowers",
+      url: "/product-category/valentines-day-flowers"
     },
     {
       title: "Mother’s Day Flowers",
       url: "/product-category/flowers-to-say-thanks-sorry-etc"
     },
     {
-      title: "Valentine’s Day Flowers",
-      url: "/product-category/valentines-day-flowers"
-    }
+      title: "Gifts to Include with Flowers",
+      url: "/product-category/gifts"
+    },
+    {
+      title: "VIP Flowers",
+      url: "/product-category/vip-flowers"
+    },
+    {
+      title: "Product Packages",
+      url: "/product-category/product-packages "
+    },
+
+
   ],
   about: [
     {
@@ -385,12 +395,28 @@ export const footerContent: FooterContent = {
     {
       title: "Our Blog",
       url: "/blog"
-    }
+    },
+    {
+      title: "FAQ",
+      url: "/faq"
+    },
+    {
+      title: "Privacy Statement",
+      url: "/privacy-statement"
+    },
   ],
   occassions: [
     {
-      title: "Love, Birthday & Anniversary",
+      title: "Birthday Flowers",
+      url: "/product-category/birthday-flowers"
+    },
+    {
+      title: "Anniversary Flowers",
       url: "/product-category/anniversary-flowers"
+    },
+    {
+      title: "Flowers for Romance, Sorry, Get Well Soon etc",
+      url: "/product-category/flowers-to-say-sorry-thanks-etc"
     },
     {
       title: "Bridal Flowers",
@@ -398,24 +424,20 @@ export const footerContent: FooterContent = {
     },
     {
       title: "Funeral Flowers",
-      url: "/product-category/funeral-and-condolence"
+      url: "/product-category/funeral-condolence-flowers"
     },
-    {
-      title: "VIP Bouquets",
-      url: "/vip-flowers"
-    }
   ],
 
   lagosBranch: {
     name: "Lagos Head Office/Delivery Center",
-    url: "https://goo.gl/maps/cNB9Jx9sidQhJgtD6",
+    url: "https://maps.app.goo.gl/u4DbZLsmZRixJZqV8",
     workingTimes: "24/7",
     location: "7, Ikeja Way, Dolphin Estate, Ikoyi"
   },
 
   abujaBranch: {
     name: "Abuja Office",
-    url: "https://goo.gl/maps/JAKrvZAe5vfh4czr9",
+    url: "https://maps.app.goo.gl/Z7KtTPpmJzmac8r97",
     workingTimes: "24/7",
     location: "5, Nairobi Street, Off Aminu Kano crescent, Wuse 2, Abuja."
   },
