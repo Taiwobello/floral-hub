@@ -453,7 +453,6 @@ const ProductsPage: FunctionComponent<{
                       {category?.topHeading}
                     </p>
                     {category?.heroDescription}
-                    <p className="primary-color semibold">Continue reading</p>
                   </div>
                 </div>
               )}

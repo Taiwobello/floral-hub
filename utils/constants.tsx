@@ -221,13 +221,13 @@ export const breadcrumbItems: Breadcrumb[] = [
     url: "flowers-to-say-thanks-sorry-etc",
     label: "Just To Say Hi, Sorry, Thank You"
   },
-  { url: "valentines-day-flowers-and-gifts", label: "Valentines Day" },
+  { url: "valentines-day-flowers", label: "Valentines Day" },
   { url: "get-well-soon", label: "Get Well Soon" },
   { url: "bridal-bouquets", label: "Bridal" },
   { url: "funeral-and-condolence", label: "Funeral & Condolence" },
-  { url: "event-amp-centerpiece", label: "Events & Centerpiece" },
+  { url: "event-centerpiece", label: "Events & Centerpiece" },
   { url: "fathers-day-flowers", label: "Father's Day" },
-  { url: "mothers-day-flowers", label: "Mother's Day" },
+  { url: "flowers-to-say-thanks-sorry-etc", label: "Mother's Day" },
 
   {
     url: "chocolate-and-biscuits",
@@ -280,11 +280,11 @@ export const allOccasionOptions: Option[] = [
   { value: "get-well-soon", label: "Get Well Soon" },
   { value: "bridal-bouquets", label: "Bridal" },
   { value: "funeral-and-condolence", label: "Funeral & Condolence" },
-  { value: "event-amp-centerpiece", label: "Events & Centerpiece" },
+  { value: "event-centerpiece", label: "Events & Centerpiece" },
   { value: "fathers-day-flowers", label: "Father's Day" },
-  { value: "mothers-day-flowers", label: "Mother's Day" },
+  { value: "flowers-to-say-thanks-sorry-etc", label: "Mother's Day" },
   {
-    value: "valentines-day-flowers-and-gifts",
+    value: "valentines-day-flowers",
     label: "Valentine's Day"
   }
 ];
@@ -356,7 +356,10 @@ export const footerContent: FooterContent = {
   bitcoinAddress: "1NQfzJGzXSn5B5xqT4mfw48KpaoA4Ajmwy",
   bankName: "UBA",
   legals: [
-    { title: "FAQ", url: "/faq" },
+    {
+      title: "FAQ",
+      url: "/faq-how-to-buy-fresh-flowers-and-gifts-in-lagos-and-abuja"
+    },
     { title: "Legal Terms", url: "/legal-terms" },
     { title: "Privacy Statement", url: "/privacy-statement" }
   ],
@@ -367,17 +370,17 @@ export const footerContent: FooterContent = {
     },
     {
       title: "Mother’s Day Flowers",
-      url: "/product-category/mothers-day-flowers"
+      url: "/product-category/flowers-to-say-thanks-sorry-etc"
     },
     {
       title: "Valentine’s Day Flowers",
-      url: "/product-category/valentines-day-flowers-and-gifts"
+      url: "/product-category/valentines-day-flowers"
     }
   ],
   about: [
     {
       title: "Contact Us",
-      url: "/contact-us"
+      url: "/contact"
     },
     {
       title: "Our Blog",
@@ -399,7 +402,7 @@ export const footerContent: FooterContent = {
     },
     {
       title: "VIP Bouquets",
-      url: "/vip"
+      url: "/vip-flowers"
     }
   ],
 
@@ -2121,7 +2124,7 @@ export const bridalOccasionFilters: Filter[] = [
         name: "Accessories & Boutonnieres",
         tag: "bridal accessories",
         link:
-          "/product-category/accessories-boutonnieres-bridesmaids-flowers-amp-corsages"
+          "/product-category/accessories-boutonnieres-bridesmaids-flowers-corsages"
       }
     ],
     limit: 3
@@ -2434,7 +2437,7 @@ export const links: AppLink[] = [
         children: [
           {
             title: "Wreaths & Flowers",
-            url: "/product-category/funeral-amp-condolence-flowers",
+            url: "/product-category/funeral-condolence-flowers",
             children: []
           },
           {
@@ -3221,7 +3224,7 @@ export const occasionsPageMetaData: Record<
       "Cascading Bridal Bouquets With Fresh Flowers Or Roses | Regal Flowers",
     description: ""
   },
-  "accessories-boutonnieres-bridesmaids-flowers-amp-corsages": {
+  "accessories-boutonnieres-bridesmaids-flowers-corsages": {
     title:
       "Fresh flower bridal train and groomsmen accessories | Regal Flowers",
     description: ""
