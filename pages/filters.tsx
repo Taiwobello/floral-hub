@@ -784,10 +784,10 @@ const ProductsPage: FunctionComponent<{
 
             <div>
               <h1 className={`${styles.title} bold vertical-margin spaced`}>
-                {search && `Search Results for "${searchText}"`
-                // : (occasionsPageTitle &&
-                //     occasionsPageTitle[categorySlug || ""]) ||
-                //   "All Occasions"
+                {search ? `Search Results for "${searchText}"`
+                : (occasionsPageTitle &&
+                    occasionsPageTitle[categorySlug || ""]) ||
+                  "All Occasions"
                 }
               </h1>
 
