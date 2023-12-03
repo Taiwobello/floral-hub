@@ -482,11 +482,13 @@ const Header: FunctionComponent = () => {
               >
                 {user ? (
                   <div className={styles["user-area"]}>
-                    <div className="flex column center-align">
+                    <div className="flex column center-align padded">
                       <em className="margin-bottom spaced text-center">
                         Logged in as {user.email}
                       </em>
-                      <Button onClick={handleLogout}>Logout</Button>
+                      <Button onClick={handleLogout} size="small" responsive>
+                        Logout
+                      </Button>
                     </div>
                   </div>
                 ) : (
