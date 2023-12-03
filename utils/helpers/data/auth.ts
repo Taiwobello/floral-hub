@@ -20,7 +20,7 @@ export const login: (
       data
     };
   } catch (err) {
-    console.error("Unable to login: ", err, (err as any).response);
+    console.error("Unable to login: ", err);
     return {
       error: true,
       message: (err as Error).message,
