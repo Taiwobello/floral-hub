@@ -28,7 +28,6 @@ import Select, { PaginatedOptionsWrapper } from "../components/select/Select";
 import DatePicker from "../components/date-picker/DatePicker";
 import { getCategories } from "../utils/helpers/data/category";
 import { FetchResourceParams } from "../utils/types/FetchResourceParams";
-import { Category } from "../utils/types/Category";
 import { getProductsBySlugs } from "../utils/helpers/data/products";
 import Product from "../utils/types/Product";
 import { LocationName, UserReview } from "../utils/types/Regal";
@@ -703,19 +702,9 @@ const LandingPage: FunctionComponent<{
 };
 
 const FlowerDeliveryInput: FunctionComponent = () => {
-  const [occasion, setOccasion] = useState<Category>({
+  const [occasion, setOccasion] = useState<{ name: string; id: string }>({
     name: "",
-    id: "",
-    slug: "",
-    image: "",
-    description: "",
-    altImage: "",
-    bottomHeading: "",
-    heroDescription: "",
-    heroImage: "",
-    shortDescription: "",
-    title: "",
-    topHeading: ""
+    id: ""
   });
   const { deliveryDate, setDeliveryDate } = useContext(SettingsContext);
   const [occassionOptions, setOccassionOptions] = useState<
@@ -753,22 +742,10 @@ const FlowerDeliveryInput: FunctionComponent = () => {
       _occasion => _occasion.value === value
     )?.value as string;
 
-    setOccasion(
-      {
-        name: "",
-        id: "",
-        slug: "",
-        image: "",
-        description: "",
-        altImage: "",
-        bottomHeading: "",
-        heroDescription: "",
-        heroImage: "",
-        shortDescription: "",
-        title: "",
-        topHeading: ""
-      } || null
-    );
+    setOccasion({
+      name: _selectedOccasion,
+      id: value
+    });
   };
 
   useEffect(() => {

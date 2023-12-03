@@ -11,4 +11,5 @@ export interface Category {
   bottomHeading: string;
   heroImage: string;
   heroDescription: string;
+  info: string;
 }

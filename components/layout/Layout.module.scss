@@ -995,54 +995,61 @@
 
   .top {
     display: grid;
-    grid-template-columns: 27% repeat(4, 1fr);
+    grid-template-columns: 27% repeat(3, 1fr);
     justify-content: space-between;
     column-gap: 1rem;
+    row-gap: 4rem;
 
     @media (max-width: 768px) {
       grid-template-columns: 1fr 1fr;
       grid-template-rows: repeat(4, max-content);
-      row-gap: 2rem;
-
-      & > *:first-child {
-        grid-column: 1 / -1;
-      }
-    }
-  }
-
-  .bottom {
-    display: grid;
-    grid-template-columns: 30% repeat(3, 1fr);
-    justify-content: space-between;
-    margin-top: 1.5rem;
-    column-gap: 1rem;
-
-    @media (max-width: 768px) {
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: repeat(3, max-content);
-      gap: 2rem;
-
-      & > *:first-child {
-        order: 5;
-        grid-column: 1 / -1;
-        grid-row: 4;
-      }
-
-      & > *:nth-child(2) {
-        grid-column: 1 / -1;
-        grid-row: 1;
-      }
-
-      & > *:nth-child(3) {
-        grid-column: 1 / -1;
-        grid-row: 2;
-      }
-    }
-
-    @media (max-width: 500px) {
+      row-gap: 3rem;
       column-gap: 1rem;
+
+      // & > *:first-child {
+      //   grid-column: 1 / -1;
+      // }
     }
+
+         @media (max-width: 500px) {
+          grid-template-columns: 1fr;
+          row-gap: 3rem;
+         }
   }
+
+//   .bottom {
+//     display: grid;
+//     grid-template-columns: 30% repeat(3, 1fr);
+//     justify-content: space-between;
+//     margin-top: 1.5rem;
+//     column-gap: 1rem;
+
+//     @media (max-width: 768px) {
+//       grid-template-columns: 1fr 1fr;
+//       grid-template-rows: repeat(3, max-content);
+//       gap: 2rem;
+
+//       & > *:first-child {
+//         order: 5;
+//         grid-column: 1 / -1;
+//         grid-row: 4;
+//       }
+
+//       & > *:nth-child(2) {
+//         grid-column: 1 / -1;
+//         grid-row: 1;
+//       }
+
+//       & > *:nth-child(3) {
+//         grid-column: 1 / -1;
+//         grid-row: 2;
+//       }
+//     }
+
+//     @media (max-width: 500px) {
+//       column-gap: 1rem;
+//     }
+//   }
 }
 
 .auth-wrapper {
