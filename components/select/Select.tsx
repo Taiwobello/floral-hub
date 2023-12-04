@@ -19,6 +19,7 @@ let timerRef: ReturnType<typeof setTimeout>;
 export interface Option {
   label: string | number | JSX.Element;
   value: string | number;
+  slug?: string;
 }
 
 export interface PaginatedOptionsWrapper {
