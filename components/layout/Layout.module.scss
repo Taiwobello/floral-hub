@@ -258,11 +258,12 @@
   .mobile-sidebar {
     opacity: 0;
     visibility: hidden;
-    position: fixed;
+    position: absolute;
     top: 4.8rem;
     left: 0;
-    width: 100vw;
+    width: 100%;
     height: calc(100vh - 4.8rem);
+    overflow: scroll;
     background-color: white;
     z-index: 101;
     padding: 2rem 3rem;
@@ -270,7 +271,6 @@
     font-weight: 400;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 
     &.active {
       opacity: 1;
@@ -343,6 +343,7 @@
     .mobile-user-area {
       display: flex;
       justify-content: center;
+      margin-top: 4rem;
     }
   }
 
