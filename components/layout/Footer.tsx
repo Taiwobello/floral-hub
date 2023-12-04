@@ -46,7 +46,8 @@ const Footer: FunctionComponent = () => {
               <strong>Sign up for latest news</strong>
             </button>
           </div>
-
+           
+           
           <div className="flex spaced column">
             <strong className="text-medium">About</strong>
             {footerContent.about.map(link => (
@@ -65,7 +66,7 @@ const Footer: FunctionComponent = () => {
           </div>
 
           <div className="flex spaced column">
-            <strong className="text-medium">Seasonal Gifts</strong>
+            <strong className="text-medium">Others</strong>
             {footerContent.gifts.map(link => (
               <Link key={link.title} href={link.url}>
                 <a className="">{link.title}</a>
@@ -73,21 +74,22 @@ const Footer: FunctionComponent = () => {
             ))}
           </div>
 
-          <div className="flex spaced column">
+          {/* <div className="flex spaced column">
             <strong className="text-regular">Legal</strong>
             {footerContent.legals.map(link => (
               <Link key={link.title} href={link.url}>
                 <a className="">{link.title}</a>
               </Link>
             ))}
-          </div>
-        </div>
-        {deviceType === "desktop" && (
-          <strong className="text-regular">Payment Information</strong>
-        )}
-        <div className={`${styles.bottom}`}>
+          </div> */}
+      
+
+        {/* <div className={`${styles.bottom}`}> */}
           <div className="flex spaced column">
             {deviceType === "mobile" && (
+              <strong className="text-regular">Payment Information</strong>
+            )}
+            {deviceType === "desktop" && (
               <strong className="text-regular">Payment Information</strong>
             )}
             <strong>Bank Transfers (Naira)</strong>
@@ -180,6 +182,7 @@ const Footer: FunctionComponent = () => {
               ))}
             </div>
           </div>
+        {/* </div> */}
         </div>
       </div>
     </footer>

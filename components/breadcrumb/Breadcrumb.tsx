@@ -20,7 +20,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
             <Link href={item.link}>
               <a
                 className={[
-                  index !== items.length - 1 && "underline",
+                  index !== items.length - 1 && "underline thin",
                   styles.label
                 ].join(" ")}
               >

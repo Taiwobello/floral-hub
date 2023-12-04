@@ -41,6 +41,7 @@ import Meta from "../components/meta/Meta";
 import Breadcrumb from "../components/breadcrumb/Breadcrumb";
 import { Category } from "../utils/types/Category";
 import { InfoIcon } from "../utils/resources";
+import useScrollCheck from "../utils/hooks/useScrollCheck";
 
 const giftMap: Record<string, string> = {
   "gift-items-perfumes-cakes-chocolate-wine-giftsets-and-teddy-bears":
@@ -402,6 +403,14 @@ const ProductsPage: FunctionComponent<{
 
   const hideHero = search;
 
+  const hasScrolled = useScrollCheck();
+
+  const titleText =
+    category?.topHeading ||
+    category?.name ||
+    String(shopBy).split(",")[0] ||
+    "All categories";
+
   return (
     <>
       {router.pathname === "/filters" && (
@@ -409,9 +418,14 @@ const ProductsPage: FunctionComponent<{
           canonicalUrl={`${regalWebsiteUrl}/product-category/anniversary-flowers`}
         ></Meta>
       )}
-      <section className={styles.filters} ref={rootRef}>
+      <section
+        className={[styles.filters, hasScrolled && styles["has-scrolled"]].join(
+          " "
+        )}
+        ref={rootRef}
+      >
         {!hideHero && (
-          <div className={[styles["hero-bg"]].join(" ")}>
+          <div className={styles["hero-bg"]}>
             <div className={`hero-content flex column `}>
               {deviceType === "desktop" && (
                 <>
@@ -419,12 +433,12 @@ const ProductsPage: FunctionComponent<{
                     <Breadcrumb
                       items={[
                         { label: "Home", link: "/" },
-                        { label: category?.topHeading || "" }
+                        { label: titleText }
                       ]}
                     />
 
                     <p className="vertical-margin spaced uppercase">
-                      {category?.topHeading}
+                      {titleText}
                     </p>
                     <p className="text-medium">{category?.heroDescription}</p>
                     {category?.info && (
@@ -445,11 +459,11 @@ const ProductsPage: FunctionComponent<{
                     <Breadcrumb
                       items={[
                         { label: "Home", link: "/" },
-                        { label: category?.topHeading || "" }
+                        { label: titleText }
                       ]}
                     />
                     <p className="vertical-margin spaced uppercase">
-                      {category?.topHeading}
+                      {titleText}
                     </p>
                     {category?.heroDescription}
                   </div>
@@ -809,12 +823,10 @@ const ProductsPage: FunctionComponent<{
             </div>
 
             <div>
-              <h1 className={`${styles.title} bold vertical-margin spaced`}>
-                {search && `Search Results for "${searchText}"`
-                // : (occasionsPageTitle &&
-                //     occasionsPageTitle[categorySlug || ""]) ||
-                //   "All Occasions"
-                }
+              <h1 className={`${styles.title} bold  uppercase`}>
+                {search
+                  ? `Search Results for "${searchText}"`
+                  : category?.topHeading || "All Occasions"}
               </h1>
 
               <div className={[styles.products].join(" ")}>

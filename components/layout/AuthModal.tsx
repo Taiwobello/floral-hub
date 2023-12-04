@@ -171,6 +171,7 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
         return;
       }
     }
+
     const handlerMap: Partial<Record<
       FormType,
       () => Promise<RequestResponse>
@@ -185,6 +186,14 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
     const response = await handlerMap[formType]?.();
     setLoading(false);
     if (response?.error) {
+      if (response.message?.includes("Upgrade is required for legacy user")) {
+        setFormType("validateOtp");
+        notify(
+          "info",
+          "Your password has expired. Please enter the OTP sent to your inbox"
+        );
+        return;
+      }
       notify(
         "error",
         `Unable to ${titleMap[formType].toLowerCase()}: ${response.message}`
@@ -212,12 +221,9 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
         setPasswordConfirm("");
         setOtp("");
         setFormType("newPassword");
+        setUser(response?.data);
         notify("success", "OTP validated successfully");
       } else if (formType === "newPassword") {
-        if (password !== passwordConfirm) {
-          notify("error", "Passwords do not match");
-          return;
-        }
         setPassword("");
         setPasswordConfirm("");
         setFormType("successful");

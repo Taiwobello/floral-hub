@@ -3,7 +3,8 @@ import {
   useContext,
   useState,
   MouseEvent as ReactMouseEvent,
-  useEffect
+  useEffect,
+  useMemo
 } from "react";
 import Link from "next/link";
 import SettingsContext from "../../utils/context/SettingsContext";
@@ -61,6 +62,8 @@ const Header: FunctionComponent = () => {
   const hasScrolled = useScrollCheck();
 
   useEffect(() => {
+    setActiveNavLink("");
+    setActiveSublinkNav("");
     if (!orderId && pathname !== "checkout") {
       setOrder(null);
       setCurrentStage(1);
@@ -72,7 +75,7 @@ const Header: FunctionComponent = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [pathname, query]);
 
   useEffect(() => {
     setDisplaySearchDropdown(false);
@@ -131,6 +134,12 @@ const Header: FunctionComponent = () => {
       )}
     </Button>
   );
+
+  const isTouchScreen = useMemo(() => {
+    return typeof window !== "undefined"
+      ? matchMedia("(hover: none)").matches
+      : false;
+  }, []);
 
   return (
     <>
@@ -322,7 +331,16 @@ const Header: FunctionComponent = () => {
               <div
                 className={styles.link}
                 key={index}
-                onMouseEnter={e => handleActiveNav(link.title, e)}
+                onMouseEnter={
+                  isTouchScreen
+                    ? undefined
+                    : e => handleActiveNav(link.title, e)
+                }
+                onClick={
+                  isTouchScreen
+                    ? e => handleActiveNav(link.title, e)
+                    : undefined
+                }
                 onMouseLeave={() => setActiveNavLink("")}
               >
                 <Button
@@ -348,11 +366,15 @@ const Header: FunctionComponent = () => {
                         className={[
                           styles["sub-link"],
                           link.children.some(child => child.children.length) &&
-                            styles.grid
+                            styles.grid,
+                          index === 1 && styles["four-x-grid"]
                         ].join(" ")}
                       >
                         {link.children.map((child, index) => (
-                          <div key={index}>
+                          <div
+                            key={index}
+                            className={styles["links-group-wrapper"]}
+                          >
                             {child.url ? (
                               <Link href={child.url}>
                                 <a
@@ -405,7 +427,7 @@ const Header: FunctionComponent = () => {
                         className={styles["card-wrapper"]}
                         style={{
                           width: `${(link.featuredProducts?.length || 0 + 1) *
-                            16.5}rem`
+                            18.5}rem`
                         }}
                       >
                         <h3 className="thin margin-bottom">
@@ -422,7 +444,7 @@ const Header: FunctionComponent = () => {
                               url={`/product/${product.slug}`}
                               price={product.price}
                               product={product}
-                              style={{ width: "16rem" }}
+                              style={{ width: "18rem" }}
                             />
                           ))}
                         </div>
@@ -482,11 +504,13 @@ const Header: FunctionComponent = () => {
               >
                 {user ? (
                   <div className={styles["user-area"]}>
-                    <div className="flex column center-align">
+                    <div className="flex column center-align padded">
                       <em className="margin-bottom spaced text-center">
                         Logged in as {user.email}
                       </em>
-                      <Button onClick={handleLogout}>Logout</Button>
+                      <Button onClick={handleLogout} size="small" responsive>
+                        Logout
+                      </Button>
                     </div>
                   </div>
                 ) : (
