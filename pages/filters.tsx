@@ -420,12 +420,12 @@ const ProductsPage: FunctionComponent<{
                     <Breadcrumb
                       items={[
                         { label: "Home", link: "/" },
-                        { label: category?.topHeading || "" }
+                        { label: category?.topHeading || category?.name || "" }
                       ]}
                     />
 
                     <p className="vertical-margin spaced uppercase">
-                      {category?.topHeading}
+                      {category?.topHeading || category?.name}
                     </p>
                     <p className="text-medium">{category?.heroDescription}</p>
                     {category?.info && (
@@ -786,8 +786,7 @@ const ProductsPage: FunctionComponent<{
               <h1 className={`${styles.title} bold  uppercase`}>
                 {search
                   ? `Search Results for "${searchText}"`
-                  :  category?.topHeading || "All Occasions"
-                }
+                  : category?.topHeading || "All Occasions"}
               </h1>
 
               <div className={[styles.products].join(" ")}>
