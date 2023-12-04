@@ -1,6 +1,10 @@
 .filters {
   background-color: #f3f4f6;
   padding-top: 4rem;
+  transition: 0.3s ease-out;
+  &.has-scrolled {
+    padding-top: 0;
+  }
   .hero-bg {
     height: 28rem;
     width: 100%;
@@ -14,7 +18,7 @@
       background-position: center center;
       align-self: flex-end;
       background-size: cover;
-      height: 25rem;
+      height: 100%;
       width: 65%;
     }
     .hero-text {

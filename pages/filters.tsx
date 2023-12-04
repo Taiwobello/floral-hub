@@ -41,6 +41,7 @@ import Meta from "../components/meta/Meta";
 import Breadcrumb from "../components/breadcrumb/Breadcrumb";
 import { Category } from "../utils/types/Category";
 import { InfoIcon } from "../utils/resources";
+import useScrollCheck from "../utils/hooks/useScrollCheck";
 
 const giftMap: Record<string, string> = {
   "gift-items-perfumes-cakes-chocolate-wine-giftsets-and-teddy-bears":
@@ -403,6 +404,8 @@ const ProductsPage: FunctionComponent<{
 
   const hideHero = search;
 
+  const hasScrolled = useScrollCheck();
+
   return (
     <>
       {router.pathname === "/filters" && (
@@ -410,9 +413,14 @@ const ProductsPage: FunctionComponent<{
           canonicalUrl={`${regalWebsiteUrl}/product-category/anniversary-flowers`}
         ></Meta>
       )}
-      <section className={styles.filters} ref={rootRef}>
+      <section
+        className={[styles.filters, hasScrolled && styles["has-scrolled"]].join(
+          " "
+        )}
+        ref={rootRef}
+      >
         {!hideHero && (
-          <div className={[styles["hero-bg"]].join(" ")}>
+          <div className={styles["hero-bg"]}>
             <div className={`hero-content flex column `}>
               {deviceType === "desktop" && (
                 <>
