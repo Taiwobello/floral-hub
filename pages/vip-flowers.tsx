@@ -8,11 +8,11 @@ const VipPage: FunctionComponent<{
 }> = ({}) => {
   return (
     <>
-      <Meta canonicalUrl={`${regalWebsiteUrl}/vip`}></Meta>
+      <Meta canonicalUrl={`${regalWebsiteUrl}/vip-flowers`}></Meta>
       <ProductsPage
         productCategory="vip"
         productClass="vip"
-        categorySlug="vip"
+        categorySlug="vip-flowers"
       />
     </>
   );
