@@ -448,7 +448,7 @@ export const footerContent: FooterContent = {
       title: "Occasions",
       url: "/product-category/all"
     },
-    { title: "VIP Section", url: "/vip" },
+    { title: "VIP Section", url: "/vip-flowers" },
     { title: "Contact Us", url: "", phoneNumber: "+2349077777994" },
     { title: "Our Blog", url: "/" },
     {
@@ -2143,7 +2143,7 @@ export const funeralOccasion: Filter[] = [
       {
         name: "VIP Section",
         tag: "",
-        link: "/vip"
+        link: "/vip-flowers"
       }
     ],
     limit: 3
@@ -2725,7 +2725,7 @@ export const popularSections: Occasion[] = [
   },
   {
     title: "VIP Section",
-    url: "/vip",
+    url: "/vip-flowers",
     image: "/images/popular-vip.jpg"
   },
   {
