@@ -81,7 +81,7 @@ const LandingPage: FunctionComponent<{
   const [currentReviewPageIndex, setCurrentReviewPageIndex] = useState(0);
   const [subscriptionEmail, setSubscriptionEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
-  const [minimizedStory, setMinimizedStory] = useState(true);
+  const [minimizedStory] = useState(false);
 
   const { setBreadcrumb, notify } = useContext(SettingsContext);
 
@@ -686,13 +686,13 @@ const LandingPage: FunctionComponent<{
                   </div>
                 </div>
               </div>
-              <Button
+              {/* <Button
                 className={styles.continue}
                 type="plain"
                 onClick={() => setMinimizedStory(!minimizedStory)}
               >
                 {minimizedStory ? "Continue reading" : "See less"}
-              </Button>
+              </Button> */}
             </div>
           </div>
         </section>

@@ -348,11 +348,15 @@ const Header: FunctionComponent = () => {
                         className={[
                           styles["sub-link"],
                           link.children.some(child => child.children.length) &&
-                            styles.grid
+                            styles.grid,
+                          index === 1 && styles["four-x-grid"]
                         ].join(" ")}
                       >
                         {link.children.map((child, index) => (
-                          <div key={index}>
+                          <div
+                            key={index}
+                            className={styles["links-group-wrapper"]}
+                          >
                             {child.url ? (
                               <Link href={child.url}>
                                 <a
@@ -405,7 +409,7 @@ const Header: FunctionComponent = () => {
                         className={styles["card-wrapper"]}
                         style={{
                           width: `${(link.featuredProducts?.length || 0 + 1) *
-                            16.5}rem`
+                            18.5}rem`
                         }}
                       >
                         <h3 className="thin margin-bottom">
@@ -422,7 +426,7 @@ const Header: FunctionComponent = () => {
                               url={`/product/${product.slug}`}
                               price={product.price}
                               product={product}
-                              style={{ width: "16rem" }}
+                              style={{ width: "18rem" }}
                             />
                           ))}
                         </div>
