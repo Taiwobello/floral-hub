@@ -406,6 +406,12 @@ const ProductsPage: FunctionComponent<{
 
   const hasScrolled = useScrollCheck();
 
+  const titleText =
+    category?.topHeading ||
+    category?.name ||
+    String(shopBy).split(",")[0] ||
+    "All categories";
+
   return (
     <>
       {router.pathname === "/filters" && (
@@ -428,12 +434,12 @@ const ProductsPage: FunctionComponent<{
                     <Breadcrumb
                       items={[
                         { label: "Home", link: "/" },
-                        { label: category?.topHeading || category?.name || "" }
+                        { label: titleText }
                       ]}
                     />
 
                     <p className="vertical-margin spaced uppercase">
-                      {category?.topHeading || category?.name}
+                      {titleText}
                     </p>
                     <p className="text-medium">{category?.heroDescription}</p>
                     {category?.info && (
@@ -454,11 +460,11 @@ const ProductsPage: FunctionComponent<{
                     <Breadcrumb
                       items={[
                         { label: "Home", link: "/" },
-                        { label: category?.topHeading || "" }
+                        { label: titleText }
                       ]}
                     />
                     <p className="vertical-margin spaced uppercase">
-                      {category?.topHeading}
+                      {titleText}
                     </p>
                     {category?.heroDescription}
                   </div>

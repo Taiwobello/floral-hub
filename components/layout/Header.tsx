@@ -3,7 +3,8 @@ import {
   useContext,
   useState,
   MouseEvent as ReactMouseEvent,
-  useEffect
+  useEffect,
+  useMemo
 } from "react";
 import Link from "next/link";
 import SettingsContext from "../../utils/context/SettingsContext";
@@ -61,6 +62,8 @@ const Header: FunctionComponent = () => {
   const hasScrolled = useScrollCheck();
 
   useEffect(() => {
+    setActiveNavLink("");
+    setActiveSublinkNav("");
     if (!orderId && pathname !== "checkout") {
       setOrder(null);
       setCurrentStage(1);
@@ -72,7 +75,7 @@ const Header: FunctionComponent = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [pathname, query]);
 
   useEffect(() => {
     setDisplaySearchDropdown(false);
@@ -131,6 +134,12 @@ const Header: FunctionComponent = () => {
       )}
     </Button>
   );
+
+  const isTouchScreen = useMemo(() => {
+    return typeof window !== "undefined"
+      ? matchMedia("(hover: none)").matches
+      : false;
+  }, []);
 
   return (
     <>
@@ -322,7 +331,16 @@ const Header: FunctionComponent = () => {
               <div
                 className={styles.link}
                 key={index}
-                onMouseEnter={e => handleActiveNav(link.title, e)}
+                onMouseEnter={
+                  isTouchScreen
+                    ? undefined
+                    : e => handleActiveNav(link.title, e)
+                }
+                onClick={
+                  isTouchScreen
+                    ? e => handleActiveNav(link.title, e)
+                    : undefined
+                }
                 onMouseLeave={() => setActiveNavLink("")}
               >
                 <Button

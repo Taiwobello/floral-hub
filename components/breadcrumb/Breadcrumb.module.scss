@@ -2,7 +2,9 @@
   display: flex;
   align-items: center;
   font-size: 1.3rem;
-
+  .label {
+    text-transform: capitalize;
+  }
   .breadcrumb-item {
     display: flex;
     align-items: center;
