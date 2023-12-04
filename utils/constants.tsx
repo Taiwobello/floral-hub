@@ -394,7 +394,7 @@ export const footerContent: FooterContent = {
     },
     {
       title: "VIP Flowers",
-      url: "/product-category/vip-flowers"
+      url: "/vip-flowers"
     },
     {
       title: "Product Packages",
@@ -430,7 +430,7 @@ export const footerContent: FooterContent = {
     },
     {
       title: "Flowers for Romance, Sorry, Get Well Soon etc",
-      url: "/product-category/flowers-to-say-sorry-thanks-etc"
+      url: "/product-category/flowers-to-say-thanks-sorry-etc"
     },
     {
       title: "Bridal Flowers",
