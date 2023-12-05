@@ -452,6 +452,14 @@ const ProductsPage: FunctionComponent<{
                       {category?.topHeading}
                     </p>
                     {category?.heroDescription}
+                    {category?.info && (
+                      <div
+                        className={`flex spaced center-align text-medium ${styles["info"]}`}
+                      >
+                        <InfoIcon fill="#B240DA" />
+                        <span>{category.info}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -810,11 +818,11 @@ const ProductsPage: FunctionComponent<{
 
             <div>
               <h1 className={`${styles.title} bold vertical-margin spaced`}>
-                {search && `Search Results for "${searchText}"`
-                // : (occasionsPageTitle &&
-                //     occasionsPageTitle[categorySlug || ""]) ||
-                //   "All Occasions"
-                }
+                {search
+                  ? `Search Results for "${searchText}"`
+                  : category?.bottomHeading
+                  ? category.bottomHeading
+                  : "All Occasions"}
               </h1>
 
               <div className={[styles.products].join(" ")}>
@@ -910,6 +918,16 @@ const ProductsPage: FunctionComponent<{
               )}{" "}
             </>
           )}
+          <div className={styles.stories}>
+            <h1 className={`text-center ${styles.title}`}>
+              {category?.bottomHeading || "Flower Delivery for all Occasions"}
+            </h1>
+
+            <p
+              id="category-description"
+              className="description category normal-text"
+            ></p>
+          </div>
         </div>
       </section>
     </>

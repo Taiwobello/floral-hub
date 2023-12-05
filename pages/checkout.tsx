@@ -430,6 +430,9 @@ const Checkout: FunctionComponent = () => {
   );
 
   useEffect(() => {
+    if (isReady && !user) {
+      setShouldShowAuthDropdown(true);
+    }
     fetchPurposes();
     fetchResidentTypes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -502,9 +505,6 @@ const Checkout: FunctionComponent = () => {
   }, [order]);
 
   useEffect(() => {
-    if (isReady && !user) {
-      setShouldShowAuthDropdown(true);
-    }
     if (user && !formData.senderName && !formData.senderEmail) {
       setFormData({
         ...formData,
