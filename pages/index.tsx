@@ -758,7 +758,7 @@ const FlowerDeliveryInput: FunctionComponent = () => {
 
   return (
     <div className={styles["flower-input-wrapper"]}>
-      <div className="full-width">
+      <div className="full-width flex">
         <Select
           options={allOccasionOptions}
           value={occasion.value}
@@ -770,6 +770,7 @@ const FlowerDeliveryInput: FunctionComponent = () => {
           startIcon="/icons/bullet-points.svg"
           hideCaret
         />
+        <span className={styles.vr} />
         <DatePicker
           value={deliveryDate}
           onChange={setDeliveryDate}

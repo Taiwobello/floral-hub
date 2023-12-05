@@ -578,7 +578,7 @@
     height: auto;
     margin-top: 0;
     width: 90%;
-    font-size: 1.1rem;
+    font-size: 1rem;
     box-shadow: 0.3rem 1rem 1rem 0 rgb(0 0 0 / 16%);
     border-radius: 0.3rem;
   }
@@ -591,17 +591,31 @@
       width: 16rem;
     }
     @media (max-width: 768px) {
-      width: 59%;
+      width: 52%;
+    }
+  }
+  .vr {
+    display: inline-block;
+    height: 2.2rem;
+    width: 0.02rem;
+    background-color: rgb(209, 209, 209);
+    align-self: center;
+    margin: 0 1.5rem;
+    @media (max-width: 768px) {
+      height: 80%;
+      width: 0.1rem;
+      margin: 0 0.5rem;
     }
   }
   .delivery-date {
     border: none;
+    border-radius: 0;
     width: 14rem;
     @media (max-width: 1300px) {
       width: 12rem;
     }
     @media (max-width: 768px) {
-      width: 39%;
+      width: 40%;
     }
   }
   .input-submit {
