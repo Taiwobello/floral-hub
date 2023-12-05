@@ -3,7 +3,8 @@ import {
   useContext,
   useState,
   useEffect,
-  FormEvent
+  FormEvent,
+  useRef
 } from "react";
 import Button from "../components/button/Button";
 import FlowerCard from "../components/flower-card/FlowerCard";
@@ -72,6 +73,8 @@ const getReviewRender = (review: UserReview, i: number) => (
   </div>
 );
 
+let reviewScrollTimer: NodeJS.Timeout;
+
 const LandingPage: FunctionComponent<{
   locationName: LocationName;
   featuredBirthday?: Product[];
@@ -106,6 +109,24 @@ const LandingPage: FunctionComponent<{
     setBreadcrumb(defaultBreadcrumb);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const reviewDivRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (deviceType === "mobile") {
+      reviewDivRef.current?.scroll({
+        left: currentReviewPageIndex * (window.screen.availWidth - 40),
+        behavior: "smooth"
+      });
+    }
+  }, [currentReviewPageIndex, deviceType]);
+
+  const handleReviewScroll = () => {
+    const newPageIndex = Math.round(
+      (reviewDivRef.current?.scrollLeft || 1) / (window.screen.availWidth - 40)
+    );
+    setCurrentReviewPageIndex(newPageIndex);
+  };
 
   return (
     <>
@@ -371,13 +392,23 @@ const LandingPage: FunctionComponent<{
                 ].join(" ")}
                 alt="previous"
                 role="button"
+                aria-label={`Go to page ${currentReviewPageIndex - 1}`}
                 onClick={() =>
                   setCurrentReviewPageIndex(currentReviewPageIndex - 1)
                 }
                 src="/icons/caret-right.svg"
               />
             )}
-            <div className={styles.reviews}>
+            <div
+              className={styles.reviews}
+              ref={reviewDivRef}
+              onScroll={() => {
+                if (deviceType === "mobile") {
+                  clearTimeout(reviewScrollTimer);
+                  reviewScrollTimer = setTimeout(handleReviewScroll, 100);
+                }
+              }}
+            >
               {Array(reviewsPageCount)
                 .fill("")
                 .map((_, index) => (
@@ -406,6 +437,7 @@ const LandingPage: FunctionComponent<{
                 alt="next"
                 src="/icons/caret-right.svg"
                 role="button"
+                aria-label={`Go to page ${currentReviewPageIndex + 1}`}
                 onClick={() =>
                   setCurrentReviewPageIndex(currentReviewPageIndex + 1)
                 }
@@ -418,6 +450,7 @@ const LandingPage: FunctionComponent<{
                   <span
                     key={index}
                     role="button"
+                    aria-label={`Go to page ${index + 1}`}
                     onClick={() => setCurrentReviewPageIndex(index)}
                     className={[
                       styles.dot,
@@ -755,7 +788,7 @@ const FlowerDeliveryInput: FunctionComponent = () => {
 
   return (
     <div className={styles["flower-input-wrapper"]}>
-      <div className="full-width">
+      <div className="full-width flex">
         <Select
           options={allOccasionOptions}
           value={occasion.value}
@@ -767,6 +800,7 @@ const FlowerDeliveryInput: FunctionComponent = () => {
           startIcon="/icons/bullet-points.svg"
           hideCaret
         />
+        <span className={styles.vr} />
         <DatePicker
           value={deliveryDate}
           onChange={setDeliveryDate}

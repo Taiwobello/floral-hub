@@ -372,7 +372,6 @@ const Select: FunctionComponent<SelectProps> = props => {
         ].join(" ")}
         onClick={handleSelectClick}
         ref={selectRef}
-        role="list"
       >
         <div className={styles["main-content"]}>
           {startIcon && (
