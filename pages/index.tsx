@@ -371,6 +371,7 @@ const LandingPage: FunctionComponent<{
                 ].join(" ")}
                 alt="previous"
                 role="button"
+                aria-label={`Go to page ${currentReviewPageIndex - 1}`}
                 onClick={() =>
                   setCurrentReviewPageIndex(currentReviewPageIndex - 1)
                 }
@@ -406,6 +407,7 @@ const LandingPage: FunctionComponent<{
                 alt="next"
                 src="/icons/caret-right.svg"
                 role="button"
+                aria-label={`Go to page ${currentReviewPageIndex + 1}`}
                 onClick={() =>
                   setCurrentReviewPageIndex(currentReviewPageIndex + 1)
                 }
@@ -418,6 +420,7 @@ const LandingPage: FunctionComponent<{
                   <span
                     key={index}
                     role="button"
+                    aria-label={`Go to page ${index + 1}`}
                     onClick={() => setCurrentReviewPageIndex(index)}
                     className={[
                       styles.dot,
