@@ -246,11 +246,22 @@
   }
   .reviews {
     display: flex;
+    @media (max-width: 768px) {
+      overflow: scroll;
+      padding-bottom: 2rem;
+      scroll-snap-type: x mandatory;
+    }
     .review-page {
       width: 0;
       opacity: 0;
       display: flex;
       justify-content: space-between;
+      @media (max-width: 768px) {
+        width: fit-content;
+        opacity: 1;
+        scroll-snap-align: center;
+        scroll-padding: 0;
+      }
       &.active {
         width: 100%;
         opacity: 1;
@@ -265,9 +276,9 @@
         width: 28%;
         @media (max-width: 768px) {
           margin-top: 2rem;
-          width: 100%;
           padding: 1rem;
           background-color: white;
+          width: calc(100vw - 5rem);
         }
         .rating {
           display: flex;
@@ -341,7 +352,7 @@
 }
 .review-dots {
   position: absolute;
-  bottom: 1rem;
+  bottom: -1rem;
   left: 48%;
   @media (max-width: 768px) {
     left: 35%;

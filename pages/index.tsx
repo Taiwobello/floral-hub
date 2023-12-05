@@ -3,7 +3,8 @@ import {
   useContext,
   useState,
   useEffect,
-  FormEvent
+  FormEvent,
+  useRef
 } from "react";
 import Button from "../components/button/Button";
 import FlowerCard from "../components/flower-card/FlowerCard";
@@ -72,6 +73,8 @@ const getReviewRender = (review: UserReview, i: number) => (
   </div>
 );
 
+let reviewScrollTimer: NodeJS.Timeout;
+
 const LandingPage: FunctionComponent<{
   locationName: LocationName;
   featuredBirthday?: Product[];
@@ -106,6 +109,24 @@ const LandingPage: FunctionComponent<{
     setBreadcrumb(defaultBreadcrumb);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const reviewDivRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (deviceType === "mobile") {
+      reviewDivRef.current?.scroll({
+        left: currentReviewPageIndex * (window.screen.availWidth - 40),
+        behavior: "smooth"
+      });
+    }
+  }, [currentReviewPageIndex, deviceType]);
+
+  const handleReviewScroll = () => {
+    const newPageIndex = Math.round(
+      (reviewDivRef.current?.scrollLeft || 1) / (window.screen.availWidth - 40)
+    );
+    setCurrentReviewPageIndex(newPageIndex);
+  };
 
   return (
     <>
@@ -378,7 +399,16 @@ const LandingPage: FunctionComponent<{
                 src="/icons/caret-right.svg"
               />
             )}
-            <div className={styles.reviews}>
+            <div
+              className={styles.reviews}
+              ref={reviewDivRef}
+              onScroll={() => {
+                if (deviceType === "mobile") {
+                  clearTimeout(reviewScrollTimer);
+                  reviewScrollTimer = setTimeout(handleReviewScroll, 100);
+                }
+              }}
+            >
               {Array(reviewsPageCount)
                 .fill("")
                 .map((_, index) => (
