@@ -3,9 +3,9 @@ module.exports = {
   images: {
     domains: ["storage.googleapis.com"],
     unoptimized: true
-  },
-  i18n: {
-    locales: ["en"],
-    defaultLocale: "en"
   }
+  // i18n: {
+  //   locales: ["en"],
+  //   defaultLocale: "en"
+  // }
 };
