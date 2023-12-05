@@ -352,10 +352,11 @@
 }
 .review-dots {
   position: absolute;
-  bottom: -1rem;
+  bottom: 1rem;
   left: 48%;
   @media (max-width: 768px) {
     left: 35%;
+    bottom: -1rem;
   }
   .dot {
     display: inline-block;
