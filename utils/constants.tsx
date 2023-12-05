@@ -270,22 +270,38 @@ export const defaultBreadcrumb: Breadcrumb = {
 
 export const allOccasionOptions: Option[] = [
   {
-    value: "anniversary-flowers",
-    label: "Romance, Birthdays & Anniversary"
+    slug: "flowers-to-say-thanks-sorry-etc",
+    value: 0,
+    label: "Christmas Flowers"
   },
   {
-    value: "flowers-to-say-thanks-sorry-etc",
-    label: "Just To Say Hi, Sorry, Thank You"
+    slug: "birthday-flowers",
+    value: 1,
+    label: "Birthday Flowers"
   },
-  { value: "get-well-soon", label: "Get Well Soon" },
-  { value: "bridal-bouquets", label: "Bridal" },
-  { value: "funeral-and-condolence", label: "Funeral & Condolence" },
-  { value: "event-centerpiece", label: "Events & Centerpiece" },
-  { value: "fathers-day-flowers", label: "Father's Day" },
-  { value: "flowers-to-say-thanks-sorry-etc", label: "Mother's Day" },
+  { slug: "anniversary-flowers", value: 2, label: "Anniversary Flowers" },
   {
-    value: "valentines-day-flowers",
-    label: "Valentine's Day"
+    slug: "flowers-to-say-thanks-sorry-etc",
+    value: 3,
+    label: "Romantic Flowers"
+  },
+  {
+    slug: "flowers-to-say-thanks-sorry-etc",
+    value: 4,
+    label: "I Am Sorry Flowers"
+  },
+  {
+    slug: "flowers-to-say-thanks-sorry-etc",
+    value: 5,
+    label: "Get Well Soon Flowers"
+  },
+  { slug: "bridal-bouquets", value: 6, label: "Bridal Flowers" },
+  { slug: "funeral-condolence-flowers", value: 7, label: "Funeral Flowers" },
+  { slug: "valentines-day-flowers", value: 8, label: "Valentine's Flowers" },
+  {
+    slug: "flowers-to-say-thanks-sorry-etc",
+    value: 9,
+    label: "Mother's Day Flowers"
   }
 ];
 
@@ -352,9 +368,9 @@ export const footerContent: FooterContent = {
     }
   ],
   accountName: "Floral Services & Events Hub Ltd",
-  accountNo: "1024853047",
+  accountNo: "0812257604",
   bitcoinAddress: "1NQfzJGzXSn5B5xqT4mfw48KpaoA4Ajmwy",
-  bankName: "UBA",
+  bankName: "GTB",
   legals: [
     {
       title: "FAQ",
@@ -365,16 +381,24 @@ export const footerContent: FooterContent = {
   ],
   gifts: [
     {
-      title: "Christmas Flowers",
-      url: "/product-category/christmas-flowers"
+      title: "Valentine’s Day Flowers",
+      url: "/product-category/valentines-day-flowers"
     },
     {
       title: "Mother’s Day Flowers",
       url: "/product-category/flowers-to-say-thanks-sorry-etc"
     },
     {
-      title: "Valentine’s Day Flowers",
-      url: "/product-category/valentines-day-flowers"
+      title: "Gifts to Include with Flowers",
+      url: "/product-category/gifts"
+    },
+    {
+      title: "VIP Flowers",
+      url: "/product-category/vip-flowers"
+    },
+    {
+      title: "Product Packages",
+      url: "/product-category/product-packages "
     }
   ],
   about: [
@@ -385,12 +409,28 @@ export const footerContent: FooterContent = {
     {
       title: "Our Blog",
       url: "/blog"
+    },
+    {
+      title: "FAQ",
+      url: "/faq"
+    },
+    {
+      title: "Privacy Statement",
+      url: "/privacy-statement"
     }
   ],
   occassions: [
     {
-      title: "Love, Birthday & Anniversary",
+      title: "Birthday Flowers",
+      url: "/product-category/birthday-flowers"
+    },
+    {
+      title: "Anniversary Flowers",
       url: "/product-category/anniversary-flowers"
+    },
+    {
+      title: "Flowers for Romance, Sorry, Get Well Soon etc",
+      url: "/product-category/flowers-to-say-sorry-thanks-etc"
     },
     {
       title: "Bridal Flowers",
@@ -398,24 +438,20 @@ export const footerContent: FooterContent = {
     },
     {
       title: "Funeral Flowers",
-      url: "/product-category/funeral-and-condolence"
-    },
-    {
-      title: "VIP Bouquets",
-      url: "/vip-flowers"
+      url: "/product-category/funeral-condolence-flowers"
     }
   ],
 
   lagosBranch: {
     name: "Lagos Head Office/Delivery Center",
-    url: "https://goo.gl/maps/cNB9Jx9sidQhJgtD6",
+    url: "https://maps.app.goo.gl/u4DbZLsmZRixJZqV8",
     workingTimes: "24/7",
     location: "7, Ikeja Way, Dolphin Estate, Ikoyi"
   },
 
   abujaBranch: {
     name: "Abuja Office",
-    url: "https://goo.gl/maps/JAKrvZAe5vfh4czr9",
+    url: "https://maps.app.goo.gl/Z7KtTPpmJzmac8r97",
     workingTimes: "24/7",
     location: "5, Nairobi Street, Off Aminu Kano crescent, Wuse 2, Abuja."
   },
@@ -612,7 +648,7 @@ export const regalFeatures: Service[] = [
     title: "Fast Same Day Delivery",
     subtitle:
       "Delivery to suit you. Fast delivery in Lagos and Abuja everyday including weekends",
-    url: "/product-category/birthday-anniversary-and-romantic-flowers",
+    url: "/product-category/flowers-to-say-thanks-sorry-etc",
     cta: "SHOP SAME DAY"
   },
   {
@@ -620,7 +656,7 @@ export const regalFeatures: Service[] = [
     title: "Delivered fresh with care and attention",
     subtitle:
       "Our florists treat each order with care, from packaging to delivery, together with your complimentary message",
-    url: "/product-category/birthday-anniversary-and-romantic-flowers",
+    url: "/product-category/flowers-to-say-thanks-sorry-etc",
     cta: "SHOP FLOWERS"
   },
   {
@@ -628,7 +664,7 @@ export const regalFeatures: Service[] = [
     title: "A flower (and gift) for everyone",
     subtitle:
       "We stock a variety of flowers and gifts to delight your loved one. Fresh roses, lilies and more, as well as cakes, chocolates, teddies etc",
-    url: "/product-category/birthday-anniversary-and-romantic-flowers",
+    url: "/product-category/flowers-to-say-thanks-sorry-etc",
     cta: "START SHOPPING"
   }
 ];
@@ -688,13 +724,13 @@ export const giftItems: Gift[] = [
   {
     name: "Chocolates",
     description: "A guilty pleasure and always a winning gift for most people",
-    image: "/images/sample-flowers/addon-group-2.png",
+    image: "/images/sample-flowers/addon-group-1.png",
     slug: "/product-category/chocolate-and-biscuits"
   },
   {
     name: "Cakes and Cupcakes",
     description: "What's an occasion without a cake, or cupcakes, or both",
-    image: "/images/sample-flowers/addon-group-1.png",
+    image: "/images/sample-flowers/addon-group-2.png",
     slug: "/product-category/cakes-and-cupcakes"
   },
 
@@ -781,7 +817,7 @@ export const blogPosts: BlogPost[] = [
     image: "/images/sample-flowers/blog-1.png"
   },
   {
-    title: "Why everyone buys lillies in November",
+    title: "5 Best Flowers to Gift A Lady",
     excerpt:
       "Most of us wonder if there is a God and if He really is the God of the Bible. In the Bible of a there is a God  the God of the Bible.",
     date: "25 Apr, 2022",
@@ -789,7 +825,7 @@ export const blogPosts: BlogPost[] = [
     image: "/images/sample-flowers/blog-2.png"
   },
   {
-    title: "So we hit the 2 million users milestone",
+    title: "5 Ladies Talk About Their First Flower Bouquet",
     excerpt:
       "Most of us wonder if there is a God and if He really is the God of the Bible. In the Bible of a there is a God  the God of the Bible. In the Bible of a there is a God, then He must like flowers, because, what's there not to like?",
     date: "18 Mar, 2022",

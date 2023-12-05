@@ -81,7 +81,7 @@ const LandingPage: FunctionComponent<{
   const [currentReviewPageIndex, setCurrentReviewPageIndex] = useState(0);
   const [subscriptionEmail, setSubscriptionEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
-  const [minimizedStory, setMinimizedStory] = useState(true);
+  const [minimizedStory] = useState(false);
 
   const { setBreadcrumb, notify } = useContext(SettingsContext);
 
@@ -162,7 +162,7 @@ const LandingPage: FunctionComponent<{
             <h2 className="featured-title text-center vertical-margin xl">
               Flower Delivery For All Occasions
             </h2>
-            <div className="flex end full-width relative responsive">
+            <div className={styles["featured-occasion"]}>
               <img
                 alt="featured occasion"
                 src="/images/occassions-birthday.png"
@@ -686,13 +686,13 @@ const LandingPage: FunctionComponent<{
                   </div>
                 </div>
               </div>
-              <Button
+              {/* <Button
                 className={styles.continue}
                 type="plain"
                 onClick={() => setMinimizedStory(!minimizedStory)}
               >
                 {minimizedStory ? "Continue reading" : "See less"}
-              </Button>
+              </Button> */}
             </div>
           </div>
         </section>
@@ -702,9 +702,9 @@ const LandingPage: FunctionComponent<{
 };
 
 const FlowerDeliveryInput: FunctionComponent = () => {
-  const [occasion, setOccasion] = useState<{ name: string; id: string }>({
-    name: "",
-    id: ""
+  const [occasion, setOccasion] = useState<{ value: number; slug: string }>({
+    value: 0,
+    slug: ""
   });
   const { deliveryDate, setDeliveryDate } = useContext(SettingsContext);
   const [occassionOptions, setOccassionOptions] = useState<
@@ -737,14 +737,14 @@ const FlowerDeliveryInput: FunctionComponent = () => {
     }
   };
 
-  const handleOnselect = (value: string) => {
-    const _selectedOccasion = allOccasionOptions.find(
+  const handleOnselect = (value: number) => {
+    const selectedOccasion = allOccasionOptions.find(
       _occasion => _occasion.value === value
-    )?.value as string;
+    );
 
     setOccasion({
-      name: _selectedOccasion,
-      id: value
+      value: selectedOccasion?.value as number,
+      slug: selectedOccasion?.slug as string
     });
   };
 
@@ -758,8 +758,8 @@ const FlowerDeliveryInput: FunctionComponent = () => {
       <div className="full-width">
         <Select
           options={allOccasionOptions}
-          value={occasion.id}
-          onSelect={value => handleOnselect(value as string)}
+          value={occasion.value}
+          onSelect={value => handleOnselect(value as number)}
           className={styles["occasion-select"]}
           placeholder={
             deviceType === "desktop" ? "Select Occasion" : "Occasion"
@@ -780,7 +780,7 @@ const FlowerDeliveryInput: FunctionComponent = () => {
       </div>
       <Button
         padded
-        url={`/product-category/${occasion?.name || "anniversary-flowers"}`}
+        url={`/product-category/${occasion?.slug || "anniversary-flowers"}`}
         className={styles["input-submit"]}
       >
         Send Flowers
