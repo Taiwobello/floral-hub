@@ -1173,7 +1173,7 @@ const Checkout: FunctionComponent = () => {
                                       <span className="flex spaced column">
                                         <span>Lagos, Ikoyi</span>
                                         <span className="grayed">
-                                          7, Ikeja Way, Dolphin Estate, Ikoyi
+                                          15, Ikeja Way, Dolphin Estate, Ikoyi
                                         </span>
                                       </span>
                                     }

@@ -446,7 +446,7 @@ export const footerContent: FooterContent = {
     name: "Lagos Head Office/Delivery Center",
     url: "https://maps.app.goo.gl/u4DbZLsmZRixJZqV8",
     workingTimes: "24/7",
-    location: "7, Ikeja Way, Dolphin Estate, Ikoyi"
+    location: "15, Ikeja Way, Dolphin Estate, Ikoyi"
   },
 
   abujaBranch: {
@@ -3334,7 +3334,7 @@ export const contactUsPageContent: Partial<Record<
 >> = {
   lagos: {
     name: "Lagos Head Office/Delivery Center",
-    location: "7, Ikeja Way, Dolphin Estate, Ikoyi",
+    location: "15, Ikeja Way, Dolphin Estate, Ikoyi",
     phoneNo: "+234 907 777 7994",
     whatsappNo: "+234 907 777 7994",
     url: "https://goo.gl/maps/cNB9Jx9sidQhJgtD6",
