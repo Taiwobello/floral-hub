@@ -454,26 +454,20 @@ const ProductsPage: FunctionComponent<{
                 </>
               )}
               {deviceType === "mobile" && (
-                <div className={styles["occasions-mobile"]}>
-                  <div className={`text-medium ${styles["mobile-card"]}`}>
-                    <Breadcrumb
-                      items={[
-                        { label: "Home", link: "/" },
-                        { label: titleText }
-                      ]}
-                    />
-                    <p className="vertical-margin spaced uppercase">
-                      {titleText}
-                    </p>
-                    {category?.heroDescription}
-                  </div>
-                </div>
+                <div className={styles["occasions-mobile"]}></div>
               )}
             </div>
           </div>
         )}
+        <div className={`text-medium ${styles["mobile-card"]}`}>
+          <Breadcrumb
+            items={[{ label: "Home", link: "/" }, { label: titleText }]}
+          />
+          <p className="vertical-margin spaced uppercase">{titleText}</p>
+          {category?.heroDescription}
+        </div>
         <div
-          className={`${styles["content"]} flex ${deviceType === "desktop" &&
+          className={`${styles.content} flex ${deviceType === "desktop" &&
             "spaced-xl"}`}
         >
           {!hideFilters && (

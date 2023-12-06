@@ -62,30 +62,32 @@
       height: 20rem;
       background-position: center center;
       background-size: cover;
-
-      .mobile-card {
-        p:first-of-type {
-          font-size: 1.8rem;
-          font-weight: 400;
-        }
-
-        position: relative;
-        top: 17rem;
-        width: 90%;
-        background-color: white;
-        margin: auto;
-        padding: 1rem;
-        border-radius: 0.8rem;
-        font-size: 1rem;
-        font-weight: 400;
-      }
-      .mobile-card > ul {
-        background: linear-gradient(to right, #f3f3f3 100%, #e3d7d7 0%);
-        padding: 0.5rem;
-        border-radius: 0.4rem;
-        border: 0.1rem solid #fafafa;
-      }
     }
+  }
+  .mobile-card {
+    position: relative;
+    width: 90%;
+    background-color: white;
+    margin: auto;
+    padding: 1rem;
+    border-radius: 0.8rem;
+    margin-top: -13rem;
+    z-index: 5;
+    font-size: 1rem;
+    font-weight: 400;
+    @media (min-width: 768px) {
+      display: none;
+    }
+    p:first-of-type {
+      font-size: 1.8rem;
+      font-weight: 400;
+    }
+  }
+  .mobile-card > ul {
+    background: linear-gradient(to right, #f3f3f3 100%, #e3d7d7 0%);
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+    border: 0.1rem solid #fafafa;
   }
 
   .title {
@@ -106,7 +108,7 @@
     padding: 0 7rem 4rem 7rem;
 
     @media (max-width: 768px) {
-      padding: 3rem 2rem;
+      padding: 1rem 2rem;
     }
 
     .left-side {
