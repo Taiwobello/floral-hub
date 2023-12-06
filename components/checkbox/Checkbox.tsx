@@ -35,7 +35,7 @@ const Checkbox = (props: CheckboxProps) => {
     >
       <input
         name={name}
-        className={styles.checkbox}
+        className={[styles.checkbox, rounded && styles.rounded].join(" ")}
         checked={checked}
         onChange={_onChange}
         type="checkbox"

@@ -265,6 +265,7 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
                   checked={formType === "guestCheckout"}
                   rounded
                   onChange={() => setFormType("guestCheckout")}
+                  className={styles["checkbox"]}
                 />
 
                 {formType === "guestCheckout" && (
@@ -295,6 +296,7 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
                 checked={formType === "signup"}
                 onChange={() => setFormType("signup")}
                 rounded
+                className={styles["checkbox"]}
               />
               <ul className={["text-small", styles["list"]].join(" ")}>
                 <li>
@@ -404,6 +406,7 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
                 checked={formType === "login"}
                 onChange={() => setFormType("login")}
                 rounded
+                className={styles["checkbox"]}
               />
 
               <form
