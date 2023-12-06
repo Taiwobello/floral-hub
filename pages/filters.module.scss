@@ -1,13 +1,6 @@
 .filters {
   background-color: #f3f4f6;
   padding-top: 4rem;
-  transition: 0.3s ease-out;
-  &.has-scrolled {
-    padding-top: 0;
-  }
-  @media (max-width: 768px) {
-    padding-top: 0;
-  }
   .hero-bg {
     height: 28rem;
     width: 100%;
@@ -15,6 +8,7 @@
     @media (max-width: 768px) {
       height: 25rem;
     }
+
 
     .hero-image {
       background-image: url("/images/Rectangle-3040.png");
@@ -89,7 +83,9 @@
     border-radius: 0.4rem;
     border: 0.1rem solid #fafafa;
   }
-
+  @media (max-width: 420px) {
+    padding-top: 0rem;
+  }
   .title {
     font-size: 2.5rem;
     font-weight: 400;
