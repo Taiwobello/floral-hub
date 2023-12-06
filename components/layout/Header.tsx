@@ -21,6 +21,7 @@ import { getProductsBySlugs } from "../../utils/helpers/data/products";
 import useOutsideClick from "../../utils/hooks/useOutsideClick";
 import SearchDropdown from "./SearchDropdown";
 import useScrollCheck from "../../utils/hooks/useScrollCheck";
+import Product from "../../utils/types/Product";
 
 const Header: FunctionComponent = () => {
   const [activeNavLink, setActiveNavLink] = useState("");
@@ -96,9 +97,9 @@ const Header: FunctionComponent = () => {
       setLinksWithFeaturedProducts(
         links.map(link => ({
           ...link,
-          featuredProducts: data?.filter(product =>
-            link.featuredSlugs?.includes(product.slug)
-          )
+          featuredProducts: link.featuredSlugs
+            ?.map(slug => data?.find(product => product.slug === slug))
+            .filter(Boolean) as Product[]
         }))
       );
     };
@@ -367,7 +368,7 @@ const Header: FunctionComponent = () => {
                           styles["sub-link"],
                           link.children.some(child => child.children.length) &&
                             styles.grid,
-                          index === 1 && styles["four-x-grid"]
+                          index === 3 && styles["padded-top"]
                         ].join(" ")}
                       >
                         {link.children.map((child, index) => (
@@ -383,13 +384,14 @@ const Header: FunctionComponent = () => {
                                   }}
                                 >
                                   {child.title && (
-                                    <span
+                                    <strong
                                       className={[
-                                        child.children.length && styles.title
+                                        child.children.length && styles.title,
+                                        "uppercase"
                                       ].join(" ")}
                                     >
                                       {child.title}
-                                    </span>
+                                    </strong>
                                   )}
                                 </a>
                               </Link>
@@ -427,7 +429,7 @@ const Header: FunctionComponent = () => {
                         className={styles["card-wrapper"]}
                         style={{
                           width: `${(link.featuredProducts?.length || 0 + 1) *
-                            18.5}rem`
+                            17.5}rem`
                         }}
                       >
                         <h3 className="thin margin-bottom">
@@ -444,7 +446,7 @@ const Header: FunctionComponent = () => {
                               url={`/product/${product.slug}`}
                               price={product.price}
                               product={product}
-                              style={{ width: "18rem" }}
+                              style={{ width: "17rem" }}
                             />
                           ))}
                         </div>

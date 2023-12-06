@@ -133,6 +133,9 @@
         }
         .sub-link {
           font-weight: 400;
+          &.padded-top {
+            padding-top: 2rem;
+          }
           & > * {
             margin-bottom: 1rem;
             display: block;
