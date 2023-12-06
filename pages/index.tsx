@@ -18,7 +18,7 @@ import {
   allOccasionOptions,
   giftItems,
   defaultBreadcrumb,
-  regalWebsiteUrl,
+  websiteUrl,
   schemaProperties
 } from "../utils/constants";
 import ServiceCard from "../components/service-card/ServiceCard";
@@ -135,7 +135,7 @@ const LandingPage: FunctionComponent<{
         description="Order flowers and gifts online for same-day delivery or walk in 24/7. Send flowers to celebrate someone special from the top flower shop in Lagos & Abuja, Nigeria."
         image="/images/popular-bundled.jpg"
         imageAlt="Floral Hub"
-        canonicalUrl={`${regalWebsiteUrl}`}
+        canonicalUrl={websiteUrl}
       >
         <SchemaMarkup properties={schemaProperties} />
       </Meta>
@@ -420,7 +420,7 @@ const LandingPage: FunctionComponent<{
                     ].join(" ")}
                   >
                     {reviews[locationName]
-                      .slice(
+                      ?.slice(
                         currentReviewPageIndex * reviewsPerPage,
                         currentReviewPageIndex * reviewsPerPage + reviewsPerPage
                       )

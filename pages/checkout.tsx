@@ -32,7 +32,7 @@ import {
   pickupLocations,
   pickupStates,
   placeholderEmail,
-  regalEmail
+  companyEmail
 } from "../utils/constants";
 import SettingsContext from "../utils/context/SettingsContext";
 import {
@@ -756,7 +756,7 @@ const Checkout: FunctionComponent = () => {
           contractCode: "252548871448",
           currency: "NGN",
           reference: order?.id as string, // Problematic for repeat/cancelled payments
-          paymentDescription: "Regal Flowers Order",
+          paymentDescription: "Floral Hub Order",
           onComplete: async response => {
             setPageLoading(true);
             const { error, message } = await verifyMonnifyPayment(
@@ -1104,14 +1104,7 @@ const Checkout: FunctionComponent = () => {
                                       href="tel:+2349077777994"
                                       className="clickable neutral underline"
                                     >
-                                      +234 7011992888
-                                    </a>
-                                    ,{" "}
-                                    <a
-                                      href="tel:+2347010006665"
-                                      className="clickable neutral underline"
-                                    >
-                                      +234 7010006665
+                                      +234907 777 7994
                                     </a>
                                   </span>
                                 </div>
@@ -1210,14 +1203,7 @@ const Checkout: FunctionComponent = () => {
                                       href="tel:+2349077777994"
                                       className="clickable neutral underline"
                                     >
-                                      +234 7011992888
-                                    </a>
-                                    ,{" "}
-                                    <a
-                                      href="tel:+2347010006665"
-                                      className="clickable neutral underline"
-                                    >
-                                      +234 7010006665
+                                      +234 9077 777994
                                     </a>
                                   </span>
                                 </div>
@@ -1732,11 +1718,14 @@ const Checkout: FunctionComponent = () => {
                     ].join(" ")}
                   >
                     For any issues/enquiries, please email us at{" "}
-                    <a href={`mailto:${regalEmail}`} className="underline blue">
-                      {regalEmail}
+                    <a
+                      href={`mailto:${companyEmail}`}
+                      className="underline blue"
+                    >
+                      {companyEmail}
                     </a>{" "}
-                    or call/text/whatsapp +234 7011992888, +234 7010006665, +234
-                    7010006664
+                    or call/text/whatsapp{" "}
+                    <a href="tel: +2349077777994">+234 907 7777994</a>
                   </p>
                 ) : (
                   <p className="normal-text">
@@ -2266,11 +2255,11 @@ const BankDetailsModal: FunctionComponent<ModalProps & {
       </Button>
       <p className="margin-top spaced text-center">
         For any issues/enquiries, please email{" "}
-        <a href={`mailto:${regalEmail}`} className="underline blue">
-          {regalEmail}
+        <a href={`mailto:${companyEmail}`} className="underline blue">
+          {companyEmail}
         </a>{" "}
         or <br />
-        call/text/whatsapp +234 7011992888, +234 7010006665, +234 7010006664
+        call/text/whatsapp <a href="tel: +2349077777994">+234 907 7777994</a>
       </p>
     </Modal>
   );

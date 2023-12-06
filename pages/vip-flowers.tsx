@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import ProductsPage from "./filters";
-import { regalWebsiteUrl } from "../utils/constants";
+import { websiteUrl } from "../utils/constants";
 import Meta from "../components/meta/Meta";
 
 const VipPage: FunctionComponent<{
@@ -8,7 +8,7 @@ const VipPage: FunctionComponent<{
 }> = ({}) => {
   return (
     <>
-      <Meta canonicalUrl={`${regalWebsiteUrl}/vip-flowers`}></Meta>
+      <Meta canonicalUrl={`${websiteUrl}/vip-flowers`}></Meta>
       <ProductsPage
         productCategory="vip"
         productClass="vip"

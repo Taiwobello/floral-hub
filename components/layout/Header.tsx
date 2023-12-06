@@ -320,7 +320,7 @@ const Header: FunctionComponent = () => {
           <Link href="/">
             <a>
               <img
-                alt="regal flowers logo"
+                alt="floral hub logo"
                 src="/icons/logo.svg"
                 className={styles.logo}
                 onClick={() => setShowSidebar(false)}

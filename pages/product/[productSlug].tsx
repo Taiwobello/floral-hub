@@ -12,7 +12,7 @@ import SettingsContext from "../../utils/context/SettingsContext";
 import { CartItem } from "../../utils/types/Core";
 import { getPriceDisplay } from "../../utils/helpers/type-conversions";
 import useDeviceType from "../../utils/hooks/useDeviceType";
-import { DesignOption, regalWebsiteUrl } from "../../utils/constants";
+import { DesignOption, websiteUrl } from "../../utils/constants";
 import Link from "next/dist/client/link";
 import Meta from "../../components/meta/Meta";
 import SchemaMarkup from "../../components/schema-mark-up/SchemaMarkUp";
@@ -30,7 +30,7 @@ const schemaProperties = {
   "@type": "Product",
   brand: {
     "@type": "Brand",
-    name: "Regal Flowers"
+    name: "Floral Hub"
   }
 };
 
@@ -292,11 +292,11 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
   return (
     <>
       <Meta
-        title={`${product.name} - ${product.subtitle} | Regal Flowers`}
+        title={`${product.name} - ${product.subtitle} | Floral Hub`}
         description={product.description}
         image={product.images[0].src}
         imageAlt={product.images[0].alt}
-        canonicalUrl={`${regalWebsiteUrl}/product/${product.slug}`}
+        canonicalUrl={`${websiteUrl}/product/${product.slug}`}
       >
         <SchemaMarkup
           properties={{
@@ -304,7 +304,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
             name: product.name,
             description: product.description,
             image: product.images[0].src,
-            url: `${regalWebsiteUrl}/${product.slug}`,
+            url: `${websiteUrl}/${product.slug}`,
             offers: {
               "@type": "Offer",
               price: String(total || productPrice),

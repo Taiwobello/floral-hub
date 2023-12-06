@@ -46,8 +46,7 @@ const Footer: FunctionComponent = () => {
               <strong>Sign up for latest news</strong>
             </button>
           </div>
-           
-           
+
           <div className="flex spaced column">
             <strong className="text-medium">About</strong>
             {footerContent.about.map(link => (
@@ -82,9 +81,8 @@ const Footer: FunctionComponent = () => {
               </Link>
             ))}
           </div> */}
-      
 
-        {/* <div className={`${styles.bottom}`}> */}
+          {/* <div className={`${styles.bottom}`}> */}
           <div className="flex spaced column">
             {deviceType === "mobile" && (
               <strong className="text-regular">Payment Information</strong>
@@ -182,7 +180,7 @@ const Footer: FunctionComponent = () => {
               ))}
             </div>
           </div>
-        {/* </div> */}
+          {/* </div> */}
         </div>
       </div>
     </footer>

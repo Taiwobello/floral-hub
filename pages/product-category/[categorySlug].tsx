@@ -4,7 +4,7 @@ import { getCategories, getCategory } from "../../utils/helpers/data/category";
 import ProductsPage from "../filters";
 import { Category } from "../../utils/types/Category";
 import Meta from "../../components/meta/Meta";
-import { occasionsPageMetaData, regalWebsiteUrl } from "../../utils/constants";
+import { occasionsPageMetaData, websiteUrl } from "../../utils/constants";
 
 const CategoryPage: FunctionComponent<{
   category: Category;
@@ -12,7 +12,7 @@ const CategoryPage: FunctionComponent<{
   return (
     <>
       <Meta
-        canonicalUrl={`${regalWebsiteUrl}/product-category/${category.slug}`}
+        canonicalUrl={`${websiteUrl}/product-category/${category.slug}`}
         description={
           occasionsPageMetaData[category.slug] &&
           occasionsPageMetaData[category.slug].description

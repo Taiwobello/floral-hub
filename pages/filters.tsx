@@ -20,7 +20,7 @@ import {
   filtersCatgories,
   funeralOccasion,
   giftItems,
-  regalWebsiteUrl,
+  websiteUrl,
   sortOptions,
   tagsMap
 } from "../utils/constants";
@@ -415,7 +415,7 @@ const ProductsPage: FunctionComponent<{
     <>
       {router.pathname === "/filters" && (
         <Meta
-          canonicalUrl={`${regalWebsiteUrl}/product-category/anniversary-flowers`}
+          canonicalUrl={`${websiteUrl}/product-category/anniversary-flowers`}
         ></Meta>
       )}
       <section

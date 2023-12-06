@@ -451,7 +451,7 @@ export const footerContent: FooterContent = {
 
   abujaBranch: {
     name: "Abuja Office",
-    url: "https://maps.app.goo.gl/Z7KtTPpmJzmac8r97",
+    url: "https://maps.app.goo.gl/4BmrPnVoGQjNz8Mb6",
     workingTimes: "24/7",
     location: "5, Nairobi Street, Off Aminu Kano crescent, Wuse 2, Abuja."
   },
@@ -461,17 +461,17 @@ export const footerContent: FooterContent = {
     {
       name: "facebook",
       src: "/icons/footer/facebook.svg",
-      url: "http://facebook.com/RegalFlowersNG/"
+      url: "http://facebook.com/floralhub.com.ng"
     },
     {
       name: "instagram",
       src: "/icons/footer/instagram.svg",
-      url: "https://instagram.com/regalflowers.com.ng"
+      url: "https://instagram.com/floralhub.com.ng"
     },
     {
       name: "linkedIn",
       src: "/icons/footer/linkedin.svg",
-      url: "https://www.linkedin.com/company/regalflowers-com-ng/"
+      url: "https://www.linkedin.com/company/floralhub-com-ng"
     },
     {
       name: "whatsapp",
@@ -492,12 +492,7 @@ export const footerContent: FooterContent = {
       url: "/faq-how-to-buy-fresh-flowers-and-gifts-in-lagos-and-abuja"
     }
   ],
-  phoneNumbers: [
-    "+234 701 000 6664",
-    "+234 701 000 6665",
-    "+234 701 199 2888",
-    "+234 911 200 0300"
-  ]
+  phoneNumbers: ["2349077777994"]
 };
 
 interface CheckoutContent {
@@ -791,21 +786,14 @@ export const regalAddresses: LocationAddress[] = [
   },
   {
     name: "Abuja Office",
-    url: "https://goo.gl/maps/JAKrvZAe5vfh4czr9",
+    url: "https://maps.app.goo.gl/4BmrPnVoGQjNz8Mb6",
     workingTimes: "24/7",
     location: "5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja"
   }
 ];
 
-export const regalEmail = "info@floralhub.com.ng";
-export const floralHubPaymentEmail = "payments@regalflowers.com.ng";
-
-export const regalPhones = [
-  "(+234) 7010 006665",
-  "(+234) 7010 006664",
-  "(+234) 7011 992888",
-  "(+234) 9112 000300"
-];
+export const companyEmail = "info@floralhub.com.ng";
+export const floralHubPaymentEmail = "payments@floralhub.com.ng";
 
 export const blogPosts: BlogPost[] = [
   {
@@ -3229,7 +3217,7 @@ export const allDesignOptions: DesignOption[] = [
   }
 ];
 
-export const regalWebsiteUrl = "https://floralhub.com.ng";
+export const websiteUrl = "https://floralhub.com.ng";
 
 export const occasionsPageMetaData: Record<
   string,
@@ -3351,7 +3339,7 @@ export const contactUsPageContent: Partial<Record<
     location: "5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja.",
     phoneNo: "+234 907 777 7994",
     whatsappNo: "+234 907 777 7994",
-    url: "https://goo.gl/maps/JAKrvZAe5vfh4czr9",
+    url: "https://maps.app.goo.gl/4BmrPnVoGQjNz8Mb6",
     coord: {
       lat: 9.077785485443458,
       lng: 7.464068439137416
@@ -3361,22 +3349,17 @@ export const contactUsPageContent: Partial<Record<
 
 export const schemaProperties = {
   "@type": "LocalBusiness",
-  name: "Regal Flowers",
-  url: "https://regalflowers.com.ng",
+  name: "Floral Hub",
+  url: "https://floralhub.com.ng",
   description:
-    "Order flowers and gifts online for same-day delivery or walk in 24/7. Send flowers to celebrate someone special from the top flower shop in Lagos & Abuja, Nigeria.",
+    "Order Same Day Fresh Flowers and Gifts Delivery In Lagos and Abuja, Nigeria. Open 24 hours everyday for walk-ins and online, we are the top flower shop in Lagos and Abuja, Nigeria",
   image: [
     "/images/popular-bundled.jpg",
     "/images/occasions-love-bday.png",
     "/images/calligraphy.jpg"
   ],
-  telephone: [
-    "+234 701 000 6664",
-    "+234 701 000 6665",
-    "+234 701 199 2888",
-    "+234 911 200 0300"
-  ],
-  email: "info@regalflowers.com.ng",
+  telephone: ["+234 907 777 7994"],
+  email: "info@floralhub.com.ng",
   openingHours: "24/7",
   paymentAccepted: ["Credit/Debit Cards", "Paypal", "Bitcoin", "Bank Transfer"],
   priceRange: "₦",
