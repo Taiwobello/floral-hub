@@ -3,7 +3,7 @@
   width: fit-content;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 
   &.disabled {
     cursor: not-allowed;
@@ -15,7 +15,7 @@
   }
 
   .text {
-    margin-left: 1rem;
+    margin-left: 0.5rem;
     width: fit-content;
     // max-width: 10rem;
     &::first-letter {
@@ -49,7 +49,7 @@
       border-width: 0 0 0.2rem 0.2rem;
       width: 90%;
       height: 60%;
-      transform: rotate(-45deg) translate(0.1rem, -0.1rem);
+      transform: rotate(-45deg) translate(0.05rem, -0.05rem);
     }
 
     &.transparent {
@@ -67,6 +67,14 @@
 
       .check-icon {
         border-color: #000;
+      }
+    }
+
+    &.rounded {
+      border-radius: 50%;
+
+      .check-icon {
+        transform: rotate(-45deg) translate(0.1rem, -0.1rem);
       }
     }
   }

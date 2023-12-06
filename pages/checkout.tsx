@@ -955,15 +955,17 @@ const Checkout: FunctionComponent = () => {
                             text="Create a Free Account"
                           />
                           <div className="flex center">
-                            <span className="margin-right">
-                              Already a user?
-                            </span>
-                            <Button
-                              type="plain"
+                            {deviceType === "desktop" && (
+                              <span className="margin-right">
+                                Already a user?
+                              </span>
+                            )}
+                            <button
                               onClick={() => setShouldShowAuthDropdown(true)}
+                              className="primary-color bold underline"
                             >
                               Login
-                            </Button>
+                            </button>
                           </div>
                         </div>
                       )}

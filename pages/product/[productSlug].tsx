@@ -314,7 +314,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
         />
       </Meta>
       <section className={`${styles.product}`}>
-        <div className={`${styles.padding} text-medium`}>
+        <div className={`${styles.padding} text-medium flex spaced wrap`}>
           <div className="margin-right align-icon underline">
             <Link href="/">
               <a>Home</a>
