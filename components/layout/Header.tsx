@@ -368,7 +368,7 @@ const Header: FunctionComponent = () => {
                           styles["sub-link"],
                           link.children.some(child => child.children.length) &&
                             styles.grid,
-                          index === 3 && styles["padded-top"]
+                          index === 3 && styles["gifts-dropdown"]
                         ].join(" ")}
                       >
                         {link.children.map((child, index) => (

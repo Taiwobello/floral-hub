@@ -512,7 +512,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                   <InfoIcon fill="#B240DA" />
                   <span>{product.info1}</span>
                 </div>
-                 <div className="vertical-margin compact"></div>
+                <div className="vertical-margin compact"></div>
               </>
             )}
             {product.info2 && (
@@ -870,13 +870,14 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
         <div className={styles.padding}>
           <p className="title bold margin-top spaced">OTHERS ALSO BOUGHT</p>
           <div className="flex between vertical-margin spaced wrap">
-            {product.relatedProducts?.map((item, index) => (
+            {product.relatedProducts?.slice(0, 4)?.map((item, index) => (
               <FlowerCard
                 key={index}
                 name={item.name.split("–")[0]}
                 image={item.images.src}
                 price={item.price}
                 subTitle={item.subtitle || item.name.split("–")[1]}
+                className={styles["extras-cards"]}
                 url={`/product/${item.slug}`}
                 buttonText="Add to Cart"
               />
@@ -886,12 +887,13 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
           <br />
           <p className="title bold margin-top spaced">YOU MAY ALSO LIKE</p>
           <div className="flex between vertical-margin spaced wrap">
-            {product.relatedProducts?.map((item, index) => (
+            {product.relatedProducts?.slice(4)?.map((item, index) => (
               <FlowerCard
                 key={index}
                 name={item.name.split("–")[0]}
                 image={item.images.src}
                 price={item.price}
+                className={styles["extras-cards"]}
                 subTitle={item.subtitle || item.name.split("–")[1]}
                 url={`/product/${item.slug}`}
                 buttonText="Add to Cart"
@@ -973,7 +975,7 @@ const VerticalImageCarousel: React.FC<{
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { productSlug } = params || {};
-  const { data, error, message } = await getProduct(String(productSlug), 4);
+  const { data, error, message } = await getProduct(String(productSlug), 8);
   if (error || !data) {
     console.error(`Unable to fetch product "${productSlug}": ${message}`);
     return {

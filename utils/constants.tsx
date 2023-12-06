@@ -2678,8 +2678,7 @@ export const links: AppLink[] = [
     ],
     featuredSlugs: [
       "balloons",
-      "caravaggio-assorted-italian-unisex-gift-set-more",
-      "avon-attraction-for-her-50ml"
+      "caravaggio-assorted-italian-unisex-gift-set-more"
     ]
   },
   {
