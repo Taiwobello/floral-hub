@@ -153,11 +153,6 @@
         "type": 301
       },
       {
-        "source": "/product-category/birthday-flowers",
-        "destination": "/product-category/anniversary-flowers",
-        "type": 301
-      },
-      {
         "source": "/product-tag/",
         "destination": "/product-category/anniversary-flowers",
         "type": 301
