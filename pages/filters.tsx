@@ -454,7 +454,7 @@ const ProductsPage: FunctionComponent<{
                 </>
               )}
               {deviceType === "mobile" && (
-                <div className={styles["occasions-mobile"]}></div>
+                <div className={styles["occasions-mobile"]} />
               )}
             </div>
           </div>
@@ -465,6 +465,14 @@ const ProductsPage: FunctionComponent<{
           />
           <p className="vertical-margin spaced uppercase">{titleText}</p>
           {category?.heroDescription}
+          {category?.info && (
+            <div
+              className={`flex spaced center-align text-medium ${styles["info"]}`}
+            >
+              <InfoIcon fill="#B240DA" />
+              <span>{category.info}</span>
+            </div>
+          )}
         </div>
         <div
           className={`${styles.content} flex ${deviceType === "desktop" &&
@@ -820,7 +828,7 @@ const ProductsPage: FunctionComponent<{
               <h1 className={`${styles.title} bold  uppercase`}>
                 {search
                   ? `Search Results for "${searchText}"`
-                  : category?.topHeading || "All Occasions"}
+                  : category?.bottomHeading || "All Occasions"}
               </h1>
 
               <div className={[styles.products].join(" ")}>
@@ -916,6 +924,16 @@ const ProductsPage: FunctionComponent<{
               )}{" "}
             </>
           )}
+          <div className={styles.stories}>
+            <h1 className={`text-center ${styles.title}`}>
+              {category?.bottomHeading || "Flower Delivery for all Occasions"}
+            </h1>
+
+            <p
+              id="category-description"
+              className="description category normal-text"
+            ></p>
+          </div>
         </div>
       </section>
     </>

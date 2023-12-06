@@ -12,6 +12,9 @@
     padding: 0;
 
     .padding {
+      background: linear-gradient(to right, #f3f3f3 100%, #e3d7d7 0%);
+      border: 0.1rem solid #fafafa;
+      border-radius: 0.4rem;
       padding: 1rem 2rem;
     }
   }
@@ -24,7 +27,7 @@
       flex-basis: 43%;
 
       &.left-content {
-        flex-basis: 53%;
+        flex-basis: 56%;
       }
 
       margin-left: 1.2rem;
@@ -155,7 +158,7 @@
 
       .slider {
         overflow: hidden;
-        width: 80%;
+        width: 100%;
         display: flex;
         position: relative;
         height: 100%;
@@ -291,7 +294,7 @@
   }
 
   .delivery-info {
-    background-color: #fcf6fd;
+    background-color: #f5e6f7;
     padding: 0.8rem 1.1rem;
   }
 
