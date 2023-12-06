@@ -828,7 +828,7 @@ const ProductsPage: FunctionComponent<{
               <h1 className={`${styles.title} bold  uppercase`}>
                 {search
                   ? `Search Results for "${searchText}"`
-                  : category?.bottomHeading || "All Occasions"}
+                  : category?.topHeadingH2 || "All Occasions"}
               </h1>
 
               <div className={[styles.products].join(" ")}>
