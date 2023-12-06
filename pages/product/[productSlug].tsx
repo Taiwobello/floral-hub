@@ -512,7 +512,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                   <InfoIcon fill="#B240DA" />
                   <span>{product.info1}</span>
                 </div>
-                <br />
+                 <div className="vertical-margin compact"></div>
               </>
             )}
             {product.info2 && (
@@ -780,11 +780,11 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                   }
                 >
                   {outOfStock
-                    ? "Out Of Stock"
-                    : `Add to Cart ${getPriceDisplay(
+                    ? "OUT OF STOCK"
+                    : `ADD TO CART ( ${getPriceDisplay(
                         total || productPrice,
                         currency
-                      )}`}
+                      )})`}
                 </Button>
               </div>
             )}
@@ -862,7 +862,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                     : ""
                 }
               >
-                {outOfStock ? "Out Of Stock" : `Add TO CART`}
+                {outOfStock ? "OUT OF STOCK" : `ADD TO CART`}
               </Button>
             </div>
           </div>

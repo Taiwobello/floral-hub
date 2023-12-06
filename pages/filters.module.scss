@@ -1,13 +1,6 @@
 .filters {
   background-color: #f3f4f6;
   padding-top: 4rem;
-  transition: 0.3s ease-out;
-  @media (max-width: 768px) {
-    padding-top: 0;
-  }
-  &.has-scrolled {
-    padding-top: 0;
-  }
   .hero-bg {
     height: 28rem;
     width: 100%;
@@ -21,7 +14,7 @@
       background-position: center center;
       align-self: flex-end;
       background-size: cover;
-      height: 100%;
+      height: 25rem;
       width: 65%;
     }
     .hero-text {
@@ -35,19 +28,19 @@
       opacity: 0.9;
 
       p:first-of-type {
-        font-size: 3.3rem;
+        font-size: 2.3rem;
         width: 90%;
         color: #1f1f1f;
         vertical-align: top;
         line-height: 3rem;
         margin: 1rem 0;
         font-weight: 400;
-        line-height: 4.5rem;
+        line-height: 45.94px;
       }
       p:nth-child(2) {
         color: #1f1f1f;
         font-weight: 400;
-        line-height: 2.8rem;
+        line-height: 28px;
       }
     }
     .hero-text > ul {

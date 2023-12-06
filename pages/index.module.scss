@@ -126,7 +126,7 @@
 }
 .featured-occasion {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   width: 100%;
   position: relative;
   margin: 1rem 0 3rem;
@@ -246,11 +246,22 @@
   }
   .reviews {
     display: flex;
+    @media (max-width: 768px) {
+      overflow: scroll;
+      padding-bottom: 2rem;
+      scroll-snap-type: x mandatory;
+    }
     .review-page {
       width: 0;
       opacity: 0;
       display: flex;
       justify-content: space-between;
+      @media (max-width: 768px) {
+        width: fit-content;
+        opacity: 1;
+        scroll-snap-align: center;
+        scroll-padding: 0;
+      }
       &.active {
         width: 100%;
         opacity: 1;
@@ -265,9 +276,9 @@
         width: 28%;
         @media (max-width: 768px) {
           margin-top: 2rem;
-          width: 100%;
           padding: 1rem;
           background-color: white;
+          width: calc(100vw - 5rem);
         }
         .rating {
           display: flex;
@@ -345,6 +356,7 @@
   left: 48%;
   @media (max-width: 768px) {
     left: 35%;
+    bottom: -1rem;
   }
   .dot {
     display: inline-block;
@@ -578,7 +590,7 @@
     height: auto;
     margin-top: 0;
     width: 90%;
-    font-size: 1.1rem;
+    font-size: 1rem;
     box-shadow: 0.3rem 1rem 1rem 0 rgb(0 0 0 / 16%);
     border-radius: 0.3rem;
   }
@@ -591,17 +603,31 @@
       width: 16rem;
     }
     @media (max-width: 768px) {
-      width: 59%;
+      width: 52%;
+    }
+  }
+  .vr {
+    display: inline-block;
+    height: 2.2rem;
+    width: 0.02rem;
+    background-color: rgb(209, 209, 209);
+    align-self: center;
+    margin: 0 1.5rem;
+    @media (max-width: 768px) {
+      height: 80%;
+      width: 0.1rem;
+      margin: 0 0.5rem;
     }
   }
   .delivery-date {
     border: none;
+    border-radius: 0;
     width: 14rem;
     @media (max-width: 1300px) {
       width: 12rem;
     }
     @media (max-width: 768px) {
-      width: 39%;
+      width: 40%;
     }
   }
   .input-submit {
