@@ -260,6 +260,7 @@
         width: fit-content;
         opacity: 1;
         scroll-snap-align: center;
+        scroll-snap-stop: always;
         scroll-padding: 0;
       }
       &.active {

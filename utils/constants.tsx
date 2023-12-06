@@ -2620,7 +2620,10 @@ export const links: AppLink[] = [
         ]
       }
     ],
-    featuredSlugs: ["purity-roses-arranged-with-sparkling-white-select-size"]
+    featuredSlugs: [
+      "purity-roses-arranged-with-sparkling-white-select-size",
+      "classic-roses-and-chocolate-elegant-mix-of-fresh-cut-roses-interlaced-with-luxurious-ferrero-rocher-chocolates-select-size"
+    ]
   },
   {
     url: "/vip-flowers",
@@ -2675,7 +2678,8 @@ export const links: AppLink[] = [
     ],
     featuredSlugs: [
       "balloons",
-      "caravaggio-assorted-italian-unisex-gift-set-more"
+      "caravaggio-assorted-italian-unisex-gift-set-more",
+      "avon-attraction-for-her-50ml"
     ]
   },
   {

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useDeviceType from "../../utils/hooks/useDeviceType";
 import styles from "./Layout.module.scss";
 import SettingsContext from "../../utils/context/SettingsContext";
@@ -9,6 +9,10 @@ const CurrencyController = () => {
   const [shouldShowCurrency, setShouldShowCurrency] = useState(
     deviceType !== "mobile"
   );
+
+  useEffect(() => {
+    setShouldShowCurrency(deviceType === "desktop");
+  }, [deviceType]);
 
   return (
     <div className={styles["currency-wrapper"]}>

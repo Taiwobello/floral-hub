@@ -454,34 +454,28 @@ const ProductsPage: FunctionComponent<{
                 </>
               )}
               {deviceType === "mobile" && (
-                <div className={styles["occasions-mobile"]}>
-                  <div className={`text-medium ${styles["mobile-card"]}`}>
-                    <Breadcrumb
-                      items={[
-                        { label: "Home", link: "/" },
-                        { label: titleText }
-                      ]}
-                    />
-                    <p className="vertical-margin spaced uppercase">
-                      {titleText}
-                    </p>
-                    {category?.heroDescription}
-                    {category?.info && (
-                      <div
-                        className={`flex spaced center-align text-medium ${styles["info"]}`}
-                      >
-                        <InfoIcon fill="#B240DA" />
-                        <span>{category.info}</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
+                <div className={styles["occasions-mobile"]} />
               )}
             </div>
           </div>
         )}
+        <div className={`text-medium ${styles["mobile-card"]}`}>
+          <Breadcrumb
+            items={[{ label: "Home", link: "/" }, { label: titleText }]}
+          />
+          <p className="vertical-margin spaced uppercase">{titleText}</p>
+          {category?.heroDescription}
+          {category?.info && (
+            <div
+              className={`flex spaced center-align text-medium ${styles["info"]}`}
+            >
+              <InfoIcon fill="#B240DA" />
+              <span>{category.info}</span>
+            </div>
+          )}
+        </div>
         <div
-          className={`${styles["content"]} flex ${deviceType === "desktop" &&
+          className={`${styles.content} flex ${deviceType === "desktop" &&
             "spaced-xl"}`}
         >
           {!hideFilters && (
