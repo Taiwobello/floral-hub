@@ -230,7 +230,7 @@ const LandingPage: FunctionComponent<{
               <h2 className="featured-title">BEST SELLING FLOWERS</h2>
               {deviceType === "desktop" && (
                 <Button
-                  url="/product-category/anniversary-flowers"
+                  url="/product-category/flowers-to-say-thanks-sorry-etc"
                   className="flex spaced center-align"
                   type="plain"
                 >
@@ -255,7 +255,7 @@ const LandingPage: FunctionComponent<{
             </div>
             {deviceType === "mobile" && (
               <Button
-                url="/product-category/anniversary-flowers"
+                url="/product-category/flowers-to-say-thanks-sorry-etc"
                 type="plain"
                 minWidth
                 className={styles["see-all"]}
@@ -321,7 +321,7 @@ const LandingPage: FunctionComponent<{
 
             {deviceType === "mobile" && (
               <Button
-                url="/product-category/anniversary-flowers"
+                url="/product-category/gifts"
                 type="plain"
                 minWidth
                 className={styles["see-all"]}
