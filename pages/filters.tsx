@@ -847,13 +847,13 @@ const ProductsPage: FunctionComponent<{
                     buttonText="Add to Cart"
                     subTitle={product.subtitle || product.name.split("–")[1]}
                     url={`/product/${product.slug}`}
-                    mode={`${
+                    mode={
                       deviceType === "desktop"
                         ? hideFilters
                           ? "four-x-grid"
-                          : "three-x-grid"
+                          : undefined
                         : "two-x-grid"
-                    }`}
+                    }
                     ref={
                       index === arr.length - 1
                         ? ele => {

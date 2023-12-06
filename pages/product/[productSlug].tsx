@@ -17,6 +17,7 @@ import Link from "next/dist/client/link";
 import Meta from "../../components/meta/Meta";
 import SchemaMarkup from "../../components/schema-mark-up/SchemaMarkUp";
 import { DeliveryIcon, InfoIcon } from "../../utils/resources";
+import useScrollCheck from "../../utils/hooks/useScrollCheck";
 
 interface Size {
   name: string;
@@ -286,6 +287,8 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
     (product.type === "variable" && !selectedSize?.name) ||
     (selectedSize?.designOptions && !selectedDesign);
 
+  const hasScrolled = useScrollCheck();
+
   return (
     <>
       <Meta
@@ -313,7 +316,9 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
           }}
         />
       </Meta>
-      <section className={`${styles.product}`}>
+      <section
+        className={`${styles.product} ${hasScrolled && styles["has-scrolled"]}`}
+      >
         <div className={`${styles.padding} text-medium flex spaced wrap`}>
           <div className="margin-right align-icon underline">
             <Link href="/">
@@ -662,9 +667,8 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                       }`}
                     >
                       VIP Sizes
-                    </button>       
+                    </button>
 
-                  
                     <div className={styles["size-wrapper"]}>
                       {product.variants
                         ?.filter(variant => variant.class === "vip")

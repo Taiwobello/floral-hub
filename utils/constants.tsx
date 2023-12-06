@@ -648,7 +648,7 @@ export const regalFeatures: Service[] = [
     title: "Fast Same Day Delivery",
     subtitle:
       "Delivery to suit you. Fast delivery in Lagos and Abuja everyday including weekends",
-    url: "/product-category/flowers-to-say-thanks-sorry-etc",
+    url: "/filters?shopBy=same+day+delivery",
     cta: "SHOP SAME DAY"
   },
   {
@@ -3229,7 +3229,7 @@ export const allDesignOptions: DesignOption[] = [
   }
 ];
 
-export const regalWebsiteUrl = "https://regalflowers.com.ng";
+export const regalWebsiteUrl = "https://floralhub.com.ng";
 
 export const occasionsPageMetaData: Record<
   string,

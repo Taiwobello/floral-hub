@@ -27,7 +27,7 @@ export const CheckoutHeader: FunctionComponent = () => {
         <Link href="/">
           <a>
             <img
-              alt="regal flowers logo"
+              alt="floral hub logo"
               src="/icons/logo.svg"
               className={styles.logo}
             />

@@ -178,11 +178,16 @@ span {
   &.center-align {
     align-items: center;
   }
-  &.spaced > * {
-    margin: 0;
-    margin-left: 0.6rem;
-    &:first-child {
-      margin-left: 0;
+  &.spaced {
+    &.wrap > * {
+      margin: 0.6rem 0.3rem;
+    }
+    & > * {
+      margin: 0;
+      margin-left: 0.6rem;
+      &:first-child {
+        margin-left: 0;
+      }
     }
   }
   &.spaced-even {

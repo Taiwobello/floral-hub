@@ -1,7 +1,11 @@
 .product {
   padding: 2rem 4rem;
-  padding-top: 3rem;
+  padding-top: 5rem;
   position: relative;
+  transition: 0.3s ease-out;
+  &.has-scrolled {
+    padding-top: 2rem;
+  }
 
   .temporary-notes {
     min-height: 3rem;
@@ -21,7 +25,7 @@
 
   .product-content {
     margin-bottom: 3rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
 
     & > div {
       flex-basis: 43%;
@@ -336,7 +340,7 @@
 
   .social-icons {
     @media (max-width: 768px) {
-      margin-top: .5rem;
+      margin-top: 0.5rem;
     }
 
     .social-icon {
