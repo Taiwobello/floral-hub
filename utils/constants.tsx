@@ -2114,7 +2114,7 @@ export const occasions: { title: string; url: string; category?: string }[] = [
   }
 ];
 
-export const placeholderEmail = "placeholder@regalflowers.com";
+export const placeholderEmail = "placeholder@floralhub.com";
 
 export interface Filter {
   name: string;
@@ -3429,31 +3429,30 @@ export const schemaProperties = {
     }
   ],
   sameAs: [
-    "https://instagram.com/regalflowers.com.ng",
+    "https://instagram.com/floralhub.com.ng",
     "http://facebook.com/RegalFlowersNG/",
-    "https://www.linkedin.com/company/regalflowers-com-ng/"
+    "https://www.linkedin.com/company/floralhub-com-ng/"
   ],
   potentialAction: [
     {
       "@type": "ViewAction",
-      target:
-        "https://regalflowers.com.ng/product-category/anniversary-flowers",
+      target: "https://floralhub.com.ng/product-category/anniversary-flowers",
       name: "Love, Birthday, Anniversary Flowers"
     },
     {
       "@type": "ViewAction",
-      target: "https://regalflowers.com.ng/product-category/gifts",
+      target: "https://floralhub.com.ng/product-category/gifts",
       name: "Gifts to Include"
     },
     {
       "@type": "ViewAction",
       target:
-        "https://regalflowers.com.ng/product-category/flowers-to-say-thanks-sorry-etc",
+        "https://floralhub.com.ng/product-category/flowers-to-say-thanks-sorry-etc",
       name: "Popular Options"
     },
     {
       "@type": "ViewAction",
-      target: "https://regalflowers.com.ng/product-category/roses",
+      target: "https://floralhub.com.ng/product-category/roses",
       name: "Roses"
     }
   ],
