@@ -196,7 +196,11 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
       }
       notify(
         "error",
-        `Unable to ${titleMap[formType].toLowerCase()}: ${response.message}`
+        `Unable to ${
+          formType === "forgotPassword"
+            ? "reset password"
+            : titleMap[formType].toLowerCase()
+        }: ${response.message}`
       );
     } else {
       if (formType === "login" || formType === "signup") {

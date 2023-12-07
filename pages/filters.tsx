@@ -406,10 +406,7 @@ const ProductsPage: FunctionComponent<{
   const hasScrolled = useScrollCheck();
 
   const titleText =
-    category?.topHeading ||
-    category?.name ||
-    String(shopBy).split(",")[0] ||
-    "All categories";
+    category?.topHeading || category?.name || String(shopBy).split(",")[0];
 
   return (
     <>
@@ -828,7 +825,7 @@ const ProductsPage: FunctionComponent<{
               <h1 className={`${styles.title} bold  uppercase`}>
                 {search
                   ? `Search Results for "${searchText}"`
-                  : category?.topHeadingH2 || "All Occasions"}
+                  : category?.topHeadingH2 || ""}
               </h1>
 
               <div className={[styles.products].join(" ")}>

@@ -356,7 +356,7 @@ const Cart: FunctionComponent<CartContextProps> = props => {
                         className={`flex between ${styles.btns} center-align normal`}
                       >
                         <p
-                          className="text-medium "
+                          className="text-small"
                           onClick={() => handleRemoveItem(item.SKU)}
                         >
                           Remove
@@ -434,7 +434,7 @@ const Cart: FunctionComponent<CartContextProps> = props => {
                   >
                     <p
                       onClick={() => handleRemoveItem(item.SKU)}
-                      className="text-medium"
+                      className="text-small"
                     >
                       Remove
                     </p>
