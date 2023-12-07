@@ -1981,7 +1981,7 @@ const PaypalModal: FunctionComponent<ModalProps & {
               ).toFixed(2)
             )
           },
-          reference_id: order?.id
+          reference_id: `${order?.fullOrderId}-${order?.id}`
         }
       ]
     });
@@ -2038,9 +2038,9 @@ const PaypalModal: FunctionComponent<ModalProps & {
         <PayPalScriptProvider
           options={{
             "client-id":
-              "AeJcTYsvBiyTnk5ndg-0KyWTMKqmqkpoCXaUNh7fJb7qvTkFIXdmcGK8t3zS_7AtWj4jAYbvYjOcKgke",
+              "AfayzGAExwH0KkBgYAjLtrn8vXndZJdpmYS0x3VbUbWDmw6DoqPkOkZ2Fx2MDTcZKjTdJ6riKd1JupMZ",
             // "client-id":
-            //   "AThMy4XkWO0QL_8kt8gcpgC-exAPzAeSu_dR7wLPQzxeYjKtRCRcb_xfTelKOKjR9K56wHp-43FwBj6Y",
+            //   "AYiEmK9_A6XE9_ExJu8nB7ftFPqI2lMEeQeIzFQS8UwRfwGgVt3wUreFHtMmgoX2OR-UNwgT3J0koK0t",
             currency: currencyRef.current?.name
             // "buyer-country": currencyRef.current?.name === "USD" ? "US" : "GB"
           }}
