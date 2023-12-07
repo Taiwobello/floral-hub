@@ -8,11 +8,12 @@ import {
 import styles from "./Layout.module.scss";
 import SettingsContext from "../../utils/context/SettingsContext";
 import { useRouter } from "next/router";
-import Button from "../button/Button";
 import { featuredSlugs } from "../../utils/constants";
 import FlowerCard from "../flower-card/FlowerCard";
 import { getProductsBySlugs } from "../../utils/helpers/data/products";
 import Product from "../../utils/types/Product";
+import useDeviceType from "../../utils/hooks/useDeviceType";
+import Link from "next/link";
 
 interface Props {
   visible: boolean;
@@ -28,6 +29,8 @@ const SearchDropdown: FunctionComponent<Props> = props => {
   const { searchText, setSearchText } = useContext(SettingsContext);
 
   const { push } = useRouter();
+
+  const deviceType = useDeviceType();
 
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
@@ -62,7 +65,8 @@ const SearchDropdown: FunctionComponent<Props> = props => {
       className={[
         styles["search-dropdown"],
         visible && styles.active,
-        hasScrolled && styles.minimize
+        hasScrolled && styles.minimize,
+        deviceType === "mobile" && "scrollable"
       ].join(" ")}
     >
       <form className={styles["search-form"]} onSubmit={handleSearch}>
@@ -91,28 +95,31 @@ const SearchDropdown: FunctionComponent<Props> = props => {
       </form>
       <div className="flex between center-align">
         <p className="text-regular">BEST SELLING PRODUCT</p>
-        <Button
-          url="/product-category/anniversary-flowers"
-          className="flex spaced center-align primary-color"
-          type="transparent"
-        >
-          See All
-        </Button>
+        <Link href="/product-category/anniversary-flowers">
+          <a
+            className="flex spaced center-align primary-color bold text-medium"
+            style={{ color: "#b240da" }}
+          >
+            See All
+          </a>
+        </Link>
       </div>
       <div className={[styles["featured-product"]].join(" ")}>
-        {bestSellingProducts.map(product => (
-          <FlowerCard
-            key={product.key}
-            image={product.images[0]?.src || ""}
-            name={product.name.split("–")[0]}
-            subTitle={product.subtitle || product.name.split("–")[1]}
-            price={product.price}
-            url={`/product/${product.slug}`}
-            buttonText="Add to Cart"
-            cart={product.variants?.length ? false : true}
-            product={product}
-          />
-        ))}
+        {bestSellingProducts
+          .slice(0, deviceType === "mobile" ? 2 : 4)
+          .map(product => (
+            <FlowerCard
+              key={product.key}
+              image={product.images[0]?.src || ""}
+              name={product.name.split("–")[0]}
+              subTitle={product.subtitle || product.name.split("–")[1]}
+              price={product.price}
+              url={`/product/${product.slug}`}
+              buttonText="Add to Cart"
+              cart={product.variants?.length ? false : true}
+              product={product}
+            />
+          ))}
       </div>
     </div>
   );

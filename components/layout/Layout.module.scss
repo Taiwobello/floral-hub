@@ -213,6 +213,13 @@
     pointer-events: none;
     opacity: 0;
     padding-bottom: 6rem;
+
+    @media (max-width: 768px) {
+      top: 4.7rem;
+      padding: 2rem;
+      width: 90vw;
+    }
+
     &.active {
       opacity: 1;
       z-index: 10;
@@ -221,6 +228,10 @@
 
     &.minimize {
       top: 5rem;
+
+      @media (max-width: 768px) {
+        top: 4.7rem;
+      }
     }
 
     .search-form {
@@ -255,6 +266,10 @@
       display: flex;
       justify-content: space-between;
       width: 100%;
+
+      @media (max-width: 768px) {
+        flex-wrap: wrap;
+      }
     }
   }
 
