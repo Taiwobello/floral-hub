@@ -1247,16 +1247,6 @@ const Checkout: FunctionComponent = () => {
                               </>
                             )}
                           </p>
-                          <div
-                            className={[
-                              "flex center-align spaced",
-                              styles["margin-bottom"]
-                            ].join(" ")}
-                          >
-                            <span className={styles["line-through"]}></span>
-                            <strong>Or</strong>
-                            <span className={styles["line-through"]}></span>
-                          </div>
                           <div className="input-group">
                             <Select
                               onSelect={value => {
@@ -1274,6 +1264,16 @@ const Checkout: FunctionComponent = () => {
                               responsive
                               dimmed
                             />
+                          </div>
+                          <div
+                            className={[
+                              "flex center-align spaced",
+                              styles["margin-bottom"]
+                            ].join(" ")}
+                          >
+                            <span className={styles["line-through"]}></span>
+                            <strong>Or</strong>
+                            <span className={styles["line-through"]}></span>
                           </div>
 
                           <div

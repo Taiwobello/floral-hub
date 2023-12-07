@@ -464,7 +464,7 @@ const ProductsPage: FunctionComponent<{
             items={[{ label: "Home", link: "/" }, { label: titleText }]}
           />
           <p className="vertical-margin spaced uppercase">{titleText}</p>
-          {category?.heroDescription}
+          {category?.heroDescription || ""}
           {category?.info && (
             <div
               className={`flex spaced center-align text-medium ${styles["info"]}`}
