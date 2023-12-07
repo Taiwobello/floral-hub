@@ -962,7 +962,7 @@ const Checkout: FunctionComponent = () => {
                             )}
                             <button
                               onClick={() => setShouldShowAuthDropdown(true)}
-                              className="primary-color bold underline"
+                              className="primary-color bold underline margin-left"
                             >
                               Login
                             </button>
