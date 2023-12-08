@@ -9,7 +9,8 @@
     "nextstart": "next start",
     "lint": "eslint . --fix && tsc --noEmit",
     "export": "next export",
-    "deploy": "next build && next export"
+    "deploy": "next build && next export",
+    "postbuild": "node ./post-build.js"
   },
   "dependencies": {
     "@paypal/react-paypal-js": "^7.8.2",
