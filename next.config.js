@@ -1,19 +1,23 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { withSentryConfig } = require("@sentry/nextjs");
 
-export const reactStrictMode = true;
-export const images = {
-  domains: ["storage.googleapis.com"],
-  unoptimized: true
+module.exports = {
+  reactStrictMode: true,
+  images: {
+    domains: ["storage.googleapis.com"],
+    unoptimized: true
+  },
+  trailingSlash: true,
+  exportPathMap() {
+    return {
+      "/404": { page: "/404" }
+    };
+  }
+  // i18n: {
+  //   locales: ["en"],
+  //   defaultLocale: "en"
+  // }
 };
-export const trailingSlash = true;
-export function exportPathMap() {
-  return {
-    "/404": { page: "/404" }
-  };
-}
-
-// Injected content via Sentry wizard below
 
 export default withSentryConfig(
   module.exports,
