@@ -1,4 +1,5 @@
-import { withSentryConfig } from "@sentry/nextjs";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { withSentryConfig } = require("@sentry/nextjs");
 
 export const reactStrictMode = true;
 export const images = {
