@@ -1468,7 +1468,7 @@ const Checkout: FunctionComponent = () => {
                         >
                           <InfoIcon fill="#1C6DD0" />{" "}
                           <span>
-                            Payment issues? Simply Email{" "}
+                            Payment issues? Simply email{" "}
                             <a
                               href={`mailto:${floralHubPaymentEmail}`}
                               target="_blank"
