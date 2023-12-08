@@ -23,7 +23,6 @@ import {
   allDeliveryLocationOptions,
   allDeliveryLocationZones,
   bitcoinAddress,
-  checkoutContent,
   deliveryStates,
   floralHubPaymentEmail,
   freeDeliveryThreshold,
@@ -170,7 +169,6 @@ const Checkout: FunctionComponent = () => {
     setCartItems,
     setOrderId,
     orderLoading,
-    cartItems,
     setDeliveryFee,
     setOrderLoading,
     setOrder
@@ -989,7 +987,7 @@ const Checkout: FunctionComponent = () => {
                         <p className={styles["section-title"]}>
                           Delivery Method
                         </p>
-                        <div className="flex between center-align">
+                        <div className="flex between">
                           <div
                             className={[
                               styles.method,
@@ -1542,7 +1540,7 @@ const Checkout: FunctionComponent = () => {
                 )}
               </div>
 
-              {currentStage <= 2 && (
+              {/* {currentStage <= 2 && (
                 <div className={styles.right}>
                   <div className={` ${styles.section}`}>
                     <div className="flex between margin-bottom spaced">
@@ -1631,7 +1629,7 @@ const Checkout: FunctionComponent = () => {
                     </div>
                   </div>
                 </div>
-              )}
+              )} */}
             </div>
           )}
           {currentStage === 3 && isPaid && (

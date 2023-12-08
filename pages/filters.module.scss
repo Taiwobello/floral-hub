@@ -105,6 +105,9 @@
     @media (max-width: 768px) {
       padding: 1rem 2rem;
     }
+    &.no-hero {
+      margin-top: 2rem;
+    }
 
     .left-side {
       margin-top: 2rem;
