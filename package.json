@@ -9,7 +9,7 @@
     "nextstart": "next start",
     "lint": "eslint . --fix && tsc --noEmit",
     "export": "next export",
-    "deploy": "next build && next export",
+    "deploy": "next build && next export && yarn postbuild",
     "postbuild": "node ./post-build.js"
   },
   "dependencies": {
