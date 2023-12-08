@@ -19,7 +19,7 @@ module.exports = {
   // }
 };
 
-export default withSentryConfig(
+module.exports = withSentryConfig(
   module.exports,
   {
     // For all available options, see:
