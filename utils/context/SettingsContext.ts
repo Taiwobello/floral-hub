@@ -3,7 +3,7 @@ import { createContext } from "react";
 import { AppCurrency, CartItem, Settings, Stage } from "../types/Core";
 import User from "../types/User";
 import { Order } from "../types/Order";
-import { ConfirmParams } from "../../components/layout/Layout";
+import { ConfirmParams } from "../../components/layout/ConfirmModal";
 
 export type NotifyType = "success" | "error" | "info";
 
@@ -40,6 +40,8 @@ export interface SettingsControls extends Settings {
   setOrderLoading: (orderLoading: boolean) => void;
   searchText: string;
   setSearchText: (searchText: string) => void;
+  deliveryFee: number;
+  setDeliveryFee: (deliveryFee: number) => void;
 }
 
 const SettingsContext = createContext<SettingsControls>({
@@ -57,7 +59,7 @@ const SettingsContext = createContext<SettingsControls>({
   setUser: () => {},
   setShouldShowCart: () => {},
   shouldShowCart: false,
-  redirect: "/product-category/flowers-for-love-birthday-anniversary-etc",
+  redirect: "/product-category/anniversary-flowers",
   setRedirectUrl: () => {},
   setShouldShowAuthDropdown: () => {},
   shouldShowAuthDropdown: false,
@@ -71,7 +73,9 @@ const SettingsContext = createContext<SettingsControls>({
   orderLoading: false,
   setOrderLoading: () => {},
   searchText: "",
-  setSearchText: () => {}
+  setSearchText: () => {},
+  deliveryFee: 0,
+  setDeliveryFee: () => {}
 });
 
 export default SettingsContext;

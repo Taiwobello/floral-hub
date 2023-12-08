@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { CSSProperties, ReactChild } from "react";
+import React, { CSSProperties, ReactNode } from "react";
 import styles from "./Button.module.scss";
 
 export type ButtonType =
@@ -10,7 +10,7 @@ export type ButtonType =
   | "accent-transparent";
 
 interface ButtonProps {
-  children?: ReactChild | ReactChild[];
+  children?: ReactNode;
   className?: string;
   loading?: boolean;
   minWidth?: boolean;
@@ -32,6 +32,7 @@ interface ButtonProps {
   name?: string;
   responsive?: boolean;
   padded?: boolean;
+  rounded?: boolean;
 }
 
 export default function Button(props: ButtonProps) {
@@ -54,7 +55,8 @@ export default function Button(props: ButtonProps) {
     urlOnNewTab,
     name,
     padded,
-    responsive
+    responsive,
+    rounded
   } = props;
 
   if (url) {
@@ -70,6 +72,7 @@ export default function Button(props: ButtonProps) {
             iconOnly && styles["icon-only"],
             (loading || disabled) && styles.disabled,
             padded && styles.padded,
+            rounded && styles.rounded,
             className
           ].join(" ")}
           style={style}
@@ -102,6 +105,7 @@ export default function Button(props: ButtonProps) {
         disabled && styles.disabled,
         padded && styles.padded,
         responsive && styles.responsive,
+        rounded && styles.rounded,
         className
       ].join(" ")}
       onClick={onClick}

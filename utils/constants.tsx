@@ -10,9 +10,9 @@ import {
   Service,
   Occasion,
   UserReview,
-  OfficeAddress,
   BlogPost,
-  LocationName
+  LocationName,
+  LocationAddress
 } from "./types/Regal";
 import { Breadcrumb } from "./context/SettingsContext";
 
@@ -31,18 +31,203 @@ export const pickupLocations: Record<string, JSX.Element> = {
   )
 };
 
+export const FAQs = [
+  {
+    name: "How do I order flowers and gifts on FloralHub.com.ng?",
+    acceptedAnswer: {
+      text: (
+        <div>
+          There are several ways to order. Either online, or by Phone/Whatsapp
+          on +234 907 777 7994.
+          <br />
+          <br />
+          We can also customize a bouquet to fit your budget, preferred colors,
+          flower types, etc. Do feel free to reach our line, or email us{" "}
+          <a href="mailto:info@floralhub.com.ng">info@floralhub.com.ng</a>
+        </div>
+      )
+    }
+  },
+  {
+    name: "Is same day delivery possible?",
+    acceptedAnswer: {
+      text: (
+        <div>
+          Yes, we are able to deliver SAME DAY across Lagos, Nigeria as well as
+          Abuja, Nigeria.
+          <br /> <br /> We also offer deliveries to other states on a case by
+          case basis.Kindly contact us Phone/ Whatsapp on + 234 907 777 7994 or
+          email us info@floralhub.com.ng
+        </div>
+      )
+    }
+  },
+  {
+    name: "Are you open on weekends and public holidays?",
+    acceptedAnswer: {
+      text: (
+        <div>
+          Yes, Floralhub.com.ng is open 24hrs all day including weekends and
+          public holidays including Christmas Day.
+        </div>
+      )
+    }
+  },
+  {
+    name: "Can I return an item?",
+    acceptedAnswer: {
+      text: (
+        <div>
+          Due to the perishable nature of the product, flowers cannot be
+          returned.
+        </div>
+      )
+    }
+  },
+  {
+    name: "What time do you close?",
+    acceptedAnswer: {
+      text: (
+        <div>
+          We are open 24hrs, and are able to deliver same day across Lagos and
+          Abuja
+        </div>
+      )
+    }
+  },
+  {
+    name: "How do I take care of the flowers?",
+    acceptedAnswer: {
+      text: (
+        <div>
+          Fresh flowers should be kept somewhere cool, water changed regularly
+          and stems trimmed. To do this justice, pls read this article we wrote
+          on{" "}
+          <a
+            href="https://www.floralhub.com.ng/how-to-care-for-fresh-flowers-after-receiving-them/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {" "}
+            how to care for your flowers{" "}
+          </a>
+          . There might be some surprising facts there too
+        </div>
+      )
+    }
+  },
+  {
+    name: "Do you offer payment on delivery?",
+    acceptedAnswer: {
+      text: (
+        <div>
+          Unfortunately, due to the perishable nature of the product (it can’t
+          be brought back to the office/resold, in the event the client isn’t at
+          the destination), we do not offer payment on delivery. <br /> <br />{" "}
+          This is also because we typically use Uber/ Bolt for delivery and they
+          can’t receive payment on our behalf <br /> <br /> We however offer
+          several payment options(see next question)
+        </div>
+      )
+    }
+  },
+  {
+    name: "How do I make payment?",
+    acceptedAnswer: {
+      text: (
+        <div>
+          There are various payment options available for your convenience.
+          <br /> <br />
+          <ol className="faq-ol">
+            <li className="faq-li">
+              Website Online payment through Flutterwave
+            </li>
+            <li className="faq-li">
+              Naira Bank Transfer to our parent account:{" "}
+              <b>GTB, Faajihub Ltd, 0168164823</b>
+            </li>
+            <li className="faq-li">
+              Website Online through Paypal (you do not need to have an existing
+              Paypal account). Please change site currency to USD or GBP to see
+              Paypal option
+            </li>
+            <li className="faq-li">
+              Transfer to our Paypal account:{" "}
+              <b>paypalpayments@floralhub.com.ng</b>
+            </li>
+            <li className="faq-li">
+              Bitcoin to our wallet: <b>1NQfzJGzXSn5B5xqT4mfw48KpaoA4Ajmwy</b>
+            </li>
+          </ol>
+        </div>
+      )
+    }
+  },
+  {
+    name: "What happens if the recipient is unavailable?",
+    acceptedAnswer: {
+      text: (
+        <div>
+          We typically use Bolt/Uber for deliveries and we encourage clients to
+          ensure they give us accurate details for the recipient to avoid a
+          failed delivery.
+          <br />
+          <br />
+          We usually make every attempt to reach the recipient at the delivery
+          point, but if despite our attempts, the recipient is unreachable (e.g.
+          phone switched off, or ringing), we would usually drop off the items
+          with a guard or colleague.
+          <br />
+          <br />
+          If there is no one to drop the items with and the client is also
+          unreachable or unresponsive, we would be forced to return the items to
+          our Ikoyi, Lagos or Wuse 2, Abuja office for pickup by the client or
+          recipient.
+          <br />
+          <br />
+          We usually recommend the recipient/client picks up the flowers and
+          other items from our office as soon as possible as they are perishable
+          <br />
+          <br />
+          We are also able to redeliver the items upon payment of another
+          delivery fee.
+        </div>
+      )
+    }
+  },
+  {
+    name: "What happens if the recipient changes the address?",
+    acceptedAnswer: {
+      text: (
+        <div>
+          This happens often, we would typically request the difference in
+          delivery fee from the client as we typically use Bolt/Uber drivers.
+          <br />
+          <br />
+          Please note that this is also the case if the recipient delays the
+          driver as they are 3rd party drivers
+        </div>
+      )
+    }
+  }
+];
+
 export const breadcrumbItems: Breadcrumb[] = [
   {
-    url: "flowers-for-love-birthday-anniversary-etc",
+    url: "anniversary-flowers",
     label: "Romance, Birthdays & Anniversary"
   },
-  { url: "just-to-say-bouquets", label: "Just To Say Hi, Sorry, Thank You" },
+  {
+    url: "flowers-to-say-thanks-sorry-etc",
+    label: "Just To Say Hi, Sorry, Thank You"
+  },
+  { url: "valentines-day-flowers", label: "Valentines Day" },
   { url: "get-well-soon", label: "Get Well Soon" },
   { url: "bridal-bouquets", label: "Bridal" },
   { url: "funeral-and-condolence", label: "Funeral & Condolence" },
-  { url: "event-amp-centerpiece", label: "Events & Centerpiece" },
+  { url: "event-centerpiece", label: "Events & Centerpiece" },
   { url: "fathers-day-flowers", label: "Father's Day" },
-  { url: "mothers-day-flowers", label: "Mother's Day" },
+  { url: "flowers-to-say-thanks-sorry-etc", label: "Mother's Day" },
 
   {
     url: "chocolate-and-biscuits",
@@ -79,25 +264,44 @@ export const breadcrumbItems: Breadcrumb[] = [
 ];
 
 export const defaultBreadcrumb: Breadcrumb = {
-  url: "/product-category/flowers-for-love-birthday-anniversary-etc",
+  url: "/product-category/anniversary-flowers",
   label: "Romance, Birthdays & Anniversary"
 };
 
 export const allOccasionOptions: Option[] = [
   {
-    value: "flowers-for-love-birthday-anniversary-etc",
-    label: "Romance, Birthdays & Anniversary"
+    slug: "flowers-to-say-thanks-sorry-etc",
+    value: 0,
+    label: "Christmas Flowers"
   },
-  { value: "just-to-say-bouquets", label: "Just To Say Hi, Sorry, Thank You" },
-  { value: "get-well-soon", label: "Get Well Soon" },
-  { value: "bridal-bouquets", label: "Bridal" },
-  { value: "funeral-and-condolence", label: "Funeral & Condolence" },
-  { value: "event-amp-centerpiece", label: "Events & Centerpiece" },
-  { value: "fathers-day-flowers", label: "Father's Day" },
-  { value: "mothers-day-flowers", label: "Mother's Day" },
   {
-    value: "valentines-day-flowers-and-gifts",
-    label: "Valentine's Day"
+    slug: "birthday-flowers",
+    value: 1,
+    label: "Birthday Flowers"
+  },
+  { slug: "anniversary-flowers", value: 2, label: "Anniversary Flowers" },
+  {
+    slug: "flowers-to-say-thanks-sorry-etc",
+    value: 3,
+    label: "Romantic Flowers"
+  },
+  {
+    slug: "flowers-to-say-thanks-sorry-etc",
+    value: 4,
+    label: "I Am Sorry Flowers"
+  },
+  {
+    slug: "flowers-to-say-thanks-sorry-etc",
+    value: 5,
+    label: "Get Well Soon Flowers"
+  },
+  { slug: "bridal-bouquets", value: 6, label: "Bridal Flowers" },
+  { slug: "funeral-condolence-flowers", value: 7, label: "Funeral Flowers" },
+  { slug: "valentines-day-flowers", value: 8, label: "Valentine's Flowers" },
+  {
+    slug: "flowers-to-say-thanks-sorry-etc",
+    value: 9,
+    label: "Mother's Day Flowers"
   }
 ];
 
@@ -109,7 +313,7 @@ export const defaultCurrency: AppCurrency = {
 
 export const defaultRedirect = {
   title: "Love, Birthdays & Anniversary",
-  url: "/product-category/flowers-for-love-birthday-anniversary-etc"
+  url: "/product-category/anniversary-flowers"
 };
 
 export const currencyOptions: AppCurrency[] = [
@@ -128,8 +332,8 @@ interface FooterContent {
   socialIcons: { name: string; src: string; url: string }[];
   quickLinks: { title: string; url: string; phoneNumber?: string }[];
   phoneNumbers: string[];
-  lagosBranch: OfficeAddress;
-  abujaBranch: OfficeAddress;
+  lagosBranch: LocationAddress;
+  abujaBranch: LocationAddress;
   about: FooterLinks[];
   occassions: FooterLinks[];
   gifts: FooterLinks[];
@@ -164,42 +368,69 @@ export const footerContent: FooterContent = {
     }
   ],
   accountName: "Floral Services & Events Hub Ltd",
-  accountNo: "1024853047",
+  accountNo: "0812257604",
   bitcoinAddress: "1NQfzJGzXSn5B5xqT4mfw48KpaoA4Ajmwy",
-  bankName: "UBA",
+  bankName: "GTB",
   legals: [
-    { title: "FAQ", url: "/faq" },
+    {
+      title: "FAQ",
+      url: "/faq-how-to-buy-fresh-flowers-and-gifts-in-lagos-and-abuja"
+    },
     { title: "Legal Terms", url: "/legal-terms" },
     { title: "Privacy Statement", url: "/privacy-statement" }
   ],
   gifts: [
     {
-      title: "Christmas Flowers",
-      url: "/product-category/christmas-flowers"
+      title: "Valentine’s Day Flowers",
+      url: "/product-category/valentines-day-flowers"
     },
     {
       title: "Mother’s Day Flowers",
-      url: "/product-category/mothers-day-flowers"
+      url: "/product-category/flowers-to-say-thanks-sorry-etc"
     },
     {
-      title: "Valentine’s Day Flowers",
-      url: "/product-category/valentines-day-flowers-and-gifts"
+      title: "Gifts to Include with Flowers",
+      url: "/product-category/gifts"
+    },
+    {
+      title: "VIP Flowers",
+      url: "/vip-flowers"
+    },
+    {
+      title: "Product Packages",
+      url: "/product-category/product-packages "
     }
   ],
   about: [
     {
       title: "Contact Us",
-      url: "/contact-us"
+      url: "/contact"
     },
     {
       title: "Our Blog",
       url: "/blog"
+    },
+    {
+      title: "FAQ",
+      url: "/faq"
+    },
+    {
+      title: "Privacy Statement",
+      url: "/privacy-statement"
     }
   ],
   occassions: [
     {
-      title: "Love, Birthday & Anniversary",
-      url: "/product-category/flowers-for-love-birthday-anniversary-etc"
+      title: "Birthday Flowers",
+      url: "/product-category/birthday-flowers"
+    },
+    {
+      title: "Anniversary Flowers",
+      url: "/product-category/anniversary-flowers"
+    },
+    {
+      title: "Flowers for Romance, Sorry, Get Well Soon etc",
+      url: "/product-category/flowers-to-say-thanks-sorry-etc"
     },
     {
       title: "Bridal Flowers",
@@ -207,24 +438,20 @@ export const footerContent: FooterContent = {
     },
     {
       title: "Funeral Flowers",
-      url: "/product-category/funeral-and-condolence"
-    },
-    {
-      title: "VIP Bouquets",
-      url: "/vip"
+      url: "/product-category/funeral-condolence-flowers"
     }
   ],
 
   lagosBranch: {
     name: "Lagos Head Office/Delivery Center",
-    url: "https://goo.gl/maps/cNB9Jx9sidQhJgtD6",
+    url: "https://maps.app.goo.gl/u4DbZLsmZRixJZqV8",
     workingTimes: "24/7",
-    location: "7, Ikeja Way, Dolphin Estate, Ikoyi"
+    location: "15, Ikeja Way, Dolphin Estate, Ikoyi"
   },
 
   abujaBranch: {
     name: "Abuja Office",
-    url: "https://goo.gl/maps/JAKrvZAe5vfh4czr9",
+    url: "https://maps.app.goo.gl/4BmrPnVoGQjNz8Mb6",
     workingTimes: "24/7",
     location: "5, Nairobi Street, Off Aminu Kano crescent, Wuse 2, Abuja."
   },
@@ -234,22 +461,22 @@ export const footerContent: FooterContent = {
     {
       name: "facebook",
       src: "/icons/footer/facebook.svg",
-      url: "http://facebook.com/RegalFlowersNG/"
+      url: "http://facebook.com/floralhub.com.ng"
     },
     {
       name: "instagram",
       src: "/icons/footer/instagram.svg",
-      url: "https://instagram.com/regalflowers.com.ng"
+      url: "https://instagram.com/floralhub.com.ng"
     },
     {
       name: "linkedIn",
       src: "/icons/footer/linkedin.svg",
-      url: "https://www.linkedin.com/company/regalflowers-com-ng/"
+      url: "https://www.linkedin.com/company/floralhub-com-ng"
     },
     {
       name: "whatsapp",
       src: "/icons/footer/whatsapp.svg",
-      url: "https://wa.me/+2347011992888"
+      url: "https://wa.me/+2349077777994"
     }
   ],
   quickLinks: [
@@ -257,19 +484,48 @@ export const footerContent: FooterContent = {
       title: "Occasions",
       url: "/product-category/all"
     },
-    { title: "VIP Section", url: "/vip" },
-    { title: "Contact Us", url: "", phoneNumber: "+2347011992888" },
+    { title: "VIP Section", url: "/vip-flowers" },
+    { title: "Contact Us", url: "", phoneNumber: "+2349077777994" },
     { title: "Our Blog", url: "/" },
     {
       title: "FAQ",
       url: "/faq-how-to-buy-fresh-flowers-and-gifts-in-lagos-and-abuja"
     }
   ],
-  phoneNumbers: [
-    "+234 701 000 6664",
-    "+234 701 000 6665",
-    "+234 701 199 2888",
-    "+234 911 200 0300"
+  phoneNumbers: ["2349077777994"]
+};
+
+interface CheckoutContent {
+  paymentIcons: { alt: string; src: string }[];
+}
+
+export const checkoutContent: CheckoutContent = {
+  paymentIcons: [
+    {
+      alt: "visa",
+      src: "/icons/visa.svg"
+    },
+    {
+      alt: "master card",
+      src: "/icons/master-card.svg"
+    },
+    {
+      alt: "paypal",
+      src: "/icons/paypal-blue.svg"
+    },
+    {
+      alt: "bitcoin",
+      src: "/icons/bitcoin-gold.svg"
+    },
+
+    {
+      alt: "bank",
+      src: "/icons/building-primary.svg"
+    },
+    {
+      alt: "paystack",
+      src: "/icons/paystack.png"
+    }
   ]
 };
 
@@ -383,37 +639,58 @@ export const otherSampleProducts = {
 
 export const regalFeatures: Service[] = [
   {
-    image: "/images/truck.png",
-    title: "Same Day Delivery",
-    subtitle: "In Lagos & Abuja, Nigeria"
+    image: "/images/same-day.png",
+    title: "Fast Same Day Delivery",
+    subtitle:
+      "Delivery to suit you. Fast delivery in Lagos and Abuja everyday including weekends",
+    url: "/filters?shopBy=same+day+delivery",
+    cta: "SHOP SAME DAY"
   },
   {
-    image: "/images/headset.png",
-    title: "Order Online or Walk-in 24/7",
-    subtitle: "Weekends and public holidays too"
+    image: "/images/care.png",
+    title: "Delivered fresh with care and attention",
+    subtitle:
+      "Our florists treat each order with care, from packaging to delivery, together with your complimentary message",
+    url: "/product-category/flowers-to-say-thanks-sorry-etc",
+    cta: "SHOP FLOWERS"
   },
   {
-    image: "/images/shield.png",
-    title: "Various Payment Options",
-    subtitle: "Change site to USD for PayPal/Bitcoin"
+    image: "/images/variety.png",
+    title: "A flower (and gift) for everyone",
+    subtitle:
+      "We stock a variety of flowers and gifts to delight your loved one. Fresh roses, lilies and more, as well as cakes, chocolates, teddies etc",
+    url: "/product-category/flowers-to-say-thanks-sorry-etc",
+    cta: "START SHOPPING"
   }
 ];
 
 export const regalOccasions: Occasion[] = [
   {
-    title: "Love, Birthdays & Anniversary Flowers",
-    url: "/product-category/flowers-for-love-birthday-anniversary-etc",
-    image: "/images/occasions-love-bday.png"
-  },
-  {
     title: "Flowers to say Hi, Sorry, Thank You etc",
-    url: "/product-category/just-to-say-bouquets",
-    image: "/images/occasions-sorry-thanks.png"
+    url: "/product-category/flowers-to-say-thanks-sorry-etc",
+    image: "/images/occasions-sorry-thanks.png",
+    subtitle:
+      "Say it with flowers. They deserve a handcrafted bouquet of fresh flowers",
+    cta: "SHOP FLOWERS",
+    color: "#EE5D76"
   },
   {
-    title: "Bridal Flowers",
-    url: "/product-category/bridal-bouquets",
-    image: "/images/occasions-bridal.png"
+    title: "Anniversary Flowers",
+    url: "/product-category/anniversary-flowers",
+    image: "/images/occasions-love-bday.png",
+    subtitle:
+      "Celebrate the milestone with fresh flowers delivered to your partner's home or office",
+    cta: "SHOP ANNIVERSARY FLOWERS",
+    color: "#15803D"
+  },
+  {
+    title: "Condolence flowers",
+    url: "/product-category/funeral-and-condolence",
+    image: "/images/occasions-funeral-condolence.png",
+    subtitle:
+      "Say goodbye or how you feel with a thoughtful arrangement of flowers",
+    cta: "SHOP FUNERAL FLOWERS",
+    color: "#202020"
   }
 ];
 
@@ -440,28 +717,29 @@ export const regalReasons: Service[] = [
 
 export const giftItems: Gift[] = [
   {
-    name: "Cakes and Cupcakes",
-    description: "Cakes and cupcakes are a great choice",
+    name: "Chocolates",
+    description: "A guilty pleasure and always a winning gift for most people",
     image: "/images/sample-flowers/addon-group-1.png",
-    slug: "/product-category/cakes-and-cupcakes"
-  },
-  {
-    name: "Chocolates and Biscuits",
-    description: "What are flowers without chocolate?",
-    image: "/images/sample-flowers/addon-group-2.png",
     slug: "/product-category/chocolate-and-biscuits"
   },
   {
+    name: "Cakes and Cupcakes",
+    description: "What's an occasion without a cake, or cupcakes, or both",
+    image: "/images/sample-flowers/addon-group-2.png",
+    slug: "/product-category/cakes-and-cupcakes"
+  },
+
+  {
     name: "Teddy Bears",
-    description: "Various sizes of teddies, even Life Size",
+    description: "Soft, cuddly, lush and a gift loved by many ladies",
     image: "/images/sample-flowers/addon-group-3.png",
     slug: "/product-category/teddy-bears"
   },
   {
-    name: "Giftsets",
-    description: "Caravaggio Italian Giftsets are the ultimate luxury",
+    name: "PERFUMES & FRAGRANCES",
+    description: "Male, female and unisex perfumes to delight the senses",
     image: "/images/sample-flowers/addon-group-4.png",
-    slug: "/product-category/gift-packs "
+    slug: "/product-category/perfumes"
   }
 ];
 
@@ -486,7 +764,7 @@ export const regalHowItWorks: Service[] = [
   }
 ];
 
-export const regalAddresses: OfficeAddress[] = [
+export const regalAddresses: LocationAddress[] = [
   {
     name: "Lagos Head Office/Delivery Center",
     url: "https://goo.gl/maps/cNB9Jx9sidQhJgtD6",
@@ -508,24 +786,18 @@ export const regalAddresses: OfficeAddress[] = [
   },
   {
     name: "Abuja Office",
-    url: "https://goo.gl/maps/JAKrvZAe5vfh4czr9",
+    url: "https://maps.app.goo.gl/4BmrPnVoGQjNz8Mb6",
     workingTimes: "24/7",
     location: "5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja"
   }
 ];
 
-export const regalEmail = "info@regalflowers.com.ng";
-
-export const regalPhones = [
-  "(+234) 7010 006665",
-  "(+234) 7010 006664",
-  "(+234) 7011 992888",
-  "(+234) 9112 000300"
-];
+export const companyEmail = "info@floralhub.com.ng";
+export const floralHubPaymentEmail = "payments@floralhub.com.ng";
 
 export const blogPosts: BlogPost[] = [
   {
-    title: "5 awesome methods of receiving payment in your store",
+    title: "How to take care of flowers in hot weather",
     excerpt:
       "Most of us wonder if there is a God and if He really is the God of the Bible. In the Bible of a there is a God  the God of the Bible. In the Bible of a there is a God, then He must like flowers, because, what's there not to like?",
     date: "7 May, 2022",
@@ -533,7 +805,7 @@ export const blogPosts: BlogPost[] = [
     image: "/images/sample-flowers/blog-1.png"
   },
   {
-    title: "Why everyone buys lillies in November",
+    title: "5 Best Flowers to Gift A Lady",
     excerpt:
       "Most of us wonder if there is a God and if He really is the God of the Bible. In the Bible of a there is a God  the God of the Bible.",
     date: "25 Apr, 2022",
@@ -541,12 +813,12 @@ export const blogPosts: BlogPost[] = [
     image: "/images/sample-flowers/blog-2.png"
   },
   {
-    title: "So we hit the 2 million users milestone",
+    title: "5 Ladies Talk About Their First Flower Bouquet",
     excerpt:
       "Most of us wonder if there is a God and if He really is the God of the Bible. In the Bible of a there is a God  the God of the Bible. In the Bible of a there is a God, then He must like flowers, because, what's there not to like?",
     date: "18 Mar, 2022",
     readDuration: "2 mins read",
-    image: "/images/sample-flowers/blog-1.png"
+    image: "/images/sample-flowers/blog-3.png"
   }
 ];
 
@@ -565,6 +837,17 @@ export const deliveryStates: Option[] = [
   }
 ];
 
+export const pickupStates: Option[] = [
+  {
+    label: "Lagos",
+    value: "lagos"
+  },
+  {
+    label: "Abuja",
+    value: "abuja"
+  }
+];
+
 export const paymentMethods: PaymentMethod[] = [
   {
     title: "PayPal or Credit/Debit Cards",
@@ -572,16 +855,29 @@ export const paymentMethods: PaymentMethod[] = [
     supportedCurrencies: ["USD", "GBP"],
     icon: (
       <svg
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-        fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="generic-icon large"
+        width="31"
+        height="19"
+        viewBox="0 0 31 19"
+        fill="none"
       >
         <path
-          d="M26.0726 12.6507C26.234 13.4014 26.214 14.312 26.0193 15.3854C25.2433 19.356 22.7166 21.34 18.442 21.34H17.8526C17.6286 21.34 17.434 21.4147 17.2606 21.5614C17.0926 21.708 16.9833 21.8987 16.942 22.1307L16.8873 22.3827L16.15 27.0214L16.122 27.2227C16.078 27.456 15.9686 27.644 15.7926 27.7907C15.6193 27.9387 15.422 28.012 15.1966 28.012H11.8326C11.6433 28.012 11.4966 27.9467 11.3913 27.812C11.2846 27.676 11.2446 27.5174 11.2713 27.328C11.3526 26.8307 11.4686 26.0774 11.6273 25.076C11.7833 24.076 11.902 23.324 11.9833 22.824C12.0646 22.324 12.1833 21.5734 12.346 20.5774C12.5073 19.58 12.6286 18.8307 12.7073 18.3307C12.7513 18 12.946 17.836 13.2846 17.836H15.0393C16.23 17.8534 17.282 17.76 18.206 17.5547C19.7686 17.2054 21.0513 16.5627 22.054 15.6227C22.9673 14.7734 23.658 13.6734 24.134 12.3254C24.35 11.6987 24.5033 11.1027 24.6033 10.5414C24.6113 10.4867 24.622 10.4534 24.6366 10.4427C24.6473 10.428 24.666 10.424 24.6833 10.428C24.6993 10.4334 24.726 10.4494 24.766 10.4747C25.4646 11.0054 25.9046 11.7294 26.0726 12.6507ZM23.7686 8.86937C23.7686 9.82537 23.5633 10.88 23.1486 12.0347C22.4326 14.1174 21.086 15.5254 19.0993 16.2587C18.0886 16.6174 16.9633 16.8027 15.7193 16.8254C15.7193 16.8334 15.318 16.8347 14.514 16.8347L13.31 16.8254C12.414 16.8254 11.8873 17.252 11.7273 18.1107C11.71 18.1814 11.33 20.5507 10.5873 25.216C10.5766 25.304 10.5233 25.352 10.426 25.352H6.47264C6.2753 25.352 6.1113 25.2787 5.98064 25.132C5.84997 24.9827 5.80063 24.8107 5.8273 24.612L8.93663 4.88537C8.9793 4.62537 9.1033 4.41337 9.30463 4.24137C9.50597 4.07204 9.73797 3.98804 9.99663 3.98804H18.0153C18.3193 3.98804 18.7553 4.0467 19.3206 4.1627C19.8913 4.2747 20.3886 4.42137 20.818 4.5907C21.7753 4.95604 22.506 5.50804 23.0113 6.24004C23.5166 6.97604 23.7686 7.84937 23.7686 8.86937Z"
-          fill="#1C6DD0"
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M15.7084 16.4396C14.1433 17.7704 12.1131 18.5737 9.89462 18.5737C4.9445 18.5737 0.931641 14.5741 0.931641 9.64036C0.931641 4.70662 4.9445 0.707031 9.89462 0.707031C12.1131 0.707031 14.1433 1.51036 15.7084 2.84108C17.2736 1.51036 19.3038 0.707031 21.5222 0.707031C26.4724 0.707031 30.4852 4.70662 30.4852 9.64036C30.4852 14.5741 26.4724 18.5737 21.5222 18.5737C19.3038 18.5737 17.2736 17.7704 15.7084 16.4396Z"
+          fill="#ED0006"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M15.708 16.4396C17.6352 14.8011 18.8572 12.363 18.8572 9.64036C18.8572 6.91775 17.6352 4.47961 15.708 2.84108C17.2731 1.51036 19.3034 0.707031 21.5218 0.707031C26.4719 0.707031 30.4848 4.70662 30.4848 9.64036C30.4848 14.5741 26.4719 18.5737 21.5218 18.5737C19.3034 18.5737 17.2731 17.7704 15.708 16.4396Z"
+          fill="#F9A000"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M15.7078 16.4394C17.6349 14.8009 18.8569 12.3627 18.8569 9.64011C18.8569 6.9175 17.6349 4.47936 15.7078 2.84082C13.7806 4.47936 12.5586 6.9175 12.5586 9.64011C12.5586 12.3627 13.7806 14.8009 15.7078 16.4394Z"
+          fill="#FF5E00"
         />
       </svg>
     ),
@@ -618,40 +914,17 @@ export const paymentMethods: PaymentMethod[] = [
       {
         icon: (
           <svg
-            width="42"
+            width="32"
             height="32"
-            viewBox="0 0 42 32"
+            viewBox="0 0 32 32"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="generic-icon small"
+            className="generic-icon large"
           >
-            <g clipPath="url(#clip0_1186_55308)">
-              <path
-                d="M41.1734 30.8948V30.9788H41.2517C41.2664 30.9791 41.2809 30.9754 41.2937 30.9681C41.2988 30.9645 41.303 30.9597 41.3057 30.9541C41.3085 30.9485 41.3098 30.9423 41.3095 30.936C41.3098 30.9299 41.3084 30.9238 41.3057 30.9183C41.3029 30.9128 41.2988 30.9082 41.2937 30.9047C41.2811 30.8971 41.2665 30.8934 41.2517 30.894H41.1734V30.8948ZM41.2526 30.8354C41.2862 30.8334 41.3194 30.843 41.3467 30.8627C41.3576 30.8717 41.3663 30.8831 41.372 30.896C41.3777 30.9089 41.3803 30.9229 41.3796 30.9371C41.3801 30.9492 41.378 30.9613 41.3735 30.9726C41.3689 30.9838 41.362 30.994 41.3532 31.0024C41.3321 31.0206 41.3058 31.0316 41.278 31.0337L41.383 31.1534H41.3021L41.2055 31.0345H41.1743V31.1534H41.1066V30.8356H41.2536L41.2526 30.8354ZM41.2316 31.263C41.267 31.2633 41.3022 31.2562 41.3347 31.242C41.366 31.2285 41.3945 31.2092 41.4187 31.1851C41.4429 31.161 41.4622 31.1325 41.4756 31.1011C41.5032 31.0345 41.5032 30.9597 41.4756 30.8932C41.462 30.8619 41.4427 30.8334 41.4187 30.8092C41.3945 30.7851 41.366 30.7658 41.3347 30.7523C41.302 30.7388 41.2669 30.7321 41.2316 30.7325C41.1956 30.7322 41.16 30.7389 41.1266 30.7523C41.0945 30.7655 41.0654 30.7848 41.0407 30.8092C41.0035 30.8473 40.9784 30.8955 40.9685 30.9477C40.9585 31 40.9641 31.0541 40.9846 31.1032C40.9974 31.1347 41.0165 31.1633 41.0407 31.1872C41.0654 31.2115 41.0946 31.2308 41.1266 31.2441C41.1598 31.2582 41.1955 31.2654 41.2316 31.2651V31.263ZM41.2316 30.6561C41.3239 30.656 41.4125 30.6922 41.4783 30.7569C41.5101 30.7879 41.5353 30.825 41.5527 30.8659C41.5706 30.9078 41.5799 30.953 41.5799 30.9987C41.5799 31.0443 41.5706 31.0895 41.5527 31.1315C41.5349 31.1722 41.5097 31.2091 41.4783 31.2405C41.4461 31.2714 41.4086 31.2963 41.3677 31.314C41.3246 31.3323 41.2783 31.3416 41.2316 31.3413C41.1843 31.3416 41.1374 31.3324 41.0938 31.314C41.0524 31.2967 41.0145 31.2718 40.9823 31.2405C40.9509 31.208 40.9261 31.1698 40.909 31.1279C40.8911 31.086 40.8818 31.0408 40.8818 30.9951C40.8818 30.9495 40.8911 30.9043 40.909 30.8623C40.9264 30.8214 40.9516 30.7844 40.9834 30.7533C41.0152 30.7215 41.0531 30.6965 41.0949 30.6798C41.1385 30.6615 41.1853 30.6522 41.2326 30.6525L41.2316 30.6561ZM9.07638 29.429C9.07638 28.8232 9.47328 28.3255 10.122 28.3255C10.7419 28.3255 11.1602 28.8018 11.1602 29.429C11.1602 30.0563 10.7419 30.5326 10.122 30.5326C9.47328 30.5326 9.07638 30.0349 9.07638 29.429ZM11.8669 29.429V27.7049H11.1174V28.1249C10.8797 27.8146 10.5191 27.6199 10.0287 27.6199C9.06273 27.6199 8.30463 28.3776 8.30463 29.4299C8.30463 30.4822 9.06231 31.2399 10.0287 31.2399C10.5189 31.2399 10.8797 31.045 11.1174 30.7348V31.1534H11.866V29.429H11.8669ZM37.1912 29.429C37.1912 28.8232 37.5881 28.3255 38.237 28.3255C38.8575 28.3255 39.2752 28.8018 39.2752 29.429C39.2752 30.0563 38.8575 30.5326 38.237 30.5326C37.5883 30.5326 37.1912 30.0349 37.1912 29.429ZM39.9825 29.429V26.321H39.2324V28.1249C38.9947 27.8146 38.6341 27.6199 38.1437 27.6199C37.1777 27.6199 36.4196 28.3776 36.4196 29.4299C36.4196 30.4822 37.1773 31.2399 38.1437 31.2399C38.6341 31.2399 38.9947 31.045 39.2324 30.7348V31.1534H39.9825V29.429ZM21.169 28.29C21.652 28.29 21.9622 28.5928 22.0414 29.126H20.253C20.333 28.6283 20.6352 28.29 21.1692 28.29H21.169ZM21.1841 27.618C20.174 27.618 19.4674 28.353 19.4674 29.428C19.4674 30.524 20.2024 31.238 21.2343 31.238C21.7535 31.238 22.2289 31.1084 22.6472 30.755L22.2799 30.1995C21.991 30.4305 21.623 30.5601 21.2772 30.5601C20.7942 30.5601 20.3544 30.3365 20.2463 29.7159H22.8056C22.8129 29.6227 22.8205 29.5286 22.8205 29.4278C22.8129 28.3532 22.1485 27.6178 21.1837 27.6178L21.1841 27.618ZM30.2326 29.4278C30.2326 28.8219 30.6295 28.3242 31.2782 28.3242C31.8981 28.3242 32.3165 28.8005 32.3165 29.4278C32.3165 30.0551 31.8981 30.5313 31.2782 30.5313C30.6295 30.5313 30.2324 30.0336 30.2324 29.4278H30.2326ZM33.0229 29.4278V27.7049H32.2738V28.1249C32.0353 27.8146 31.6755 27.6199 31.1852 27.6199C30.2192 27.6199 29.4611 28.3776 29.4611 29.4299C29.4611 30.4822 30.2188 31.2399 31.1852 31.2399C31.6755 31.2399 32.0353 31.045 32.2738 30.7348V31.1534H33.0231V29.429L33.0229 29.4278ZM26.0001 29.4278C26.0001 30.4734 26.7279 31.2378 27.8388 31.2378C28.358 31.2378 28.7038 31.1223 29.0778 30.8268L28.7179 30.221C28.4365 30.4232 28.141 30.5313 27.8149 30.5313C27.2166 30.524 26.7766 30.0914 26.7766 29.4278C26.7766 28.7642 27.2166 28.3318 27.8149 28.3242C28.1402 28.3242 28.4356 28.4324 28.7179 28.6346L29.0778 28.0288C28.7032 27.7333 28.3573 27.6178 27.8388 27.6178C26.7279 27.6178 26.0001 28.382 26.0001 29.4278ZM35.6622 27.6178C35.2298 27.6178 34.9482 27.82 34.7535 28.1228V27.7049H34.0107V31.1515H34.7611V29.2195C34.7611 28.6491 35.0061 28.3322 35.4961 28.3322C35.6565 28.3299 35.8158 28.3594 35.9648 28.4189L36.1958 27.7125C36.0299 27.6472 35.8136 27.6184 35.6618 27.6184L35.6622 27.6178ZM15.5723 27.979C15.2117 27.7413 14.7149 27.6184 14.1668 27.6184C13.2936 27.6184 12.7314 28.037 12.7314 28.7218C12.7314 29.2837 13.15 29.6304 13.9207 29.7386L14.2747 29.789C14.6857 29.8467 14.8797 29.9549 14.8797 30.1496C14.8797 30.416 14.6067 30.5681 14.0941 30.5681C13.575 30.5681 13.2004 30.4022 12.9477 30.2075L12.5956 30.7919C13.0065 31.0948 13.5257 31.2392 14.0878 31.2392C15.0832 31.2392 15.6601 30.7705 15.6601 30.1143C15.6601 29.5084 15.2061 29.1915 14.456 29.0834L14.1027 29.0321C13.7783 28.9901 13.5183 28.9248 13.5183 28.6938C13.5183 28.4418 13.7634 28.2902 14.1746 28.2902C14.6145 28.2902 15.0404 28.4561 15.2491 28.5857L15.5736 27.9798L15.5723 27.979ZM25.243 27.6191C24.8106 27.6191 24.529 27.8213 24.3352 28.1241V27.7049H23.5924V31.1515H24.3419V29.2195C24.3419 28.6491 24.587 28.3322 25.0769 28.3322C25.2373 28.3299 25.3967 28.3594 25.5456 28.4189L25.7766 27.7125C25.6107 27.6472 25.3944 27.6184 25.2426 27.6184L25.243 27.6191ZM18.8473 27.7049H17.6217V26.6594H16.864V27.7049H16.1649V28.39H16.864V29.9622C16.864 30.7619 17.1744 31.2382 18.061 31.2382C18.3863 31.2382 18.761 31.1374 18.9987 30.9717L18.7822 30.3299C18.5585 30.4595 18.3134 30.5248 18.1186 30.5248C17.7439 30.5248 17.6217 30.2938 17.6217 29.948V28.3906H18.8473V27.7049ZM7.64187 31.1523V28.9893C7.64187 28.1747 7.12275 27.6266 6.2859 27.6193C5.84595 27.6119 5.39214 27.7488 5.07441 28.2325C4.83669 27.8503 4.46205 27.6193 3.93537 27.6193C3.56724 27.6193 3.20751 27.7274 2.9259 28.131V27.7049H2.17578V31.1515H2.93178V29.2405C2.93178 28.6422 3.26358 28.3242 3.77598 28.3242C4.27368 28.3242 4.52547 28.6487 4.52547 29.2329V31.151H5.28315V29.24C5.28315 28.6418 5.62902 28.3238 6.12651 28.3238C6.63828 28.3238 6.88251 28.6483 6.88251 29.2325V31.1506L7.64187 31.1523Z"
-                fill="#231F20"
-              />
-              <path
-                d="M41.5997 20.6876V20.1836H41.4685L41.3167 20.5295L41.1657 20.1836H41.034V20.6876H41.1272V20.3079L41.2692 20.6355H41.3658L41.5078 20.3071V20.6876H41.6002H41.5997ZM40.7671 20.6876V20.2699H40.9351V20.1849H40.5059V20.2699H40.6739V20.6876H40.7663H40.7671Z"
-                fill="#F79410"
-              />
-              <path
-                d="M26.6823 22.849H15.3242V2.43701H26.6825L26.6823 22.849Z"
-                fill="#FF5F00"
-              />
-              <path
-                d="M16.044 12.6434C16.044 8.50288 17.9827 4.81444 21.0017 2.43745C18.7165 0.635538 15.89 -0.342421 12.9799 -0.338121C5.81112 -0.338121 0 5.47384 0 12.6434C0 19.8131 5.81112 25.625 12.9799 25.625C15.8901 25.6294 18.7166 24.6514 21.0019 22.8495C17.9831 20.4729 16.044 16.7842 16.044 12.6434Z"
-                fill="#EB001B"
-              />
-              <path
-                d="M42.0049 12.6434C42.0049 19.8131 36.1938 25.625 29.025 25.625C26.1145 25.6293 23.2876 24.6514 21.002 22.8495C24.0218 20.4725 25.9605 16.7842 25.9605 12.6434C25.9605 8.50267 24.0218 4.81444 21.002 2.43745C23.2876 0.635592 26.1143 -0.342345 29.0248 -0.338121C36.1936 -0.338121 42.0047 5.47384 42.0047 12.6434"
-                fill="#F79E1B"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_1186_55308">
-                <rect width="42" height="32" fill="white" />
-              </clipPath>
-            </defs>
+            <path
+              d="M26.0726 12.6507C26.234 13.4014 26.214 14.312 26.0193 15.3854C25.2433 19.356 22.7166 21.34 18.442 21.34H17.8526C17.6286 21.34 17.434 21.4147 17.2606 21.5614C17.0926 21.708 16.9833 21.8987 16.942 22.1307L16.8873 22.3827L16.15 27.0214L16.122 27.2227C16.078 27.456 15.9686 27.644 15.7926 27.7907C15.6193 27.9387 15.422 28.012 15.1966 28.012H11.8326C11.6433 28.012 11.4966 27.9467 11.3913 27.812C11.2846 27.676 11.2446 27.5174 11.2713 27.328C11.3526 26.8307 11.4686 26.0774 11.6273 25.076C11.7833 24.076 11.902 23.324 11.9833 22.824C12.0646 22.324 12.1833 21.5734 12.346 20.5774C12.5073 19.58 12.6286 18.8307 12.7073 18.3307C12.7513 18 12.946 17.836 13.2846 17.836H15.0393C16.23 17.8534 17.282 17.76 18.206 17.5547C19.7686 17.2054 21.0513 16.5627 22.054 15.6227C22.9673 14.7734 23.658 13.6734 24.134 12.3254C24.35 11.6987 24.5033 11.1027 24.6033 10.5414C24.6113 10.4867 24.622 10.4534 24.6366 10.4427C24.6473 10.428 24.666 10.424 24.6833 10.428C24.6993 10.4334 24.726 10.4494 24.766 10.4747C25.4646 11.0054 25.9046 11.7294 26.0726 12.6507ZM23.7686 8.86937C23.7686 9.82537 23.5633 10.88 23.1486 12.0347C22.4326 14.1174 21.086 15.5254 19.0993 16.2587C18.0886 16.6174 16.9633 16.8027 15.7193 16.8254C15.7193 16.8334 15.318 16.8347 14.514 16.8347L13.31 16.8254C12.414 16.8254 11.8873 17.252 11.7273 18.1107C11.71 18.1814 11.33 20.5507 10.5873 25.216C10.5766 25.304 10.5233 25.352 10.426 25.352H6.47264C6.2753 25.352 6.1113 25.2787 5.98064 25.132C5.84997 24.9827 5.80063 24.8107 5.8273 24.612L8.93663 4.88537C8.9793 4.62537 9.1033 4.41337 9.30463 4.24137C9.50597 4.07204 9.73797 3.98804 9.99663 3.98804H18.0153C18.3193 3.98804 18.7553 4.0467 19.3206 4.1627C19.8913 4.2747 20.3886 4.42137 20.818 4.5907C21.7753 4.95604 22.506 5.50804 23.0113 6.24004C23.5166 6.97604 23.7686 7.84937 23.7686 8.86937Z"
+              fill="#1C6DD0"
+            />
           </svg>
         )
       }
@@ -760,7 +1033,7 @@ export const paymentMethods: PaymentMethod[] = [
   },
   {
     title: "Manual Transfer",
-    paymentName: "bitcoinTransfer",
+    paymentName: "bitcoinAddress",
     supportedCurrencies: ["USD"],
     icon: (
       <img
@@ -788,11 +1061,11 @@ export const paymentMethods: PaymentMethod[] = [
 
 export const gtbTransfer = {
   bankName: "Guaranty Trust Bank (or GTBank)",
-  accountNumber: "0252862666",
-  accountName: "Regal Flowers Ltd"
+  accountNumber: "0812257604",
+  accountName: "FLORAL SERVICES & EVENTS HUB LTD"
 };
 
-export const bitcoinTransfer = "12W9vKCcCbKFmYr9bYfbd9SqVvhyK5j4E1";
+export const bitcoinAddress = "1NQfzJGzXSn5B5xqT4mfw48KpaoA4Ajmwy";
 
 export const countryCodes = [
   {
@@ -1788,9 +2061,8 @@ export const gifts: { title: string; url: string; category?: string }[] = [
 ];
 
 export const occasionsPageTitle: Record<string, string> = {
-  "flowers-for-love-birthday-anniversary-etc":
-    "Love, Birthdays & Anniversary Flowers",
-  "just-to-say-bouquets": "Just to Say Flowers",
+  "anniversary-flowers": "Love, Birthdays & Anniversary Flowers",
+  "flowers-to-say-thanks-sorry-etc": "Just to Say Flowers",
   "bridal-bouquets": "Bridal Bouquets & Accessories Flowers",
   "funeral-and-condolence": "Funeral & Condolence Flowers",
   all: "All Occasions Flowers",
@@ -1817,12 +2089,12 @@ export const occasionsPageTitle: Record<string, string> = {
 export const occasions: { title: string; url: string; category?: string }[] = [
   {
     title: "Love, Birthdays & Anniversary",
-    url: "/product-category/flowers-for-love-birthday-anniversary-etc",
+    url: "/product-category/anniversary-flowers",
     category: "Anniversary Flowers"
   },
   {
     title: "Just to Say",
-    url: "/product-category/just-to-say-bouquets",
+    url: "/product-category/flowers-to-say-thanks-sorry-etc",
     category: "Just to Say Bouquets"
   },
   {
@@ -1842,7 +2114,7 @@ export const occasions: { title: string; url: string; category?: string }[] = [
   }
 ];
 
-export const placeholderEmail = "placeholder@regalflowers.com";
+export const placeholderEmail = "placeholder@floralhub.com";
 
 export interface Filter {
   name: string;
@@ -1876,7 +2148,7 @@ export const bridalOccasionFilters: Filter[] = [
         name: "Accessories & Boutonnieres",
         tag: "bridal accessories",
         link:
-          "/product-category/accessories-boutonnieres-bridesmaids-flowers-amp-corsages"
+          "/product-category/accessories-boutonnieres-bridesmaids-flowers-corsages"
       }
     ],
     limit: 3
@@ -1895,7 +2167,7 @@ export const funeralOccasion: Filter[] = [
       {
         name: "VIP Section",
         tag: "",
-        link: "/vip"
+        link: "/vip-flowers"
       }
     ],
     limit: 3
@@ -2099,17 +2371,17 @@ export const links: AppLink[] = [
     subtitle: "Select Occasion",
     children: [
       {
-        title: "Romance, Birthdays & Anniversary",
+        title: "Birthday Flowers",
         url: "",
         children: [
           {
             title: "Flowers",
-            url: "/product-category/flowers-for-love-birthday-anniversary-etc",
+            url: "/product-category/birthday-flowers",
             children: []
           },
           {
             title: "VIP Flowers",
-            url: "/vip",
+            url: "/vip-flowers",
             children: []
           },
           {
@@ -2120,17 +2392,17 @@ export const links: AppLink[] = [
         ]
       },
       {
-        title: "Just to say Hi, Sorry, Thank You",
+        title: "Flowers for Romance, Sorry, Thanks, Get Well Soon etc",
         url: "",
         children: [
           {
             title: "Flowers",
-            url: "/product-category/just-to-say-bouquets",
+            url: "/product-category/flowers-to-say-thanks-sorry-etc",
             children: []
           },
           {
             title: "VIP Flowers",
-            url: "/vip",
+            url: "/vip-flowers",
             children: []
           },
           {
@@ -2141,17 +2413,17 @@ export const links: AppLink[] = [
         ]
       },
       {
-        title: "Get Well Soon",
+        title: "Anniversary Flowers",
         url: "",
         children: [
           {
             title: "Flowers",
-            url: "/product-category/get-well-soon",
+            url: "/product-category/anniversary-flowers",
             children: []
           },
           {
             title: "VIP Flowers",
-            url: "/vip",
+            url: "/vip-flowers",
             children: []
           },
           {
@@ -2162,7 +2434,7 @@ export const links: AppLink[] = [
         ]
       },
       {
-        title: "Bridal Bouquets & Accessories",
+        title: "Bridal",
         url: "",
         children: [
           {
@@ -2189,12 +2461,12 @@ export const links: AppLink[] = [
         children: [
           {
             title: "Wreaths & Flowers",
-            url: "/product-category/funeral-and-condolence",
+            url: "/product-category/funeral-condolence-flowers",
             children: []
           },
           {
             title: "VIP Flowers",
-            url: "/vip",
+            url: "/vip-flowers",
             children: []
           }
         ]
@@ -2206,26 +2478,29 @@ export const links: AppLink[] = [
         children: [
           {
             title: "Valentine's Day",
-            url: "/product-category/valentines-day-flowers-and-gifts",
+            url: "/product-category/valentines-day-flowers",
             children: []
           },
           {
             title: "Events & Centerpiece",
-            url: "/product-category/event-amp-centerpiece",
+            url: "/product-category/event-centerpiece",
             children: []
           },
           {
             title: "Father's Day",
-            url: "/product-category/fathers-day-flowers",
+            url: "/product-category/flowers-to-say-thanks-sorry-etc",
             children: []
           },
           {
             title: "Mother's Day",
-            url: "/product-category/mothers-day-flowers",
+            url: "/product-category/flowers-to-say-thanks-sorry-etc",
             children: []
           }
         ]
       }
+    ],
+    featuredSlugs: [
+      "allure-bouquet-of-red-white-pink-yellow-or-purples-roses-select-size"
     ]
   },
   {
@@ -2275,7 +2550,7 @@ export const links: AppLink[] = [
         children: [
           {
             title: "View Bundled Products",
-            url: "/product-category/packages-and-bundled-products",
+            url: "/product-category/product-packages",
             children: []
           }
         ]
@@ -2332,16 +2607,20 @@ export const links: AppLink[] = [
           }
         ]
       }
+    ],
+    featuredSlugs: [
+      "purity-roses-arranged-with-sparkling-white-select-size",
+      "classic-roses-and-chocolate-elegant-mix-of-fresh-cut-roses-interlaced-with-luxurious-ferrero-rocher-chocolates-select-size"
     ]
   },
   {
-    url: "/vip",
-    title: "VIP Section",
+    url: "/vip-flowers",
+    title: "VIP Flowers",
     children: []
   },
 
   {
-    url: "#",
+    url: "",
     title: "Gifts",
     children: [
       {
@@ -2375,7 +2654,7 @@ export const links: AppLink[] = [
         children: []
       },
       {
-        url: "/product-category/gift-packs ",
+        url: "/product-category/gift-sets",
         title: "Giftsets",
         children: []
       },
@@ -2384,6 +2663,10 @@ export const links: AppLink[] = [
         title: "Scented Candles",
         children: []
       }
+    ],
+    featuredSlugs: [
+      "balloons",
+      "caravaggio-assorted-italian-unisex-gift-set-more"
     ]
   },
   {
@@ -2394,6 +2677,11 @@ export const links: AppLink[] = [
   {
     title: "FAQ",
     url: "/faq-how-to-buy-fresh-flowers-and-gifts-in-lagos-and-abuja",
+    children: []
+  },
+  {
+    title: "Contact",
+    url: "/contact",
     children: []
   }
 ];
@@ -2436,36 +2724,18 @@ export const bestSellersRomance: RegalContent = {
   "other-locations": "Bestselling Flowers in Ibadan, Port Harcourt etc"
 };
 
-export const featuredSlugs: Record<LocationName, string[]> = {
+export const featuredSlugs: Record<string, string[]> = {
   "featured-birthday": [
-    "cool-and-classic",
-    "ferrero-rocher-roses-003-exquisite-combination",
-    "bellissimo-beautiful-luxurious-mix-of-red-white-pink-roses",
-    "mon-coeur-my-heart-roses-in-heart-shape"
+    "allure-bouquet-of-red-white-pink-yellow-or-purples-roses-select-size",
+    "purity-roses-arranged-with-sparkling-white-select-size",
+    "debonair-lilies-with-red-roses-white-roses-and-gypsophila-million-star-select-size",
+    "chrysant-delight-mixture-of-bright-and-vibrant-chrysanthemums-with-million-stars-gypsophila-more"
   ],
   "featured-romance": [
-    "belleza-regal-two-colors-rose-red-yellow-white-pink-orange",
-    "calligraphy-by-regal-red-roses-white-roses-lilies",
-    "classic-roses-are-red-box-arrangement-red-roses-and-million-stars",
-    "roses-and-mixed-chrysanthemums-roses-and-mixed-chrysanthemums"
-  ],
-  lagos: [
-    "cool-and-classic",
-    "roses-are-red-red-roses-accentuated-with-sparkling-million-star-gypsophila",
-    "bellissimo-beautiful-box-arrangement-box-of-mixed-red-white-or-pink-roses",
-    "calligraphy-by-regal-red-roses-white-roses-lilies"
-  ],
-  abuja: [
-    "dozen-red-roses-luxurious-bouquet-of-red-roses",
-    "cool-and-classic",
-    "classic-red-box-arrangement-box-of-red-roses",
-    "belleza-regal-two-colors-rose-red-yellow-white-pink-orange"
-  ],
-  "other-locations": [
-    "cool-and-classic",
-    "classic-roses-are-red-box-arrangement-red-roses-and-million-stars",
-    "ferrero-rocher-roses-003-exquisite-combination",
-    "mon-coeur-my-heart-roses-in-heart-shape"
+    "euphoria-roses-and-million-stars-or-statice-select-size",
+    "my-heart-concentric-mix-of-two-or-three-colours-of-roses-to-form-a-heart-shape-select-size",
+    "numero-uno-mix-of-different-colors-of-roses-with-a-different-shade-in-the-middle-and-million-stars-or-statice-select-size",
+    "dune-beautiful-arrangement-of-roses-with-mixed-chrysanthemums-and-million-stars"
   ]
 };
 
@@ -2482,7 +2752,7 @@ export const popularSections: Occasion[] = [
   },
   {
     title: "VIP Section",
-    url: "/vip",
+    url: "/vip-flowers",
     image: "/images/popular-vip.jpg"
   },
   {
@@ -2514,187 +2784,68 @@ export const reviews: RegalContent<UserReview[]> = {
   general: [
     {
       text:
-        "I'm in the US and I ordered flowers for my mother at short notice for same day. They delivered with minimal hassle, good customer service and worked within my budget. Highly recommended.",
-      date: "6 April, 2022",
+        "I am glad I ordered from them. To say they surpassed my expectations would be an understatement (I buy for my office reception weekly). This is my 9th order since offices opened back after the lockdown, and I am consistently impressed with their level of service and flowers. Would recommend them in a heartbeat",
+      date: "7 Dec 2021",
       rating: 5,
-      image: "/images/reviews/general-review-1.jpg",
       user: {
-        name: "Temi Agbaje",
+        name: "Marianne Kyari",
         avatar: ""
       }
     },
     {
       text:
-        "Flowers were exactly the same as shown on their page and it was delivered on time. Customer service was top notch too. Kudos",
-      date: "17 January, 2022",
+        "It was a delight buying flowers from Floral Hub. Their attention to detail and customer service was quite impressive. She loved the flowers too. I look forward to doing business with them again",
+      date: "26 Jun 2023",
       rating: 5,
-      image: "/images/reviews/general-review-2.jpg",
       user: {
-        name: "Tope Osowe",
+        name: "Tunde Quadri",
         avatar: ""
       }
     },
     {
       text:
-        "Thank you Regal Flowers and your team for your awesome customer service and timely delivery. I was scared when I made the order because the person who i was sending flowers to was scheduled to travel the following day but Regal Flowers assured me that they would be able to make the delivery and they made sure to communicate with my friend who was in Nigeria at the time to ensure the delivery was well organised. Overall thank you to the team at Regal Flowers for letting me send my message even though I was far away. Brilliant customer service !!!...!!",
-      date: "6 April, 2022",
+        "I have bought Flowers and chocolates from Floralhub twice now to my fiance in Lagos, Nigeria, and I must say, they are not just another Nigerian business. Keep it up guys. Providing PayPal made it so easy for me also.",
+      date: "5 Jul 2022",
       rating: 5,
-      image: "/images/reviews/general-review-3.jpg",
       user: {
-        name: "Chimwemwe Esau",
+        name: "Tom Cullens",
         avatar: ""
       }
     },
     {
       text:
-        "I had a great experience with Regal Flowers. I bought a cake on a Saturday and was delivered without issue on the next day. Even on the weekend the delivery was on time and they were very reasonably priced.",
-      date: "6 April, 2022",
-      image: "/images/reviews/general-review-4.jpg",
+        "If it were possible to give 6 stars, I would definitely have done so. They were amazing, from customer service, to delivery time, to product quality. Quite impressed with Floral Hub",
+      date: "11 Apr 2023",
       rating: 5,
       user: {
-        name: "Hunter Foote",
+        name: "Lara Suleiman",
+        avatar: ""
+      }
+    },
+    {
+      text:
+        "I rarely write reviews but it is only fair I give credit where it is due. Their attention to detail and customer service is phenomenal. Keep it up guys",
+      date: "15 Apr 2021",
+      rating: 5,
+      user: {
+        name: "Tunde Ikimi",
+        avatar: ""
+      }
+    },
+    {
+      text:
+        "They delivered as they said they would. I was a bit hesitant due to the negative media about Nigeria I guess. Quite impressed and would definitely be back",
+      date: "19 Nov 2023",
+      rating: 5,
+      user: {
+        name: "Ryan Seawworth",
         avatar: ""
       }
     }
   ],
-  lagos: [
-    {
-      text:
-        "I walked into their Ikoyi store by 2am and they were open! Quite impressed as I had almost given up after trying 2 other flower shops who claimed to be 24hrs on their Google pages. Keep it up guys and thanks for your service, especially Dami who attended to me. I would definitely tell all my friends about you guys.",
-      date: "6 April, 2022",
-      image: "/images/reviews/lagos-review-1.jpg",
-      rating: 5,
-      user: {
-        name: "Segun Komolafe",
-        avatar: ""
-      }
-    },
-    {
-      text:
-        "Great customer service and fast delivery, reached out from Houston Texas, via WhatsApp chat, they took my order and payment in less than 2hrs flowers got delivered, well package and it was received with love ❤️. Thanks for making my day.7 Star 🌟. Guys they are reliable from anywhere round the world and your loved one back home would love it.",
-      date: "6 April, 2022",
-      image: "/images/reviews/lagos-review-2.jpg",
-      rating: 5,
-      user: {
-        name: "Hanz Thomas",
-        avatar: ""
-      }
-    },
-    {
-      text:
-        "I have to say I got the best customer service off an online store with Regal Flowers,very considerate and even went out of there way to get my order to me,I am definitely coming back for a bigger order! You guys are simply the best!",
-      date: "6 April, 2022",
-      image: "/images/reviews/lagos-review-3.jpg",
-      rating: 5,
-      user: {
-        name: "Oyindamola Olanipekun",
-        avatar: ""
-      }
-    },
-    {
-      text:
-        "I had first visited Regal Flowers in an attempt to deliver roses to my girlfriend while she is in Lagos. Unfortunately I am in the States and my first attempt to pay was unable to process. Ola however contacted me and was very nice and customer service oriented. I got on PayPal and was able to process my order via PayPal. Thanks to Ola and her wonderful customer service my girlfriend was able to receive her wonderful flowers. She absolutely loved them and raved about how red they were. Thank you Ola and Regal Flowers!",
-      date: "6 April, 2022",
-      image: "/images/reviews/lagos-review-4.jpg",
-      rating: 5,
-      user: {
-        name: "Gregory Coté",
-        avatar: ""
-      }
-    }
-  ],
-  abuja: [
-    {
-      text:
-        "I had some cupcakes delivered from here to someone in Nigeria and the service was amazing! They were very thorough in ensuring they had all information correct and were dedicated to delivering my order promptly and smoothly. There were a few mistakes on my end with addresses and miscommunication, but they were extremely patient and kept me updated on the progress of my delivery. Despite the few hiccups (which were my fault) the delivery was successful and they made sure that I was informed throughout. I will definitely use this service again in the future, their products are great and their customer service is awesome!",
-      date: "6 April, 2022",
-      image: "/images/reviews/abuja-review-1.jpg",
-      rating: 5,
-      user: {
-        name: "Miriam Houghton",
-        avatar: ""
-      }
-    },
-    {
-      text:
-        "Regal flowers were excellent in regards to my order. They tailor made the package excellently and effortlessly for me. I'm in the UK and Mojisola has been brilliant in ensuring my flower packages are of an exceptional level for years now. Thank you guys! !",
-      date: "6 April, 2022",
-      image: "/images/reviews/abuja-review-2.jpg",
-      rating: 5,
-      user: {
-        name: "Gina Mensah",
-        avatar: ""
-      }
-    },
-    {
-      text:
-        "I was skeptical the first time a friend informed me about Regal flowers delivery, i didn't want to be disappointed because i needed a delivery to be done to my spouse. But then, i went ahead and i was really impressed to discover that such services with high quality flowers can be accessed here in Nigeria. Keep it up Regal flowers.",
-      date: "6 April, 2022",
-      image: "/images/reviews/abuja-review-3.jpg",
-      rating: 5,
-      user: {
-        name: "Ajiboye Jide",
-        avatar: ""
-      }
-    },
-    {
-      text:
-        "My boss wanted a quick delivery on Monday Night for Tuesday Morning. I wasn't sure where to go but i contacted Regal flowers and they delivered. The contact person was so calm and kept assuring me that they will deliver. They did deliver before time and it was really beautiful!",
-      date: "6 April, 2022",
-      image: "/images/reviews/abuja-review-4.jpg",
-      rating: 5,
-      user: {
-        name: "Oluwakemi Ogunbameru",
-        avatar: ""
-      }
-    }
-  ],
-  "other-locations": [
-    {
-      text:
-        "I'm from Canada and it was easy to order online and great customer service! Delivery on time and prompt to Lagos area. Items as described. Will definitely be returning for any other special occasion. Thanks Regal Flowers",
-      date: "6 April, 2022",
-      image: "/images/reviews/others-review-1.jpg",
-      rating: 5,
-      user: {
-        name: "Folashade Williams",
-        avatar: ""
-      }
-    },
-    {
-      text:
-        "By far the simple and easiest delivery I’ve ever used. Fast responds time and as promised same day delivery. If I could give them 10 stars I would. Wouldn’t even look anywhere else RegalFlowers are top notch A++",
-      date: "6 April, 2022",
-      image: "/images/reviews/others-review-2.jpg",
-      rating: 5,
-      user: {
-        name: "Brent Bastian",
-        avatar: ""
-      }
-    },
-    {
-      text:
-        "First off, regal flowers has the best florist website in the country! The pictures and categories are so clear and there are so many options to choose from. I really appreciate how they followed up on my order. I chose a flower arrangement and requested a few tweaks which were accommodated easily. I also requested that the flowers be delivered as late as possible as I needed them for 7am the next day. Flowers got to me at midnight meaning someone was definitely awake waiting for my call to say I was ready to receive it. Whats more? I know my delivery cost more than I paid for due to the timing yet I wasn't asked to pay the difference. The flowers were really beautiful and the arrangement amazing. Loved it very much. Customer care, service delivery, product quality- A++++++++",
-      date: "6 April, 2022",
-      image: "/images/reviews/others-review-3.jpg",
-      rating: 5,
-      user: {
-        name: "Mayowa S",
-        avatar: ""
-      }
-    },
-    {
-      text:
-        "the arrangement that I ordered and had delivered to my friend was absolutely gorgeous. I spoke to a customer service representative on the phone before and after placing my order and she was very helpful with helping me make a decision as well as ensuring that the details of my order were accurate. She also assured me the arrangement would be a great gift - and she was right! My friend loved them. Great service and incredible style!",
-      date: "6 April, 2022",
-      image: "/images/reviews/others-review-4.jpg",
-      rating: 5,
-      user: {
-        name: "Dade Aroloye",
-        avatar: ""
-      }
-    }
-  ]
+  abuja: [],
+  lagos: [],
+  "other-locations": []
 };
 
 export const sortOptions: Option[] = [
@@ -2879,7 +3030,8 @@ export const allDeliveryLocationZones: Record<
             }-zone3`
     }
   ],
-  "other-locations": () => []
+  "other-locations": () => [],
+  general: () => []
 };
 
 export const allDeliveryLocationOptions: Record<
@@ -3065,18 +3217,18 @@ export const allDesignOptions: DesignOption[] = [
   }
 ];
 
-export const regalWebsiteUrl = "https://regalflowers.com.ng";
+export const websiteUrl = "https://floralhub.com.ng";
 
 export const occasionsPageMetaData: Record<
   string,
   { title: string; description: string }
 > = {
-  "flowers-for-love-birthday-anniversary-etc": {
+  "anniversary-flowers": {
     title: "Flowers for Romance, Birthday, Anniversary etc | Regal Flowers",
     description:
       "Choose from our delightful assortment of Birthday, Anniversary, Romantic Flowers, Valentine’s Flowers, or Mother’s Day Flowers…and don’t forget to add a gift too"
   },
-  "just-to-say-bouquets": {
+  "flowers-to-say-thanks-sorry-etc": {
     title: "Flowers to Say Sorry, Thank You, Congrats, Happy Mothers Day etc",
     description:
       "Say it with flowers. Various flowers to say, Thank You, I am Sorry, Congratulations and more"
@@ -3099,7 +3251,7 @@ export const occasionsPageMetaData: Record<
       "Cascading Bridal Bouquets With Fresh Flowers Or Roses | Regal Flowers",
     description: ""
   },
-  "accessories-boutonnieres-bridesmaids-flowers-amp-corsages": {
+  "accessories-boutonnieres-bridesmaids-flowers-corsages": {
     title:
       "Fresh flower bridal train and groomsmen accessories | Regal Flowers",
     description: ""
@@ -3167,19 +3319,144 @@ export const occasionsPageMetaData: Record<
   }
 };
 
-export const contactUsPageConent: Record<string, any> = {
-  lagosDetails: {
-    text: "Lagos Head Office/Delivery Center",
-    address: "7, Ikeja Way, Dolphin Estate, Ikoyi",
+export const contactUsPageContent: Partial<Record<
+  LocationName,
+  LocationAddress
+>> = {
+  lagos: {
+    name: "Lagos Head Office/Delivery Center",
+    location: "15, Ikeja Way, Dolphin Estate, Ikoyi",
     phoneNo: "+234 907 777 7994",
-    whatsappNo: "+234 907 777 7994"
+    whatsappNo: "+234 907 777 7994",
+    url: "https://goo.gl/maps/cNB9Jx9sidQhJgtD6",
+    coord: {
+      lat: 6.458329,
+      lng: 3.413628
+    }
   },
-  abujaDetails: {
-    text: "Abuja",
-    address: "5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja.",
+  abuja: {
+    name: "Abuja",
+    location: "5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja.",
     phoneNo: "+234 907 777 7994",
-    whatsappNo: "+234 907 777 7994"
+    whatsappNo: "+234 907 777 7994",
+    url: "https://maps.app.goo.gl/4BmrPnVoGQjNz8Mb6",
+    coord: {
+      lat: 9.077785485443458,
+      lng: 7.464068439137416
+    }
   }
+};
+
+export const schemaProperties = {
+  "@type": "LocalBusiness",
+  name: "Floral Hub",
+  url: "https://floralhub.com.ng",
+  description:
+    "Order Same Day Fresh Flowers and Gifts Delivery In Lagos and Abuja, Nigeria. Open 24 hours everyday for walk-ins and online, we are the top flower shop in Lagos and Abuja, Nigeria",
+  image: [
+    "/images/popular-bundled.jpg",
+    "/images/occasions-love-bday.png",
+    "/images/calligraphy.jpg"
+  ],
+  telephone: ["+234 907 777 7994"],
+  email: "info@floralhub.com.ng",
+  openingHours: "24/7",
+  paymentAccepted: ["Credit/Debit Cards", "Paypal", "Bitcoin", "Bank Transfer"],
+  priceRange: "₦",
+  hasMap: [
+    "https://goo.gl/maps/cNB9Jx9sidQhJgtD6",
+    "https://goo.gl/maps/AsSEYaBUVV3NCRaa7",
+    "https://goo.gl/maps/5wQFMW5pR33n9k6G7",
+    "https://goo.gl/maps/JAKrvZAe5vfh4czr9"
+  ],
+  address: [
+    {
+      "@type": "PostalAddress",
+      streetAddress: "81b, Lafiaji Way, Dolphin Estate, Ikoyi, Lagos, Nigeria",
+      addressLocality: "Ikoyi",
+      addressRegion: "Lagos",
+      postalCode: "Nigeria"
+    },
+    {
+      "@type": "PostalAddress",
+      streetAddress: "Silverbird Galleria, 133, Ahmadu Bello Way",
+      addressLocality: "Victoria Island",
+      addressRegion: "Lagos",
+      postalCode: "Nigeria"
+    },
+    {
+      "@type": "PostalAddress",
+      streetAddress: "Muritala Muhammed Airport2",
+      addressLocality: "Ikeja",
+      addressRegion: "Lagos",
+      postalCode: "Nigeria"
+    },
+    {
+      "@type": "PostalAddress",
+      streetAddress: "5, Nairobi Street, off Aminu Kano Crescent, Wuse 2",
+      addressLocality: "Abuja",
+      addressRegion: "Nigeria"
+    }
+  ],
+  geo: [
+    {
+      "@type": "GeoCoordinates",
+      latitude: "6.431916",
+      longitude: "3.438313"
+    },
+    {
+      "@type": "GeoCoordinates",
+      latitude: "6.431130",
+      longitude: "3.421499"
+    },
+    {
+      "@type": "GeoCoordinates",
+      latitude: "6.579768",
+      longitude: "3.327780"
+    },
+    {
+      "@type": "GeoCoordinates",
+      latitude: "9.079727",
+      longitude: "7.495671"
+    }
+  ],
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      telephone: "+2349077777994",
+      contactType: "customer service",
+      url: "https://wa.me/+2349077777994"
+    }
+  ],
+  sameAs: [
+    "https://instagram.com/floralhub.com.ng",
+    "http://facebook.com/RegalFlowersNG/",
+    "https://www.linkedin.com/company/floralhub-com-ng/"
+  ],
+  potentialAction: [
+    {
+      "@type": "ViewAction",
+      target: "https://floralhub.com.ng/product-category/anniversary-flowers",
+      name: "Love, Birthday, Anniversary Flowers"
+    },
+    {
+      "@type": "ViewAction",
+      target: "https://floralhub.com.ng/product-category/gifts",
+      name: "Gifts to Include"
+    },
+    {
+      "@type": "ViewAction",
+      target:
+        "https://floralhub.com.ng/product-category/flowers-to-say-thanks-sorry-etc",
+      name: "Popular Options"
+    },
+    {
+      "@type": "ViewAction",
+      target: "https://floralhub.com.ng/product-category/roses",
+      name: "Roses"
+    }
+  ],
+  logo: "/icons/logo.svg"
 };
 
 export const business = "floralHub";

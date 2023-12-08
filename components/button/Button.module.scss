@@ -1,9 +1,8 @@
 .button {
   background-color: #b240da;
   color: white;
-  font-weight: 700;
-  padding: 0.8rem 1.6rem;
-  border-radius: 0.4rem;
+  font-weight: 500;
+  padding: 1rem 1.6rem;
   min-width: 12rem;
   font-size: inherit;
   transition: 0.3s ease-out;
@@ -60,15 +59,21 @@
     width: fit-content;
     min-width: 0;
     padding: 0;
-    color: #b240da;
+    color: inherit;
     background-color: unset;
+    font-weight: unset;
+  }
+
+  &.rounded {
+    border-radius: 0.3rem;
   }
 
   &.responsive {
     width: 100%;
   }
   &.large {
-    padding: 0.8rem 2rem;
+    padding: 1rem 2rem;
+    min-width: 15rem;
   }
   &.small {
     padding: 0.3rem 0.8rem;

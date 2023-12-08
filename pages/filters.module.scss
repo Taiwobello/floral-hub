@@ -1,215 +1,118 @@
 .filters {
+  background-color: #f3f4f6;
+  padding-top: 4rem;
   .hero-bg {
-    height: 30rem;
+    height: 28rem;
     width: 100%;
-    background-attachment: fixed;
-
-    @media (max-width: 650px) {
+    position: relative;
+    @media (max-width: 768px) {
       height: 25rem;
     }
 
-    &.vip-bg {
-      background-image: url("/images/vip-bg.png");
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      text-align: center;
-      font-weight: 700;
+    .hero-image {
+      background-image: url("/images/Rectangle-3040.png");
       background-position: center center;
+      align-self: flex-end;
       background-size: cover;
-      padding: 1rem;
+      height: 25rem;
+      width: 65%;
+    }
+    .hero-text {
+      position: absolute;
+      width: 50%;
+      background: #fafafa;
+      left: 5rem;
+      top: 3.5rem;
+      padding: 2rem;
+      border-radius: 0.8rem;
+      opacity: 0.9;
 
-      .info {
-        background-color: white;
-        padding: 0.3rem;
-        font-weight: normal;
-        font-size: 1.2rem;
-        margin-top: 1rem;
-        border-radius: 0.3rem;
-        display: inline-block;
+      p:first-of-type {
+        font-size: 2.3rem;
+        width: 90%;
+        color: #1f1f1f;
+        vertical-align: top;
+        line-height: 3rem;
+        margin: 1rem 0;
+        font-weight: 400;
+        line-height: 45.94px;
       }
-
-      .wow {
-        font-size: 1.5rem;
+      p:nth-child(2) {
+        color: #1f1f1f;
+        font-weight: 400;
+        line-height: 28px;
       }
     }
-
-    &.occasion-bg {
-      background-image: url("/icons/filters-bg.svg");
+    .hero-text > ul {
+      background: linear-gradient(to right, #f3f3f3 100%, #e3d7d7 0%);
+      padding: 0.5rem;
+      border: 0.1rem solid #fafafa;
+      border-radius: 0.4rem;
+      font-weight: 300;
+    }
+    .occasions-mobile {
+      background-image: url("/images/Rectangle-3040-mobile.png");
+      height: 20rem;
       background-position: center center;
       background-size: cover;
-
-      .occasion-wrapper {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 6rem;
-
-        & > * {
-          margin-right: 1rem;
-
-          &:last-child {
-            margin-right: 0;
-          }
-        }
-
-        @media (max-width: 800px) {
-          padding: 0 2rem;
-        }
-
-        @media (max-width: 650px) {
-          display: none;
-        }
-      }
-
-      .gifts-wrapper {
-        display: grid;
-        grid-template-columns: repeat(4, 14rem);
-        grid-gap: 1rem;
-        padding: 0 6rem;
-        justify-content: center;
-        justify-items: center;
-        row-gap: 2rem;
-
-        @media (max-width: 1400px) {
-          padding: 0 2rem;
-        }
-      }
-
-      .occasion {
-        background-color: #fdf0f0;
-        position: relative;
-        height: 14rem;
-        width: 14rem;
-        border-radius: 50%;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 0 0.5rem;
-        color: #b240da;
-        cursor: pointer;
-        font-size: 1.3rem;
-        border: 0.2rem solid transparent;
-
-        &.active {
-          border-color: #b240da;
-        }
-
-        &:hover {
-          border-color: #b240da;
-        }
-
-        @media (max-width: 650px) {
-          height: 10rem;
-          width: 10rem;
-          font-size: 1rem;
-        }
-
-        @media (max-width: 450px) {
-          height: 8rem;
-          width: 8rem;
-        }
-
-        &.gift-occasion {
-          width: 10rem;
-          height: 10rem;
-          @media (max-width: 1150px) {
-            width: 9rem;
-            height: 9rem;
-          }
-
-          @media (max-width: 580px) {
-            width: 8rem;
-            height: 8rem;
-          }
-
-          @media (max-width: 500px) {
-            width: 7rem;
-            height: 7rem;
-            font-size: 0.8rem;
-          }
-
-          @media (max-width: 380px) {
-            width: 6rem;
-            height: 6rem;
-            font-size: 0.8rem;
-          }
-        }
-      }
-
-      .occasions-mobile {
-        width: 90%;
-
-        .occasions {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          & > * {
-            margin-left: 2.4rem;
-            &:first-child {
-              margin-left: 0;
-            }
-          }
-
-          @media (max-width: 500px) {
-            & > * {
-              margin-left: 1.2rem;
-              &:first-child {
-                margin-left: 0;
-              }
-            }
-          }
-
-          &.gifts-category {
-            & > * {
-              margin-left: 1.5rem;
-              &:first-child {
-                margin-left: 0;
-              }
-            }
-
-            @media (max-width: 500px) {
-              & > * {
-                margin-left: 0.5rem;
-                &:first-child {
-                  margin-left: 0;
-                }
-              }
-            }
-          }
-        }
-      }
     }
   }
-
+  .mobile-card {
+    position: relative;
+    width: 90%;
+    background-color: white;
+    margin: auto;
+    padding: 1rem;
+    border-radius: 0.8rem;
+    margin-top: -13rem;
+    z-index: 5;
+    font-size: 1rem;
+    font-weight: 400;
+    @media (min-width: 768px) {
+      display: none;
+    }
+    p:first-of-type {
+      font-size: 1.8rem;
+      font-weight: 400;
+    }
+  }
+  .mobile-card > ul {
+    background: linear-gradient(to right, #f3f3f3 100%, #e3d7d7 0%);
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+    border: 0.1rem solid #fafafa;
+  }
+  @media (max-width: 420px) {
+    padding-top: 0rem;
+  }
   .title {
-    font-size: 2.3rem;
-    font-weight: 700;
+    font-size: 2.5rem;
+    font-weight: 400;
 
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       font-size: 1.8rem;
     }
   }
 
   .sub-title {
-    font-size: 1.6rem;
-    font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 400;
   }
 
   .content {
-    padding: 4rem 7rem;
+    padding: 0 7rem 4rem 7rem;
 
-    @media (max-width: 650px) {
-      padding: 3rem 2rem;
+    @media (max-width: 768px) {
+      padding: 1rem 2rem;
+    }
+    &.no-hero {
+      margin-top: 2rem;
     }
 
     .left-side {
       margin-top: 2rem;
 
-      @media (max-width: 650px) {
+      @media (max-width: 768px) {
         display: none;
       }
     }
@@ -219,6 +122,7 @@
       border-radius: 0.3rem;
       padding: 0.8rem;
       min-width: 16rem;
+      background-color: #ffffff;
 
       .btn-view {
         display: block;
@@ -249,21 +153,34 @@
       margin-left: 0.5rem;
       width: 12rem;
 
-      @media (max-width: 650px) {
+      @media (max-width: 768px) {
         width: 47%;
       }
     }
 
     .product-wrapper {
       width: 100%;
-
+      .sorts {
+        justify-content: end;
+        @media (min-width: 768px) {
+          margin: 1.8rem 2.5rem 1rem 0;
+        }
+        @media (min-width: 1400px) {
+          margin-right: 4rem;
+        }
+      }
+      .sorts-mobile {
+        @media (max-width: 768px) {
+          margin-top: 1rem;
+        }
+      }
       .date-wrapper {
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 100%;
 
-        @media (max-width: 650px) {
+        @media (max-width: 768px) {
           flex-direction: column;
           gap: 1rem;
           align-items: flex-start;
@@ -272,9 +189,40 @@
 
       .sort {
         min-width: 12rem;
+        // text-align: left;
+        // display: flex;
 
-        @media (max-width: 650px) {
-          width: 12rem;
+        @media (max-width: 768px) {
+          width: 14rem;
+        }
+        @media (min-width: 768px) {
+          border: 1px solid;
+          border-radius: 0.25rem;
+          background-color: white;
+        }
+      }
+
+      .sort > div > svg {
+        @media (min-width: 768px) {
+          margin: 0.1rem 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+      .sort > div {
+        @media (min-width: 768px) {
+          margin: 0.1rem 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 0;
+        }
+      }
+      .question {
+        min-width: 5rem;
+        @media (max-width: 420px) {
+          width: auto;
         }
       }
     }
@@ -302,11 +250,9 @@
   }
   .gifts {
     padding: 0 6rem;
-    background-image: url("/icons/flower-bg.svg");
-
     padding-bottom: 3rem;
 
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       padding: 0 2rem;
     }
   }
@@ -319,12 +265,12 @@
 }
 
 .see-all {
-  width: 12rem;
+  width: 17rem;
   margin: 1.5rem auto;
-  padding: 0.5rem 1rem;
 
   h3 {
-    font-size: 1.3rem;
+    border-bottom: 0.1rem solid;
+    margin-right: 1rem;
   }
 }
 
@@ -348,8 +294,10 @@
 .filter-mobile {
   display: none;
   position: relative;
-  @media (max-width: 650px) {
+  top: 0.7rem;
+  @media (max-width: 768px) {
     display: block;
+    margin-right: 0.5rem;
   }
 
   .btn {
@@ -362,11 +310,17 @@
 
     & > * {
       margin-right: 5rem;
-
+      @media (max-width: 768px) {
+        margin-right: 2rem;
+      }
       &:last-child {
         margin-right: 0;
       }
     }
+  }
+  .btn > h3 {
+    font-weight: 400;
+    color: #1f1f1f;
   }
 
   .btn-view {
@@ -406,7 +360,7 @@
   & > *:first-child {
     margin-right: 2rem;
 
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       margin-right: 0;
     }
   }
@@ -414,7 +368,7 @@
   & > * {
     width: 50%;
 
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       width: 100%;
       margin: 0;
       margin-top: 1rem;
@@ -424,7 +378,7 @@
     }
   }
 
-  @media (max-width: 650px) {
+  @media (max-width: 768px) {
     flex-direction: column;
   }
 
@@ -434,10 +388,16 @@
 }
 
 .search-wrapper {
-  width: 48%;
-  margin-left: auto;
-
-  @media (max-width: 650px) {
+  width: 100%;
+  border: 0.1rem solid #dadada;
+  border-radius: 0.4rem;
+  @media (max-width: 768px) {
     width: 50%;
   }
+}
+
+.info {
+  background-color: #fcf6fd;
+  padding: 0.8rem 1.1rem;
+  margin-top: 1rem;
 }

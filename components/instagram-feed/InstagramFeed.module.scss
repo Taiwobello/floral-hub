@@ -1,0 +1,49 @@
+.wrapper {
+  margin: 6rem 6rem;
+  @media (max-width: 768px) {
+    margin: 3rem 1.5rem;
+  }
+  .posts {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 48rem;
+    width: 100%;
+    @media (max-width: 768px) {
+      height: 25rem;
+    }
+    .post {
+      width: 33.3%;
+      transition: 0.3s ease-out;
+      position: relative;
+      &:hover {
+        .post-img {
+          filter: blur(0.2rem);
+        }
+        .post-author {
+          opacity: 1;
+        }
+      }
+      .post-img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        transition: 0.3s ease-out;
+      }
+      .post-author {
+        position: absolute;
+        bottom: 0.5rem;
+        left: 0;
+        padding: 0.3rem 0.6rem;
+        font-weight: 500;
+        background-color: rgba(255, 255, 255, 0.755);
+        border-radius: 0 0.5rem 0 0;
+        transition: 0.3s ease-out;
+        opacity: 0.5;
+        @media (max-width: 768px) {
+          font-size: 0.85rem;
+        }
+      }
+    }
+  }
+}

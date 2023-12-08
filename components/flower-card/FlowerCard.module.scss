@@ -1,8 +1,6 @@
 .flower-card {
   display: inline-block;
-  text-align: center;
   border: 0.1rem solid #f3f4f6;
-  border-radius: 0.1rem;
   background-color: white;
   transition: 0.3s ease-out;
   &.six-x-grid {
@@ -11,14 +9,20 @@
     .img-wrapper {
       height: 10rem;
       .flower-image {
+        display: none;
         height: 10rem;
+      }
+      .flower-image2 {
+        display: none;
       }
     }
     .subtitle {
       height: 1rem;
+      font-size: 0.875rem;
+      font-weight: 400;
     }
 
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       width: 47%;
 
       .img-wrapper {
@@ -33,8 +37,33 @@
   &.four-x-grid {
     width: 23%;
     min-width: 12rem;
-
-    @media (max-width: 650px) {
+    .detail {
+      padding: 1.2rem;
+      @media (max-width: 768px) {
+        padding: 0.6rem;
+      }
+    }
+    .name {
+      font-size: 1.1rem;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      text-overflow: ellipsis;
+      height: 1.5rem;
+      @media (max-width: 768px) {
+        height: 2.4rem;
+      }
+    }
+    .gift-btn {
+      padding: 0.5rem;
+      font-weight: 400;
+      font-size: 1rem;
+      color: #ffffff;
+      width: 100%;
+      @media (max-width: 400px) {
+        margin-top: 0.5rem;
+      }
+    }
+    @media (max-width: 768px) {
       width: 47%;
     }
 
@@ -72,38 +101,51 @@
       min-width: 11rem;
     }
     .img-wrapper {
-      height: 15rem;
+      // height: 15rem;
       .flower-image {
         height: 15rem;
       }
     }
   }
 
-  @media (max-width: 650px) {
-    width: 40%;
+  @media (max-width: 768px) {
+    width: 48%;
   }
 
   .detail {
     padding: 0.6rem 1rem;
+    @media (max-width: 340px) {
+      padding: 0.6rem;
+    }
   }
   .name {
-    font-size: 1.1rem;
-
+    display: -webkit-box;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    height: 2rem;
+    font-size: 1.25rem;
+    font-weight: 400;
+    @media (max-width: 1300px) {
+      line-clamp: 2;
+      -webkit-line-clamp: 2;
+      height: 3.4rem;
+    }
+    @media (max-width: 768px) {
+      height: 3.2rem;
+    }
+    @media (max-width: 340px) {
+      font-size: 1.15rem;
+    }
     &.only-name {
       font-size: 1.3rem;
     }
   }
-  .title {
-    min-height: 3.5rem;
-    display: -webkit-box;
-    line-clamp: 2;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
   .subtitle {
-    font-size: small;
+    font-size: 0.9rem;
     color: #6b7280;
     margin-top: 0.2rem;
     display: -webkit-box;
@@ -112,47 +154,99 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    height: 2.5rem;
+    @media (max-width: 1300px) {
+      line-clamp: 3;
+      -webkit-line-clamp: 3;
+      height: 3.6rem;
+    }
+    @media (max-width: 768px) {
+      font-size: 1rem;
+      height: 3.6rem;
+    }
+    @media (max-width: 340px) {
+      font-size: 0.9rem;
+    }
   }
   .buy-btn {
-    padding: 0.4rem 0.6rem;
-    min-width: 6rem;
-    font-weight: normal;
-    font-size: 0.9rem;
+    height: 2.5rem;
+    transition: width 0.2s ease;
+    font-size: 0.8rem;
+    overflow: hidden;
+    white-space: nowrap;
+    width: auto;
+    transition: width 1s ease;
 
-    @media (max-width: 400px) {
+    @media (min-width: 768px) {
+      width: 2rem;
+      text-align: end;
+    }
+
+    @media (max-width: 768px) {
+      background-image: none;
+      color: white;
+      background-color: #b240da;
       width: 100%;
+      height: 2.5rem;
+      margin-top: 0.5rem;
+    }
+  }
+  .buy-btn:hover {
+    @media (min-width: 420px) {
+      background-image: none;
+      background-color: #b240da;
+      color: white;
+      width: 8rem;
+      text-align: center;
+      padding: 0.4rem;
+    }
+  }
+  .buy-btn:hover > img {
+    display: none;
+  }
+  .buy-btn > img {
+    height: 2.2rem;
+    width: 2.2rem;
+  }
+  .buy-btn:hover > p {
+    display: inline;
+    width: 100%;
+  }
+  .buy-btn > p {
+    display: none;
+  }
+
+  .gift-btn {
+    padding: 0.8rem 0.6rem;
+    min-width: 6rem;
+    font-weight: 400;
+    font-size: 1.1rem;
+    width: 100%;
+    @media (max-width: 768px) {
       margin-top: 0.5rem;
     }
   }
 
   .price-btn-wrapper {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 0.5rem;
-
+    margin-top: 0.3rem;
     &.price {
       justify-content: space-between;
+      font-size: 1.1rem;
     }
 
-    @media (max-width: 400px) {
+    @media (max-width: 768px) {
+      font-size: 0.875rem;
+      .price-text {
+        margin-right: 3.5rem;
+      }
       flex-direction: column;
-      align-items: center;
+      justify-content: center;
     }
   }
   .img-wrapper {
     overflow: hidden;
-    height: 17rem;
-    border-radius: 0.2rem 0.2rem 0 0;
-    @media (max-width: 1250px) {
-      height: 16rem;
-    }
-    @media (max-width: 1150px) {
-      height: 15rem;
-    }
-    @media (max-width: 1050px) {
-      height: 14rem;
-    }
+    height: fit-content;
     .flower-image {
       height: 17rem;
       width: 100%;
@@ -166,11 +260,10 @@
         height: 14rem;
       }
       object-fit: cover;
-      border-radius: 0.2rem 0.2rem 0 0;
       transition: 0.3s ease-out;
-      &:hover {
-        transform: scale(1.1);
-      }
     }
+  }
+  &:hover {
+    border: 0.1rem solid #b88fc7;
   }
 }

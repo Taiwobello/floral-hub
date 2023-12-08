@@ -5,7 +5,7 @@ interface RadioProps {
   bordered?: boolean;
   checked?: boolean;
   defaultChecked?: boolean;
-  label?: string;
+  label?: string | JSX.Element;
   name?: string;
   onChange?: (checked: boolean) => void;
   responsive?: boolean;

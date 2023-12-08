@@ -34,7 +34,13 @@ interface InputProps {
   disabled?: boolean;
   noBorder?: boolean;
   refValue?: any;
-  autoComplete?: "username" | "new-password" | "tel" | "password";
+  autoComplete?:
+    | "username"
+    | "new-password"
+    | "tel"
+    | "password"
+    | "given-name"
+    | "family-name";
   showPasswordIcon?: boolean;
   onBlurValidation?: InputValidator;
   size?: "default" | "small";

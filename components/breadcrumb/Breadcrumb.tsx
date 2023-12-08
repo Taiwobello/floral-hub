@@ -15,18 +15,12 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
   return (
     <ul className={styles.breadcrumb}>
       {items.map((item, index) => (
-        <li
-          key={index}
-          className={[
-            styles["breadcrumb-item"],
-            index === items.length - 1 && "bold"
-          ].join(" ")}
-        >
+        <li key={index} className={[styles["breadcrumb-item"]].join(" ")}>
           {item.link ? (
             <Link href={item.link}>
               <a
                 className={[
-                  index !== items.length - 1 && "underline",
+                  index !== items.length - 1 && "underline thin",
                   styles.label
                 ].join(" ")}
               >

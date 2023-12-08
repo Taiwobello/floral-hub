@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { regalWebsiteUrl } from "../../utils/constants";
+import { websiteUrl } from "../../utils/constants";
 
 interface MetaProps {
   canonicalUrl?: string;
@@ -32,7 +32,7 @@ const Meta = ({
         content={`${
           description
             ? description
-            : "Fresh flowers vendors. Delivery throughout Nigeria"
+            : "Same Day Fresh Flowers and Gifts Delivery In Lagos and Abuja, Nigeria"
         }`}
       />
 
@@ -41,7 +41,7 @@ const Meta = ({
       {description && <meta property="og:description" content={description} />}
       {image && <meta property="og:image" content={image} />}
       {imageAlt && <meta property="og:image:alt" content={imageAlt}></meta>}
-      <meta property="og:url" content={`${url ? url : regalWebsiteUrl}`} />
+      <meta property="og:url" content={`${url ? url : websiteUrl}`} />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="Floral Hub"></meta>
 

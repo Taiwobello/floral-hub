@@ -1,10 +1,16 @@
 import Link from "next/link";
 import Img from "next/image";
-import React, { forwardRef, MouseEvent, useContext } from "react";
+import React, {
+  CSSProperties,
+  forwardRef,
+  MouseEvent,
+  useContext,
+  useState
+} from "react";
 import SettingsContext from "../../utils/context/SettingsContext";
 import { getPriceDisplay } from "../../utils/helpers/type-conversions";
 import { CartItem } from "../../utils/types/Core";
-import Product from "../../utils/types/Product";
+import Product, { ProductImage } from "../../utils/types/Product";
 import Button from "../button/Button";
 import styles from "./FlowerCard.module.scss";
 import useDeviceType from "../../utils/hooks/useDeviceType";
@@ -12,7 +18,7 @@ import { getMobileImageUrl } from "../../utils/helpers/formatters";
 
 interface IFlowerCardProps {
   buttonText?: string;
-  image: string;
+  image?: string;
   price?: number;
   name: string;
   subTitle?: string;
@@ -22,13 +28,16 @@ interface IFlowerCardProps {
   product?: Product;
   cart?: boolean;
   onlyTitle?: boolean;
+  className?: string;
+  style?: CSSProperties;
+  slideImages?: ProductImage[];
 }
 
 const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
   (props, ref) => {
     const {
       buttonText,
-      image,
+      image: _image,
       price,
       name,
       subTitle,
@@ -36,7 +45,10 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
       mode,
       product,
       cart,
-      onlyTitle
+      onlyTitle,
+      className,
+      style,
+      slideImages
     } = props;
 
     const {
@@ -47,9 +59,18 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
       shouldShowCart,
       setShouldShowCart
     } = useContext(SettingsContext);
+    const [imageIndex, setImageIndex] = useState(0);
+
+    const image = slideImages?.[imageIndex].src || _image || "";
+
+    const nextImage = () => {
+      if (slideImages && slideImages.length > 1) {
+        setImageIndex(1);
+      }
+    };
 
     const handleAddToCart = (e: MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
+      e.stopPropagation();
       if (!product) {
         return;
       }
@@ -103,7 +124,6 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
           </p>
         );
       }
-      e.stopPropagation();
     };
 
     const outOfStock = product && !product.sku && !product.variants.length;
@@ -115,10 +135,15 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
         <a
           className={`${styles["flower-card"]} center ${
             styles[mode || "four-x-grid"]
-          }`}
+          } ${className || ""}`}
           ref={ref}
+          style={style}
         >
-          <div className={styles["img-wrapper"]}>
+          <div
+            className={styles["img-wrapper"]}
+            onMouseEnter={nextImage}
+            onMouseLeave={() => setImageIndex(0)}
+          >
             <Img
               className={styles["flower-image"]}
               src={deviceType === "mobile" ? getMobileImageUrl(image) : image}
@@ -128,41 +153,62 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
             />
           </div>
           <div className={styles.detail}>
-            <strong
-              className={[styles.name, onlyTitle && styles["only-name"]].join(
-                " "
-              )}
+            <span
+              className={[
+                styles.name,
+                onlyTitle && styles["only-name"],
+                "semibold"
+              ].join(" ")}
             >
               {name}
-            </strong>
-            {subTitle && <p className={styles.subtitle}>{subTitle}</p>}
+            </span>
+            <p className={styles.subtitle}>{subTitle}</p>
             {!onlyTitle && (
               <div
-                className={` ${price ? "between" : "center"} ${
+                className={` ${price ? "between" : ""} ${
                   styles["price-btn-wrapper"]
                 } ${price ? styles.price : ""}`}
               >
                 {price && (
-                  <div>
-                    {product?.variants.length ? (
-                      <p className="smaller text-secondary">From</p>
-                    ) : (
-                      ""
-                    )}
-                    <p className="bold">{getPriceDisplay(price, currency)}</p>
-                  </div>
+                  <>
+                    <div
+                      className={`flex spaced ${styles["price-text"]} normal center-align`}
+                    >
+                      {(product?.variants.length || 0) > 0 && (
+                        <p className="">FROM</p>
+                      )}
+                      <span>{getPriceDisplay(price, currency)}</span>
+                    </div>
+                    <button
+                      className={`${styles["buy-btn"]} text-small semibold`}
+                      onClick={e => cart && handleAddToCart(e)}
+                      disabled={outOfStock}
+                      aria-label="Add to cart"
+                    >
+                      {deviceType === "mobile" ? (
+                        "ADD TO CART"
+                      ) : (
+                        <>
+                          <img src="/icons/add-box-line.svg" alt="" />{" "}
+                          <p>ADD TO CART</p>
+                        </>
+                      )}
+                    </button>
+                  </>
                 )}
-                <Button
-                  className={`${styles["buy-btn"]}`}
-                  onClick={e => cart && handleAddToCart(e)}
-                  disabled={outOfStock}
-                >
-                  {outOfStock
-                    ? "Out of Stock"
-                    : buttonText
-                    ? buttonText
-                    : "Buy Now"}
-                </Button>
+                {!price && (
+                  <Button
+                    className={`${styles["gift-btn"]}`}
+                    onClick={e => cart && handleAddToCart(e)}
+                    disabled={outOfStock}
+                  >
+                    {outOfStock
+                      ? "Out of Stock"
+                      : buttonText
+                      ? buttonText
+                      : "Buy Now"}
+                  </Button>
+                )}
               </div>
             )}
           </div>

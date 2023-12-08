@@ -6,6 +6,7 @@
   border: 0.1rem solid #e5e7eb;
   transition: 0.3s ease-out;
   align-items: center;
+
   &.responsive {
     width: 100%;
   }
@@ -32,9 +33,10 @@
     outline: none;
     font-size: inherit;
     padding: 0.5rem;
+    color: rgba(0, 0, 0, 0.8);
 
-    @media (max-width: 650px) {
-      padding: 0.6rem;
+    @media (max-width: 768px) {
+      padding: 0.8rem;
     }
     &.small {
       font-size: 0.75rem;
@@ -42,6 +44,9 @@
     }
     &.with-icon {
       padding: 0.5rem 0;
+      @media (max-width: 768px) {
+        padding: 0.8rem 0;
+      }
     }
     &.dimmed {
       background-color: #f9fafb;
@@ -50,7 +55,7 @@
       padding-left: 1.5rem;
     }
     &::placeholder {
-      color: #a3a3a3;
+      color: #9ca3af;
     }
     &.disable-resize {
       resize: none;

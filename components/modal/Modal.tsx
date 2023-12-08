@@ -8,9 +8,17 @@ export interface ModalProps {
   cancel?: (payload?: Option) => void;
   isConfirm?: boolean;
   className?: string;
+  modalDesign?: "default" | "custom";
 }
 const Modal = (props: ModalProps) => {
-  const { children, visible, cancel = () => {}, isConfirm, className } = props;
+  const {
+    children,
+    visible,
+    cancel = () => {},
+    isConfirm,
+    className,
+    modalDesign
+  } = props;
   const modalRef = useRef<Element | null>(null);
   const visibleRef = useRef(visible);
 
@@ -54,12 +62,14 @@ const Modal = (props: ModalProps) => {
         ref={modalRef as MutableRefObject<HTMLDivElement>}
         className={[
           styles["modal-wrapper"],
+          modalDesign === "custom" && styles["custom-modal"],
           visible && styles.active,
           isConfirm && styles.confirm,
           className
         ].join(" ")}
       >
         {children}
+
         <div onClick={() => cancel()} className={styles["close-icon"]}>
           <div className={styles.bar} />
           <div className={styles.bar} />

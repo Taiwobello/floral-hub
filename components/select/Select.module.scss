@@ -9,7 +9,7 @@ $placeholder: rgba(0, 0, 0, 0.6);
   z-index: 3;
   display: inline-block;
   border-radius: 0.3rem;
-  width: 16rem;
+  width: 3rem;
   &.active {
     z-index: 5;
   }
@@ -48,7 +48,6 @@ $placeholder: rgba(0, 0, 0, 0.6);
     display: block;
     padding: 0.5rem;
     padding-right: 1.6rem;
-    max-height: 3rem;
     overflow: hidden;
   }
   .placeholder {
@@ -148,7 +147,7 @@ $placeholder: rgba(0, 0, 0, 0.6);
     background-color: rgba(0, 0, 0, 0.008);
   }
   .option:hover {
-    background-color: #ffdddd;
+    background-color: #b140da35;
   }
   .option.initial:hover {
     background-color: inherit;

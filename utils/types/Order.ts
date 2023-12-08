@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { Dayjs } from "dayjs";
 import { AppCurrencyName, OrderItem } from "./Core";
-import { LocationName } from "./Regal";
 import { DeliveryLocationOption } from "../constants";
 import { ProductImage } from "./Product";
 
@@ -280,10 +279,11 @@ export interface CheckoutFormData {
   cardExpiry: string;
   cardNumber: string;
   cardCVV: string;
-  state: LocationName;
+  state: string;
   zone: string;
   currency: AppCurrencyName;
   deliveryInstruction: string;
+  pickupState: string;
 }
 
 export type PaymentName =
@@ -294,7 +294,7 @@ export type PaymentName =
   | "manualTransfer"
   | "gtbTransfer"
   | "natwestTransfer"
-  | "bitcoinTransfer";
+  | "bitcoinAddress";
 
 export interface PaymentMethod {
   title: string;

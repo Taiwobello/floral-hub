@@ -8,20 +8,30 @@
   &:hover {
     box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
   }
-
+  @media (max-width: 768px) {
+    width: 90%;
+  }
   .detail {
     padding: 0.6rem 1rem 1rem;
+    @media (max-width: 768px) {
+      padding: 0.6rem;
+    }
   }
   .title {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    font-weight: 500;
     margin: 1rem 0;
-    height: 3.2rem;
+    height: fit-content;
     display: -webkit-box;
     line-clamp: 2;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+      margin: 0.6rem;
+    }
   }
   .duration {
     background-color: #f4f4f4;
@@ -40,10 +50,10 @@
   }
   .img-wrapper {
     overflow: hidden;
-    height: 11rem;
+    height: 16rem;
     border-radius: 0.4rem 0.4rem 0 0;
     .flower-image {
-      height: 11rem;
+      height: 16rem;
       width: 100%;
       object-fit: cover;
       border-radius: 0.4rem 0.4rem 0 0;

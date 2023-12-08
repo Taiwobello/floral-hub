@@ -1,11 +1,7 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import { AppProps } from "next/app";
 import "../styles/styles.scss";
-import Layout, {
-  ConfirmModal,
-  ConfirmParams,
-  Toaster
-} from "../components/layout/Layout";
+import Layout from "../components/layout/Layout";
 import SettingsContext, {
   Breadcrumb,
   NotifyType,
@@ -33,6 +29,8 @@ import { getDefaultCurrency } from "../utils/helpers/type-conversions";
 import { Order } from "../utils/types/Order";
 import ProgressBar from "../components/progress-bar/ProgressBar";
 import Head from "next/head";
+import ConfirmModal, { ConfirmParams } from "../components/layout/ConfirmModal";
+import Toaster from "../components/layout/Toaster";
 
 const defaultSettings: Settings = {
   currency: defaultCurrency,
@@ -41,7 +39,7 @@ const defaultSettings: Settings = {
   deliveryDate: null,
   cartItems: [],
   shouldShowCart: false,
-  redirect: "/product-category/flowers-for-love-birthday-anniversary-etc",
+  redirect: "/product-category/anniversary-flowers",
   shouldShowAuthDropdown: false,
   orderId: "",
   order: null,
@@ -83,6 +81,7 @@ const App: FunctionComponent<AppProps> = props => {
   const [deliveryDate, setDeliveryDate] = useState<null | Dayjs>(null);
   const [orderId, setOrderId] = useState("");
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [deliveryFee, setDeliveryFee] = useState(0);
   const [breadcrumb, setBreadcrumb] = useState<Breadcrumb>(defaultBreadcrumb);
   const [orderLoading, setOrderLoading] = useState(false);
   const [currentStage, setCurrentStage] = useState<Stage>(1);
@@ -241,7 +240,9 @@ const App: FunctionComponent<AppProps> = props => {
     orderLoading,
     setOrderLoading,
     searchText,
-    setSearchText
+    setSearchText,
+    deliveryFee,
+    setDeliveryFee
   };
 
   return (
