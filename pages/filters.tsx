@@ -473,7 +473,7 @@ const ProductsPage: FunctionComponent<{
         </div>
         <div
           className={`${styles.content} flex ${deviceType === "desktop" &&
-            "spaced-xl"}`}
+            "spaced-xl"} ${hideHero && styles["no-hero"]}`}
         >
           {!hideFilters && (
             <div className={styles["left-side"]}>

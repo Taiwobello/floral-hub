@@ -139,7 +139,7 @@ const titleMap: Record<FormType, string> = {
 
 const AuthModal: FunctionComponent<ModalProps> = props => {
   const { visible, cancel } = props;
-  const [formType, setFormType] = useState<FormType>("login");
+  const [formType, setFormType] = useState<FormType | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -157,8 +157,6 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
   useEffect(() => {
     if (_pathname === "checkout" && !user) {
       setFormType("guestCheckout");
-    } else {
-      setFormType("login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [_pathname]);
@@ -183,7 +181,7 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
       newPassword: () => changePassword(password)
     };
     setLoading(true);
-    const response = await handlerMap[formType]?.();
+    const response = await handlerMap[formType as FormType]?.();
     setLoading(false);
     if (response?.error) {
       if (response.message?.includes("Upgrade is required for legacy user")) {
@@ -199,7 +197,7 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
         `Unable to ${
           formType === "forgotPassword"
             ? "reset password"
-            : titleMap[formType].toLowerCase()
+            : titleMap[formType as FormType].toLowerCase()
         }: ${response.message}`
       );
     } else {
@@ -248,7 +246,7 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
       cancel={cancel}
     >
       <div className={styles["auth-form"]}>
-        {["login", "signup", "guestCheckout"].includes(formType) ? (
+        {["login", "signup", "guestCheckout"].includes(formType || "login") ? (
           <>
             <h2 className="text-center text-large margin-bottom">
               {_pathname === "checkout"
@@ -479,7 +477,7 @@ const AuthModal: FunctionComponent<ModalProps> = props => {
               {iconMap[formType as PasswordResetFormType]}
             </div>
 
-            <h1>{titleMap[formType]}</h1>
+            <h1>{titleMap[formType || "login"]}</h1>
             <p className="grayed text-small">{`${
               descriptionTextMap[formType as PasswordResetFormType]
             } ${formType === "validateOtp" ? email : ""} `}</p>
