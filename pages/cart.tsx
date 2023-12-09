@@ -409,7 +409,7 @@ const Cart: FunctionComponent<CartContextProps> = props => {
                           ""
                         )} */}
                       </p>
-                      <p className="vertical-margin">
+                      <div className="vertical-margin">
                         {item.description}
                         <div className="flex center-align spaced-lg vertical-margin">
                           <div
@@ -422,7 +422,7 @@ const Cart: FunctionComponent<CartContextProps> = props => {
                             onClick={() => handleAddItemQuantity(item.SKU)}
                           ></div>
                         </div>
-                      </p>
+                      </div>
                       {/* <div className={` flex center-align ${styles.gifts}`}>
                           <p>Gifts Included:</p>
                           <p><img src="/images/flower.png" alt="" height={30} width={30} className="margin" /></p>

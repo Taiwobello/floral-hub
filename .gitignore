@@ -35,3 +35,5 @@ yarn-error.log*
 .vercel
 
 playground.js
+# Sentry Config File
+.sentryclirc

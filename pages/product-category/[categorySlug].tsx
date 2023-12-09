@@ -7,24 +7,29 @@ import Meta from "../../components/meta/Meta";
 import { occasionsPageMetaData, websiteUrl } from "../../utils/constants";
 
 const CategoryPage: FunctionComponent<{
-  category: Category;
+  category?: Category;
 }> = ({ category }) => {
+  console.log(category);
+  if (!category?.slug) {
+    window.location.reload();
+  }
+
   return (
     <>
       <Meta
-        canonicalUrl={`${websiteUrl}/product-category/${category.slug}`}
+        canonicalUrl={`${websiteUrl}/product-category/${category?.slug}`}
         description={
-          occasionsPageMetaData[category.slug] &&
-          occasionsPageMetaData[category.slug].description
+          occasionsPageMetaData[category?.slug || "all"] &&
+          occasionsPageMetaData[category?.slug || "all"].description
         }
         title={
-          occasionsPageMetaData[category.slug] &&
-          occasionsPageMetaData[category.slug].title
+          occasionsPageMetaData[category?.slug || "all"] &&
+          occasionsPageMetaData[category?.slug || "all"].title
         }
       ></Meta>
       <ProductsPage
         productCategory="occasion"
-        categorySlug={category.slug}
+        categorySlug={category?.slug || "all"}
         category={category}
       />
     </>
@@ -53,7 +58,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     console.error("Unable to fetch Category", message);
 
     return {
-      props: {}
+      props: {
+        category: {
+          name: "",
+          title: "",
+          slug: ""
+        }
+      }
     };
   }
   return {

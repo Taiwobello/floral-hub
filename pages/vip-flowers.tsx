@@ -35,7 +35,7 @@ export const getStaticProps: GetStaticProps = async () => {
       props: {}
     };
   }
-  console.log("data", data);
+  // console.log("data", data);
   return {
     props: {
       category: data

@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext, useEffect, useState } from "react";
+import { FunctionComponent, useContext, useEffect, useState, useRef } from "react";
 import { GetStaticProps } from "next";
 import { getAllProducts, getProduct } from "../../utils/helpers/data/products";
 import Product, {
@@ -38,6 +38,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
   const { product } = props;
 
   const outOfStock = product && !product.sku && !product.variants.length;
+  const hasVariants = product.variants.length > 1
   const [activeSlide, setActiveSlide] = useState<number>(0);
   const [descriptionTab, setDescriptionTab] = useState<
     "product-description" | "reviews"
@@ -45,12 +46,17 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
   const [sizeType, setsizeType] = useState("regular");
   const [selectedSize, setSelectedSize] = useState<Size | null>(null);
   const [addonGroup, setAddonGroup] = useState("");
+  const [showMobileCart, setShowMobileCart] = useState(false)
   const [selectedDesign, setSelectedDesign] = useState<DesignOption | null>(
     null
   );
   const [productPrice, setProductPrice] = useState<number>(product.price);
   const [total, setTotal] = useState<number>(product.price);
   const [quantity, setQuantity] = useState<number>(1);
+  const [isInView, setIsInView] = useState(false);
+
+  const mobileCartRef = useRef(null);
+
 
   const {
     setCartItems,
@@ -91,6 +97,15 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
     variant => variant.class === "vip"
   );
 
+  const checkInView = () => {
+    const element = mobileCartRef.current as HTMLElement | null;
+
+    if (element) {
+      const rect = element.getBoundingClientRect();
+      setIsInView(rect.top < window.innerHeight && rect.bottom >= 0);
+    }
+  };
+
   useEffect(() => {
     const longDescription = document.getElementById("long-description");
     const description = document.getElementById("description");
@@ -113,7 +128,16 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    checkInView();
+  }, []);
 
+  useEffect(() => {
+    document.addEventListener("scroll", checkInView);
+    return () => {
+      document.removeEventListener("scroll", checkInView);
+    };
+  }, []);
   const handleAddToCart = () => {
     const cartItem: CartItem = {
       key: product.key,
@@ -163,6 +187,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
         setCartItems([...cartItems, cartItem]);
         notify(
           "success",
+           <Link href={"/cart"}>
           <p>
             Item Added To Cart{" "}
             <span
@@ -172,6 +197,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
               View Cart
             </span>
           </p>
+           </Link>
         );
       } else if (existingCartItem.SKU === selectedSize?.sku) {
         const newCartItem = cartItems.map(item => {
@@ -188,6 +214,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
         setCartItems(newCartItem);
         notify(
           "success",
+          <Link href={"/cart"}>
           <p>
             Item Added To Cart{" "}
             <span
@@ -197,6 +224,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
               View Cart
             </span>
           </p>
+          </Link>
         );
       }
       // else if (existingDesign?.name === selectedDesign?.name) {
@@ -282,7 +310,17 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
     setTotal((selectedDesign?.price || 0) + (selectedSize?.price || 0));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedDesign, selectedSize]);
-
+   useEffect(()=>{
+    if (!hasVariants){
+      setShowMobileCart(true)
+      setProductPrice(product.price)
+    }else if(hasVariants && isInView){
+      setShowMobileCart(true)
+      setProductPrice(0)
+    }else{
+      setShowMobileCart(false)
+    }
+   },[product, isInView])     
   const cannotBuy =
     (product.type === "variable" && !selectedSize?.name) ||
     (selectedSize?.designOptions && !selectedDesign);
@@ -630,7 +668,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                     >
                       {!shouldShowVipSizes ? "Sizes" : "Regular Sizes"}
                     </button>
-                    <div className={styles["size-wrapper"]}>
+                    <div className={styles["size-wrapper"]} ref={mobileCartRef}>
                       {product.variants
                         ?.filter(variant => variant.class === "regular")
                         .map((variant, index) => (
@@ -669,7 +707,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                       VIP Sizes
                     </button>
 
-                    <div className={styles["size-wrapper"]}>
+                    <div className={styles["size-wrapper"]} ref={mobileCartRef}>
                       {product.variants
                         ?.filter(variant => variant.class === "vip")
                         .map((variant, index) => {
@@ -854,12 +892,13 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
             )}
           </div>
         </div>
-        {deviceType === "mobile" && (
+        {deviceType === "mobile" && showMobileCart && (
+
           <div className={styles["mobile-cart"]}>
             <div className="flex between center-align">
               <strong className="text-medium">Subtotal</strong>
               <strong className="text-regular">
-                {getPriceDisplay(total || productPrice, currency)}
+                { getPriceDisplay(total || productPrice, currency)}
               </strong>
             </div>
             <br />
