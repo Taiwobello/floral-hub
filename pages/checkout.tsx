@@ -114,7 +114,8 @@ const initialData: CheckoutFormData = {
   zone: "",
   currency: "NGN",
   deliveryInstruction: "",
-  pickupState: ""
+  pickupState: "",
+  deliveryZone: ""
 };
 
 type DeliverStage =
@@ -249,7 +250,8 @@ const Checkout: FunctionComponent = () => {
         [key as string]: value,
         zone: value === "other-locations" ? value : "",
         pickUpLocation: "",
-        deliveryLocation: null
+        deliveryLocation: null,
+        deliveryZone: value === "lagos" ? "WBL" : "WBA"
       });
       return;
     }
