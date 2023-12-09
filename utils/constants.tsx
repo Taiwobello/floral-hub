@@ -257,7 +257,7 @@ export const breadcrumbItems: Breadcrumb[] = [
   },
   { url: "cascading-bridal-bouquets", label: "Cascading Bridal Bouquets" },
   {
-    url: "accessories-boutonnieres-bridesmaids-flowers-amp-corsages",
+    url: "accessories-boutonnieres-bridesmaids-flowers-corsages",
     label: "Accessories & Boutonnieress"
   },
   { label: "VIP", url: "vip" }

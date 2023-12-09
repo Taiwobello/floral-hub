@@ -220,7 +220,6 @@ const Checkout: FunctionComponent = () => {
     setDeliveryDate(null);
     AppStorage.remove(AppStorageConstants.ORDER_ID);
     AppStorage.remove(AppStorageConstants.CART_ITEMS);
-    AppStorage.remove(AppStorageConstants.DELIVERY_DATE);
   };
 
   const refNumber = new Date().getTime().toString();
@@ -1010,7 +1009,8 @@ const Checkout: FunctionComponent = () => {
                             className={[
                               styles.method,
                               formData.deliveryMethod === "delivery" &&
-                                styles.active
+                                styles.active,
+                              (order?.amount as number) < 20000 && "disabled"
                             ].join(" ")}
                             onClick={() =>
                               handleChange("deliveryMethod", "delivery")
@@ -1039,6 +1039,11 @@ const Checkout: FunctionComponent = () => {
                                   currency.name
                                 ].toLocaleString()}`
                               : ""}
+                            {(order?.amount as number) < 20000 &&
+                              `(Please note that orders below ${getPriceDisplay(
+                                20000,
+                                currency
+                              )}  have to be picked up)`}
                           </em>
                         </div>
 
