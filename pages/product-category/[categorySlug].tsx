@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { getCategories, getCategory } from "../../utils/helpers/data/category";
 import ProductsPage from "../filters";
 import { Category } from "../../utils/types/Category";
@@ -9,6 +9,11 @@ import { occasionsPageMetaData, websiteUrl } from "../../utils/constants";
 const CategoryPage: FunctionComponent<{
   category?: Category;
 }> = ({ category }) => {
+  useEffect(() => {
+    if (!category?.slug) {
+      window.location.reload();
+    }
+  }, [category]);
   return (
     <>
       <Meta
