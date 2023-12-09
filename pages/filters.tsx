@@ -662,7 +662,9 @@ const ProductsPage: FunctionComponent<{
                       <Select
                         options={sortOptions}
                         value={sort}
-                        onSelect={value => setSort(value as Sort)}
+                        onSelect={value =>
+                          setSort((value as Sort) || "name-asc")
+                        }
                         placeholder="Default"
                         className={`${styles["sort"]}`}
                       />
@@ -844,13 +846,13 @@ const ProductsPage: FunctionComponent<{
                     buttonText="Add to Cart"
                     subTitle={product.subtitle || product.name.split("–")[1]}
                     url={`/product/${product.slug}`}
-                    mode={
+                    mode={`${
                       deviceType === "desktop"
                         ? hideFilters
                           ? "four-x-grid"
-                          : undefined
+                          : "three-x-grid"
                         : "two-x-grid"
-                    }
+                    }`}
                     ref={
                       index === arr.length - 1
                         ? ele => {
