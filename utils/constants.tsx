@@ -257,7 +257,7 @@ export const breadcrumbItems: Breadcrumb[] = [
   },
   { url: "cascading-bridal-bouquets", label: "Cascading Bridal Bouquets" },
   {
-    url: "accessories-boutonnieres-bridesmaids-flowers-amp-corsages",
+    url: "accessories-boutonnieres-bridesmaids-flowers-corsages",
     label: "Accessories & Boutonnieress"
   },
   { label: "VIP", url: "vip" }
@@ -1027,7 +1027,7 @@ export const paymentMethods: PaymentMethod[] = [
     paymentName: "gtbTransfer",
     supportedCurrencies: ["NGN"],
     icon: (
-      <img src="./icons/gtbank.svg" className="generic-icon large" alt="gtb" />
+      <img src="/icons/gtbank.svg" className="generic-icon large" alt="gtb" />
     ),
     info: "Transfer Naira to GTB Bank"
   },
@@ -1050,7 +1050,7 @@ export const paymentMethods: PaymentMethod[] = [
     supportedCurrencies: ["GBP"],
     icon: (
       <img
-        src="./icons/natwest.svg"
+        src="/icons/natwest.svg"
         className="generic-icon large"
         alt="natwest"
       />

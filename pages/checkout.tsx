@@ -31,7 +31,8 @@ import {
   pickupLocations,
   pickupStates,
   placeholderEmail,
-  companyEmail
+  companyEmail,
+  checkoutContent
 } from "../utils/constants";
 import SettingsContext from "../utils/context/SettingsContext";
 import {
@@ -171,7 +172,8 @@ const Checkout: FunctionComponent = () => {
     orderLoading,
     setDeliveryFee,
     setOrderLoading,
-    setOrder
+    setOrder,
+    cartItems
   } = useContext(SettingsContext);
 
   const deviceType = useDeviceType();
@@ -218,7 +220,6 @@ const Checkout: FunctionComponent = () => {
     setDeliveryDate(null);
     AppStorage.remove(AppStorageConstants.ORDER_ID);
     AppStorage.remove(AppStorageConstants.CART_ITEMS);
-    AppStorage.remove(AppStorageConstants.DELIVERY_DATE);
   };
 
   const refNumber = new Date().getTime().toString();
@@ -961,6 +962,7 @@ const Checkout: FunctionComponent = () => {
                             <button
                               onClick={() => setShouldShowAuthDropdown(true)}
                               className="primary-color bold underline margin-left"
+                              type="button"
                             >
                               Login
                             </button>
@@ -1007,7 +1009,8 @@ const Checkout: FunctionComponent = () => {
                             className={[
                               styles.method,
                               formData.deliveryMethod === "delivery" &&
-                                styles.active
+                                styles.active,
+                              (order?.amount as number) < 20000 && "disabled"
                             ].join(" ")}
                             onClick={() =>
                               handleChange("deliveryMethod", "delivery")
@@ -1036,6 +1039,11 @@ const Checkout: FunctionComponent = () => {
                                   currency.name
                                 ].toLocaleString()}`
                               : ""}
+                            {(order?.amount as number) < 20000 &&
+                              `(Please note that orders below ${getPriceDisplay(
+                                20000,
+                                currency
+                              )}  have to be picked up)`}
                           </em>
                         </div>
 
@@ -1411,7 +1419,9 @@ const Checkout: FunctionComponent = () => {
 
                     {isSenderInfoCompleted && (
                       <Button
-                        className="half-width"
+                        className={[
+                          deviceType === "desktop" && "half-width"
+                        ].join(" ")}
                         loading={loading}
                         buttonType="submit"
                       >
@@ -1540,7 +1550,7 @@ const Checkout: FunctionComponent = () => {
                 )}
               </div>
 
-              {/* {currentStage <= 2 && (
+              {currentStage <= 2 && (
                 <div className={styles.right}>
                   <div className={` ${styles.section}`}>
                     <div className="flex between margin-bottom spaced">
@@ -1605,7 +1615,7 @@ const Checkout: FunctionComponent = () => {
                         {getPriceDisplay(total, currency)}
                       </span>
                     </div>
-                    {currentStage === 1 && (
+                    {currentStage === 1 && deviceType === "desktop" && (
                       <Button responsive buttonType="submit" loading={loading}>
                         PROCEED TO PAYMENT
                       </Button>
@@ -1629,7 +1639,7 @@ const Checkout: FunctionComponent = () => {
                     </div>
                   </div>
                 </div>
-              )} */}
+              )}
             </div>
           )}
           {currentStage === 3 && isPaid && (
@@ -1642,7 +1652,7 @@ const Checkout: FunctionComponent = () => {
               <div className={styles["complete-checkout"]}>
                 <div className="text-center white-bg">
                   <img
-                    src="icons/checkout-complete.svg"
+                    src="/icons/checkout-complete.svg"
                     alt="completed"
                     className={`text-center ${styles["complete-image"]}`}
                   />
@@ -1671,7 +1681,7 @@ const Checkout: FunctionComponent = () => {
                     </p>
                     <div className="flex spaced">
                       <img
-                        src="icons/info.svg"
+                        src="/icons/info.svg"
                         alt="information"
                         className={["generic-icon", styles.icon].join(" ")}
                       />
