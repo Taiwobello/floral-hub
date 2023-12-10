@@ -2649,7 +2649,7 @@ export const links: AppLink[] = [
         children: []
       },
       {
-        url: "/product-category/perfumes-eau-de-toilette-cologne-and-parfums",
+        url: "/product-category/perfumes",
         title: "Perfumes",
         children: []
       },
