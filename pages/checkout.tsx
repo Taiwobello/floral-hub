@@ -230,7 +230,8 @@ const Checkout: FunctionComponent = () => {
     email: formData.senderEmail || placeholderEmail,
     amount: Math.ceil((total || 0) / currency.conversionRate) * 100,
     currency: currency.name === "GBP" ? undefined : currency.name, // Does not support GBP
-    publicKey: "pk_test_cd20e6c09cdb5ba2395a7c0f4acd63145e3c8aff",
+    publicKey: "pk_live_21eb936506c47d587082d5362939421736884434",
+    // publicKey: "pk_test_cd20e6c09cdb5ba2395a7c0f4acd63145e3c8aff",
     channels: ["card", "bank", "ussd", "qr", "mobile_money"]
   };
 
