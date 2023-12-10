@@ -535,17 +535,17 @@ export const aboutUsContent: {
   howItBegan: {
     title: "How it Began",
     content:
-      "Warning: This is not a typical About Us story, because you see, Regal Flowers started in an unusual way. It was a Sunday morning, the year was 2016, in the vibrant city of Lagos, Nigeria, and our founder, reeling from the very recent heartbreak of his relationship (Hint: She left him) was determined to get his girlfriend back.  She was traveling to Abuja, Nigeria that afternoon, and he wanted to get beautiful flowers for her so he decided to check online for flower shops in Lagos or Abuja that could deliver a bouquet of red roses and chocolates to her the same day. He searched high and low, and while he found other online flower delivery shops in Lagos and Abuja, Nigeria, he couldn’t find one that ticked all the right boxes.  The flower shops he found either didn’t look reputable enough (after all he was already heartbroken, he couldn’t afford to lose his money too, and this is Nigeria, where you have to be vigilant), or were out of stock (even though they didn’t say so on their website until he called), or they didn’t have enough options for various budgets. He finally found one that claimed to be open 24 hours on their Google Maps, and when they didn’t pick up the phone, he drove down there, only to meet it closed. Ouch. No, he eventually didn’t get her back, and No, it wasn't because he couldn't send her the red roses and chocolates. Instead, it was, as the dictionary would say, irreconcilable differences, and they remain friends, but he instead gained the passion for flowers and gifts that would eventually see him open his own online and walk-in fresh flower shop in Lagos and Abuja An online flower shop that would precisely tick all the right boxes: "
+      "Warning: This is not a typical About Us story, because you see, Floral Hub Flowers started in an unusual way. It was a Sunday morning, the year was 2016, in the vibrant city of Lagos, Nigeria, and our founder, reeling from the very recent heartbreak of his relationship (Hint: She left him) was determined to get his girlfriend back.  She was traveling to Abuja, Nigeria that afternoon, and he wanted to get beautiful flowers for her so he decided to check online for flower shops in Lagos or Abuja that could deliver a bouquet of red roses and chocolates to her the same day. He searched high and low, and while he found other online flower delivery shops in Lagos and Abuja, Nigeria, he couldn’t find one that ticked all the right boxes.  The flower shops he found either didn’t look reputable enough (after all he was already heartbroken, he couldn’t afford to lose his money too, and this is Nigeria, where you have to be vigilant), or were out of stock (even though they didn’t say so on their website until he called), or they didn’t have enough options for various budgets. He finally found one that claimed to be open 24 hours on their Google Maps, and when they didn’t pick up the phone, he drove down there, only to meet it closed. Ouch. No, he eventually didn’t get her back, and No, it wasn't because he couldn't send her the red roses and chocolates. Instead, it was, as the dictionary would say, irreconcilable differences, and they remain friends, but he instead gained the passion for flowers and gifts that would eventually see him open his own online and walk-in fresh flower shop in Lagos and Abuja An online flower shop that would precisely tick all the right boxes: "
   },
 
   openingHour: {
     content:
-      "It would be open 24 hours not only for online orders but also for walk-ins. We once had a client take us up on the offer by walking in by 3 am. He was on his way to pick up his wife at the airport and wanted to buy red roses to welcome her. He was shocked we were actually open. Regal Flowers and Gifts is also open every day of the year including weekends and public holidays (yes, Christmas, Easter, and New Year's Day too). We are badass like that ",
+      "It would be open 24 hours not only for online orders but also for walk-ins. We once had a client take us up on the offer by walking in by 3 am. He was on his way to pick up his wife at the airport and wanted to buy red roses to welcome her. He was shocked we were actually open. Floral Hub Flowers and Gifts is also open every day of the year including weekends and public holidays (yes, Christmas, Easter, and New Year's Day too). We are badass like that ",
     title: "Always Open Online and Walk-in 24hours everyday"
   },
   reputation: {
     content:
-      "The flower shop would be reputable. Once you place your order, you can completely relax. We have the highest rating  (4.97 stars on average) and the highest number of Google Reviews in Nigeria (over 1000 reviews from our 3 branches). Regal Flowers has delivered to over 10,000 people including various celebrities and 2 Nigerian Presidents. We have probably delivered roses for and to someone you know. Furthermore, the flowers are always fresh and imported into Nigeria every week from rose farms across the world. You can definitely say Regal flowers is your plug for reputable and premium fresh flowers in Nigeria.",
+      "The flower shop would be reputable. Once you place your order, you can completely relax. We have the highest rating  (4.97 stars on average) and the highest number of Google Reviews in Nigeria (over 1000 reviews from our 3 branches). Floral Hub Flowers has delivered to over 10,000 people including various celebrities and 2 Nigerian Presidents. We have probably delivered roses for and to someone you know. Furthermore, the flowers are always fresh and imported into Nigeria every week from rose farms across the world. You can definitely say Regal flowers is your plug for reputable and premium fresh flowers in Nigeria.",
     title: "Reputable and Premium Fresh Flowers in Nigeria"
   },
   deliveryTime: {
@@ -2701,13 +2701,13 @@ type RegalContent<T = string> = Record<LocationName, T>;
 
 export const locationHeadlines: RegalContent = {
   general:
-    "They Deserve Regal Flowers. Premium Same Day Flower Delivery in Lagos & Abuja, Nigeria",
+    "They Deserve Floral Hub Flowers. Premium Same Day Flower Delivery in Lagos & Abuja, Nigeria",
   lagos:
     "Make it Regal. Premium Online and Walk-in Flower Shop in Lagos and Abuja, Nigeria",
   abuja:
     "Make Their Day. Send Flowers and Gifts to Someone in Abuja or Lagos, Nigeria Today",
   "other-locations":
-    "Send Regal Flowers and Gifts to Other Selected Locations in Nigeria"
+    "Send Floral Hub Flowers and Gifts to Other Selected Locations in Nigeria"
 };
 
 export const bestSellers: RegalContent = {
@@ -3224,7 +3224,8 @@ export const occasionsPageMetaData: Record<
   { title: string; description: string }
 > = {
   "anniversary-flowers": {
-    title: "Flowers for Romance, Birthday, Anniversary etc | Regal Flowers",
+    title:
+      "Flowers for Romance, Birthday, Anniversary etc | Floral Hub Flowers",
     description:
       "Choose from our delightful assortment of Birthday, Anniversary, Romantic Flowers, Valentine’s Flowers, or Mother’s Day Flowers…and don’t forget to add a gift too"
   },
@@ -3234,12 +3235,13 @@ export const occasionsPageMetaData: Record<
       "Say it with flowers. Various flowers to say, Thank You, I am Sorry, Congratulations and more"
   },
   "bridal-bouquets": {
-    title: "Bridal Bouquets For The Bride and Bridal train | Regal Flowers",
+    title:
+      "Bridal Bouquets For The Bride and Bridal train | Floral Hub Flowers",
     description: ""
   },
   "funeral-and-condolence": {
     title:
-      "Funeral Wreaths And Condolence Flowers To Say Goodbye | Regal Flowers",
+      "Funeral Wreaths And Condolence Flowers To Say Goodbye | Floral Hub Flowers",
     description: ""
   },
   all: {
@@ -3248,12 +3250,12 @@ export const occasionsPageMetaData: Record<
   },
   "cascading-bridal-bouquets": {
     title:
-      "Cascading Bridal Bouquets With Fresh Flowers Or Roses | Regal Flowers",
+      "Cascading Bridal Bouquets With Fresh Flowers Or Roses | Floral Hub Flowers",
     description: ""
   },
   "accessories-boutonnieres-bridesmaids-flowers-corsages": {
     title:
-      "Fresh flower bridal train and groomsmen accessories | Regal Flowers",
+      "Fresh flower bridal train and groomsmen accessories | Floral Hub Flowers",
     description: ""
   },
   "indoor-plants-and-cactus": {
