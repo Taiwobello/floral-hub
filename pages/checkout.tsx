@@ -188,8 +188,6 @@ const Checkout: FunctionComponent = () => {
         0
       ) || 0;
 
-    setDeliveryFee(formData.deliveryLocation?.amount || 0);
-
     return total + (formData.deliveryLocation?.amount || 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [order?.orderProducts, formData.deliveryLocation]);
@@ -219,8 +217,10 @@ const Checkout: FunctionComponent = () => {
     setCurrentStage(3);
     setOrderId("");
     setDeliveryDate(null);
+    setDeliveryFee(0);
     AppStorage.remove(AppStorageConstants.ORDER_ID);
     AppStorage.remove(AppStorageConstants.CART_ITEMS);
+    AppStorage.remove(AppStorageConstants.DELIVERY_DATE);
   };
 
   const refNumber = new Date().getTime().toString();
@@ -522,6 +522,11 @@ const Checkout: FunctionComponent = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [currentStage]);
+
+  useEffect(() => {
+    setDeliveryFee(formData.deliveryLocation?.amount || 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formData.deliveryLocation?.amount]);
 
   const validateDeliveryMethod = () => {
     if (formData.deliveryMethod === "pick-up" && !formData.pickUpLocation) {
@@ -1570,7 +1575,7 @@ const Checkout: FunctionComponent = () => {
                         </a>
                       </Link>
                     </div>
-                    <div className="flex between ">
+                    <div className="flex between margin-bottom">
                       <span className="normal-text">Subtotal</span>
                       <span className="normal-text bold">
                         {getPriceDisplay(subTotal || 0, currency)}
@@ -1578,7 +1583,7 @@ const Checkout: FunctionComponent = () => {
                     </div>
 
                     {formData.deliveryMethod === "delivery" && (
-                      <div className="flex between">
+                      <div className="flex between margin-bottom">
                         <span className="normal-text">Delivery</span>
                         <span className="normal-text bold">
                           {getPriceDisplay(
