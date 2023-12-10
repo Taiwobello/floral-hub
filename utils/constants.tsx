@@ -3352,50 +3352,31 @@ export const contactUsPageContent: Partial<Record<
 export const schemaProperties = {
   "@type": "LocalBusiness",
   name: "Floral Hub",
-  url: "https://floralhub.com.ng",
+  url: "https://www.floralhub.com.ng",
   description:
-    "Order Same Day Fresh Flowers and Gifts Delivery In Lagos and Abuja, Nigeria. Open 24 hours everyday for walk-ins and online, we are the top flower shop in Lagos and Abuja, Nigeria",
+    "Floral Hub | 24/7 Online & Walk-in Fresh Flowers & Gifts Shop in Lagos and Abuja, Nigeria that offers Same Day Delivery in Lagos, and Abuja, Nigeria",
   image: [
-    "/images/popular-bundled.jpg",
-    "/images/occasions-love-bday.png",
-    "/images/calligraphy.jpg"
+    "https://firebasestorage.googleapis.com/v0/b/floralhub-cdn/o/Rectangle-3040.png?alt=media&token=3101f80c-e698-4d96-857a-66bc9d189f36"
   ],
-  telephone: ["+234 907 777 7994"],
+  telephone: ["+234 907 7777994"],
   email: "info@floralhub.com.ng",
   openingHours: "24/7",
   paymentAccepted: ["Credit/Debit Cards", "Paypal", "Bitcoin", "Bank Transfer"],
   priceRange: "₦",
   hasMap: [
-    "https://goo.gl/maps/cNB9Jx9sidQhJgtD6",
-    "https://goo.gl/maps/AsSEYaBUVV3NCRaa7",
-    "https://goo.gl/maps/5wQFMW5pR33n9k6G7",
-    "https://goo.gl/maps/JAKrvZAe5vfh4czr9"
+    "https://maps.app.goo.gl/u4DbZLsmZRixJZqV8", // Ikoyi, Lagos
+    "https://maps.app.goo.gl/4BmrPnVoGQjNz8Mb6" // Abuja
   ],
   address: [
     {
       "@type": "PostalAddress",
-      streetAddress: "81b, Lafiaji Way, Dolphin Estate, Ikoyi, Lagos, Nigeria",
+      streetAddress: "15, Ikeja Way, Dolphin Estate, Ikoyi, Lagos",
       addressLocality: "Ikoyi",
-      addressRegion: "Lagos",
-      postalCode: "Nigeria"
+      addressRegion: "Lagos"
     },
     {
       "@type": "PostalAddress",
-      streetAddress: "Silverbird Galleria, 133, Ahmadu Bello Way",
-      addressLocality: "Victoria Island",
-      addressRegion: "Lagos",
-      postalCode: "Nigeria"
-    },
-    {
-      "@type": "PostalAddress",
-      streetAddress: "Muritala Muhammed Airport2",
-      addressLocality: "Ikeja",
-      addressRegion: "Lagos",
-      postalCode: "Nigeria"
-    },
-    {
-      "@type": "PostalAddress",
-      streetAddress: "5, Nairobi Street, off Aminu Kano Crescent, Wuse 2",
+      streetAddress: "5, Nairobi Way, off Aminu Kano Crescent, Abuja",
       addressLocality: "Abuja",
       addressRegion: "Nigeria"
     }
@@ -3403,23 +3384,13 @@ export const schemaProperties = {
   geo: [
     {
       "@type": "GeoCoordinates",
-      latitude: "6.431916",
-      longitude: "3.438313"
+      latitude: "6.460616185620579",
+      longitude: "3.4171805985817842"
     },
     {
       "@type": "GeoCoordinates",
-      latitude: "6.431130",
-      longitude: "3.421499"
-    },
-    {
-      "@type": "GeoCoordinates",
-      latitude: "6.579768",
-      longitude: "3.327780"
-    },
-    {
-      "@type": "GeoCoordinates",
-      latitude: "9.079727",
-      longitude: "7.495671"
+      latitude: "9.077990953737423",
+      longitude: "7.464239959050253"
     }
   ],
   contactPoint: [
@@ -3431,34 +3402,46 @@ export const schemaProperties = {
     }
   ],
   sameAs: [
-    "https://instagram.com/floralhub.com.ng",
-    "http://facebook.com/RegalFlowersNG/",
+    "https://www.instagram.com/floralhub.com.ng/",
+    "https://www.facebook.com/floralhub.com.ng/",
     "https://www.linkedin.com/company/floralhub-com-ng/"
   ],
   potentialAction: [
     {
       "@type": "ViewAction",
-      target: "https://floralhub.com.ng/product-category/anniversary-flowers",
-      name: "Love, Birthday, Anniversary Flowers"
-    },
-    {
-      "@type": "ViewAction",
-      target: "https://floralhub.com.ng/product-category/gifts",
-      name: "Gifts to Include"
+      target: "https://floralhub.com.ng/product-category/birthday-flowers/",
+      name: "Birthday Flowers"
     },
     {
       "@type": "ViewAction",
       target:
-        "https://floralhub.com.ng/product-category/flowers-to-say-thanks-sorry-etc",
-      name: "Popular Options"
+        "https://floralhub.com.ng/product-category/flowers-to-say-thanks-sorry-etc/",
+      name: "Flowers for Romance, Sorry, Thanks, etc"
     },
     {
       "@type": "ViewAction",
-      target: "https://floralhub.com.ng/product-category/roses",
+      target: "https://floralhub.com.ng/product-category/anniversary-flowers/",
+      name: "Anniversary Flowers"
+    },
+    {
+      "@type": "ViewAction",
+      target: "https://floralhub.com.ng/product-category/gifts/",
+      name: "Gifts for Her or Him"
+    },
+    {
+      "@type": "ViewAction",
+      target: "https://floralhub.com.ng/product-category/roses/",
       name: "Roses"
+    },
+    {
+      "@type": "ViewAction",
+      target:
+        "https://floralhub.com.ng/product-category/valentines-day-flowers/",
+      name: "Valentine Flowers"
     }
   ],
-  logo: "/icons/logo.svg"
+  logo:
+    "https://firebasestorage.googleapis.com/v0/b/floralhub-cdn/o/Rectangle-3040.png?alt=media&token=3101f80c-e698-4d96-857a-66bc9d189f36"
 };
 
 export const business = "floralHub";
