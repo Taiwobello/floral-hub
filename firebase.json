@@ -14,27 +14,27 @@
     "redirects": [
       {
         "source": "/contact-us",
-        "destination": "/#contactSection",
+        "destination": "/contact/",
         "type": 301
       },
       {
         "source": "/about/",
-        "destination": "/#aboutUs",
+        "destination": "/faq-how-to-buy-fresh-flowers-and-gifts-in-lagos-and-abuja/",
         "type": 301
       },
       {
         "source": "/about-us/",
-        "destination": "/#aboutUs",
+        "destination": "/faq-how-to-buy-fresh-flowers-and-gifts-in-lagos-and-abuja/",
         "type": 301
       },
       {
         "source": "/faqs-how-to-order-and-delivery-information",
-        "destination": "/faq-how-to-buy-fresh-flowers-and-gifts-in-lagos-and-abuja",
+        "destination": "/faq-how-to-buy-fresh-flowers-and-gifts-in-lagos-and-abuja/",
         "type": 301
       },
       {
         "source": "/delivery-information",
-        "destination": "/faq-how-to-buy-fresh-flowers-and-gifts-in-lagos-and-abuja",
+        "destination": "/faq-how-to-buy-fresh-flowers-and-gifts-in-lagos-and-abuja/",
         "type": 301
       },
       {
@@ -44,47 +44,47 @@
       },
       {
         "source": "/product/vip-ferrero-rocher-roses-bouquet-bouquet-of-roses-and-ferrero-rocher-chocolatui",
-        "destination": "/product/vip-ferrero-rocher-roses-bouquet-bouquet-of-roses-and-ferrero-rocher-chocolates",
+        "destination": "/product/vip-classic-roses-and-chocolate-elegant-mix-of-fresh-cut-roses-interlaced-with-luxurious-ferrero-rocher-chocolates-select-size/",
         "type": 301
       },
       {
-        "source": "/product-category/gift-items-perfumes-cakes-chocolate-wine-and-teddy-bears/chocolate-and-biscuits",
-        "destination": "/product-category/chocolate-and-biscuits",
+        "source": "/product-category/gifts-to-include-cakes-chocolates-wine-teddies-and-more/chocolate-and-biscuits/",
+        "destination": "/product-category/chocolate-and-biscuits/",
         "type": 301
       },
       {
-        "source": "/product-category/gift-items-perfumes-cakes-chocolate-wine-and-teddy-bears/cakes-and-cupcakes",
-        "destination": "/product-category/cakes-and-cupcakes",
+        "source": "/product-category/gifts-to-include-cakes-chocolates-wine-teddies-and-more/cakes-and-cupcakes/",
+        "destination": "/product-category/cakes-and-cupcakes/",
         "type": 301
       },
       {
-        "source": "/product-category/gift-items-perfumes-cakes-chocolate-wine-and-teddy-bears/wine-and-champagne",
-        "destination": "/product-category/wine-and-champagne",
+        "source": "/product-category/gifts-to-include-cakes-chocolates-wine-teddies-and-more/wine-and-champagne/",
+        "destination": "/product-category/wine-and-champagne/",
         "type": 301
       },
       {
-        "source": "/product-category/gift-items-perfumes-cakes-chocolate-wine-and-teddy-bears/scented-candles",
-        "destination": "/product-category/scented-candles",
+        "source": "/product-category/gifts-to-include-cakes-chocolates-wine-teddies-and-more/scented-candles",
+        "destination": "/product-category/scented-candles/",
         "type": 301
       },
       {
-        "source": "/product-category/gift-items-perfumes-cakes-chocolate-wine-and-teddy-bears/gift-packs",
-        "destination": "/product-category/gift-packs",
+        "source": "/product-category/gifts-to-include-cakes-chocolates-wine-teddies-and-more/caravaggio-assorted-italian-unisex-gift-set/",
+        "destination": "/product-category/gift-sets/",
         "type": 301
       },
       {
-        "source": "/product-category/gift-items-perfumes-cakes-chocolate-wine-and-teddy-bears/perfumes-parfum-eau-de-parfum-eau-de-toilette-and-eau-de-colognes",
-        "destination": "/product-category/perfumes",
-        "type": 301
-      },
-      {
-        "source": "/product-category/perfumes",
-        "destination": "/product-category/perfumes",
+        "source": "/product-category/gifts-to-include-cakes-chocolates-wine-teddies-and-more/perfumes/",
+        "destination": "/product-category/perfumes/",
         "type": 301
       },
       {
         "source": "/product-category/funeral-flowers",
-        "destination": "/product-category/funeral-and-condolence",
+        "destination": "/product-category/funeral-condolence-flowers/",
+        "type": 301
+      },
+      {
+        "source": "/product-category/gifts-bouquets-from-romance-birthdays-mothers-day-anniversary-sorry-valentines-day-get-well-soon-etc/",
+        "destination": "/product-category/flowers-to-say-thanks-sorry-etc",
         "type": 301
       },
       {
@@ -93,13 +93,28 @@
         "type": 301
       },
       {
+        "source": "/product-category/vip-gift-bouquets-romance-bday-anniversary-just-to-say-etc/",
+        "destination": "/vip-flowers/",
+        "type": 301
+      },
+      {
+        "source": "/product-category/vip-gift-bouquets-from-n180000-romance-bday-anniversary-just-to-say-etc/",
+        "destination": "/vip-flowers/",
+        "type": 301
+      },
+      {
         "source": "/product-category/vip-luxury-bouquet-sizes",
-        "destination": "/vip",
+        "destination": "/vip-flowers/",
         "type": 301
       },
       {
         "source": "/product-category/gift-items-perfumes-cakes-chocolate-wine-and-teddy-bears",
         "destination": "/product-category/gifts",
+        "type": 301
+      },
+      {
+        "source": "/product-category/gifts-to-include-cakes-chocolates-wine-teddies-and-more/",
+        "destination": "/product-category/gifts/",
         "type": 301
       },
       {
@@ -119,47 +134,52 @@
       },
       {
         "source": "/product-category/event-and-centerpiece-flowers",
-        "destination": "/product-category/event-amp-centerpiece",
+        "destination": "/product-category/event-centerpiece/",
+        "type": 301
+      },
+      {
+        "source": "/product-category/gifts-bouquets-from-n3500-romance-birthdays-mothers-day-anniversary-sorry-valentines-day-get-well-soon-etc/",
+        "destination": "/product-category/flowers-to-say-thanks-sorry-etc/",
         "type": 301
       },
       {
         "source": "/product-category/birthday-flowers-anniversary-flowers-love-amp-romance-flowers-valentine-flowers-flowers-to-say-thanks-sorry-etc",
-        "destination": "/product-category/anniversary-flowers",
+        "destination": "/product-category/flowers-to-say-thanks-sorry-etc/",
         "type": 301
       },
       {
         "source": "/product-category/love-romance-and-birthday",
-        "destination": "/product-category/anniversary-flowers",
+        "destination": "/product-category/flowers-to-say-thanks-sorry-etc/",
         "type": 301
       },
       {
         "source": "/product-category/love-romance-birthday-anniversary-just-to-say-flowers",
-        "destination": "/product-category/anniversary-flowers",
+        "destination": "/product-category/flowers-to-say-thanks-sorry-etc/",
         "type": 301
       },
       {
         "source": "/product-category/flowers-love-birthday-anniversary-etc",
-        "destination": "/product-category/anniversary-flowers",
+        "destination": "/product-category/flowers-to-say-thanks-sorry-etc/",
         "type": 301
       },
       {
         "source": "/product-category/birthday-anniversary-love-romance-mothers-day-and-valentine-flowers",
-        "destination": "/product-category/anniversary-flowers",
+        "destination": "/product-category/flowers-to-say-thanks-sorry-etc/",
         "type": 301
       },
       {
         "source": "/product-category/love-and-romance",
-        "destination": "/product-category/anniversary-flowers",
+        "destination": "/product-category/flowers-to-say-thanks-sorry-etc/",
         "type": 301
       },
       {
         "source": "/product-tag/",
-        "destination": "/product-category/anniversary-flowers",
+        "destination": "/product-category/flowers-to-say-thanks-sorry-etc/",
         "type": 301
       },
       {
         "source": "/shop",
-        "destination": "/product-category/anniversary-flowers",
+        "destination": "/product-category/flowers-to-say-thanks-sorry-etc/",
         "type": 301
       }
     ],
