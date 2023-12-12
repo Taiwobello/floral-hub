@@ -3445,3 +3445,5 @@ export const schemaProperties = {
 };
 
 export const business = "floralHub";
+
+export const baseUrl = "www.floralhub.com.ng";

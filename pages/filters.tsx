@@ -22,7 +22,8 @@ import {
   giftItems,
   websiteUrl,
   sortOptions,
-  tagsMap
+  tagsMap,
+  baseUrl
 } from "../utils/constants";
 import Select from "../components/select/Select";
 import {
@@ -42,6 +43,7 @@ import Breadcrumb from "../components/breadcrumb/Breadcrumb";
 import { Category } from "../utils/types/Category";
 import { InfoIcon } from "../utils/resources";
 import useScrollCheck from "../utils/hooks/useScrollCheck";
+import SchemaMarkup from "../components/schema-mark-up/SchemaMarkUp";
 
 const giftMap: Record<string, string> = {
   "gift-items-perfumes-cakes-chocolate-wine-giftsets-and-teddy-bears":
@@ -59,6 +61,11 @@ const giftMap: Record<string, string> = {
 };
 
 type ProductClass = "vip" | "regular";
+
+const schemaProperties = {
+  "@context": "http://schema.org",
+  "@type": "ItemList"
+};
 
 export interface ProductFilterLogic {
   category: string[];
@@ -414,6 +421,34 @@ const ProductsPage: FunctionComponent<{
         <Meta
           canonicalUrl={`${websiteUrl}/product-category/anniversary-flowers`}
         ></Meta>
+      )}
+      {category && (
+        <Meta
+          canonicalUrl={`${baseUrl}/product-category/${category.slug}`}
+          description={category.shortDescription}
+          title={category.title}
+          image={category.image}
+          imageAlt={category.altImage}
+        >
+          <SchemaMarkup
+            properties={{
+              ...schemaProperties,
+              description: category.shortDescription,
+              url: `${baseUrl}/product-category/${category.slug}`,
+              name: category.name,
+              itemListElement: products.slice(0, 10).map((product, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                item: {
+                  "@type": "Product",
+                  name: product.name,
+                  url: `${baseUrl}/product/${product.slug}`,
+                  image: product.images[0].src
+                }
+              }))
+            }}
+          />
+        </Meta>
       )}
       <section
         className={[styles.filters, hasScrolled && styles["has-scrolled"]].join(
