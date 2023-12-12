@@ -131,7 +131,7 @@ const LandingPage: FunctionComponent<{
   return (
     <>
       <Meta
-        title="Floral Hub | Same Day Flower Delivery Shop in Lagos and Abuja, Nigeria"
+        title="Floral Hub | 24/7 Online & Walk-in Fresh Flowers & Gifts Shop in Lagos and Abuja, Nigeria that offers Same Day Delivery in Lagos, and Abuja, Nigeria"
         description="Order flowers and gifts online for same-day delivery or walk in 24/7. Send flowers to celebrate someone special from the top flower shop in Lagos & Abuja, Nigeria."
         image="/images/popular-bundled.jpg"
         imageAlt="Floral Hub"

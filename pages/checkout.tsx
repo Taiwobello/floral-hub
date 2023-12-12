@@ -300,7 +300,8 @@ const Checkout: FunctionComponent = () => {
           ...formData,
           [key as string]: value,
           pickUpLocation: "",
-          shouldSaveAddress: true
+          shouldSaveAddress: true,
+          pickupState: ""
         });
         return;
       }
