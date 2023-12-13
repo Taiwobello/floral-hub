@@ -3330,7 +3330,7 @@ export const contactUsPageContent: Partial<Record<
     location: "15, Ikeja Way, Dolphin Estate, Ikoyi",
     phoneNo: "+234 907 777 7994",
     whatsappNo: "+234 907 777 7994",
-    url: "https://goo.gl/maps/cNB9Jx9sidQhJgtD6",
+    url: "https://maps.app.goo.gl/u4DbZLsmZRixJZqV8",
     coord: {
       lat: 6.458329,
       lng: 3.413628
