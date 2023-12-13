@@ -266,7 +266,8 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       featuredFlowers: data || []
-    }
+    },
+    revalidate: 1800
   };
 };
 

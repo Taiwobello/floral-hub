@@ -10,6 +10,9 @@ const VipPage: FunctionComponent<{
   filters: string;
   category: Category;
 }> = ({ category }) => {
+  if (!category.slug) {
+    window.location.reload();
+  }
   return (
     <>
       <Meta canonicalUrl={`${websiteUrl}/vip-flowers`}></Meta>
@@ -32,13 +35,20 @@ export const getStaticProps: GetStaticProps = async () => {
     console.error("Unable to fetch Category", message);
 
     return {
-      props: {}
+      props: {
+        category: {
+          name: "",
+          slug: ""
+        }
+      },
+      revalidate: 1800
     };
   }
   // console.log("data", data);
   return {
     props: {
       category: data
-    }
+    },
+    revalidate: 1800
   };
 };

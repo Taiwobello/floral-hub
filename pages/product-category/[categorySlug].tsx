@@ -34,7 +34,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
           description: "All Products",
           image: ""
         }
-      }
+      },
+      revalidate: 1800
     };
   }
 
@@ -50,13 +51,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
           title: "",
           slug: ""
         }
-      }
+      },
+      revalidate: 1800
     };
   }
   return {
     props: {
       category: data
-    }
+    },
+    revalidate: 1800
   };
 };
 
