@@ -43,6 +43,10 @@ const schemaProperties = {
 const ProductPage: FunctionComponent<{ product: Product }> = props => {
   const { product } = props;
 
+  if (!product.name && !product.key) {
+    window.location.reload();
+  }
+
   const outOfStock = product && !product.sku && !product.variants.length;
   const hasVariants = product.variants.length > 1;
   const [activeSlide, setActiveSlide] = useState<number>(0);
@@ -325,7 +329,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
     } else {
       setShowMobileCart(false);
     }
-  }, [product, isInView]);
+  }, [product, isInView, hasVariants]);
   const cannotBuy =
     (product.type === "variable" && !selectedSize?.name) ||
     (selectedSize?.designOptions && !selectedDesign);
@@ -1086,7 +1090,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   if (error || !data) {
     console.error(`Unable to fetch product "${productSlug}": ${message}`);
     return {
-      props: {}
+      props: {
+        product: {
+          name: "",
+          variants: []
+        }
+      }
     };
   }
   return {
