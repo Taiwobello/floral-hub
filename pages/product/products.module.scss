@@ -491,10 +491,6 @@
   .buy-now {
     width: 35%;
   }
-
-  .add-to-cart {
-    width: 60%;
-  }
 }
 
 .subTitle {
@@ -504,3 +500,12 @@
 // .extras-cards {
 //   margin: 0.5rem 0 !important;
 // }
+
+.add-to-cart {
+  background-color: #b240da;
+
+  &.inactive {
+    background-color: #b7bcc2;
+    cursor: not-allowed;
+  }
+}

@@ -24,6 +24,7 @@ import Meta from "../../components/meta/Meta";
 import SchemaMarkup from "../../components/schema-mark-up/SchemaMarkUp";
 import { DeliveryIcon, InfoIcon } from "../../utils/resources";
 import useScrollCheck from "../../utils/hooks/useScrollCheck";
+import { useRouter } from "next/router";
 
 interface Size {
   name: string;
@@ -66,6 +67,8 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
   const [isInView, setIsInView] = useState(false);
 
   const mobileCartRef = useRef(null);
+
+  const router = useRouter();
 
   const {
     setCartItems,
@@ -148,6 +151,14 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
     };
   }, []);
   const handleAddToCart = () => {
+    if (cannotBuy) {
+      notify("error", "Please select a size");
+      router.push(
+        "/product/[productSlug]/#sizes",
+        `/product/${product.slug}/#sizes`
+      );
+      return;
+    }
     const cartItem: CartItem = {
       key: product.key,
       name: product.name,
@@ -330,6 +341,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
       setShowMobileCart(false);
     }
   }, [product, isInView, hasVariants]);
+
   const cannotBuy =
     (product.type === "variable" && !selectedSize?.name) ||
     (selectedSize?.designOptions && !selectedDesign);
@@ -667,7 +679,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
               </div>
             )}
             {product.type === "variable" && (
-              <div>
+              <div id="sizes">
                 <br />
                 {shouldShowRegularSizes && (
                   <>
@@ -963,7 +975,6 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                 </button>
               </div>
               <Button
-                disabled={cannotBuy || outOfStock}
                 onClick={() => handleAddToCart()}
                 tooltip={
                   cannotBuy
@@ -972,6 +983,10 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                       } first`
                     : ""
                 }
+                className={[
+                  styles["add-to-cart"],
+                  (cannotBuy || outOfStock) && styles.inactive
+                ].join(" ")}
               >
                 {outOfStock ? "OUT OF STOCK" : `ADD TO CART`}
               </Button>
