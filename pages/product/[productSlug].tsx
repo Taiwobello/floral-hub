@@ -65,6 +65,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
   const [total, setTotal] = useState<number>(product.price);
   const [quantity, setQuantity] = useState<number>(1);
   const [isInView, setIsInView] = useState(false);
+  const [showHighlight, setShowHighlight] = useState(false);
 
   const mobileCartRef = useRef(null);
 
@@ -152,11 +153,15 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
   }, []);
   const handleAddToCart = () => {
     if (cannotBuy) {
-      notify("error", "Please select a size");
+      setShowHighlight(true);
+      notify("error", "Please select a size", 1000);
       router.push(
         "/product/[productSlug]/#sizes",
         `/product/${product.slug}/#sizes`
       );
+      setTimeout(() => {
+        setShowHighlight(false);
+      }, 2000);
       return;
     }
     const cartItem: CartItem = {
@@ -620,6 +625,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
             {deviceType === "mobile" && (
               <div
                 className={`${styles["social-icons"]} flex spaced center-align`}
+                id="sizes"
               >
                 <span className="text-regular">Share: </span>
                 <button
@@ -679,7 +685,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
               </div>
             )}
             {product.type === "variable" && (
-              <div id="sizes">
+              <div>
                 <br />
                 {shouldShowRegularSizes && (
                   <>
@@ -689,7 +695,13 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                     >
                       {!shouldShowVipSizes ? "Sizes" : "Regular Sizes"}
                     </button>
-                    <div className={styles["size-wrapper"]} ref={mobileCartRef}>
+                    <div
+                      className={[
+                        styles["size-wrapper"],
+                        showHighlight && styles.highlight
+                      ].join(" ")}
+                      ref={mobileCartRef}
+                    >
                       {product.variants
                         ?.filter(variant => variant.class === "regular")
                         .map((variant, index) => (
