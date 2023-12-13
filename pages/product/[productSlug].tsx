@@ -1095,11 +1095,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
           name: "",
           variants: []
         }
-      }
+      },
+      revalidate: 1800
     };
   }
   return {
-    props: { product: data }
+    props: { product: data },
+    revalidate: 1800
   };
 };
 

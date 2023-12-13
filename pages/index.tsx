@@ -837,7 +837,8 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       locationName: "general",
       featuredBirthday: data || []
-    }
+    },
+    revalidate: 1800
   };
 };
 

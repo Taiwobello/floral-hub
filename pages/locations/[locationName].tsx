@@ -30,7 +30,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       locationName,
       featuredFlowers: data || []
-    }
+    },
+    revalidate: 1800
   };
 };
 
