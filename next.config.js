@@ -7,7 +7,8 @@ const nextConfig = {
     domains: ["storage.googleapis.com"],
     unoptimized: true
   },
-  trailingSlash: true
+  trailingSlash: true,
+  swcMinify: false
   // exportPathMap(defaultPathMap) {
   //   return {
   //     ...defaultPathMap,
