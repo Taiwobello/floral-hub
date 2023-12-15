@@ -11,6 +11,11 @@
     .item {
       height: auto;
       padding: 1rem;
+
+      @media (max-width: 420px) {
+        padding-bottom: 0;
+        align-items: center;
+      }
     }
 
     .item > img {
@@ -19,6 +24,10 @@
       object-fit: cover;
       object-position: center center;
       border-radius: 0.4rem;
+
+      @media (max-width: 420px) {
+        height: 10rem;
+      }
     }
 
     .item > div {
@@ -107,7 +116,8 @@
     .itemcard > p {
       margin-bottom: 0.8rem;
     }
-    .itemcard > p:first-of-type, .itemcard > p:nth-child(3) {
+    .itemcard > p:first-of-type,
+    .itemcard > p:nth-child(3) {
       font-size: 1.5rem;
     }
     .itemcard > .btns {
@@ -227,10 +237,11 @@
       margin-bottom: 3rem;
     }
   }
-  .summary > div, .summary > p{
+  .summary > div,
+  .summary > p {
     margin: 1rem;
   }
-  .summary > p{
+  .summary > p {
     font-size: 1.5rem;
   }
 
@@ -244,12 +255,11 @@
     @media (max-width: 500px) {
       width: 60%;
     }
-
   }
-                .mobletitle {
-                  font-size: 1.5rem;
-                  line-height: 24px;
-                }
+  .mobletitle {
+    font-size: 1.5rem;
+    line-height: 24px;
+  }
   .summary > * {
     margin: 1rem 0;
   }
