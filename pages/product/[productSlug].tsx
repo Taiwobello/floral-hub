@@ -25,6 +25,7 @@ import Meta from "../../components/meta/Meta";
 import SchemaMarkup from "../../components/schema-mark-up/SchemaMarkUp";
 import { DeliveryIcon, InfoIcon } from "../../utils/resources";
 import useScrollCheck from "../../utils/hooks/useScrollCheck";
+import { useRouter } from "next/router";
 
 interface Size {
   name: string;
@@ -67,8 +68,11 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
   const [total, setTotal] = useState<number>(product.price);
   const [quantity, setQuantity] = useState<number>(1);
   const [isInView, setIsInView] = useState(false);
+  const [showHighlight, setShowHighlight] = useState(false);
 
   const mobileCartRef = useRef(null);
+
+  const router = useRouter();
 
   const {
     setCartItems,
@@ -151,6 +155,18 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
     };
   }, []);
   const handleAddToCart = () => {
+    if (cannotBuy) {
+      setShowHighlight(true);
+      notify("error", "Please select a size", 1000);
+      router.push(
+        "/product/[productSlug]/#sizes",
+        `/product/${product.slug}/#sizes`
+      );
+      setTimeout(() => {
+        setShowHighlight(false);
+      }, 2000);
+      return;
+    }
     const cartItem: CartItem = {
       key: product.key,
       name: product.name,
@@ -333,6 +349,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
       setShowMobileCart(false);
     }
   }, [product, isInView, hasVariants]);
+
   const cannotBuy =
     (product.type === "variable" && !selectedSize?.name) ||
     (selectedSize?.designOptions && !selectedDesign);
@@ -611,6 +628,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
             {deviceType === "mobile" && (
               <div
                 className={`${styles["social-icons"]} flex spaced center-align`}
+                id="sizes"
               >
                 <span className="text-regular">Share: </span>
                 <button
@@ -680,7 +698,13 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                     >
                       {!shouldShowVipSizes ? "Sizes" : "Regular Sizes"}
                     </button>
-                    <div className={styles["size-wrapper"]} ref={mobileCartRef}>
+                    <div
+                      className={[
+                        styles["size-wrapper"],
+                        showHighlight && styles.highlight
+                      ].join(" ")}
+                      ref={mobileCartRef}
+                    >
                       {product.variants
                         ?.filter(variant => variant.class === "regular")
                         .map((variant, index) => (
@@ -966,7 +990,6 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                 </button>
               </div>
               <Button
-                disabled={cannotBuy || outOfStock}
                 onClick={() => handleAddToCart()}
                 tooltip={
                   cannotBuy
@@ -975,6 +998,10 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                       } first`
                     : ""
                 }
+                className={[
+                  styles["add-to-cart"],
+                  (cannotBuy || outOfStock) && styles.inactive
+                ].join(" ")}
               >
                 {outOfStock ? "OUT OF STOCK" : `ADD TO CART`}
               </Button>
