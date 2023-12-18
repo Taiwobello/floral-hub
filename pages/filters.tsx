@@ -22,8 +22,7 @@ import {
   giftItems,
   websiteUrl,
   sortOptions,
-  tagsMap,
-  baseUrl
+  tagsMap
 } from "../utils/constants";
 import Select from "../components/select/Select";
 import {
@@ -419,12 +418,12 @@ const ProductsPage: FunctionComponent<{
     <>
       {router.pathname === "/filters" && (
         <Meta
-          canonicalUrl={`${websiteUrl}/product-category/anniversary-flowers`}
+          canonicalUrl={`${websiteUrl}/product-category/anniversary-flowers/`}
         ></Meta>
       )}
       {category && (
         <Meta
-          canonicalUrl={`${baseUrl}/product-category/${category.slug}`}
+          canonicalUrl={`${websiteUrl}/product-category/${category.slug}/`}
           description={category.shortDescription}
           title={category.title}
           image={category.image}
@@ -434,7 +433,7 @@ const ProductsPage: FunctionComponent<{
             properties={{
               ...schemaProperties,
               description: category.shortDescription,
-              url: `${baseUrl}/product-category/${category.slug}`,
+              url: `${websiteUrl}/product-category/${category.slug}`,
               name: category.name,
               itemListElement: products.slice(0, 10).map((product, index) => ({
                 "@type": "ListItem",
@@ -442,7 +441,7 @@ const ProductsPage: FunctionComponent<{
                 item: {
                   "@type": "Product",
                   name: product.name,
-                  url: `${baseUrl}/product/${product.slug}`,
+                  url: `${websiteUrl}/product/${product.slug}`,
                   image: product.images[0].src
                 }
               }))

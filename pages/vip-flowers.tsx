@@ -17,7 +17,7 @@ const VipPage: FunctionComponent<{
   }
   return (
     <>
-      <Meta canonicalUrl={`${websiteUrl}/vip-flowers`}></Meta>
+      <Meta canonicalUrl={`${websiteUrl}/vip-flowers/`}></Meta>
       <ProductsPage
         productCategory="vip"
         productClass="vip"
