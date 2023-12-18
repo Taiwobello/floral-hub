@@ -3356,7 +3356,7 @@ export const schemaProperties = {
   description:
     "Floral Hub | 24/7 Online & Walk-in Fresh Flowers & Gifts Shop in Lagos and Abuja, Nigeria that offers Same Day Delivery in Lagos, and Abuja, Nigeria",
   image: [
-    "https://firebasestorage.googleapis.com/v0/b/floralhub-cdn/o/flroal-homepage-opengragh-image.jpg?alt=media&token=4e27dfec-a289-4784-985f-c96755fec4cb"
+    "https://firebasestorage.googleapis.com/v0/b/floralhub-cdn/o/flroal-homepage-opengragh-image.jpg.jpg?alt=media&token=ccaf55e8-cc14-4ccb-a92d-9ba8b280c212"
   ],
   telephone: ["+234 907 7777994"],
   email: "info@floralhub.com.ng",
@@ -3441,9 +3441,7 @@ export const schemaProperties = {
     }
   ],
   logo:
-    "https://firebasestorage.googleapis.com/v0/b/floralhub-cdn/o/flroal-homepage-opengragh-image.jpg?alt=media&token=4e27dfec-a289-4784-985f-c96755fec4cb"
+    "https://firebasestorage.googleapis.com/v0/b/floralhub-cdn/o/flroal-homepage-opengragh-image.jpg.jpg?alt=media&token=ccaf55e8-cc14-4ccb-a92d-9ba8b280c212"
 };
 
 export const business = "floralHub";
-
-export const baseUrl = "www.floralhub.com.ng";
