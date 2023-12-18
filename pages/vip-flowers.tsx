@@ -11,7 +11,9 @@ const VipPage: FunctionComponent<{
   category: Category;
 }> = ({ category }) => {
   if (!category.slug) {
+    console.log("attempting reload vip");
     window.location.reload();
+    return null;
   }
   return (
     <>
