@@ -1978,7 +1978,7 @@ const PaypalModal: FunctionComponent<ModalProps & {
   order: Order | null;
   onComplete: () => void;
 }> = ({ visible, cancel, order, onComplete }) => {
-  const { currency, notify } = useContext(SettingsContext);
+  const { currency, notify, orderId } = useContext(SettingsContext);
   const currencyRef: MutableRefObject<AppCurrency> = useRef(currency);
 
   currencyRef.current = currency;
@@ -2014,7 +2014,10 @@ const PaypalModal: FunctionComponent<ModalProps & {
     }
 
     if (response?.status === "COMPLETED") {
-      const { error, message } = await verifyPaypalPayment(data.orderID);
+      const { error, message } = await verifyPaypalPayment(
+        data.orderID,
+        orderId
+      );
       if (error) {
         notify("error", `Unable to verify paypal payment: ${message}`);
       } else {

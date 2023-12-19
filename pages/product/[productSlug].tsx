@@ -363,7 +363,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
         description={product.description}
         image={product.images[0].src}
         imageAlt={product.images[0].alt}
-        canonicalUrl={`${websiteUrl}/product/${product.slug}`}
+        canonicalUrl={`${websiteUrl}/product/${product.slug}/`}
       >
         <SchemaMarkup
           properties={{
