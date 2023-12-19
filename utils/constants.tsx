@@ -3217,7 +3217,7 @@ export const allDesignOptions: DesignOption[] = [
   }
 ];
 
-export const websiteUrl = "https://floralhub.com.ng";
+export const websiteUrl = "https://www.floralhub.com.ng";
 
 export const occasionsPageMetaData: Record<
   string,
