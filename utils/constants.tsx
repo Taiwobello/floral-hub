@@ -2885,7 +2885,7 @@ export interface DeliveryLocationOption {
   amount: number;
 }
 
-const valsDates = ["13-02", "14-02", "15-02", "25-12", "26-12", "01-01"];
+export const valsDates = ["13-02", "14-02", "15-02", "25-12", "26-12", "01-01"];
 
 export const allDeliveryLocationZones: Record<
   LocationName,
