@@ -10,7 +10,7 @@ const VipPage: FunctionComponent<{
   filters: string;
   category: Category;
 }> = ({ category }) => {
-  if (!category.slug) {
+  if (!category?.slug) {
     console.log("attempting reload vip");
     window.location.reload();
     return null;
