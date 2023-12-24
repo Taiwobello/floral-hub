@@ -2876,7 +2876,7 @@ export const freeDeliveryThreshold: Record<AppCurrencyName, number> = {
 export const freeDeliveryThresholdVals: Record<AppCurrencyName, number> = {
   USD: 255,
   GBP: 210,
-  NGN: 150000
+  NGN: 120000
 };
 
 export interface DeliveryLocationOption {
