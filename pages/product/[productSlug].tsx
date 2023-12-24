@@ -45,7 +45,7 @@ const schemaProperties = {
 const ProductPage: FunctionComponent<{ product: Product }> = props => {
   const { product } = props;
 
-  if (!product.name && !product.key) {
+  if (!product?.name && !product?.key) {
     console.log("attempting reload product");
     window.location.reload();
     return null;
