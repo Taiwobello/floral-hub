@@ -931,7 +931,7 @@ const Checkout: FunctionComponent = () => {
                           />
                         </div>
                       </div>
-                      {!user && (
+                      {/* {!user && (
                         <div
                           className={`input-group spaced-xl ${
                             deviceType === "desktop" ? "compact" : ""
@@ -953,9 +953,9 @@ const Checkout: FunctionComponent = () => {
                             disabled={!formData.freeAccount}
                           />
                         </div>
-                      )}
+                      )} */}
 
-                      {!user && (
+                      {/* {!user && (
                         <div className="flex between center-align">
                           <Checkbox
                             checked={formData.freeAccount}
@@ -979,7 +979,7 @@ const Checkout: FunctionComponent = () => {
                             </button>
                           </div>
                         </div>
-                      )}
+                      )} */}
                     </div>
                     {!isSenderInfoCompleted && (
                       <Button
