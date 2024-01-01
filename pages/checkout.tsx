@@ -14,7 +14,6 @@ import {
   useState
 } from "react";
 import Button from "../components/button/Button";
-import Checkbox from "../components/checkbox/Checkbox";
 import DatePicker from "../components/date-picker/DatePicker";
 import Input, { TextArea } from "../components/input/Input";
 import Radio from "../components/radio/Radio";

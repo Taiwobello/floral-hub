@@ -196,6 +196,7 @@ const Index: FunctionComponent<{ featuredFlowers: Product[] }> = ({
       </div>
     );
   });
+  console.log({ featuredFlowers });
   return (
     <>
       <Meta
@@ -242,7 +243,7 @@ const Index: FunctionComponent<{ featuredFlowers: Product[] }> = ({
                 key={flower.key}
                 image={flower.images[0]?.src || ""}
                 name={flower.name}
-                subTitle={flower.details}
+                subTitle={flower.subtitle || flower.name.split("–")[1]}
                 price={flower.price}
                 url={`/product/${flower.slug}`}
                 buttonText="Add to Cart"

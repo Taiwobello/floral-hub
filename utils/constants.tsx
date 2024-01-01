@@ -2727,7 +2727,7 @@ export const bestSellersRomance: RegalContent = {
 export const featuredSlugs: Record<string, string[]> = {
   "featured-birthday": [
     "allure-bouquet-of-red-white-pink-yellow-or-purples-roses-select-size",
-    "purity-roses-arranged-with-sparkling-white-select-size",
+    "vip-purity-mix-of-white-roses-and-million-stars-or-statice-select-size",
     "debonair-lilies-with-red-roses-white-roses-and-gypsophila-million-star-select-size",
     "chrysant-delight-mixture-of-bright-and-vibrant-chrysanthemums-with-million-stars-gypsophila-more"
   ],
