@@ -83,31 +83,19 @@ const Cart: FunctionComponent<CartContextProps> = props => {
         push("/");
       }
     } else {
-      const _isPaid =
-        /go\s*ahead/i.test(data?.paymentStatus || "") ||
-        /^paid/i.test(data?.paymentStatus || "");
-
-      const savedCartItems = AppStorage.get(AppStorageConstants.CART_ITEMS);
-      const shouldUpdateSavedCartItems =
-        !_isPaid && (!savedCartItems || header === "checkout");
-
-      if (shouldUpdateSavedCartItems) {
-        const _cartItems: CartItem[] =
-          data?.orderProducts?.map(item => ({
-            image: item.image as ProductImage,
-            name: item.name,
-            price: item.price,
-            quantity: item.quantity,
-            key: item.key,
-            // design: item.design,  //add design later
-            size: item.size,
-            description: item.description,
-            SKU: item.SKU || ""
-          })) || [];
-        setCartItems(_cartItems);
-      } else {
-        setCartItems(savedCartItems || []);
-      }
+      const _cartItems: CartItem[] =
+        data?.orderProducts?.map(item => ({
+          image: item.image as ProductImage,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          key: item.key,
+          // design: item.design,  //add design later
+          size: item.size,
+          description: item.description,
+          SKU: item.SKU || ""
+        })) || [];
+      setCartItems(_cartItems);
 
       setOrder(data);
       setDeliveryDate(data?.deliveryDate ? dayjs(data?.deliveryDate) : null);
@@ -245,7 +233,7 @@ const Cart: FunctionComponent<CartContextProps> = props => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [orderId, currentStage]);
+  }, []);
 
   return (
     <section className={styles["wrapper"]}>
