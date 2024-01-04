@@ -126,7 +126,7 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
       }
     };
 
-    const outOfStock = product && !product.sku && !product.variants.length;
+    const outOfStock = product && !product.sku && !product.variants?.length;
 
     const deviceType = useDeviceType();
 
@@ -174,7 +174,7 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
                     <div
                       className={`flex spaced ${styles["price-text"]} normal center-align`}
                     >
-                      {(product?.variants.length || 0) > 0 && (
+                      {(product?.variants?.length || 0) > 0 && (
                         <p className="">FROM</p>
                       )}
                       <span>{getPriceDisplay(price, currency)}</span>
