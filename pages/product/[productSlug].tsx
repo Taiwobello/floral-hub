@@ -1018,6 +1018,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                 image={item.images.src}
                 price={item.price}
                 subTitle={item.subtitle || item.name.split("–")[1]}
+                product={(item as unknown) as Product}
                 className={styles["extras-cards"]}
                 url={`/product/${item.slug}`}
                 buttonText="Add to Cart"
@@ -1036,6 +1037,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                 price={item.price}
                 className={styles["extras-cards"]}
                 subTitle={item.subtitle || item.name.split("–")[1]}
+                product={(item as unknown) as Product}
                 url={`/product/${item.slug}`}
                 buttonText="Add to Cart"
               />
@@ -1117,6 +1119,7 @@ const VerticalImageCarousel: React.FC<{
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { productSlug } = params || {};
   const { data, error, message } = await getProduct(String(productSlug), 8);
+  console.log(data?.relatedProducts);
   if (error || !data) {
     console.error(`Unable to fetch product "${productSlug}": ${message}`);
     return {
