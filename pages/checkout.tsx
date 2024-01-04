@@ -32,7 +32,9 @@ import {
   placeholderEmail,
   companyEmail,
   checkoutContent,
-  valsDates
+  valsDates,
+  festiveDates,
+  freeDeliveryThresholdFestive
 } from "../utils/constants";
 import SettingsContext from "../utils/context/SettingsContext";
 import {
@@ -1033,28 +1035,36 @@ const Checkout: FunctionComponent = () => {
                           </div>
                         </div>
                         <div className="margin-top primary-color">
-                          <em>
-                            {valsDates.includes(
-                              deliveryDate?.format("DD-MM") || ""
-                            ) && formData.deliveryMethod === "delivery"
-                              ? `Free Xmas (25th,26th Dec) and New Year (Jan 1st) Delivery in selected zones across Lagos and Abuja on orders above ${
-                                  currency.sign
-                                }${freeDeliveryThresholdVals[
-                                  currency.name
-                                ].toLocaleString()}`
-                              : formData.deliveryMethod === "delivery"
-                              ? `Free Delivery in selected zones across Lagos and Abuja on orders above ${
-                                  currency.sign
-                                }${freeDeliveryThreshold[
-                                  currency.name
-                                ].toLocaleString()}`
-                              : ""}
-                            {(order?.amount as number) < 20000 &&
-                              `(Please note that orders below ${getPriceDisplay(
-                                20000,
-                                currency
-                              )}  have to be picked up)`}
-                          </em>
+                          {formData.deliveryMethod === "delivery" && (
+                            <em>
+                              {festiveDates.includes(
+                                deliveryDate?.format("DD-MM") || ""
+                              )
+                                ? `Free Xmas (25th,26th Dec) and New Year (Jan 1st) Delivery in selected zones across Lagos and Abuja on orders above ${
+                                    currency.sign
+                                  }${freeDeliveryThresholdFestive[
+                                    currency.name
+                                  ].toLocaleString()}`
+                                : valsDates.includes(
+                                    deliveryDate?.format("DD-MM") || ""
+                                  )
+                                ? `Free Valentine (Feb 13th, 14th, 15th) Delivery in selected zones across Lagos and Abuja on orders above ${
+                                    currency.sign
+                                  }${freeDeliveryThresholdVals[
+                                    currency.name
+                                  ].toLocaleString()}`
+                                : `Free Delivery in selected zones across Lagos and Abuja on orders above ${
+                                    currency.sign
+                                  }${freeDeliveryThreshold[
+                                    currency.name
+                                  ].toLocaleString()}`}
+                              {(order?.amount as number) < 20000 &&
+                                `(Please note that orders below ${getPriceDisplay(
+                                  20000,
+                                  currency
+                                )}  have to be picked up)`}
+                            </em>
+                          )}
                         </div>
 
                         {formData.deliveryMethod === "delivery" && (
