@@ -39,7 +39,16 @@ const Meta = ({
       {/* Open Graph Meta Tags */}
       {title && <meta property="og:title" content={title} />}
       {description && <meta property="og:description" content={description} />}
-      {image && <meta property="og:image" content={image} />}
+      {
+        <meta
+          property="og:image"
+          content={
+            image
+              ? image
+              : "https://firebasestorage.googleapis.com/v0/b/floralhub-cdn/o/flroal-homepage-opengragh-image.jpg.jpg?alt=media&token=ccaf55e8-cc14-4ccb-a92d-9ba8b280c212"
+          }
+        />
+      }
       {imageAlt && <meta property="og:image:alt" content={imageAlt}></meta>}
       <meta property="og:url" content={`${url ? url : websiteUrl}`} />
       <meta property="og:type" content="website" />
