@@ -1,5 +1,6 @@
 import React,{useState,useContext, FormEvent, FunctionComponent} from 'react'
 import styles from './blog.module.scss'
+import articleStyles from './article.module.scss'
 import { GetStaticProps } from "next";
 import Button from '../../components/button/Button'
 import Input from '../../components/input/Input'
@@ -57,9 +58,17 @@ const BlogPost: FunctionComponent<{ featuredFlowers: Product[] }> = ( { featured
           <h1>
             Service online and help
           </h1>
-          <article className='text-small'>
+          <article className={`text-small ${articleStyles["article"]}`}>
             At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, om
-         
+            <blockquote> <q>Lorem Ipsum At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</q>
+              <cite>Manuel Snr, Product Designer</cite>
+            </blockquote> 
+
+            <div>
+              <img src="/images/blog-image.png" alt="" />
+              <img src="/images/blog-image.png" alt="" />
+              <img src="/images/blog-image.png" alt="" />
+            </div>
           </article>
         </div>
         <div className={styles["side"]}>
