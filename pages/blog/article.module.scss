@@ -9,13 +9,22 @@
   }
 
   img {
-    display: flex;
     object-fit: cover;
     object-position: center;
     width: 17.917rem;
     height: 16.625rem;
     display: inline;
     padding: 0 0.3rem;
+
+    @media (max-width: 420px) {
+      height: 6.75rem;
+      width: 6.646rem;
+    }
+
+    @media (max-width: 768px) {
+      width: 50%;
+      height: 50%;
+    }
   }
 
   div {
@@ -44,6 +53,10 @@
     line-height: 2.25rem;
     position: relative;
 
+    @media (max-width: 420px) {
+      font-size: 1.25rem;
+    }
+
     &::before {
       content: "";
       display: block;
@@ -62,6 +75,10 @@
       left: 3rem;
       display: flex;
 
+      @media (max-width: 420px) {
+        bottom: -1rem;
+
+      }
     }
 
   }
