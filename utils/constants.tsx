@@ -3412,6 +3412,24 @@ export const blogCategories = [
   }
 ];
 
+export const trendingPosts = [
+  {
+    imageUrl: "/icons/trending-imge.png",
+    tag: "Everything Flowers and Gifts",
+    title: "5 awesome methods of receiving payment in your store. "
+  },
+  {
+    imageUrl: "/icons/trending-imge.png",
+    tag: "Everything Flowers and Gifts",
+    title: "5 awesome methods of receiving payment in your store. "
+  },
+  {
+    imageUrl: "/icons/trending-imge.png",
+    tag: "Everything Flowers and Gifts",
+    title: "5 awesome methods of receiving payment in your store. "
+  }
+]
+
 interface BlogMinimal {
   id: string;
   title: string;
