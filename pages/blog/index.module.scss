@@ -3,6 +3,10 @@
   position: relative;
   transition: 0.3s ease-out;
 
+  @media (max-width: 768px) {
+    padding-top: 0;
+  }
+
   &.has-scrolled {
     padding-top: 2rem;
   }
@@ -21,10 +25,37 @@
     }
   }
 
+  .hero-btn {
+    @media (max-width: 768px) {
+      background-color: transparent;
+      text-decoration: underline;
+      padding: 0;
+    }
+  }
+
+  .section {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 6rem;
+
+    @media (max-width: 768px) {
+      margin: 1rem 0 2rem;
+    }
+
+    &.wrap {
+      @media (max-width: 768px) {
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+      }
+    }
+  }
+
   .title {
     font-size: 3rem;
     font-weight: 300;
     text-transform: uppercase;
+    font-weight: 400;
 
     @media (max-width: 768px) {
       font-size: 2rem;
@@ -39,13 +70,11 @@
     width: 50%;
     @media (max-width: 768px) {
       background-color: rgba(0, 0, 0, 0.3);
-      text-align: center;
       padding: 2rem;
       display: flex;
       flex-direction: column;
-      align-items: center;
       position: relative;
-      margin-top: -2rem;
+      width: 100%;
     }
 
     .subtitle {
@@ -59,6 +88,10 @@
 
   .body {
     padding: 4rem;
+
+    @media (max-width: 768px) {
+      padding: 2rem;
+    }
   }
 
   .category {
@@ -105,58 +138,50 @@
     grid-template-rows: auto;
     margin-top: 2rem;
 
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+
     & :nth-child(1) {
       grid-row: 1 / 3;
 
       .blog-image {
         height: 80%;
       }
-    }
 
-    & :not(:nth-child(1)) {
-      .excerpt {
-        // text-overflow: ellipsis;
-        // white-space: nowrap;
-        // overflow: hidden;
+      @media (max-width: 768px) {
+        grid-row: 1 / 2;
 
-        --max-lines: 3;
-        position: relative;
-        max-height: calc(var(--lh) * var(--max-lines));
-        overflow: hidden;
-        padding-right: 1rem;
-
-        &::before {
-          position: absolute;
-          content: "...";
-          bottom: 0;
-          right: 0;
-        }
-        &::after {
-          content: "";
-          position: absolute;
-          right: 0;
-          width: 1rem;
-          height: 1rem;
-          background: white;
+        .blog-image {
+          height: 20rem;
         }
       }
     }
 
     & :nth-child(2) {
       grid-column: 2 / 3;
+
+      @media (max-width: 768px) {
+        grid-column: 1 / 2;
+      }
     }
 
     .blog {
-      max-width: 50%;
       .blog-title {
         font-size: 1.5rem;
         font-weight: 500;
         margin: 1rem 0;
       }
+
+      @media (max-width: 768px) {
+        img {
+          height: 20rem;
+        }
+      }
       img {
         width: 100%;
         margin-bottom: 2rem;
-        height: 30rem;
+        height: 25rem;
         object-fit: cover;
       }
 
@@ -180,6 +205,99 @@
         font-size: 1rem;
         padding: 0.5rem;
       }
+    }
+  }
+
+  .full-width-section {
+    display: flex;
+    margin: 4rem 0;
+    position: relative;
+
+    @media (max-width: 768px) {
+      padding: 0 2rem;
+      margin: 0;
+    }
+    .right {
+      width: 45%;
+      object-fit: cover;
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+    .left {
+      width: 55%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-color: #f1f1f1;
+      padding: 0 4rem;
+      padding-bottom: 2rem;
+      @media (max-width: 768px) {
+        width: 100%;
+        padding: 2rem;
+      }
+
+      .featured-subtitle {
+        font-size: 1.5rem;
+        font-weight: 400;
+        text-transform: uppercase;
+      }
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      margin: 0.5rem 0 2rem;
+      width: 80%;
+    }
+  }
+
+  .subscribe-section {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    padding: 2rem 6rem;
+    font-size: 1rem;
+    @media (max-width: 1300px) {
+      h2 {
+        width: 90%;
+      }
+    }
+    @media (max-width: 768px) {
+      flex-direction: column;
+      padding: 2rem;
+      h2 {
+        width: 100%;
+        font-size: 1.3rem;
+      }
+      .subscribe-form-wrapper {
+        margin: 1.5rem 0 1rem;
+        & > * {
+          margin: 0.5rem;
+        }
+      }
+    }
+    .subscribe-img {
+      height: 14rem;
+      @media (max-width: 768px) {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  .see-all {
+    margin: 1.5rem auto;
+    color: #b240da;
+    font-weight: 400;
+    h3 {
+      font-size: 1.1rem;
+      margin-right: 1rem;
+      font-weight: 500;
+      border-bottom: 0.15rem solid #b240da;
+    }
+    img {
+      width: 2rem;
     }
   }
 }
