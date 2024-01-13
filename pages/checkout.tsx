@@ -1998,18 +1998,87 @@ const PaypalModal: FunctionComponent<ModalProps & {
     data: CreateOrderData,
     actions: CreateOrderActions
   ) => {
+    const currency = currencyRef.current;
+    const recipientPhone = order?.recipient.phone?.replace(/[^\d\+]/g, "");
+    const defaultArea = order?.deliveryDetails.state || order?.despatchLocation;
     return actions.order.create({
       purchase_units: [
         {
           amount: {
             value: String(
               Math.ceil(
-                (order?.amount || 0) /
-                  (currencyRef.current?.conversionRate || 1)
+                (order?.amount || 0) / (currency.conversionRate || 1)
               ).toFixed(2)
-            )
+            ),
+            breakdown: {
+              item_total: {
+                currency_code: currency.name,
+                value: String(
+                  Math.ceil((order?.amount || 0) / currency.conversionRate) -
+                    Math.ceil(
+                      (order?.deliveryAmount || 0) / currency.conversionRate
+                    )
+                )
+              },
+              shipping: {
+                currency_code: currency.name,
+                value: String(
+                  Math.ceil(
+                    (order?.deliveryAmount || 0) / currency.conversionRate
+                  )
+                )
+              }
+            }
           },
-          reference_id: `${order?.fullOrderId}-${order?.id}`
+          reference_id: `${order?.fullOrderId}-${order?.id}`,
+          invoice_id: order?.fullOrderId,
+          payee: {
+            email_address: order?.client.email
+          },
+          shipping: {
+            name: {
+              full_name: `${order?.recipient.firstname || "NA"} ${order
+                ?.recipient.lastname || "-"}`
+            },
+            email_address: order?.recipient.email || undefined,
+            phone_number: recipientPhone
+              ? { national_number: recipientPhone }
+              : undefined,
+            address: {
+              address_line_1: order?.recipientAddress || "pickup",
+              country_code: "NG",
+              admin_area_1: defaultArea,
+              admin_area_2: defaultArea
+            },
+            options: [
+              {
+                amount: {
+                  value: String(
+                    Math.ceil(
+                      (order?.deliveryAmount || 0) / currency.conversionRate
+                    )
+                  ),
+                  currency_code: currency.name
+                },
+                id: order?.deliveryDetails.zone || "default",
+                label: order?.recipientAddress || "Address",
+                selected: true
+              }
+            ]
+          },
+          items:
+            order?.orderProducts.map(product => ({
+              name: product.name,
+              sku: product.SKU,
+              quantity: String(product.quantity),
+              unit_amount: {
+                value: String(
+                  Math.ceil(product.price / currency.conversionRate)
+                ),
+                currency_code: currency.name
+              },
+              description: product.size || undefined
+            })) || []
         }
       ]
     });

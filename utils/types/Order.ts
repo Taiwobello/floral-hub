@@ -26,8 +26,17 @@ export type DeliveryDetails = {
   recipientName: string;
   recipientAddress: string;
   recidenceType: string;
-  cost: number;
+  cost?: number;
 };
+
+interface OrderActor {
+  id?: string;
+  email?: string;
+  firstname?: string;
+  lastname?: string;
+  phone?: string;
+  name?: string;
+}
 
 export interface Order {
   orderProducts: OrderProduct[];
@@ -38,15 +47,13 @@ export interface Order {
   id: string;
   amount: number;
   deliveryDate: string;
-  client: {
-    email: string;
-    firstName: string;
-    lastName: string;
-    phone: string;
-    name: string;
-  };
+  client: OrderActor;
+  recipient: OrderActor;
+  recipientAddress: string;
+  deliveryAmount: number;
   orderStatus: OrderStatus;
   deliveryDetails: DeliveryDetails;
+  despatchLocation: string;
 }
 
 type PaymentStatus =
