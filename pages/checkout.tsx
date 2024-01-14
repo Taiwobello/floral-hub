@@ -2024,7 +2024,6 @@ const PaypalModal: FunctionComponent<ModalProps & {
         }
       },
       reference_id: `${order?.fullOrderId}-${order?.id}`,
-      invoice_id: order?.fullOrderId,
       payee: {
         email_address: order?.client.email
       },
@@ -2037,12 +2036,6 @@ const PaypalModal: FunctionComponent<ModalProps & {
         phone_number: recipientPhone
           ? { national_number: recipientPhone }
           : undefined,
-        address: {
-          address_line_1: order?.recipientAddress || "pickup",
-          country_code: "NG",
-          admin_area_1: defaultArea,
-          admin_area_2: defaultArea
-        },
         options: [
           {
             amount: {
