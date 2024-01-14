@@ -14,7 +14,7 @@ export const getPriceDisplay: (
   price: number,
   currency: AppCurrency
 ) => string = (price, currency) => {
-  return `${currency.sign || ""}${Math.ceil(
+  return `${currency.sign || ""}${Math.round(
     price / currency.conversionRate
   ).toLocaleString()}`;
 };
