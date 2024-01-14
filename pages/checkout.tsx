@@ -2068,8 +2068,11 @@ const PaypalModal: FunctionComponent<ModalProps & {
             value: String(Math.round(product.price / currency.conversionRate)),
             currency_code: currency.name
           },
-          description: product.size || undefined
-        })) || []
+          description: product.size || undefined,
+          category: "PHYSICAL_GOODS"
+        })) || [],
+      soft_descriptor: order?.fullOrderId,
+      custom_id: order?.fullOrderId
     }
   ] as PurchaseUnit[];
 
