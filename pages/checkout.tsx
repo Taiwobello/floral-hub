@@ -1996,7 +1996,67 @@ const PaypalModal: FunctionComponent<ModalProps & {
   currencyRef.current = currency;
 
   const recipientPhone = order?.recipient.phone?.replace(/[^\d\+]/g, "");
-  const defaultArea = order?.deliveryDetails.state || order?.despatchLocation;
+  const isTestAccount = order?.client.email === "oeoladitan@hotmail.com";
+  const purchaseUnitTestProps = {
+    reference_id: `${order?.fullOrderId}-${order?.id}`,
+    payee: {
+      email_address: order?.client.email
+    },
+    shipping: {
+      name: {
+        full_name: `${order?.recipient.firstname || "NA"} ${order?.recipient
+          .lastname || "-"}`
+      },
+      email_address: order?.recipient.email || undefined,
+      phone_number: recipientPhone
+        ? { national_number: recipientPhone }
+        : undefined,
+      options: [
+        {
+          amount: {
+            value: String(
+              Math.round((order?.deliveryAmount || 0) / currency.conversionRate)
+            ),
+            currency_code: currency.name
+          },
+          id: order?.deliveryDetails.zone || "default",
+          label: order?.recipientAddress || "Address",
+          selected: true
+        }
+      ]
+    },
+    items:
+      order?.orderProducts.map(product => ({
+        name: product.name,
+        sku: product.SKU,
+        quantity: String(product.quantity),
+        unit_amount: {
+          value: String(Math.round(product.price / currency.conversionRate)),
+          currency_code: currency.name
+        },
+        description: product.size || undefined,
+        category: "PHYSICAL_GOODS"
+      })) || [],
+    soft_descriptor: order?.fullOrderId,
+    custom_id: order?.fullOrderId
+  };
+  const amountTestProps = {
+    breakdown: {
+      item_total: {
+        currency_code: currency.name,
+        value: String(
+          Math.round((order?.amount || 0) / currency.conversionRate) -
+            Math.round((order?.deliveryAmount || 0) / currency.conversionRate)
+        )
+      },
+      shipping: {
+        currency_code: currency.name,
+        value: String(
+          Math.round((order?.deliveryAmount || 0) / currency.conversionRate)
+        )
+      }
+    }
+  };
   const purchase_units = [
     {
       amount: {
@@ -2005,67 +2065,10 @@ const PaypalModal: FunctionComponent<ModalProps & {
             (order?.amount || 0) / (currency.conversionRate || 1)
           ).toFixed(2)
         ),
-        breakdown: {
-          item_total: {
-            currency_code: currency.name,
-            value: String(
-              Math.round((order?.amount || 0) / currency.conversionRate) -
-                Math.round(
-                  (order?.deliveryAmount || 0) / currency.conversionRate
-                )
-            )
-          },
-          shipping: {
-            currency_code: currency.name,
-            value: String(
-              Math.round((order?.deliveryAmount || 0) / currency.conversionRate)
-            )
-          }
-        }
+
+        ...(isTestAccount ? amountTestProps : {})
       },
-      reference_id: `${order?.fullOrderId}-${order?.id}`,
-      payee: {
-        email_address: order?.client.email
-      },
-      shipping: {
-        name: {
-          full_name: `${order?.recipient.firstname || "NA"} ${order?.recipient
-            .lastname || "-"}`
-        },
-        email_address: order?.recipient.email || undefined,
-        phone_number: recipientPhone
-          ? { national_number: recipientPhone }
-          : undefined,
-        options: [
-          {
-            amount: {
-              value: String(
-                Math.round(
-                  (order?.deliveryAmount || 0) / currency.conversionRate
-                )
-              ),
-              currency_code: currency.name
-            },
-            id: order?.deliveryDetails.zone || "default",
-            label: order?.recipientAddress || "Address",
-            selected: true
-          }
-        ]
-      },
-      items:
-        order?.orderProducts.map(product => ({
-          name: product.name,
-          sku: product.SKU,
-          quantity: String(product.quantity),
-          unit_amount: {
-            value: String(Math.round(product.price / currency.conversionRate)),
-            currency_code: currency.name
-          },
-          description: product.size || undefined,
-          category: "PHYSICAL_GOODS"
-        })) || [],
-      soft_descriptor: order?.fullOrderId,
-      custom_id: order?.fullOrderId
+      ...(isTestAccount ? purchaseUnitTestProps : {})
     }
   ] as PurchaseUnit[];
 
