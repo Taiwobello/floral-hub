@@ -19,7 +19,8 @@ import {
   giftItems,
   defaultBreadcrumb,
   websiteUrl,
-  schemaProperties
+  schemaProperties,
+  bestSellersValentine
 } from "../utils/constants";
 import ServiceCard from "../components/service-card/ServiceCard";
 import OccasionCard from "../components/occasion-card/OccasionCard";
@@ -80,7 +81,8 @@ const LandingPage: FunctionComponent<{
   featuredBirthday?: Product[];
   featuredRomance?: Product[];
   featuredFlowers?: Product[];
-}> = ({ featuredBirthday, locationName }) => {
+  featuredValentine?: Product[];
+}> = ({ featuredBirthday, locationName, featuredValentine }) => {
   const [currentReviewPageIndex, setCurrentReviewPageIndex] = useState(0);
   const [subscriptionEmail, setSubscriptionEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
@@ -155,6 +157,7 @@ const LandingPage: FunctionComponent<{
             <h1 className={styles.title}>
               Send Fresh Flowers {deviceType === "desktop" && <br />}
               to Lagos and Abuja, {deviceType === "desktop" && <br />} Nigeria
+              This Valentine.
             </h1>
             <p className={styles.subtitle}>
               Your Favorite Online Fresh Flowers and Gifts Shop.
@@ -225,6 +228,52 @@ const LandingPage: FunctionComponent<{
                   )
               )}
             </div>
+
+            <>
+              <div className="flex between">
+                <h2 className="featured-title">{bestSellersValentine}</h2>
+                {deviceType === "desktop" && (
+                  <Button
+                    url="/product-category/valentines-day-flowers"
+                    className="flex spaced center-align"
+                    type="transparent"
+                  >
+                    <h3 className="red margin-right">See All</h3>
+                    <img
+                      alt="arrow"
+                      className="generic-icon xsmall"
+                      src="/icons/arrow-right.svg"
+                    />
+                  </Button>
+                )}
+              </div>
+              <div className={[styles.section, styles.wrap].join(" ")}>
+                {featuredValentine?.map(flower => (
+                  <FlowerCard
+                    key={flower.key}
+                    image={flower.images[0]?.src || ""}
+                    name={flower.name.split("–")[0]}
+                    subTitle={flower.subtitle || flower.name.split("–")[1]}
+                    price={flower.price}
+                    url={`/product/${flower.slug}`}
+                    buttonText="Add to Cart"
+                    cart={flower.variants?.length ? false : true}
+                    product={flower}
+                  />
+                ))}
+              </div>
+              {deviceType === "mobile" && (
+                <Button
+                  url="/product-category/valentines-day-flowers"
+                  type="plain"
+                  minWidth
+                  className={styles["see-all"]}
+                >
+                  <h3 className="red margin-right">Browse Vals Flowers</h3>
+                  <img alt="see all" src="/icons/arrow-right.svg" />
+                </Button>
+              )}
+            </>
 
             <div className="flex between">
               <h2 className="featured-title">BEST SELLING FLOWERS</h2>
@@ -828,6 +877,9 @@ export const getStaticProps: GetStaticProps = async () => {
   const { data, error, message } = await getProductsBySlugs(
     featuredSlugs[locationName]
   );
+  const featuredValentine = await getProductsBySlugs(
+    featuredSlugs["featured-valentine"]
+  );
 
   if (error) {
     console.error("Unable to fetch products by slugs: ", message);
@@ -836,7 +888,8 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       locationName: "general",
-      featuredBirthday: data || []
+      featuredBirthday: data || [],
+      featuredValentine: featuredValentine.data || []
     },
     revalidate: 1800
   };

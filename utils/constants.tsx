@@ -269,6 +269,7 @@ export const defaultBreadcrumb: Breadcrumb = {
 };
 
 export const allOccasionOptions: Option[] = [
+  { slug: "valentines-day-flowers", value: 8, label: "Valentine's Flowers" },
   {
     slug: "flowers-to-say-thanks-sorry-etc",
     value: 0,
@@ -297,7 +298,7 @@ export const allOccasionOptions: Option[] = [
   },
   { slug: "bridal-bouquets", value: 6, label: "Bridal Flowers" },
   { slug: "funeral-condolence-flowers", value: 7, label: "Funeral Flowers" },
-  { slug: "valentines-day-flowers", value: 8, label: "Valentine's Flowers" },
+
   {
     slug: "flowers-to-say-thanks-sorry-etc",
     value: 9,
@@ -2366,6 +2367,27 @@ export const productSampleData = {
 
 export const links: AppLink[] = [
   {
+    title: "Valentine",
+    url: "",
+    children: [
+      {
+        title: "Flowers",
+        url: "/product-category/valentines-day-flowers",
+        children: []
+      },
+      {
+        title: "VIP Flowers",
+        url: "/vip",
+        children: []
+      },
+      {
+        title: "Gifts",
+        url: "/product-category/gifts",
+        children: []
+      }
+    ]
+  },
+  {
     url: "",
     title: "Occasions",
     subtitle: "Select Occasion",
@@ -2382,6 +2404,27 @@ export const links: AppLink[] = [
           {
             title: "VIP Flowers",
             url: "/vip-flowers",
+            children: []
+          },
+          {
+            title: "Gifts",
+            url: "/product-category/gifts",
+            children: []
+          }
+        ]
+      },
+      {
+        title: "Valentine",
+        url: "",
+        children: [
+          {
+            title: "Flowers",
+            url: "/product-category/valentines-day-flowers",
+            children: []
+          },
+          {
+            title: "VIP Flowers",
+            url: "/vip",
             children: []
           },
           {
@@ -2669,11 +2712,11 @@ export const links: AppLink[] = [
       "caravaggio-assorted-italian-unisex-gift-set-more"
     ]
   },
-  {
-    url: "/product-category/indoor-plants-and-cactus",
-    title: "Plants",
-    children: []
-  },
+  // {
+  //   url: "/product-category/indoor-plants-and-cactus",
+  //   title: "Plants",
+  //   children: []
+  // },
   {
     title: "FAQ",
     url: "/faq-how-to-buy-fresh-flowers-and-gifts-in-lagos-and-abuja",
@@ -2717,6 +2760,8 @@ export const bestSellers: RegalContent = {
   "other-locations": "Bestselling Flowers in Ibadan, Port Harcourt etc"
 };
 
+export const bestSellersValentine = "Bestselling Valentine's Day Flowers";
+
 export const bestSellersRomance: RegalContent = {
   general: "Bestselling Romance or Just to Say Flowers in Lagos & Abuja",
   lagos: "Bestselling Flowers in Lagos",
@@ -2736,6 +2781,12 @@ export const featuredSlugs: Record<string, string[]> = {
     "my-heart-concentric-mix-of-two-or-three-colours-of-roses-to-form-a-heart-shape-select-size",
     "numero-uno-mix-of-different-colors-of-roses-with-a-different-shade-in-the-middle-and-million-stars-or-statice-select-size",
     "dune-beautiful-arrangement-of-roses-with-mixed-chrysanthemums-and-million-stars"
+  ],
+  "featured-valentine": [
+    "arabiati-bouquet-red-roses-mixed-with-million-stars",
+    "casablanca-bouquet-a-bouquet-arrangement-of-red-and-purple-roses-with-million-stars",
+    "donatello-box-arrangement-box-of-red-roses-and-one-contrasting-color-with-million-stars",
+    "flirtare-bouquet-arrangement-a-bouquet-of-mixed-roses"
   ]
 };
 
