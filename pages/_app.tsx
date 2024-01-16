@@ -94,6 +94,9 @@ const App: FunctionComponent<AppProps> = props => {
     const savedDeliveryDate = savedCartItems?.length
       ? AppStorage.get<Dayjs>(AppStorageConstants.DELIVERY_DATE)
       : null;
+    const savedOrderId = savedCartItems?.length
+      ? AppStorage.get<string>(AppStorageConstants.ORDER_ID)
+      : null;
 
     const { defaultCurrencyName, fromStorage } = getDefaultCurrency();
     const defaultCurrency =
@@ -117,7 +120,6 @@ const App: FunctionComponent<AppProps> = props => {
       ...settings,
       currency: defaultCurrency
     });
-    const savedOrderId = AppStorage.get<string>(AppStorageConstants.ORDER_ID);
 
     setOrderId(savedOrderId || "");
     setDeliveryDate(savedDeliveryDate ? dayjs(savedDeliveryDate) : null);
@@ -215,7 +217,6 @@ const App: FunctionComponent<AppProps> = props => {
     },
     cartItems,
     setCartItems: (items: CartItem[]) => {
-      console.trace("caller");
       setCartItems(items);
       AppStorage.save(AppStorageConstants.CART_ITEMS, items);
     },
