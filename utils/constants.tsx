@@ -2499,9 +2499,7 @@ export const links: AppLink[] = [
         ]
       }
     ],
-    featuredSlugs: [
-      "allure-bouquet-of-red-white-pink-yellow-or-purples-roses-select-size"
-    ]
+    featuredSlugs: ["allure-bouquet-of-red-roses"]
   },
   {
     url: "",
@@ -2609,8 +2607,8 @@ export const links: AppLink[] = [
       }
     ],
     featuredSlugs: [
-      "purity-roses-arranged-with-sparkling-white-select-size",
-      "classic-roses-and-chocolate-elegant-mix-of-fresh-cut-roses-interlaced-with-luxurious-ferrero-rocher-chocolates-select-size"
+      "purity-classy-mix-of-white-roses-with-million-stars",
+      "classic-red-roses-luxurious-bouquet-of-red-roses"
     ]
   },
   {
@@ -2726,15 +2724,15 @@ export const bestSellersRomance: RegalContent = {
 
 export const featuredSlugs: Record<string, string[]> = {
   "featured-birthday": [
-    "allure-bouquet-of-red-white-pink-yellow-or-purples-roses-select-size",
-    "numero-uno-mix-of-different-colors-of-roses-with-a-different-shade-in-the-middle-and-million-stars-or-statice-select-size",
-    "debonair-lilies-with-red-roses-white-roses-and-gypsophila-million-star-select-size",
+    "allure-bouquet-of-red-roses",
+    "numero-uno-mix-of-different-colors-of-roses-with-a-different-shade-in-the-middle-and-million-stars-or-lepidium",
+    "debonair-lilies-with-red-roses-and-million-star",
     "chrysant-delight-mixture-of-bright-and-vibrant-chrysanthemums-with-million-stars-gypsophila-more"
   ],
   "featured-romance": [
     "euphoria-roses-and-million-stars-or-statice-select-size",
     "my-heart-concentric-mix-of-two-or-three-colours-of-roses-to-form-a-heart-shape-select-size",
-    "numero-uno-mix-of-different-colors-of-roses-with-a-different-shade-in-the-middle-and-million-stars-or-statice-select-size",
+    "numero-uno-mix-of-different-colors-of-roses-with-a-different-shade-in-the-middle-and-million-stars-or-lepidium",
     "dune-beautiful-arrangement-of-roses-with-mixed-chrysanthemums-and-million-stars"
   ]
 };
@@ -3530,7 +3528,7 @@ export const trendingPosts = [
     tag: "Everything Flowers and Gifts",
     title: "5 awesome methods of receiving payment in your store. "
   }
-]
+];
 
 interface BlogMinimal {
   id: string;

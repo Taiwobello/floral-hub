@@ -215,6 +215,7 @@ const App: FunctionComponent<AppProps> = props => {
     },
     cartItems,
     setCartItems: (items: CartItem[]) => {
+      console.trace("caller");
       setCartItems(items);
       AppStorage.save(AppStorageConstants.CART_ITEMS, items);
     },

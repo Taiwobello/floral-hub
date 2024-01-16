@@ -24,10 +24,6 @@ import dayjs from "dayjs";
 import { getPriceDisplay } from "../utils/helpers/type-conversions";
 import useDeviceType from "../utils/hooks/useDeviceType";
 
-interface OpenItems {
-  [key: number]: boolean;
-}
-
 interface CartContextProps {
   header?: "checkout" | "main";
   cartItems?: CartItem[];
@@ -48,20 +44,12 @@ const Cart: FunctionComponent<CartContextProps> = props => {
     setOrderId,
     setOrder,
     setShouldShowCart,
-    currentStage,
     setOrderLoading,
     setCurrentStage,
     deliveryFee
   } = useContext(SettingsContext);
   const [loading, setLoading] = useState(false);
-  const [openItem, setOpenItem] = useState<OpenItems>({});
 
-  const toggleAnswer = (index: number) => {
-    setOpenItem(prevsetOpenItem => ({
-      ...prevsetOpenItem,
-      [index]: !prevsetOpenItem[index]
-    }));
-  };
   const totalCartItems = useMemo(() => {
     if (!cartItems.length) return 0;
     return cartItems.reduce((acc, item) => acc + item.quantity, 0);
@@ -73,7 +61,7 @@ const Cart: FunctionComponent<CartContextProps> = props => {
   const fetchOrder = async (orderId: string) => {
     setOrderLoading(true);
     const { error, data, status } = await getOrder(orderId);
-
+    console.log(error, data, status);
     if (error) {
       if (status === 404) {
         setOrderId("");
@@ -226,11 +214,6 @@ const Cart: FunctionComponent<CartContextProps> = props => {
   useEffect(() => {
     if (orderId) {
       fetchOrder(orderId);
-    } else {
-      const savedCartItems = AppStorage.get(AppStorageConstants.CART_ITEMS);
-      if (savedCartItems) {
-        setCartItems(savedCartItems || []);
-      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
