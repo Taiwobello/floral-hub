@@ -58,7 +58,6 @@ const Cart: FunctionComponent<CartContextProps> = props => {
   const fetchOrder = async (orderId: string) => {
     setOrderLoading(true);
     const { error, data, status } = await getOrder(orderId);
-    console.log(error, data, status);
     if (error) {
       if (status === 404) {
         setOrderId("");
