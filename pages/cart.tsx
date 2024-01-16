@@ -17,9 +17,6 @@ import {
   updateOrder
 } from "../utils/helpers/data/order";
 import { ProductImage } from "../utils/types/Product";
-import AppStorage, {
-  AppStorageConstants
-} from "../utils/helpers/storage-helpers";
 import dayjs from "dayjs";
 import { getPriceDisplay } from "../utils/helpers/type-conversions";
 import useDeviceType from "../utils/hooks/useDeviceType";
