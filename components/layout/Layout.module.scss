@@ -126,6 +126,15 @@
           font-size: 1.1rem;
         }
 
+        &.valentine-dropdown {
+          @media (max-width: 1300px) {
+            width: 70vw;
+            min-width: 70vw;
+            left: 50%;
+            transform: translateX(-50%);
+          }
+        }
+
         .subtitle {
           font-weight: bold;
           font-size: inherit;

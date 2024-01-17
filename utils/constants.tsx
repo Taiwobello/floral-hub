@@ -2385,6 +2385,10 @@ export const links: AppLink[] = [
         url: "/product-category/gifts",
         children: []
       }
+    ],
+    featuredSlugs: [
+      "loxarre-bouquet-a-bouquet-of-arrangement-of-red-roses-and-purple-roses-with-million-stars",
+      "classic-roses-and-chocolate"
     ]
   },
   {
