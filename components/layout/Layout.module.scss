@@ -127,12 +127,11 @@
         }
 
         &.valentine-dropdown {
-          @media (max-width: 1300px) {
-            width: 70vw;
-            min-width: 70vw;
-            left: 50%;
-            transform: translateX(-50%);
-          }
+          width: 70vw;
+          min-width: 60rem;
+          left: 55%;
+          transform: translateX(-50%);
+          max-width: 70rem;
         }
 
         .subtitle {
