@@ -156,7 +156,9 @@ const LandingPage: FunctionComponent<{
           >
             <h1 className={styles.title}>
               Send Fresh Flowers {deviceType === "desktop" && <br />}
-              to Lagos and Abuja, {deviceType === "desktop" && <br />} Nigeria
+              to Lagos and Abuja, {deviceType === "desktop" && (
+                <br />
+              )} Nigeria {deviceType === "desktop" && <br />}
               This Valentine.
             </h1>
             <p className={styles.subtitle}>
@@ -184,7 +186,10 @@ const LandingPage: FunctionComponent<{
           </div>
           <div className="featured-content">
             <>
-              <div className="flex between">
+              <div
+                className={`flex between ${deviceType === "desktop" &&
+                  "margin-top xl"}`}
+              >
                 <h2 className="featured-title">{bestSellersValentine}</h2>
                 {deviceType === "desktop" && (
                   <Button
@@ -784,7 +789,7 @@ const LandingPage: FunctionComponent<{
 
 const FlowerDeliveryInput: FunctionComponent = () => {
   const [occasion, setOccasion] = useState<{ value: number; slug: string }>({
-    value: 0,
+    value: -1,
     slug: ""
   });
   const { deliveryDate, setDeliveryDate } = useContext(SettingsContext);
