@@ -183,52 +183,6 @@ const LandingPage: FunctionComponent<{
             <FlowerDeliveryInput />
           </div>
           <div className="featured-content">
-            <h2 className="featured-title text-center vertical-margin xl">
-              Flower Delivery For All Occasions
-            </h2>
-            <div className={styles["featured-occasion"]}>
-              <img
-                alt="featured occasion"
-                src="/images/occassions-birthday.png"
-                className={styles["featured-occasion-image"]}
-              />
-              <Link href="/product-category/birthday-flowers">
-                <a className={styles["featured-occasion-details"]}>
-                  <h3 className={styles.title}>BIRTHDAY FLOWERS</h3>
-                  <span className={styles.subtitle}>
-                    Celebrate them with beautiful handpicked fresh flowers
-                    delivered right to their doorstep
-                  </span>
-                  <Button className={styles.button}>
-                    SHOP BIRTHDAY FLOWERS
-                  </Button>
-                </a>
-              </Link>
-            </div>
-
-            <div className={[styles.section, styles.wrap].join(" ")}>
-              {regalOccasions.map(
-                occasion =>
-                  (deviceType === "desktop" ||
-                    occasion.title !== "Condolence flowers") && (
-                    <OccasionCard
-                      key={occasion.title}
-                      name={occasion.title}
-                      url={occasion.url}
-                      image={occasion.image}
-                      subTitle={occasion.subtitle}
-                      mode={
-                        deviceType === "mobile" ? "two-x-grid" : "three-x-grid"
-                      }
-                      buttonText={
-                        deviceType === "desktop" ? occasion.cta : "SHOP FLOWERS"
-                      }
-                      color={occasion.color}
-                    />
-                  )
-              )}
-            </div>
-
             <>
               <div className="flex between">
                 <h2 className="featured-title">{bestSellersValentine}</h2>
@@ -274,6 +228,51 @@ const LandingPage: FunctionComponent<{
                 </Button>
               )}
             </>
+            <h2 className="featured-title text-center vertical-margin xl">
+              Flower Delivery For All Occasions
+            </h2>
+            <div className={styles["featured-occasion"]}>
+              <img
+                alt="featured occasion"
+                src="/images/occassions-birthday.png"
+                className={styles["featured-occasion-image"]}
+              />
+              <Link href="/product-category/birthday-flowers">
+                <a className={styles["featured-occasion-details"]}>
+                  <h3 className={styles.title}>BIRTHDAY FLOWERS</h3>
+                  <span className={styles.subtitle}>
+                    Celebrate them with beautiful handpicked fresh flowers
+                    delivered right to their doorstep
+                  </span>
+                  <Button className={styles.button}>
+                    SHOP BIRTHDAY FLOWERS
+                  </Button>
+                </a>
+              </Link>
+            </div>
+
+            <div className={[styles.section, styles.wrap].join(" ")}>
+              {regalOccasions.map(
+                occasion =>
+                  (deviceType === "desktop" ||
+                    occasion.title !== "Condolence flowers") && (
+                    <OccasionCard
+                      key={occasion.title}
+                      name={occasion.title}
+                      url={occasion.url}
+                      image={occasion.image}
+                      subTitle={occasion.subtitle}
+                      mode={
+                        deviceType === "mobile" ? "two-x-grid" : "three-x-grid"
+                      }
+                      buttonText={
+                        deviceType === "desktop" ? occasion.cta : "SHOP FLOWERS"
+                      }
+                      color={occasion.color}
+                    />
+                  )
+              )}
+            </div>
 
             <div className="flex between">
               <h2 className="featured-title">BEST SELLING FLOWERS</h2>
