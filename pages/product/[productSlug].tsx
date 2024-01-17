@@ -154,6 +154,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
       document.removeEventListener("scroll", checkInView);
     };
   }, []);
+
   const handleAddToCart = () => {
     if (cannotBuy) {
       setShowHighlight(true);
@@ -344,7 +345,6 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
       setProductPrice(product.price);
     } else if (hasVariants && isInView) {
       setShowMobileCart(true);
-      setProductPrice(0);
     } else {
       setShowMobileCart(false);
     }
@@ -765,7 +765,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                                 setProductPrice(variant.price);
                               }}
                             >
-                              {variant.name.replace(/Vip/i, "VIP")} |
+                              {variant.name.replace(/Vip/i, "VIP")} |{" "}
                               {getPriceDisplay(variant.price, currency)}
                             </span>
                           );
