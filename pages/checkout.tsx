@@ -65,7 +65,8 @@ import {
   CreateOrderActions,
   CreateOrderData,
   OnApproveData,
-  OnApproveActions
+  OnApproveActions,
+  PurchaseUnit
 } from "@paypal/paypal-js";
 import { AppCurrency } from "../utils/types/Core";
 import {
@@ -230,7 +231,7 @@ const Checkout: FunctionComponent = () => {
   const payStackConfig: PaystackProps = {
     reference: `${order?.fullOrderId}-${order?.id}-${refNumber}` as string,
     email: formData.senderEmail || placeholderEmail,
-    amount: Math.ceil((total || 0) / currency.conversionRate) * 100,
+    amount: Math.round((total || 0) / currency.conversionRate) * 100,
     currency: currency.name === "GBP" ? undefined : currency.name, // Does not support GBP
     publicKey: "pk_live_21eb936506c47d587082d5362939421736884434",
     // publicKey: "pk_test_cd20e6c09cdb5ba2395a7c0f4acd63145e3c8aff",
@@ -701,7 +702,7 @@ const Checkout: FunctionComponent = () => {
   }, [currency, deliveryDate, formData.state]);
 
   const selectedZone = useMemo(() => {
-    const amount = Math.ceil(subTotal / currency.conversionRate);
+    const amount = Math.round(subTotal / currency.conversionRate);
     return (
       allDeliveryLocationZones[formData.state as LocationName]?.(
         amount,
@@ -1994,24 +1995,92 @@ const PaypalModal: FunctionComponent<ModalProps & {
 
   currencyRef.current = currency;
 
+  const recipientPhone = order?.recipient.phone?.replace(/[^\d\+]/g, "");
+  const isTestAccount = order?.client.email === "oeoladitan@hotmail.com";
+  const purchaseUnitTestProps = {
+    reference_id: `${order?.fullOrderId}-${order?.id}`,
+    payee: {
+      email_address: order?.client.email
+    },
+    shipping: {
+      name: {
+        full_name: `${order?.recipient.firstname || "NA"} ${order?.recipient
+          .lastname || "-"}`
+      },
+      email_address: order?.recipient.email || undefined,
+      phone_number: recipientPhone
+        ? { national_number: recipientPhone }
+        : undefined,
+      options: [
+        {
+          amount: {
+            value: String(
+              Math.round((order?.deliveryAmount || 0) / currency.conversionRate)
+            ),
+            currency_code: currency.name
+          },
+          id: order?.deliveryDetails.zone || "default",
+          label: order?.recipientAddress || "Address",
+          selected: true
+        }
+      ]
+    },
+    items:
+      order?.orderProducts.map(product => ({
+        name: product.name,
+        sku: product.SKU,
+        quantity: String(product.quantity),
+        unit_amount: {
+          value: String(Math.round(product.price / currency.conversionRate)),
+          currency_code: currency.name
+        },
+        description: product.size || undefined,
+        category: "PHYSICAL_GOODS"
+      })) || [],
+    soft_descriptor: order?.fullOrderId,
+    custom_id: order?.fullOrderId
+  };
+  const amountTestProps = {
+    breakdown: {
+      item_total: {
+        currency_code: currency.name,
+        value: String(
+          Math.round((order?.amount || 0) / currency.conversionRate) -
+            Math.round((order?.deliveryAmount || 0) / currency.conversionRate)
+        )
+      },
+      shipping: {
+        currency_code: currency.name,
+        value: String(
+          Math.round((order?.deliveryAmount || 0) / currency.conversionRate)
+        )
+      }
+    }
+  };
+  const purchase_units = [
+    {
+      amount: {
+        value: String(
+          Math.round(
+            (order?.amount || 0) / (currency.conversionRate || 1)
+          ).toFixed(2)
+        ),
+
+        ...(isTestAccount ? amountTestProps : {})
+      },
+      ...(isTestAccount ? purchaseUnitTestProps : {})
+    }
+  ] as PurchaseUnit[];
+
+  console.log({ purchase_units });
+
   const handleSessionCreate = (
     data: CreateOrderData,
     actions: CreateOrderActions
   ) => {
+    // const currency = currencyRef.current;
     return actions.order.create({
-      purchase_units: [
-        {
-          amount: {
-            value: String(
-              Math.ceil(
-                (order?.amount || 0) /
-                  (currencyRef.current?.conversionRate || 1)
-              ).toFixed(2)
-            )
-          },
-          reference_id: `${order?.fullOrderId}-${order?.id}`
-        }
-      ]
+      purchase_units
     });
   };
 
