@@ -176,11 +176,11 @@ const OccasionCard = forwardRef<HTMLAnchorElement, OccasionCardProps>(
                       disabled={outOfStock}
                     >
                       {deviceType === "mobile" ? (
-                        "ADD TO CART"
+                        "SELECT SIZE"
                       ) : (
                         <>
                           <img src="/icons/add-box-line.svg" alt="" />{" "}
-                          <p>ADD TO CART</p>
+                          <p>SELECT SIZE</p>
                         </>
                       )}
                     </button>
