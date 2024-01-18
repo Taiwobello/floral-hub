@@ -877,7 +877,7 @@ const ProductsPage: FunctionComponent<{
                     image={product.images[0].src}
                     slideImages={product["images"]}
                     price={product.price}
-                    buttonText="Add to Cart"
+                    buttonText="Select Size"
                     subTitle={product.subtitle || product.name.split("–")[1]}
                     url={`/product/${product.slug}`}
                     mode={`${
