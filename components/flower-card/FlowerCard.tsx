@@ -183,14 +183,22 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
                       className={`${styles["buy-btn"]} text-small semibold`}
                       onClick={e => cart && handleAddToCart(e)}
                       disabled={outOfStock}
-                      aria-label="SELECT SIZE"
+                      aria-label="Add to cart"
                     >
                       {deviceType === "mobile" ? (
-                        "SELECT SIZE"
+                        <>
+                          {product?.variants?.length
+                            ? "SELECT SIZE"
+                            : "ADD TO CART"}
+                        </>
                       ) : (
                         <>
                           <img src="/icons/add-box-line.svg" alt="" />{" "}
-                          <p>SELECT SIZE</p>
+                          <p>
+                            {product?.variants?.length
+                              ? "SELECT SIZE"
+                              : "ADD TO CART"}
+                          </p>
                         </>
                       )}
                     </button>

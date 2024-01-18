@@ -919,7 +919,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                 >
                   {outOfStock
                     ? "OUT OF STOCK"
-                    : `SELECT SIZE ( ${getPriceDisplay(
+                    : `ADD TO CART ( ${getPriceDisplay(
                         total || productPrice,
                         currency
                       )})`}
@@ -1003,7 +1003,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                   (cannotBuy || outOfStock) && styles.inactive
                 ].join(" ")}
               >
-                {outOfStock ? "OUT OF STOCK" : `SELECT SIZE`}
+                {outOfStock ? "OUT OF STOCK" : `ADD TO CART`}
               </Button>
             </div>
           </div>
@@ -1021,7 +1021,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                 product={(item as unknown) as Product}
                 className={styles["extras-cards"]}
                 url={`/product/${item.slug}`}
-                buttonText="Select Size"
+                buttonText="Add to Cart"
               />
             ))}
           </div>
@@ -1039,7 +1039,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
                 subTitle={item.subtitle || item.name.split("–")[1]}
                 product={(item as unknown) as Product}
                 url={`/product/${item.slug}`}
-                buttonText="Select Size"
+                buttonText="Add to Cart"
               />
             ))}
           </div>
