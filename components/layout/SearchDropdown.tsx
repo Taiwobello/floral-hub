@@ -115,7 +115,9 @@ const SearchDropdown: FunctionComponent<Props> = props => {
               subTitle={product.subtitle || product.name.split("–")[1]}
               price={product.price}
               url={`/product/${product.slug}`}
-              buttonText="Select Size"
+              buttonText={
+                product.variants?.length ? "Select Size" : "Add to Cart"
+              }
               cart={product.variants?.length ? false : true}
               product={product}
             />
