@@ -1,21 +1,27 @@
-import React,{useState,useContext, FormEvent, FunctionComponent} from 'react'
-import styles from './blog.module.scss'
-import articleStyles from './article.module.scss'
+import React, {
+  useState,
+  useContext,
+  FormEvent,
+  FunctionComponent
+} from "react";
+import styles from "./blog.module.scss";
+import articleStyles from "./article.module.scss";
 import { GetStaticProps } from "next";
-import Button from '../../components/button/Button'
-import Input from '../../components/input/Input'
-import { subscribeToNewsletter } from '../../utils/helpers/data/core'
-import SettingsContext from '../../utils/context/SettingsContext'
-import { blogCategories, blogMinimals } from '../../utils/constants'
-import { trendingPosts } from '../../utils/constants'
-import BlogThumbnail from './_blogThumbnail'
-import { getProductsBySlugs } from '../../utils/helpers/data/products';
-import { featuredSlugs } from '../../utils/constants';
-import Product from '../../utils/types/Product';
-import FlowerCard from '../../components/flower-card/FlowerCard';
+import Button from "../../components/button/Button";
+import Input from "../../components/input/Input";
+import { subscribeToNewsletter } from "../../utils/helpers/data/core";
+import SettingsContext from "../../utils/context/SettingsContext";
+import { blogCategories } from "../../utils/constants";
+import { trendingPosts } from "../../utils/constants";
+import BlogThumbnail from "./_blogThumbnail";
+import { getProductsBySlugs } from "../../utils/helpers/data/products";
+import { featuredSlugs } from "../../utils/constants";
+import Product from "../../utils/types/Product";
+import FlowerCard from "../../components/flower-card/FlowerCard";
 
-
-const BlogPost: FunctionComponent<{ featuredFlowers: Product[] }> = ( { featuredFlowers }) => {
+const BlogPost: FunctionComponent<{ featuredFlowers: Product[] }> = ({
+  featuredFlowers
+}) => {
   const [subscriptionEmail, setSubscriptionEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
 
@@ -33,21 +39,51 @@ const BlogPost: FunctionComponent<{ featuredFlowers: Product[] }> = ( { featured
   };
   return (
     <section className={styles["blog-post"]}>
-
       <div className={styles["hero-header"]}>
-        <p className={styles["title"]}> 5 Reasons Why Guys Give Girls Flowers</p>
+        <p className={styles["title"]}>
+          {" "}
+          5 Reasons Why Guys Give Girls Flowers
+        </p>
         <div className={styles["header-details"]}>
-
           <div className={`${styles["info"]} text-medium`}>
-            <p><span className={styles["blog-date"]}>7 Dec, 2021 / </span> <span className={styles["last-updated"]}> Updated 4 hours ago</span></p>
-            <p><span className={styles["read-duration"]}>10 minutes read </span> <span className={styles["tag"]}> Everything Flowers & Gift</span></p>
+            <p>
+              <span className={styles["blog-date"]}>7 Dec, 2021 / </span>{" "}
+              <span className={styles["last-updated"]}>
+                {" "}
+                Updated 4 hours ago
+              </span>
+            </p>
+            <p>
+              <span className={styles["read-duration"]}>10 minutes read </span>{" "}
+              <span className={styles["tag"]}> Everything Flowers & Gift</span>
+            </p>
           </div>
-          <div className={`${styles['quick-action']} text-medium`}>
-            <div><img src="/icons/copy.svg" alt="" className={styles["copy"]} /> Copy link</div>
-            <div><img src="/icons/twitter-blog.svg" alt="" className={styles["copy"]} /></div>
-            <div><img src="/icons/facebook-blog.svg" alt="" className={styles["copy"]} /></div>
-            <div><img src="/icons/instagram-blog.svg" alt="" className={styles["copy"]} /></div>
-
+          <div className={`${styles["quick-action"]} text-medium`}>
+            <div>
+              <img src="/icons/copy.svg" alt="" className={styles["copy"]} />{" "}
+              Copy link
+            </div>
+            <div>
+              <img
+                src="/icons/twitter-blog.svg"
+                alt=""
+                className={styles["copy"]}
+              />
+            </div>
+            <div>
+              <img
+                src="/icons/facebook-blog.svg"
+                alt=""
+                className={styles["copy"]}
+              />
+            </div>
+            <div>
+              <img
+                src="/icons/instagram-blog.svg"
+                alt=""
+                className={styles["copy"]}
+              />
+            </div>
           </div>
         </div>
         <div className={styles["hero-img"]}></div>
@@ -55,15 +91,24 @@ const BlogPost: FunctionComponent<{ featuredFlowers: Product[] }> = ( { featured
 
       <div className={styles["blog-body"]}>
         <div className={styles["content"]}>
-          <h1>
-            Service online and help
-          </h1>
+          <h1>Service online and help</h1>
           <article className={`text-small ${articleStyles["article"]}`}>
-            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, om
-            <blockquote> <q>Lorem Ipsum At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</q>
+            At vero eos et accusamus et iusto odio dignissimos ducimus qui
+            blanditiis praesentium voluptatum deleniti atque corrupti quos
+            dolores et quas molestias excepturi sint occaecati cupiditate non
+            provident, similique sunt in culpa qui officia deserunt mollitia
+            animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis
+            est et expedita distinctio. Nam libero tempore, cum soluta nobis est
+            eligendi optio cumque nihil impedit quo minus id quod maxime placeat
+            facere possimus, omnis voluptas assumenda est, om
+            <blockquote>
+              {" "}
+              <q>
+                Lorem Ipsum At vero eos et accusamus et iusto odio dignissimos
+                ducimus qui blanditiis
+              </q>
               <cite>Manuel Snr, Product Designer</cite>
-            </blockquote> 
-
+            </blockquote>
             <div>
               <img src="/images/blog-image.png" alt="" />
               <img src="/images/blog-image.png" alt="" />
@@ -83,7 +128,6 @@ const BlogPost: FunctionComponent<{ featuredFlowers: Product[] }> = ( { featured
               tag={tag.tag}
               title={tag.title}
               key={index}
-
             />
           ))}
           <div className={styles["trending"]}>
@@ -107,42 +151,59 @@ const BlogPost: FunctionComponent<{ featuredFlowers: Product[] }> = ( { featured
             <p>Recent Posts</p>
             <hr />
           </div>
-          {trendingPosts.map((tag,index)=>(
-            <BlogThumbnail 
-             imageUrl={tag.imageUrl}
-             tag={tag.tag}
-             title={tag.title}
-             key={index}
-
+          {trendingPosts.map((tag, index) => (
+            <BlogThumbnail
+              imageUrl={tag.imageUrl}
+              tag={tag.tag}
+              title={tag.title}
+              key={index}
             />
           ))}
         </div>
-          
       </div>
       <div className={styles["comment"]}>
         <p>Comments</p>
         <div>
-          <p className='text-small'>
-            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga
+          <p className="text-small">
+            At vero eos et accusamus et iusto odio dignissimos ducimus qui
+            blanditiis praesentium voluptatum deleniti atque corrupti quos
+            dolores et quas molestias excepturi sint occaecati cupiditate non
+            provident, similique sunt in culpa qui officia deserunt mollitia
+            animi, id est laborum et dolorum fuga
           </p>
         </div>
-        <p className='flex'>
-          <span> Janel Thompson  </span><span>   18 August, 2021</span>
-       
+        <p className="flex">
+          <span> Janel Thompson </span>
+          <span> 18 August, 2021</span>
         </p>
       </div>
 
       <div className={styles["add-comment"]}>
         <p>Leave a comment</p>
         <form action="" method="post">
-          <textarea name="" id="" cols={30} rows={10} placeholder='Comment'>
-          </textarea>
+          <textarea
+            name=""
+            id=""
+            cols={30}
+            rows={10}
+            placeholder="Comment"
+          ></textarea>
           <div>
-            <input type="text" name="fullname" id="fullname" placeholder='Name'/>
-            <input type="email" name="email" id="email" placeholder='Email Address'/>
+            <input
+              type="text"
+              name="fullname"
+              id="fullname"
+              placeholder="Name"
+            />
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email Address"
+            />
           </div>
-          
-        <Button>POST COMMENT</Button>
+
+          <Button>POST COMMENT</Button>
         </form>
       </div>
 
@@ -165,7 +226,6 @@ const BlogPost: FunctionComponent<{ featuredFlowers: Product[] }> = ( { featured
             />
           ))}
         </div>
-
       </div>
 
       <div className={styles["subscribe-section"]}>
@@ -207,10 +267,10 @@ const BlogPost: FunctionComponent<{ featuredFlowers: Product[] }> = ( { featured
         />
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default BlogPost
+export default BlogPost;
 
 export const getStaticProps: GetStaticProps = async () => {
   const { data, error, message } = await getProductsBySlugs(
@@ -249,11 +309,10 @@ export const getStaticPaths = async () => {
     paths: [
       {
         params: {
-          blogSlug: 'blogSlug',
-        },
-      }, // See the "paths" section below
+          blogSlug: "blogSlug"
+        }
+      } // See the "paths" section below
     ],
-    fallback: true, // false or "blocking"
-  }
-
+    fallback: true // false or "blocking"
+  };
 };
