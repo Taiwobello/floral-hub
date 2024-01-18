@@ -358,7 +358,8 @@ const Header: FunctionComponent = () => {
                     className={[
                       styles.dropdown,
                       activeNavLink === link.title && styles.active,
-                      hasScrolled && styles.minimize
+                      hasScrolled && styles.minimize,
+                      index === 0 && styles["valentine-dropdown"]
                     ].join(" ")}
                   >
                     <div className="flex between">

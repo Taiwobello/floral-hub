@@ -106,6 +106,10 @@ span {
   display: inline-block;
 }
 
+.min-width {
+  width: min-content;
+}
+
 .title {
   font-size: 1.8rem;
   &.small {
@@ -232,6 +236,9 @@ span {
 .text-center {
   text-align: center;
 }
+.auto-center {
+  margin: 0 auto;
+}
 .grayed {
   color: #6b7280;
 }
@@ -311,6 +318,10 @@ span {
 
   &.spaced {
     margin-top: 1.2rem;
+  }
+
+  &.xl {
+    margin-top: 3rem;
   }
 }
 .round {

@@ -269,6 +269,7 @@ export const defaultBreadcrumb: Breadcrumb = {
 };
 
 export const allOccasionOptions: Option[] = [
+  { slug: "valentines-day-flowers", value: 8, label: "Valentine's Flowers" },
   {
     slug: "flowers-to-say-thanks-sorry-etc",
     value: 0,
@@ -297,7 +298,7 @@ export const allOccasionOptions: Option[] = [
   },
   { slug: "bridal-bouquets", value: 6, label: "Bridal Flowers" },
   { slug: "funeral-condolence-flowers", value: 7, label: "Funeral Flowers" },
-  { slug: "valentines-day-flowers", value: 8, label: "Valentine's Flowers" },
+
   {
     slug: "flowers-to-say-thanks-sorry-etc",
     value: 9,
@@ -2366,6 +2367,31 @@ export const productSampleData = {
 
 export const links: AppLink[] = [
   {
+    title: "Valentine",
+    url: "",
+    children: [
+      {
+        title: "Flowers",
+        url: "/product-category/valentines-day-flowers",
+        children: []
+      },
+      {
+        title: "VIP Flowers",
+        url: "/vip",
+        children: []
+      },
+      {
+        title: "Gifts",
+        url: "/product-category/gifts",
+        children: []
+      }
+    ],
+    featuredSlugs: [
+      "loxarre-bouquet-a-bouquet-of-arrangement-of-red-roses-and-purple-roses-with-million-stars",
+      "classic-roses-and-chocolate"
+    ]
+  },
+  {
     url: "",
     title: "Occasions",
     subtitle: "Select Occasion",
@@ -2382,6 +2408,27 @@ export const links: AppLink[] = [
           {
             title: "VIP Flowers",
             url: "/vip-flowers",
+            children: []
+          },
+          {
+            title: "Gifts",
+            url: "/product-category/gifts",
+            children: []
+          }
+        ]
+      },
+      {
+        title: "Valentine",
+        url: "",
+        children: [
+          {
+            title: "Flowers",
+            url: "/product-category/valentines-day-flowers",
+            children: []
+          },
+          {
+            title: "VIP Flowers",
+            url: "/vip",
             children: []
           },
           {
@@ -2667,11 +2714,11 @@ export const links: AppLink[] = [
       "caravaggio-assorted-italian-unisex-gift-set-more"
     ]
   },
-  {
-    url: "/product-category/indoor-plants-and-cactus",
-    title: "Plants",
-    children: []
-  },
+  // {
+  //   url: "/product-category/indoor-plants-and-cactus",
+  //   title: "Plants",
+  //   children: []
+  // },
   {
     title: "FAQ",
     url: "/faq-how-to-buy-fresh-flowers-and-gifts-in-lagos-and-abuja",
@@ -2715,6 +2762,8 @@ export const bestSellers: RegalContent = {
   "other-locations": "Bestselling Flowers in Ibadan, Port Harcourt etc"
 };
 
+export const bestSellersValentine = "Bestselling Valentine's Day Flowers";
+
 export const bestSellersRomance: RegalContent = {
   general: "Bestselling Romance or Just to Say Flowers in Lagos & Abuja",
   lagos: "Bestselling Flowers in Lagos",
@@ -2734,6 +2783,12 @@ export const featuredSlugs: Record<string, string[]> = {
     "my-heart-concentric-mix-of-two-or-three-colours-of-roses-to-form-a-heart-shape-select-size",
     "numero-uno-mix-of-different-colors-of-roses-with-a-different-shade-in-the-middle-and-million-stars-or-lepidium",
     "dune-beautiful-arrangement-of-roses-with-mixed-chrysanthemums-and-million-stars"
+  ],
+  "featured-valentine": [
+    "arabiati-bouquet-red-roses-mixed-with-million-stars",
+    "casablanca-bouquet-a-bouquet-arrangement-of-red-and-purple-roses-with-million-stars",
+    "donatello-box-arrangement-box-of-red-roses-and-one-contrasting-color-with-million-stars",
+    "flirtare-bouquet-arrangement-a-bouquet-of-mixed-roses"
   ]
 };
 
@@ -3556,7 +3611,7 @@ export const blogMinimals: BlogMinimal[] = [
     title: "5 Reasons Why Guys Give Girls Flowers",
     featuredImage: "/images/blog-image.png",
     excerpt:
-      "Chivalry isn’t dead, and men are typically known to give women flowers, while women are typically known to receive flowers. Or so the saying goes. But why exactly do men send women flowers? Chivalry isn’t dead, and men are typically known to give women flowers, while women are typically known to receive flowers. Or so the saying goes. But why exactly do men send women flowers Or so the saying goes. But why exactly do men send women flowers? ",
+      "Chivalry isn’t dead, and men are typically known to give women flowers, while women are typically known to receive flowers. Or so the saying goes. But why exactly do men send women flowers? ",
     category: "Everything Flowers and Gifts",
     readMinutes: 3,
     slug: "how-to-make-your-flowers-last-longer"
@@ -3566,7 +3621,7 @@ export const blogMinimals: BlogMinimal[] = [
     title: "5 Reasons Why Guys Give Girls Flowers",
     featuredImage: "/images/blog-image.png",
     excerpt:
-      "Chivalry isn’t dead, and men are typically known to give women flowers, while women are typically known to receive flowers. Or so the saying goes. But why exactly do men send women flowers? Chivalry isn’t dead, and men are typically known to give women flowers, while women are typically known to receive flowers. Or so the saying goes. But why exactly do men send women flowers Or so the saying goes. But why exactly do men send women flowers? ",
+      "Chivalry isn’t dead, and men are typically known to give women flowers, while women are typically known to receive flowers. Or so the saying goes. But why exactly do men send women flowers?",
     category: "Everything Flowers and Gifts",
     readMinutes: 3,
     slug: "how-to-make-your-flowers-last-longer"

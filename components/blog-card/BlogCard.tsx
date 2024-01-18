@@ -9,13 +9,18 @@ interface BlogCardProps {
   title: string;
   excerpt: string;
   url: string;
+  rowDisplay?: boolean;
 }
 
 const BlogCard: FunctionComponent<BlogCardProps> = props => {
-  const { title, image, url } = props;
+  const { title, image, url, date, readDuration, rowDisplay } = props;
   return (
     <Link href={url || "#"}>
-      <a className={`${styles["blog-card"]}`}>
+      <a
+        className={`${[styles["blog-card"], rowDisplay && styles["row"]].join(
+          " "
+        )}`}
+      >
         <div className={styles["img-wrapper"]}>
           <img
             className={styles["flower-image"]}
@@ -24,10 +29,10 @@ const BlogCard: FunctionComponent<BlogCardProps> = props => {
           />
         </div>
         <div className={styles.detail}>
-          {/* <div className="flex between center-align">
+          <div className={styles["duration-detail"]}>
             <span className={styles.date}>{date}</span>
             <span className={styles.duration}>{readDuration}</span>
-          </div> */}
+          </div>
           <h3 className={styles.title}>{title}</h3>
           {/* <span className={[styles.subtitle, "normal-text"].join(" ")}>
             {excerpt}
