@@ -37,8 +37,6 @@ const Cart: FunctionComponent<CartContextProps> = props => {
     setDeliveryDate,
     currency,
     notify,
-    orderId,
-    setOrderId,
     setOrder,
     setShouldShowCart,
     setOrderLoading,
@@ -53,14 +51,32 @@ const Cart: FunctionComponent<CartContextProps> = props => {
   }, [cartItems]);
 
   const router = useRouter();
-  const { push } = router;
+  const { push, query } = router;
+  const { orderId: _orderId } = query;
+  const orderId = String(_orderId || "");
+
+  const toggleOrderIdQueryParam = (orderId?: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { orderId: _, ...restOfQuery } = query;
+    push(
+      {
+        ...router,
+        query: {
+          ...restOfQuery,
+          ...(orderId ? { orderId: orderId } : {})
+        }
+      },
+      undefined,
+      { shallow: true }
+    );
+  };
 
   const fetchOrder = async (orderId: string) => {
     setOrderLoading(true);
     const { error, data, status } = await getOrder(orderId);
     if (error) {
       if (status === 404) {
-        setOrderId("");
+        toggleOrderIdQueryParam();
         setOrder(null);
         setCartItems([]);
         setDeliveryDate(null);
@@ -152,7 +168,6 @@ const Cart: FunctionComponent<CartContextProps> = props => {
       notify("error", `Unable to create order: ${message}`);
     } else if (data) {
       setDeliveryDate(data.deliveryDate ? dayjs(data?.deliveryDate) : null);
-      setOrderId(data.id);
       router.push(`/checkout?orderId=${data.id}`);
       setShouldShowCart(false);
     }

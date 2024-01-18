@@ -29,8 +29,6 @@ export interface SettingsControls extends Settings {
   setRedirectUrl: (redirect: string) => void;
   setShouldShowAuthDropdown: (shouldShowAuthDropdown: boolean) => void;
   shouldShowAuthDropdown: boolean;
-  orderId: string;
-  setOrderId: (orderId: string) => void;
   order: Order | null;
   setOrder: (order: Order | null) => void;
   confirm: (confirmParams: ConfirmParams) => void;
@@ -63,8 +61,6 @@ const SettingsContext = createContext<SettingsControls>({
   setRedirectUrl: () => {},
   setShouldShowAuthDropdown: () => {},
   shouldShowAuthDropdown: false,
-  orderId: "",
-  setOrderId: () => {},
   order: null,
   setOrder: () => {},
   confirm: () => {},

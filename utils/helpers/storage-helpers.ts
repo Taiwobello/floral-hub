@@ -4,7 +4,6 @@ export const AppStorageConstants = {
   USER_DATA: "userData",
   CART_ITEMS: "CART_ITEMS",
   REDIRECT_TO: "REDIRECT_TO",
-  ORDER_ID: "ORDER_ID",
   DELIVERY_DATE: "DELIVERY_DATE"
 };
 

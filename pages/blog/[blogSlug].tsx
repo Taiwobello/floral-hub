@@ -11,7 +11,7 @@ import Button from "../../components/button/Button";
 import Input from "../../components/input/Input";
 import { subscribeToNewsletter } from "../../utils/helpers/data/core";
 import SettingsContext from "../../utils/context/SettingsContext";
-import { blogCategories, blogMinimals } from "../../utils/constants";
+import { blogCategories } from "../../utils/constants";
 import { trendingPosts } from "../../utils/constants";
 import BlogThumbnail from "./_blogThumbnail";
 import { getProductsBySlugs } from "../../utils/helpers/data/products";
