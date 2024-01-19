@@ -36,6 +36,8 @@ const Meta = ({
         }`}
       />
 
+      <base href="https://floralhub.ng/" />
+
       {/* Open Graph Meta Tags */}
       {title && <meta property="og:title" content={title} />}
       {description && <meta property="og:description" content={description} />}
