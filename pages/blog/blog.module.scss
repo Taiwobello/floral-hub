@@ -10,11 +10,11 @@
   }
 
   .hero-header {
-    .hero-img {
-      background-image: url('/images/blog-page-flower.png');
+    .hero-img > img {
       height: 35rem;
-      background-position: center center;
-      background-size: cover;
+      object-position: center;
+      width:100%;
+      object-fit: cover;
 
       @media (max-width: 768px) {
         background-image: url("/images/blog-bg-mobile.png");
@@ -191,25 +191,26 @@
   }
 
   .comment {
+   
     &>p:first-of-type {
       font-size: 1.8rem;
       margin: 2rem 0;
+      font-weight: 600;
     }
 
     &> :nth-child(3) {
       gap: 0 1rem;
       font-weight: 500;
-      font-size: 0.875rem;
+      font-size: 1.3rem;
       color: #6E7191;
       margin: 1rem 0;
     }
   }
 
   .add-comment {
-
     & :nth-child(1) {
       font-size: 1.25rem;
-      font-weight: 400;
+      font-weight: 600;
     }
 
     margin: 3rem 0;

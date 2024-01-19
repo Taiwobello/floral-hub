@@ -18,9 +18,11 @@ import { getProductsBySlugs } from "../../utils/helpers/data/products";
 import { featuredSlugs } from "../../utils/constants";
 import Product from "../../utils/types/Product";
 import FlowerCard from "../../components/flower-card/FlowerCard";
+import Blog from "../../utils/types/Blog";
+import { getAllBlogs, getBlog } from "../../utils/helpers/data/blog";
 
-const BlogPost: FunctionComponent<{ featuredFlowers: Product[] }> = ({
-  featuredFlowers
+const BlogPost: FunctionComponent<{ featuredFlowers: Product[], blog: Blog }> = ({
+  featuredFlowers, blog
 }) => {
   const [subscriptionEmail, setSubscriptionEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
@@ -37,12 +39,13 @@ const BlogPost: FunctionComponent<{ featuredFlowers: Product[] }> = ({
     }
     notify("success", "Successfully subscribed to newsletter");
   };
+  const markup = {__html: blog.body}
   return (
-    <section className={styles["blog-post"]}>
+    <section className={`${styles["blog-post"]}`}>
       <div className={styles["hero-header"]}>
         <p className={styles["title"]}>
           {" "}
-          5 Reasons Why Guys Give Girls Flowers
+        {blog.title}
         </p>
         <div className={styles["header-details"]}>
           <div className={`${styles["info"]} text-medium`}>
@@ -54,7 +57,7 @@ const BlogPost: FunctionComponent<{ featuredFlowers: Product[] }> = ({
               </span>
             </p>
             <p>
-              <span className={styles["read-duration"]}>10 minutes read </span>{" "}
+              <span className={styles["read-duration"]}>{blog.readMinutes} minutes read </span>{" "}
               <span className={styles["tag"]}> Everything Flowers & Gift</span>
             </p>
           </div>
@@ -86,34 +89,14 @@ const BlogPost: FunctionComponent<{ featuredFlowers: Product[] }> = ({
             </div>
           </div>
         </div>
-        <div className={styles["hero-img"]}></div>
+        <div className={styles["hero-img"]}>
+          <img src={blog.featuredImage} alt="featured-image" />
+        </div>
       </div>
 
       <div className={styles["blog-body"]}>
         <div className={styles["content"]}>
-          <h1>Service online and help</h1>
-          <article className={`text-small ${articleStyles["article"]}`}>
-            At vero eos et accusamus et iusto odio dignissimos ducimus qui
-            blanditiis praesentium voluptatum deleniti atque corrupti quos
-            dolores et quas molestias excepturi sint occaecati cupiditate non
-            provident, similique sunt in culpa qui officia deserunt mollitia
-            animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis
-            est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-            eligendi optio cumque nihil impedit quo minus id quod maxime placeat
-            facere possimus, omnis voluptas assumenda est, om
-            <blockquote>
-              {" "}
-              <q>
-                Lorem Ipsum At vero eos et accusamus et iusto odio dignissimos
-                ducimus qui blanditiis
-              </q>
-              <cite>Manuel Snr, Product Designer</cite>
-            </blockquote>
-            <div>
-              <img src="/images/blog-image.png" alt="" />
-              <img src="/images/blog-image.png" alt="" />
-              <img src="/images/blog-image.png" alt="" />
-            </div>
+          <article className={`text-small ${articleStyles["article"]}`} dangerouslySetInnerHTML={markup}>
           </article>
         </div>
         <div className={styles["side"]}>
@@ -161,10 +144,10 @@ const BlogPost: FunctionComponent<{ featuredFlowers: Product[] }> = ({
           ))}
         </div>
       </div>
-      <div className={styles["comment"]}>
+      <div className={`${styles["comment"]}`}>
         <p>Comments</p>
         <div>
-          <p className="text-small">
+          <p className="text-regular">
             At vero eos et accusamus et iusto odio dignissimos ducimus qui
             blanditiis praesentium voluptatum deleniti atque corrupti quos
             dolores et quas molestias excepturi sint occaecati cupiditate non
@@ -209,7 +192,7 @@ const BlogPost: FunctionComponent<{ featuredFlowers: Product[] }> = ({
 
       <div className={styles["popular-sections"]}>
         <h2 className={`${styles.title} vertical-margin spaced normal`}>
-          FEATURED FLOWERS
+          {featuredFlowers ? "FEATURED FLOWERS" : ""} 
         </h2>
         <div className={[styles.section, styles.wrap].join(" ")}>
           {featuredFlowers?.map(flower => (
@@ -274,47 +257,46 @@ const BlogPost: FunctionComponent<{ featuredFlowers: Product[] }> = ({
 
 export default BlogPost;
 
-export const getStaticProps: GetStaticProps = async () => {
-  const { data, error, message } = await getProductsBySlugs(
+export const getStaticProps: GetStaticProps = async ({params}) => {
+  const {blogSlug} = params ||  {}
+  const { data: featuredFlowers, } = await getProductsBySlugs(
     featuredSlugs["featured-birthday"]
   );
-  if (error) {
-    console.error("Unable to fetch products by slugs: ", message);
+  const {data, error, message} = await getBlog(String(blogSlug));
+  if (error || !data) {
+    console.error(`Unable to fetch product "${blogSlug}": ${message}`);
+    return {
+      props: {
+        blog: {
+        }
+      },
+      revalidate: 1800
+    };
   }
   return {
-    props: {
-      featuredFlowers: data || []
-    },
+    props: { blog: data,
+      featuredFlowers: featuredFlowers || [] },
     revalidate: 1800
   };
 };
 
 export const getStaticPaths = async () => {
-  // const { data, error } = await getAllProducts();
-  // const slugs = data?.map( blog => ({
-  //   params: { blogSlug: blog.slug }
-  // }));
+  const { data, error } = await getAllBlogs();
+  const slugs = data?.map( blog => ({
+    params: { blogSlug: blog.slug }
+  }));
 
-  // if (error) {
-  //   console.error(`Unable to fetch products: ${error}`);
-  //   return {
-  //     paths: [],
-  //     fallback: false
-  //   };
-  // } else {
-  //   return {
-  //     paths: slugs,
-  //     fallback: false // true or 'blocking'
-  //   };
-  // }
-  return {
-    paths: [
-      {
-        params: {
-          blogSlug: "blogSlug"
-        }
-      } // See the "paths" section below
-    ],
-    fallback: true // false or "blocking"
-  };
+  if (error) {
+    console.error(`Unable to fetch products: ${error}`);
+    return {
+      paths: [],
+      fallback: false
+    };
+  } else {
+    return {
+      paths: slugs,
+      fallback: false // true or 'blocking'
+    };
+  }
+
 };
