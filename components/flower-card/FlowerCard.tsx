@@ -186,11 +186,19 @@ const FlowerCard = forwardRef<HTMLAnchorElement, IFlowerCardProps>(
                       aria-label="Add to cart"
                     >
                       {deviceType === "mobile" ? (
-                        "ADD TO CART"
+                        <>
+                          {product?.variants?.length
+                            ? "SELECT SIZE"
+                            : "ADD TO CART"}
+                        </>
                       ) : (
                         <>
                           <img src="/icons/add-box-line.svg" alt="" />{" "}
-                          <p>ADD TO CART</p>
+                          <p>
+                            {product?.variants?.length
+                              ? "SELECT SIZE"
+                              : "ADD TO CART"}
+                          </p>
                         </>
                       )}
                     </button>

@@ -75,6 +75,14 @@ const getReviewRender = (review: UserReview, i: number) => (
 
 let reviewScrollTimer: NodeJS.Timeout;
 
+export const metadata = {
+  title:
+    "Floral Hub | 24/7 Online & Walk-in Fresh Flowers & Gifts Shop in Lagos and Abuja, Nigeria that offers Same Day Delivery in Lagos, and Abuja, Nigeria",
+  description:
+    "Order flowers and gifts online for same-day delivery or walk in 24/7. Send flowers to celebrate someone special from the top flower shop in Lagos & Abuja, Nigeria.",
+  metadataBase: "https://www.floralhub.com.ng/"
+};
+
 const LandingPage: FunctionComponent<{
   locationName: LocationName;
   featuredBirthday?: Product[];
@@ -214,7 +222,9 @@ const LandingPage: FunctionComponent<{
                     subTitle={flower.subtitle || flower.name.split("–")[1]}
                     price={flower.price}
                     url={`/product/${flower.slug}`}
-                    buttonText="Add to Cart"
+                    buttonText={
+                      flower.variants?.length ? "Select Size" : "Add to Cart"
+                    }
                     cart={flower.variants?.length ? false : true}
                     product={flower}
                   />
@@ -299,7 +309,9 @@ const LandingPage: FunctionComponent<{
                   subTitle={flower.subtitle || flower.name.split("–")[1]}
                   price={flower.price}
                   url={`/product/${flower.slug}`}
-                  buttonText="Add to Cart"
+                  buttonText={
+                    flower.variants?.length ? "Select Size" : "Add to Cart"
+                  }
                   cart={flower.variants?.length ? false : true}
                   product={flower}
                 />
