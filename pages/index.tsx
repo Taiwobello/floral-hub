@@ -90,7 +90,8 @@ const LandingPage: FunctionComponent<{
   featuredRomance?: Product[];
   featuredFlowers?: Product[];
   featuredValentine?: Product[];
-}> = ({ featuredBirthday, locationName, featuredValentine }) => {
+  featuredGifts?: Product[];
+}> = ({ featuredBirthday, locationName, featuredValentine, featuredGifts }) => {
   const [currentReviewPageIndex, setCurrentReviewPageIndex] = useState(0);
   const [subscriptionEmail, setSubscriptionEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
@@ -290,7 +291,7 @@ const LandingPage: FunctionComponent<{
             </div>
 
             <div className="flex between">
-              <h2 className="featured-title">BEST SELLING FLOWERS</h2>
+              <h2 className="featured-title">BEST SELLING FLOWERS AND GIFTS</h2>
               {deviceType === "desktop" && (
                 <Button
                   url="/product-category/flowers-to-say-thanks-sorry-etc"
@@ -303,6 +304,24 @@ const LandingPage: FunctionComponent<{
             </div>
             <div className={[styles.section, styles.wrap].join(" ")}>
               {featuredBirthday?.map(flower => (
+                <FlowerCard
+                  key={flower.key}
+                  image={flower.images[0]?.src || ""}
+                  name={flower.name.split("–")[0]}
+                  subTitle={flower.subtitle || flower.name.split("–")[1]}
+                  price={flower.price}
+                  url={`/product/${flower.slug}`}
+                  buttonText={
+                    flower.variants?.length ? "Select Size" : "Add to Cart"
+                  }
+                  cart={flower.variants?.length ? false : true}
+                  product={flower}
+                />
+              ))}
+            </div>
+
+            <div className={[styles.section, styles.wrap].join(" ")}>
+              {featuredGifts?.map(flower => (
                 <FlowerCard
                   key={flower.key}
                   image={flower.images[0]?.src || ""}
@@ -893,8 +912,13 @@ export const getStaticProps: GetStaticProps = async () => {
   const { data, error, message } = await getProductsBySlugs(
     featuredSlugs[locationName]
   );
+
   const featuredValentine = await getProductsBySlugs(
     featuredSlugs["featured-valentine"]
+  );
+
+  const featuredGifts = await getProductsBySlugs(
+    featuredSlugs["featured-gift"]
   );
 
   if (error) {
@@ -905,7 +929,8 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       locationName: "general",
       featuredBirthday: data || [],
-      featuredValentine: featuredValentine.data || []
+      featuredValentine: featuredValentine.data || [],
+      featuredGifts: featuredGifts.data || []
     },
     revalidate: 1800
   };
