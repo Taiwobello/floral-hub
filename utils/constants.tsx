@@ -2776,7 +2776,13 @@ export const featuredSlugs: Record<string, string[]> = {
     "allure-bouquet-of-red-roses",
     "numero-uno-mix-of-different-colors-of-roses-with-a-different-shade-in-the-middle-and-million-stars-or-lepidium",
     "debonair-lilies-with-red-roses-and-million-star",
-    "chrysant-delight-mixture-of-bright-and-vibrant-chrysanthemums-with-million-stars-gypsophila-more"
+    "purity-classy-mix-of-white-roses-with-million-stars"
+  ],
+  "featured-gift": [
+    "classic-roses-and-chocolate",
+    "balloons",
+    "pergale-assorted-luxury-chocolates-114g",
+    "teddy-bear"
   ],
   "featured-romance": [
     "euphoria-roses-and-million-stars-or-statice-select-size",
