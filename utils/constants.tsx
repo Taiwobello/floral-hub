@@ -19,7 +19,7 @@ import { Breadcrumb } from "./context/SettingsContext";
 export const pickupLocations: Record<string, JSX.Element> = {
   Lagos: (
     <p>
-      <strong>Lagos Pickup Address</strong> - 81b, Lafiaji Way, Dolphin Estate,
+      <strong>Lagos Pickup Address</strong> - 15, Ikeja Way, Dolphin Estate,
       Ikoyi, Lagos
     </p>
   ),
@@ -770,7 +770,7 @@ export const regalAddresses: LocationAddress[] = [
     name: "Lagos Head Office/Delivery Center",
     url: "https://goo.gl/maps/cNB9Jx9sidQhJgtD6",
     workingTimes: "24/7",
-    location: "81b, Lafiaji Way, Dolphin Estate, Ikoyi, Lagos"
+    location: "15, Ikeja Way, Dolphin Estate, Ikoyi, Lagos"
   },
   {
     name: "Lagos VI Branch",
