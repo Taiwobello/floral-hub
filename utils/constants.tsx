@@ -4,7 +4,7 @@ import { Option } from "../components/select/Select";
 import { getPriceDisplay } from "./helpers/type-conversions";
 import { BooleanFilter } from "./helpers/type-helpers";
 import { AppCurrency, AppCurrencyName, AppLink } from "./types/Core";
-import { PaymentMethod } from "./types/Order";
+import { DeliveryZone, PaymentMethod } from "./types/Order";
 import { DesignOptionName, Gift } from "./types/Product";
 import {
   Service,
@@ -3162,14 +3162,14 @@ export const allDeliveryLocationOptions: Record<
 
       valsDates.includes(deliveryDate?.format("DD-MM") || "") && {
         label: `${getPriceDisplay(
-          30000,
+          29900,
           currency
         )} - Valentine (13th-15th Feb) Orders below ${getPriceDisplay(
           165000,
           currency
         )}`,
         name: "highLagosVals",
-        amount: 30000
+        amount: 29900
       },
 
       valsDates.includes(deliveryDate?.format("DD-MM") || "") && {
@@ -3245,14 +3245,14 @@ export const allDeliveryLocationOptions: Record<
 
       valsDates.includes(deliveryDate?.format("DD-MM") || "") && {
         label: `${getPriceDisplay(
-          30000,
+          29900,
           currency
         )} - Valentine (13th-15th Feb) Orders below ${getPriceDisplay(
           165000,
           currency
         )}`,
         name: "highAbujaVals",
-        amount: 30000
+        amount: 29900
       },
 
       valsDates.includes(deliveryDate?.format("DD-MM") || "") && {
@@ -3637,3 +3637,11 @@ export const blogMinimals: BlogMinimal[] = [
     slug: "how-to-make-your-flowers-last-longer"
   }
 ];
+
+export type PickUpLocation = "Ikoyi" | "Abuja" | "Lekki";
+
+export const deliveryZoneMap: Record<string, DeliveryZone> = {
+  Ikoyi: "LPI",
+  Abuja: "APA",
+  Lekki: "LPL"
+};

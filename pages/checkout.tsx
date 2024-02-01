@@ -34,7 +34,9 @@ import {
   checkoutContent,
   valsDates,
   festiveDates,
-  freeDeliveryThresholdFestive
+  freeDeliveryThresholdFestive,
+  deliveryZoneMap,
+  PickUpLocation
 } from "../utils/constants";
 import SettingsContext from "../utils/context/SettingsContext";
 import {
@@ -252,26 +254,35 @@ const Checkout: FunctionComponent = () => {
         zone: value === "other-locations" ? value : "",
         pickUpLocation: "",
         deliveryLocation: null,
-        deliveryZone: value === "lagos" ? "WBL" : "WBA"
+        deliveryZone: value === "abuja" ? "WBL" : "WBA"
       });
       return;
     }
     if (key === "pickupState") {
-      if (value === "lagos") {
-        setFormData({
-          ...formData,
-          [key as string]: value,
-          pickUpLocation: "Lagos",
-          deliveryLocation: null
-        });
-      } else if (value === "abuja") {
+      if (value === "abuja") {
         setFormData({
           ...formData,
           [key as string]: value,
           pickUpLocation: "Abuja",
-          deliveryLocation: null
+          deliveryLocation: null,
+          deliveryZone: "APA"
         });
+        return;
+      } else {
+        setFormData({
+          ...formData,
+          [key as string]: value,
+          pickUpLocation: ""
+        });
+        return;
       }
+    }
+    if (key === "pickUpLocation") {
+      setFormData({
+        ...formData,
+        [key as string]: value,
+        deliveryZone: deliveryZoneMap[value as PickUpLocation]
+      });
       return;
     }
     if (key === "zone") {
@@ -1181,35 +1192,44 @@ const Checkout: FunctionComponent = () => {
                               />
                             </div>
                             <div className="margin-top spaced">
-                              {formData.pickUpLocation === "Lagos" && (
-                                <div>
-                                  <Radio
-                                    label={
-                                      <span className="flex spaced column">
-                                        <span>Lagos, Ikoyi</span>
-                                        <span className="grayed">
-                                          15, Ikeja Way, Dolphin Estate, Ikoyi
-                                        </span>
-                                      </span>
-                                    }
-                                    onChange={() => {}}
-                                    checked={
-                                      formData.pickUpLocation === "Lagos"
-                                    }
-                                  />
-                                </div>
+                              {formData.pickupState === "lagos" && (
+                                <>
+                                  <div>
+                                    <Radio
+                                      label="Ikoyi - 15, Ikeja Way, Dolphin Estate, Ikoyi, Lagos"
+                                      onChange={() =>
+                                        handleChange("pickUpLocation", "Ikoyi")
+                                      }
+                                      checked={
+                                        formData.pickUpLocation === "Ikoyi"
+                                      }
+                                    />
+                                  </div>
+                                  <div className="vertical-margin">
+                                    <Radio
+                                      label="Lekki - 2C, Seed Education Center Road, off Kusenla Road, Ikate, Lekki"
+                                      onChange={() =>
+                                        handleChange("pickUpLocation", "Lekki")
+                                      }
+                                      checked={
+                                        formData.pickUpLocation === "Lekki"
+                                      }
+                                    />
+                                  </div>
+                                </>
                               )}
-                              {formData.pickUpLocation === "Abuja" && (
-                                <div className="vertical-margin">
-                                  <Radio
-                                    label="Abuja Pickup - 5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja"
-                                    onChange={() => {}}
-                                    checked={
-                                      formData.pickUpLocation === "Abuja"
-                                    }
-                                  />
-                                </div>
-                              )}
+                              {formData.pickUpLocation === "Abuja" &&
+                                formData.pickupState === "abuja" && (
+                                  <div className="vertical-margin">
+                                    <Radio
+                                      label="Abuja Pickup - 5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja"
+                                      onChange={() => {}}
+                                      checked={
+                                        formData.pickUpLocation === "Abuja"
+                                      }
+                                    />
+                                  </div>
+                                )}
 
                               {formData.pickupState === "other-locations" && (
                                 <div className="flex center-align primary-color normal-text margin-bottom spaced">
@@ -2069,8 +2089,6 @@ const PaypalModal: FunctionComponent<ModalProps & {
       ...(isTestAccount ? purchaseUnitTestProps : {})
     }
   ] as PurchaseUnit[];
-
-  console.log({ purchase_units });
 
   const handleSessionCreate = (
     data: CreateOrderData,
