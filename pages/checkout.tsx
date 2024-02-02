@@ -249,15 +249,53 @@ const Checkout: FunctionComponent = () => {
 
   const handleChange = (key: keyof CheckoutFormData, value: unknown) => {
     if (key === "state") {
-      setFormData({
-        ...formData,
-        [key as string]: value,
-        zone: value === "other-locations" ? value : "",
-        pickUpLocation: "",
-        deliveryLocation: null,
-        deliveryZone: value === "abuja" ? "WBL" : "WBA"
-      });
-      return;
+      if (subTotal >= freeDeliveryThresholdVals.NGN && isValsDate) {
+        setFormData({
+          ...formData,
+          [key as string]: value,
+          deliveryLocation: {
+            label: "₦0 - Valentine (13th-15th Feb) Orders above ₦165,000",
+            name:
+              value === "lagos"
+                ? "freeLagosVals"
+                : value === "abuja"
+                ? "freeAbujaVals"
+                : "",
+            amount: 0
+          },
+          zone:
+            value === "lagos" ? "freeLagosVals-zone1" : "freeAbujaVals-zone1"
+        });
+        return;
+      } else if (subTotal <= freeDeliveryThresholdVals.NGN && isValsDate) {
+        setFormData({
+          ...formData,
+          [key as string]: value,
+          deliveryLocation: {
+            label: "₦29,900 - Valentine (13th-15th Feb) Orders below ₦165,000",
+            name:
+              value === "lagos"
+                ? "highLagosVals"
+                : value === "abuja"
+                ? "highAbujaVals"
+                : "",
+            amount: 29900
+          },
+          zone:
+            value === "lagos" ? "highLagosVals-zone1" : "highAbujaVals-zone1"
+        });
+        return;
+      } else {
+        setFormData({
+          ...formData,
+          [key as string]: value,
+          zone: value === "other-locations" ? value : "",
+          pickUpLocation: "",
+          deliveryLocation: null,
+          deliveryZone: value === "abuja" ? "WBL" : "WBA"
+        });
+        return;
+      }
     }
     if (key === "pickupState") {
       if (value === "abuja") {
@@ -1160,10 +1198,9 @@ const Checkout: FunctionComponent = () => {
                                       }
                                       disabled={
                                         locationOption.name !==
-                                          (
-                                            (selectedZone?.value as string) ||
-                                            ""
-                                          )?.split("-")[0] && !isValsDate
+                                        (
+                                          (selectedZone?.value as string) || ""
+                                        )?.split("-")[0]
                                       }
                                       checked={
                                         formData.deliveryLocation?.name ===
