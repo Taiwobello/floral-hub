@@ -196,7 +196,7 @@ const Index: FunctionComponent<{ featuredFlowers: Product[] }> = ({
       </div>
     );
   });
-  console.log({ featuredFlowers });
+
   return (
     <>
       <Meta
