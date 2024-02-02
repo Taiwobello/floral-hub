@@ -184,6 +184,7 @@ const Checkout: FunctionComponent = () => {
   const deviceType = useDeviceType();
 
   const isBankTransfer = /but not seen yet/i.test(order?.paymentStatus || "");
+  const isValsDate = valsDates.includes(deliveryDate?.format("DD-MM") || "");
 
   const total = useMemo(() => {
     const total =
@@ -431,7 +432,9 @@ const Checkout: FunctionComponent = () => {
     residenceType
   } = formData;
 
-  const completedDeliveryLocation = Boolean(deliveryLocation && state && zone);
+  const completedDeliveryLocation = Boolean(
+    deliveryLocation && state && (zone || isValsDate)
+  );
 
   const completedPickUpLocation = Boolean(pickUpLocation);
 
@@ -1050,9 +1053,7 @@ const Checkout: FunctionComponent = () => {
                                   }${freeDeliveryThresholdFestive[
                                     currency.name
                                   ].toLocaleString()}`
-                                : valsDates.includes(
-                                    deliveryDate?.format("DD-MM") || ""
-                                  )
+                                : isValsDate
                                 ? `Free Valentine (Feb 13th, 14th, 15th) Delivery in selected zones across Lagos and Abuja on orders above ${
                                     currency.sign
                                   }${freeDeliveryThresholdVals[
@@ -1087,7 +1088,8 @@ const Checkout: FunctionComponent = () => {
                                 dimmed
                               />
                             </div>
-                            {formData.state &&
+                            {!isValsDate &&
+                              formData.state &&
                               formData.state !== "other-locations" && (
                                 <div className="input-group">
                                   <span className="question">
@@ -1111,7 +1113,7 @@ const Checkout: FunctionComponent = () => {
                         )}
 
                         {formData.deliveryMethod === "delivery" &&
-                          formData.zone && (
+                          (formData.zone || isValsDate) && (
                             <div className={styles["pickup-locations"]}>
                               {deliveryLocationOptions.length > 0 && (
                                 <p className="primary-color align-icon normal-text bold margin-bottom">
@@ -1122,24 +1124,25 @@ const Checkout: FunctionComponent = () => {
                                 </p>
                               )}
 
-                              {deliveryLocationOptions.length === 0 && (
-                                <div className="flex center-align primary-color normal-text margin-bottom spaced">
-                                  <InfoRedIcon className="generic-icon xl" />
-                                  <span>
-                                    At the moment, we only deliver VIP Orders to
-                                    other states on request, by either
-                                    chartering a vehicle or by flight. Kindly
-                                    contact us on Phone/WhatsApp:
-                                    <br />
-                                    <a
-                                      href="tel:+2349077777994"
-                                      className="clickable neutral underline"
-                                    >
-                                      +234907 777 7994
-                                    </a>
-                                  </span>
-                                </div>
-                              )}
+                              {deliveryLocationOptions.length === 0 &&
+                                formData.state === "other-locations" && (
+                                  <div className="flex center-align primary-color normal-text margin-bottom spaced">
+                                    <InfoRedIcon className="generic-icon xl" />
+                                    <span>
+                                      At the moment, we only deliver VIP Orders
+                                      to other states on request, by either
+                                      chartering a vehicle or by flight. Kindly
+                                      contact us on Phone/WhatsApp:
+                                      <br />
+                                      <a
+                                        href="tel:+2349077777994"
+                                        className="clickable neutral underline"
+                                      >
+                                        +234907 777 7994
+                                      </a>
+                                    </span>
+                                  </div>
+                                )}
 
                               {deliveryLocationOptions.map(locationOption => {
                                 return (
@@ -1157,9 +1160,10 @@ const Checkout: FunctionComponent = () => {
                                       }
                                       disabled={
                                         locationOption.name !==
-                                        (
-                                          (selectedZone?.value as string) || ""
-                                        )?.split("-")[0]
+                                          (
+                                            (selectedZone?.value as string) ||
+                                            ""
+                                          )?.split("-")[0] && !isValsDate
                                       }
                                       checked={
                                         formData.deliveryLocation?.name ===
