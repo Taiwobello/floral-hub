@@ -126,6 +126,7 @@ export const getOrder: (
     };
   } catch (err) {
     if ((err as any).status === 404) {
+      AppStorage.remove(AppStorageConstants.ORDER_ID);
       AppStorage.remove(AppStorageConstants.CART_ITEMS);
     }
     return {

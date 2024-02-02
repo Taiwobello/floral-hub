@@ -34,6 +34,7 @@ export interface Settings {
   shouldShowCart: boolean;
   redirect: string;
   shouldShowAuthDropdown: boolean;
+  orderId: string;
   order: Order | null;
   searchText: string;
 }

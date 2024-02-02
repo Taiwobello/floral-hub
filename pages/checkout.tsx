@@ -174,6 +174,7 @@ const Checkout: FunctionComponent = () => {
     order,
     confirm,
     setCartItems,
+    setOrderId,
     orderLoading,
     setDeliveryFee,
     setOrderLoading,
@@ -220,8 +221,10 @@ const Checkout: FunctionComponent = () => {
     setIsPaid(true);
     setCartItems([]);
     setCurrentStage(3);
+    setOrderId("");
     setDeliveryDate(null);
     setDeliveryFee(0);
+    AppStorage.remove(AppStorageConstants.ORDER_ID);
     AppStorage.remove(AppStorageConstants.CART_ITEMS);
     AppStorage.remove(AppStorageConstants.DELIVERY_DATE);
   };
@@ -345,6 +348,7 @@ const Checkout: FunctionComponent = () => {
 
     if (error) {
       if (status === 404) {
+        setOrderId("");
         setOrder(null);
         setCartItems([]);
         setDeliveryDate(null);
@@ -446,17 +450,20 @@ const Checkout: FunctionComponent = () => {
   );
 
   useEffect(() => {
+    if (isReady && !user) {
+      setShouldShowAuthDropdown(true);
+    }
     fetchPurposes();
     fetchResidentTypes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (isReady && !user) {
-      setShouldShowAuthDropdown(true);
+    if (isReady) {
+      setOrderId(orderId as string);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isReady, user]);
+  }, [orderId, isReady]);
 
   useEffect(() => {
     const _isPaid =
@@ -1595,7 +1602,7 @@ const Checkout: FunctionComponent = () => {
                       <p className="text-medium">
                         Order Summary ({cartItems.length} items)
                       </p>
-                      <Link href={`/cart?orderId=${orderId}`}>
+                      <Link href="/cart">
                         <a
                           className="text-medium underline"
                           style={{
@@ -2007,13 +2014,8 @@ const PaypalModal: FunctionComponent<ModalProps & {
   order: Order | null;
   onComplete: () => void;
 }> = ({ visible, cancel, order, onComplete }) => {
-  const { currency, notify } = useContext(SettingsContext);
+  const { currency, notify, orderId } = useContext(SettingsContext);
   const currencyRef: MutableRefObject<AppCurrency> = useRef(currency);
-
-  const router = useRouter();
-  const { query } = router;
-  const { orderId: _orderId } = query;
-  const orderId = String(_orderId || "");
 
   currencyRef.current = currency;
 

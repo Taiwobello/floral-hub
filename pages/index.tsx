@@ -907,9 +907,8 @@ const FlowerDeliveryInput: FunctionComponent = () => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const locationName = "featured-birthday";
   const { data, error, message } = await getProductsBySlugs(
-    featuredSlugs[locationName]
+    featuredSlugs["featured-birthday"]
   );
 
   const featuredValentine = await getProductsBySlugs(
