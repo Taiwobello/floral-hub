@@ -160,7 +160,6 @@ export const createOrder: (payload: {
       currency,
       business
     });
-    AppStorage.save(AppStorageConstants.ORDER_ID, response.data.id);
     return {
       error: false,
       data: response.data as Order

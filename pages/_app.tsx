@@ -219,6 +219,11 @@ const App: FunctionComponent<AppProps> = props => {
     setCartItems: (items: CartItem[]) => {
       setCartItems(items);
       AppStorage.save(AppStorageConstants.CART_ITEMS, items);
+      if (!items.length) {
+        setOrder(null);
+        setOrderId("");
+        AppStorage.save(AppStorageConstants.ORDER_ID, "");
+      }
     },
     allCurrencies: settings.allCurrencies,
     shouldShowCart,
@@ -233,7 +238,10 @@ const App: FunctionComponent<AppProps> = props => {
     shouldShowAuthDropdown,
     setShouldShowAuthDropdown,
     orderId,
-    setOrderId,
+    setOrderId: (_orderId: string) => {
+      setOrderId(_orderId);
+      AppStorage.save(AppStorageConstants.ORDER_ID, _orderId);
+    },
     order,
     setOrder,
     confirm,
