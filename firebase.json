@@ -88,6 +88,11 @@
         "type": 301
       },
       {
+        "source": "/vip/",
+        "destination": "/vip-flowers/",
+        "type": 301
+      },
+      {
         "source": "/product-category/vip-gift-bouquets-romance-bday-anniversary-just-to-say-etc/",
         "destination": "/vip-flowers/",
         "type": 301
