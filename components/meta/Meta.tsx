@@ -36,7 +36,13 @@ const Meta = ({
         }`}
       />
 
-      <base href="https://www.floralhub.com.ng/" />
+      <base
+        href={
+          typeof window !== "undefined"
+            ? window.location.origin
+            : "https://floralhub.com.ng"
+        }
+      />
 
       {/* Open Graph Meta Tags */}
       {title && <meta property="og:title" content={title} />}
