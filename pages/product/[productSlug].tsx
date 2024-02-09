@@ -1012,7 +1012,7 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
           <div className={styles.gifts}>
             <>
               <div className="flex between margin-bottom spaced normal">
-                <span className="title bold margin-top spaced">
+                <span className={styles.title}>
                   GIFTS TO INCLUDE WITH FLOWERS
                 </span>
                 {deviceType === "desktop" && (
@@ -1056,7 +1056,6 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
               )}{" "}
             </>
           </div>
-          <br />
           <p className="title bold margin-top spaced">OTHERS ALSO BOUGHT</p>
           <div className="flex between vertical-margin spaced wrap">
             {product.relatedProducts?.slice(0, 4)?.map((item, index) => (
