@@ -67,7 +67,8 @@ const Cart: FunctionComponent<CartContextProps> = props => {
         push("/");
       }
     } else {
-      const _cartItems: CartItem[] =
+      const alreadyAddedItems = new Set<string>();
+      const cartItemsOnOrder: CartItem[] =
         data?.orderProducts?.map(item => ({
           image: item.image as ProductImage,
           name: item.name,
@@ -79,7 +80,15 @@ const Cart: FunctionComponent<CartContextProps> = props => {
           description: item.description,
           SKU: item.SKU || ""
         })) || [];
-      setCartItems(_cartItems);
+
+      const newCartItems: CartItem[] = [];
+      [...cartItemsOnOrder, ...cartItems].forEach(item => {
+        if (!alreadyAddedItems.has(item.SKU)) {
+          newCartItems.push(item);
+          alreadyAddedItems.add(item.SKU);
+        }
+      });
+      setCartItems(newCartItems);
 
       setOrder(data);
       setDeliveryDate(data?.deliveryDate ? dayjs(data?.deliveryDate) : null);
