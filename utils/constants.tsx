@@ -230,7 +230,7 @@ export const breadcrumbItems: Breadcrumb[] = [
   { url: "flowers-to-say-thanks-sorry-etc", label: "Mother's Day" },
 
   {
-    url: "chocolate-and-biscuits",
+    url: "chocolates-and-biscuits",
     label: "Chocolate & Biscuits"
   },
   {
@@ -721,7 +721,7 @@ export const giftItems: Gift[] = [
     name: "Chocolates",
     description: "A guilty pleasure and always a winning gift for most people",
     image: "/images/sample-flowers/addon-group-1.png",
-    slug: "/product-category/chocolate-and-biscuits"
+    slug: "/product-category/chocolates-and-biscuits"
   },
   {
     name: "Cakes and Cupcakes",
@@ -2021,7 +2021,7 @@ export const countryCodes = [
 export const gifts: { title: string; url: string; category?: string }[] = [
   {
     title: "Chocolates and Biscuits",
-    url: "/product-category/chocolate-and-biscuits",
+    url: "/product-category/chocolates-and-biscuits",
     category: "Chocolates and Biscuits"
   },
   {
@@ -2072,7 +2072,7 @@ export const occasionsPageTitle: Record<string, string> = {
     "Accessories & Boutonnieres Flowers",
   "indoor-plants-and-cactus": "Plants",
   vip: "VIP Flower Arrangements",
-  "chocolate-and-biscuits": "Chocolates and Biscuits",
+  "chocolates-and-biscuits": "Chocolates and Biscuits",
   "cakes-and-cupcakes": "Cakes and Cupcakes",
   "teddy-bears": "Teddy Bears",
   balloons: "Balloons",
@@ -2669,7 +2669,7 @@ export const links: AppLink[] = [
     title: "Gifts",
     children: [
       {
-        url: "/product-category/chocolate-and-biscuits",
+        url: "/product-category/chocolates-and-biscuits",
         title: "Chocolates and Biscuits",
         children: []
       },
@@ -3380,7 +3380,7 @@ export const occasionsPageMetaData: Record<
     title: "",
     description: ""
   },
-  "chocolate-and-biscuits": {
+  "chocolates-and-biscuits": {
     title: "",
     description: ""
   },

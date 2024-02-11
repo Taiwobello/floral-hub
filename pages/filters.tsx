@@ -47,7 +47,7 @@ import SchemaMarkup from "../components/schema-mark-up/SchemaMarkUp";
 const giftMap: Record<string, string> = {
   "gift-items-perfumes-cakes-chocolate-wine-giftsets-and-teddy-bears":
     "gift-items-perfumes-cakes-chocolate-wine-giftsets-and-teddy-bears",
-  "chocolate-and-biscuits": "chocolate-and-biscuits",
+  "chocolates-and-biscuits": "chocolates-and-biscuits",
   "cakes-and-cupcakes": "cakes-and-cupcakes",
   "teddy-bears": "teddy-bears",
   "wine-and-champagne": "wine-and-champagne",
