@@ -60,11 +60,20 @@ const Cart: FunctionComponent<CartContextProps> = props => {
     const { error, data, status } = await getOrder(orderId);
     if (error) {
       if (status === 404) {
-        setOrderId("");
-        setOrder(null);
-        setCartItems([]);
-        setDeliveryDate(null);
-        push("/");
+        if (cartItems.length) {
+          const { data } = await createOrder({
+            cartItems,
+            deliveryDate: deliveryDate?.format("YYYY-MM-DD") || "",
+            currency: currency.name
+          });
+          setOrderId(data?.id || "");
+        } else {
+          setOrderId("");
+          setOrder(null);
+          setCartItems([]);
+          setDeliveryDate(null);
+          push("/");
+        }
       }
     } else {
       const alreadyAddedItems = new Set<string>();
