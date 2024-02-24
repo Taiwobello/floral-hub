@@ -752,8 +752,6 @@ const Checkout: FunctionComponent = () => {
     [user]
   ) as Option[];
 
-  console.log("pastRecipients", pastRecipients);
-
   const deliveryLocationOptions = useMemo(() => {
     return (
       allDeliveryLocationOptions[formData.state as LocationName]?.(
@@ -1707,11 +1705,17 @@ const Checkout: FunctionComponent = () => {
                         {getPriceDisplay(total, currency)}
                       </span>
                     </div>
-                    {currentStage === 1 && deviceType === "desktop" && (
-                      <Button responsive buttonType="submit" loading={loading}>
-                        PROCEED TO PAYMENT
-                      </Button>
-                    )}
+                    {currentStage === 1 &&
+                      deviceType === "desktop" &&
+                      isSenderInfoCompleted && (
+                        <Button
+                          responsive
+                          buttonType="submit"
+                          loading={loading}
+                        >
+                          PROCEED TO PAYMENT
+                        </Button>
+                      )}
                   </div>
                   <div>
                     <div>
