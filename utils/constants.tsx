@@ -2367,31 +2367,6 @@ export const productSampleData = {
 
 export const links: AppLink[] = [
   {
-    title: "Valentine",
-    url: "",
-    children: [
-      {
-        title: "Flowers",
-        url: "/product-category/valentines-day-flowers",
-        children: []
-      },
-      {
-        title: "VIP Flowers",
-        url: "/vip",
-        children: []
-      },
-      {
-        title: "Gifts",
-        url: "/product-category/gifts",
-        children: []
-      }
-    ],
-    featuredSlugs: [
-      "loxarre-bouquet-a-bouquet-of-arrangement-of-red-roses-and-purple-roses-with-million-stars",
-      "classic-roses-and-chocolate"
-    ]
-  },
-  {
     url: "",
     title: "Occasions",
     subtitle: "Select Occasion",
@@ -2408,27 +2383,6 @@ export const links: AppLink[] = [
           {
             title: "VIP Flowers",
             url: "/vip-flowers",
-            children: []
-          },
-          {
-            title: "Gifts",
-            url: "/product-category/gifts",
-            children: []
-          }
-        ]
-      },
-      {
-        title: "Valentine",
-        url: "",
-        children: [
-          {
-            title: "Flowers",
-            url: "/product-category/valentines-day-flowers",
-            children: []
-          },
-          {
-            title: "VIP Flowers",
-            url: "/vip",
             children: []
           },
           {
@@ -2524,11 +2478,6 @@ export const links: AppLink[] = [
         url: "",
         children: [
           {
-            title: "Valentine's Day",
-            url: "/product-category/valentines-day-flowers",
-            children: []
-          },
-          {
             title: "Events & Centerpiece",
             url: "/product-category/event-centerpiece",
             children: []
@@ -2541,6 +2490,11 @@ export const links: AppLink[] = [
           {
             title: "Mother's Day",
             url: "/product-category/flowers-to-say-thanks-sorry-etc",
+            children: []
+          },
+          {
+            title: "Valentine's Day",
+            url: "/product-category/valentines-day-flowers",
             children: []
           }
         ]
@@ -2714,11 +2668,11 @@ export const links: AppLink[] = [
       "caravaggio-assorted-italian-unisex-gift-set-more"
     ]
   },
-  // {
-  //   url: "/product-category/indoor-plants-and-cactus",
-  //   title: "Plants",
-  //   children: []
-  // },
+  {
+    url: "/product-category/indoor-plants-and-cactus",
+    title: "Plants",
+    children: []
+  },
   {
     title: "FAQ",
     url: "/faq-how-to-buy-fresh-flowers-and-gifts-in-lagos-and-abuja",
