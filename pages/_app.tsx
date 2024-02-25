@@ -220,7 +220,6 @@ const App: FunctionComponent<AppProps> = props => {
       setCartItems(items);
       AppStorage.save(AppStorageConstants.CART_ITEMS, items);
       if (!items.length) {
-        setOrder(null);
         setOrderId("");
         AppStorage.save(AppStorageConstants.ORDER_ID, "");
       }
