@@ -798,12 +798,14 @@ const Checkout: FunctionComponent = () => {
         response?: PaystackSuccessResponse
       ) => Promise<void> = async response => {
         setPageLoading(true);
-        const { error, message } = await verifyPaystackPayment(
+        const { error, message, status } = await verifyPaystackPayment(
           response?.reference as string
         );
         setPageLoading(false);
         if (error) {
           notify("error", `Unable to make payment: ${message}`);
+        } else if (status === 214 && message) {
+          notify("info", `Order is successful, but not that: ${message}`);
         } else {
           notify("success", `Order paid successfully`);
           markAsPaid();
@@ -830,12 +832,14 @@ const Checkout: FunctionComponent = () => {
           paymentDescription: "Floral Hub Order",
           onComplete: async response => {
             setPageLoading(true);
-            const { error, message } = await verifyMonnifyPayment(
+            const { error, message, status } = await verifyMonnifyPayment(
               response.paymentReference as string
             );
             setPageLoading(false);
             if (error) {
               notify("error", `Unable to make payment: ${message}`);
+            } else if (status === 214 && message) {
+              notify("info", `Order is successful, but not that: ${message}`);
             } else {
               notify("success", `Order paid successfully`);
               markAsPaid();
@@ -2167,12 +2171,14 @@ const PaypalModal: FunctionComponent<ModalProps & {
     }
 
     if (response?.status === "COMPLETED") {
-      const { error, message } = await verifyPaypalPayment(
+      const { error, message, status } = await verifyPaypalPayment(
         data.orderID,
         orderId
       );
       if (error) {
         notify("error", `Unable to verify paypal payment: ${message}`);
+      } else if (status === 214 && message) {
+        notify("info", `Order is successful, but not that: ${message}`);
       } else {
         notify("success", "Successfully paid for order");
         onComplete();
@@ -2471,7 +2477,7 @@ const PaymentDetailsModal: FunctionComponent<ModalProps & {
       return notify("error", `Amount Sent is required`);
     }
     setLoading(true);
-    const { error, message } = await manualTransferPayment({
+    const { error, message, status } = await manualTransferPayment({
       ...formData,
       currency: currency.name,
       orderId: orderId as string,
@@ -2480,6 +2486,8 @@ const PaymentDetailsModal: FunctionComponent<ModalProps & {
     setLoading(false);
     if (error) {
       notify("error", `Unable to send Transfer Details: ${message}`);
+    } else if (status === 214 && message) {
+      notify("info", `Order is successful, but not that: ${message}`);
     } else {
       notify("success", `Transfer Details sent successfully`);
       onCompleted();

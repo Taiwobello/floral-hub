@@ -49,7 +49,7 @@ const defaultSettings: Settings = {
 let toasterTimer: ReturnType<typeof setTimeout>;
 const toasterDuration = {
   success: 3000,
-  info: 4000,
+  info: 9000,
   error: 5000
 };
 
