@@ -806,6 +806,7 @@ const Checkout: FunctionComponent = () => {
           notify("error", `Unable to make payment: ${message}`);
         } else if (status === 214 && message) {
           notify("info", `Order is successful, but not that: ${message}`);
+          markAsPaid();
         } else {
           notify("success", `Order paid successfully`);
           markAsPaid();
@@ -840,6 +841,7 @@ const Checkout: FunctionComponent = () => {
               notify("error", `Unable to make payment: ${message}`);
             } else if (status === 214 && message) {
               notify("info", `Order is successful, but not that: ${message}`);
+              markAsPaid();
             } else {
               notify("success", `Order paid successfully`);
               markAsPaid();
@@ -2179,6 +2181,8 @@ const PaypalModal: FunctionComponent<ModalProps & {
         notify("error", `Unable to verify paypal payment: ${message}`);
       } else if (status === 214 && message) {
         notify("info", `Order is successful, but not that: ${message}`);
+        onComplete();
+        cancel?.();
       } else {
         notify("success", "Successfully paid for order");
         onComplete();
@@ -2488,6 +2492,8 @@ const PaymentDetailsModal: FunctionComponent<ModalProps & {
       notify("error", `Unable to send Transfer Details: ${message}`);
     } else if (status === 214 && message) {
       notify("info", `Order is successful, but not that: ${message}`);
+      onCompleted();
+      cancel();
     } else {
       notify("success", `Transfer Details sent successfully`);
       onCompleted();
