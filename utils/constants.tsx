@@ -2740,8 +2740,8 @@ export const featuredSlugs: Record<string, string[]> = {
   ],
   "featured-product": [
     "chrysant-delight-mixture-of-bright-and-vibrant-chrysanthemums-with-million-stars-gypsophila",
-    "cupcake-003-almond-maraschino-cherry-cupcakes",
-    "ted-baker-eau-de-toilette-spray-for-women-75ml",
+    "cupcakes-004-pack-of-6-12-or-24-strawberry-red-velvet-cupcake-select-size",
+    "ted-baker-eau-de-toilette-spray-for-female-75ml",
     "loxarre-bouquet-a-bouquet-of-arrangement-of-red-roses-and-purple-roses-with-million-stars"
   ],
   "featured-romance": [
