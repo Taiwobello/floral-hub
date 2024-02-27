@@ -269,7 +269,6 @@ export const defaultBreadcrumb: Breadcrumb = {
 };
 
 export const allOccasionOptions: Option[] = [
-  { slug: "valentines-day-flowers", value: 8, label: "Valentine's Flowers" },
   {
     slug: "flowers-to-say-thanks-sorry-etc",
     value: 0,
@@ -303,7 +302,8 @@ export const allOccasionOptions: Option[] = [
     slug: "flowers-to-say-thanks-sorry-etc",
     value: 9,
     label: "Mother's Day Flowers"
-  }
+  },
+  { slug: "valentines-day-flowers", value: 8, label: "Valentine's Flowers" }
 ];
 
 export const defaultCurrency: AppCurrency = {
@@ -2737,6 +2737,12 @@ export const featuredSlugs: Record<string, string[]> = {
     "balloons",
     "pergale-assorted-luxury-chocolates-114g",
     "teddy-bear"
+  ],
+  "featured-product": [
+    "chrysant-delight-mixture-of-bright-and-vibrant-chrysanthemums-with-million-stars-gypsophila",
+    "cupcake-003-almond-maraschino-cherry-cupcakes",
+    "ted-baker-eau-de-toilette-spray-for-women-75ml",
+    "loxarre-bouquet-a-bouquet-of-arrangement-of-red-roses-and-purple-roses-with-million-stars"
   ],
   "featured-romance": [
     "euphoria-roses-and-million-stars-or-statice-select-size",
