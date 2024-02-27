@@ -36,6 +36,7 @@ interface OrderActor {
   lastname?: string;
   phone?: string;
   name?: string;
+  phoneCountryCode?: string;
 }
 
 export interface Order {
