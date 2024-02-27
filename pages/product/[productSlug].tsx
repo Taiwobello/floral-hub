@@ -1166,7 +1166,6 @@ const VerticalImageCarousel: React.FC<{
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { productSlug } = params || {};
   const { data, error, message } = await getProduct(String(productSlug), 8);
-  console.log(data?.relatedProducts);
   if (error || !data) {
     console.error(`Unable to fetch product "${productSlug}": ${message}`);
     return {
