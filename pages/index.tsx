@@ -89,7 +89,8 @@ const LandingPage: FunctionComponent<{
   featuredRomance?: Product[];
   featuredFlowers?: Product[];
   featuredGifts?: Product[];
-}> = ({ featuredBirthday, locationName, featuredGifts }) => {
+  featuredProduct?: Product[];
+}> = ({ featuredBirthday, locationName, featuredGifts, featuredProduct }) => {
   const [currentReviewPageIndex, setCurrentReviewPageIndex] = useState(0);
   const [subscriptionEmail, setSubscriptionEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
@@ -166,7 +167,6 @@ const LandingPage: FunctionComponent<{
               to Lagos and Abuja, {deviceType === "desktop" && (
                 <br />
               )} Nigeria {deviceType === "desktop" && <br />}
-              This Valentine.
             </h1>
             <p className={styles.subtitle}>
               Your Favorite Online Fresh Flowers and Gifts Shop.
@@ -285,6 +285,25 @@ const LandingPage: FunctionComponent<{
                 />
               ))}
             </div>
+            <div className={[styles.section, styles.wrap].join(" ")}>
+              {featuredProduct?.map(flower => (
+                <FlowerCard
+                  key={flower.key}
+                  image={flower.images[0]?.src || ""}
+                  name={flower.name.split("–")[0]}
+                  subTitle={flower.subtitle || flower.name.split("–")[1]}
+                  price={flower.price}
+                  url={`/product/${flower.slug}`}
+                  buttonText={
+                    flower.variants?.length ? "Select Size" : "Add to Cart"
+                  }
+                  cart={flower.variants?.length ? false : true}
+                  product={flower}
+                  mode="four-x-grid"
+                />
+              ))}
+            </div>
+
             {deviceType === "mobile" && (
               <Button
                 url="/product-category/flowers-to-say-thanks-sorry-etc"
@@ -868,6 +887,10 @@ export const getStaticProps: GetStaticProps = async () => {
     featuredSlugs["featured-gift"]
   );
 
+  const featuredProduct = await getProductsBySlugs(
+    featuredSlugs["featured-product"]
+  );
+
   if (error) {
     console.error("Unable to fetch products by slugs: ", message);
   }
@@ -876,7 +899,8 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       locationName: "general",
       featuredBirthday: data || [],
-      featuredGifts: featuredGifts.data || []
+      featuredGifts: featuredGifts.data || [],
+      featuredProduct: featuredProduct.data || []
     },
     revalidate: 1800
   };
