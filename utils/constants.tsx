@@ -2533,6 +2533,11 @@ export const links: AppLink[] = [
             children: []
           },
           {
+            url: "/product-category/indoor-plants-and-cactus",
+            title: "Plants",
+            children: []
+          },
+          {
             title: "Father's Day",
             url: "/product-category/flowers-to-say-thanks-sorry-etc",
             children: []
@@ -2718,11 +2723,11 @@ export const links: AppLink[] = [
       "caravaggio-assorted-italian-unisex-gift-set-more"
     ]
   },
-  {
-    url: "/product-category/indoor-plants-and-cactus",
-    title: "Plants",
-    children: []
-  },
+  // {
+  //   url: "/product-category/indoor-plants-and-cactus",
+  //   title: "Plants",
+  //   children: []
+  // },
   {
     title: "FAQ",
     url: "/faq-how-to-buy-fresh-flowers-and-gifts-in-lagos-and-abuja",
@@ -2768,6 +2773,8 @@ export const bestSellers: RegalContent = {
 
 export const bestSellersValentine = "Bestselling Valentine's Day Flowers";
 
+export const bestSellersOccasion = "Bestselling Mother's Day Flowers";
+
 export const bestSellersRomance: RegalContent = {
   general: "Bestselling Romance or Just to Say Flowers in Lagos & Abuja",
   lagos: "Bestselling Flowers in Lagos",
@@ -2800,7 +2807,7 @@ export const featuredSlugs: Record<string, string[]> = {
     "numero-uno-mix-of-different-colors-of-roses-with-a-different-shade-in-the-middle-and-million-stars-or-lepidium",
     "dune-beautiful-arrangement-of-roses-with-mixed-chrysanthemums-and-million-stars"
   ],
-  "featured-valentine": [
+  "featured-occasion": [
     "arabiati-bouquet-red-roses-mixed-with-million-stars",
     "casablanca-bouquet-a-bouquet-arrangement-of-red-and-purple-roses-with-million-stars",
     "donatello-box-arrangement-box-of-red-roses-and-one-contrasting-color-with-million-stars",
