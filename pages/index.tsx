@@ -20,7 +20,8 @@ import {
   defaultBreadcrumb,
   websiteUrl,
   schemaProperties,
-  bestSellersValentine
+  bestSellersValentine,
+  bestSellersOccasion
 } from "../utils/constants";
 import ServiceCard from "../components/service-card/ServiceCard";
 import OccasionCard from "../components/occasion-card/OccasionCard";
@@ -90,7 +91,14 @@ const LandingPage: FunctionComponent<{
   featuredFlowers?: Product[];
   featuredGifts?: Product[];
   featuredProduct?: Product[];
-}> = ({ featuredBirthday, locationName, featuredGifts, featuredProduct }) => {
+  featuredOccasion?: Product[];
+}> = ({
+  featuredBirthday,
+  locationName,
+  featuredGifts,
+  featuredProduct,
+  featuredOccasion
+}) => {
   const [currentReviewPageIndex, setCurrentReviewPageIndex] = useState(0);
   const [subscriptionEmail, setSubscriptionEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
@@ -193,6 +201,56 @@ const LandingPage: FunctionComponent<{
             <FlowerDeliveryInput />
           </div>
           <div className="featured-content">
+            <>
+              <div
+                className={`flex between ${deviceType === "desktop" &&
+                  "margin-top xl"}`}
+              >
+                <h2 className="featured-title">{bestSellersOccasion}</h2>
+                {deviceType === "desktop" && (
+                  <Button
+                    url="/product-category/valentines-day-flowers"
+                    className="flex spaced center-align"
+                    type="transparent"
+                  >
+                    <h3 className="red margin-right">See All</h3>
+                    <img
+                      alt="arrow"
+                      className="generic-icon xsmall"
+                      src="/icons/arrow-right.svg"
+                    />
+                  </Button>
+                )}
+              </div>
+              <div className={[styles.section, styles.wrap].join(" ")}>
+                {featuredOccasion?.map(flower => (
+                  <FlowerCard
+                    key={flower.key}
+                    image={flower.images[0]?.src || ""}
+                    name={flower.name.split("–")[0]}
+                    subTitle={flower.subtitle || flower.name.split("–")[1]}
+                    price={flower.price}
+                    url={`/product/${flower.slug}`}
+                    buttonText={
+                      flower.variants?.length ? "Select Size" : "Add to Cart"
+                    }
+                    cart={flower.variants?.length ? false : true}
+                    product={flower}
+                  />
+                ))}
+              </div>
+              {deviceType === "mobile" && (
+                <Button
+                  url="/product-category/valentines-day-flowers"
+                  type="plain"
+                  minWidth
+                  className={styles["see-all"]}
+                >
+                  <h3 className="red margin-right">Browse More Flowers</h3>
+                  <img alt="see all" src="/icons/arrow-right.svg" />
+                </Button>
+              )}
+            </>
             <h2 className="featured-title text-center vertical-margin xl">
               Same Day Flower Delivery For All Occasions
             </h2>
@@ -880,9 +938,9 @@ export const getStaticProps: GetStaticProps = async () => {
     featuredSlugs["featured-birthday"]
   );
 
-  // const featuredValentine = await getProductsBySlugs(
-  //   featuredSlugs["featured-valentine"]
-  // );
+  const featuredOccasion = await getProductsBySlugs(
+    featuredSlugs["featured-occasion"]
+  );
 
   const featuredGifts = await getProductsBySlugs(
     featuredSlugs["featured-gift"]
@@ -901,7 +959,8 @@ export const getStaticProps: GetStaticProps = async () => {
       locationName: "general",
       featuredBirthday: data || [],
       featuredGifts: featuredGifts.data || [],
-      featuredProduct: featuredProduct.data || []
+      featuredProduct: featuredProduct.data || [],
+      featuredOccasion: featuredOccasion.data || []
     },
     revalidate: 1800
   };
