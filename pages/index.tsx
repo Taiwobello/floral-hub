@@ -167,6 +167,7 @@ const LandingPage: FunctionComponent<{
               to Lagos and Abuja, {deviceType === "desktop" && (
                 <br />
               )} Nigeria {deviceType === "desktop" && <br />}
+              This Mother's Day
             </h1>
             <p className={styles.subtitle}>
               Your Favorite Online Fresh Flowers and Gifts Shop.
@@ -193,7 +194,7 @@ const LandingPage: FunctionComponent<{
           </div>
           <div className="featured-content">
             <h2 className="featured-title text-center vertical-margin xl">
-              Flower Delivery For All Occasions
+              Same Day Flower Delivery For All Occasions
             </h2>
             <div className={styles["featured-occasion"]}>
               <img
