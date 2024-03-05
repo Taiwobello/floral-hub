@@ -41,6 +41,7 @@ const defaultSettings: Settings = {
   shouldShowCart: false,
   redirect: "/product-category/anniversary-flowers",
   shouldShowAuthDropdown: false,
+  orderId: "",
   order: null,
   searchText: ""
 };
@@ -48,7 +49,7 @@ const defaultSettings: Settings = {
 let toasterTimer: ReturnType<typeof setTimeout>;
 const toasterDuration = {
   success: 3000,
-  info: 4000,
+  info: 9000,
   error: 5000
 };
 
@@ -78,6 +79,7 @@ const App: FunctionComponent<AppProps> = props => {
   const [shouldShowAuthDropdown, setShouldShowAuthDropdown] = useState(false);
   const [order, setOrder] = useState<Order | null>(null);
   const [deliveryDate, setDeliveryDate] = useState<null | Dayjs>(null);
+  const [orderId, setOrderId] = useState("");
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [deliveryFee, setDeliveryFee] = useState(0);
   const [breadcrumb, setBreadcrumb] = useState<Breadcrumb>(defaultBreadcrumb);
@@ -91,6 +93,9 @@ const App: FunctionComponent<AppProps> = props => {
     );
     const savedDeliveryDate = savedCartItems?.length
       ? AppStorage.get<Dayjs>(AppStorageConstants.DELIVERY_DATE)
+      : null;
+    const savedOrderId = savedCartItems?.length
+      ? AppStorage.get<string>(AppStorageConstants.ORDER_ID)
       : null;
 
     const { defaultCurrencyName, fromStorage } = getDefaultCurrency();
@@ -116,6 +121,7 @@ const App: FunctionComponent<AppProps> = props => {
       currency: defaultCurrency
     });
 
+    setOrderId(savedOrderId || "");
     setDeliveryDate(savedDeliveryDate ? dayjs(savedDeliveryDate) : null);
     setCartItems(savedCartItems || []);
 
@@ -213,6 +219,10 @@ const App: FunctionComponent<AppProps> = props => {
     setCartItems: (items: CartItem[]) => {
       setCartItems(items);
       AppStorage.save(AppStorageConstants.CART_ITEMS, items);
+      if (!items.length) {
+        setOrderId("");
+        AppStorage.save(AppStorageConstants.ORDER_ID, "");
+      }
     },
     allCurrencies: settings.allCurrencies,
     shouldShowCart,
@@ -226,6 +236,11 @@ const App: FunctionComponent<AppProps> = props => {
     },
     shouldShowAuthDropdown,
     setShouldShowAuthDropdown,
+    orderId,
+    setOrderId: (_orderId: string) => {
+      setOrderId(_orderId);
+      AppStorage.save(AppStorageConstants.ORDER_ID, _orderId);
+    },
     order,
     setOrder,
     confirm,

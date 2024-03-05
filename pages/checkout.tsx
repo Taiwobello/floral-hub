@@ -34,7 +34,9 @@ import {
   checkoutContent,
   valsDates,
   festiveDates,
-  freeDeliveryThresholdFestive
+  freeDeliveryThresholdFestive,
+  deliveryZoneMap,
+  PickUpLocation
 } from "../utils/constants";
 import SettingsContext from "../utils/context/SettingsContext";
 import {
@@ -172,6 +174,7 @@ const Checkout: FunctionComponent = () => {
     order,
     confirm,
     setCartItems,
+    setOrderId,
     orderLoading,
     setDeliveryFee,
     setOrderLoading,
@@ -182,6 +185,7 @@ const Checkout: FunctionComponent = () => {
   const deviceType = useDeviceType();
 
   const isBankTransfer = /but not seen yet/i.test(order?.paymentStatus || "");
+  const isValsDate = valsDates.includes(deliveryDate?.format("DD-MM") || "");
 
   const total = useMemo(() => {
     const total =
@@ -217,8 +221,10 @@ const Checkout: FunctionComponent = () => {
     setIsPaid(true);
     setCartItems([]);
     setCurrentStage(3);
+    setOrderId("");
     setDeliveryDate(null);
     setDeliveryFee(0);
+    AppStorage.remove(AppStorageConstants.ORDER_ID);
     AppStorage.remove(AppStorageConstants.CART_ITEMS);
     AppStorage.remove(AppStorageConstants.DELIVERY_DATE);
   };
@@ -246,32 +252,82 @@ const Checkout: FunctionComponent = () => {
 
   const handleChange = (key: keyof CheckoutFormData, value: unknown) => {
     if (key === "state") {
-      setFormData({
-        ...formData,
-        [key as string]: value,
-        zone: value === "other-locations" ? value : "",
-        pickUpLocation: "",
-        deliveryLocation: null,
-        deliveryZone: value === "lagos" ? "WBL" : "WBA"
-      });
-      return;
-    }
-    if (key === "pickupState") {
-      if (value === "lagos") {
+      const deliveryZone = value === "abuja" ? "WBA" : "WBL";
+      if (subTotal >= freeDeliveryThresholdVals.NGN && isValsDate) {
         setFormData({
           ...formData,
           [key as string]: value,
-          pickUpLocation: "Lagos",
-          deliveryLocation: null
+          deliveryLocation: {
+            label: "₦0 - Valentine (13th-15th Feb) Orders above ₦165,000",
+            name:
+              value === "lagos"
+                ? "freeLagosVals"
+                : value === "abuja"
+                ? "freeAbujaVals"
+                : "",
+            amount: 0
+          },
+          zone:
+            value === "lagos" ? "freeLagosVals-zone1" : "freeAbujaVals-zone1",
+          deliveryZone
         });
-      } else if (value === "abuja") {
+        return;
+      } else if (subTotal <= freeDeliveryThresholdVals.NGN && isValsDate) {
+        setFormData({
+          ...formData,
+          [key as string]: value,
+          deliveryLocation: {
+            label: "₦29,900 - Valentine (13th-15th Feb) Orders below ₦165,000",
+            name:
+              value === "lagos"
+                ? "highLagosVals"
+                : value === "abuja"
+                ? "highAbujaVals"
+                : "",
+            amount: 29900
+          },
+          zone:
+            value === "lagos" ? "highLagosVals-zone1" : "highAbujaVals-zone1",
+          deliveryZone
+        });
+        return;
+      } else {
+        setFormData({
+          ...formData,
+          [key as string]: value,
+          zone: value === "other-locations" ? value : "",
+          pickUpLocation: "",
+          deliveryLocation: null,
+          deliveryZone
+        });
+        return;
+      }
+    }
+    if (key === "pickupState") {
+      if (value === "abuja") {
         setFormData({
           ...formData,
           [key as string]: value,
           pickUpLocation: "Abuja",
-          deliveryLocation: null
+          deliveryLocation: null,
+          deliveryZone: "APA"
         });
+        return;
+      } else {
+        setFormData({
+          ...formData,
+          [key as string]: value,
+          pickUpLocation: ""
+        });
+        return;
       }
+    }
+    if (key === "pickUpLocation") {
+      setFormData({
+        ...formData,
+        [key as string]: value,
+        deliveryZone: deliveryZoneMap[value as PickUpLocation]
+      });
       return;
     }
     if (key === "zone") {
@@ -333,6 +389,7 @@ const Checkout: FunctionComponent = () => {
 
     if (error) {
       if (status === 404) {
+        setOrderId("");
         setOrder(null);
         setCartItems([]);
         setDeliveryDate(null);
@@ -420,7 +477,9 @@ const Checkout: FunctionComponent = () => {
     residenceType
   } = formData;
 
-  const completedDeliveryLocation = Boolean(deliveryLocation && state && zone);
+  const completedDeliveryLocation = Boolean(
+    deliveryLocation && state && (zone || isValsDate)
+  );
 
   const completedPickUpLocation = Boolean(pickUpLocation);
 
@@ -432,17 +491,20 @@ const Checkout: FunctionComponent = () => {
   );
 
   useEffect(() => {
+    if (isReady && !user) {
+      setShouldShowAuthDropdown(true);
+    }
     fetchPurposes();
     fetchResidentTypes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (isReady && !user) {
-      setShouldShowAuthDropdown(true);
+    if (isReady) {
+      setOrderId(orderId as string);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isReady, user]);
+  }, [orderId, isReady]);
 
   useEffect(() => {
     const _isPaid =
@@ -489,7 +551,8 @@ const Checkout: FunctionComponent = () => {
         senderName: order?.client.name,
         senderPhoneNumber: order?.client.phone,
         deliveryDate: dayjs(order.deliveryDate),
-        senderEmail: order.client.email
+        senderEmail: order.client.email,
+        senderCountryCode: order.client.phoneCountryCode || "+234"
       });
       setDeliveryDate(dayjs(order?.deliveryDate));
       setIsSenderInfoCompleted(true);
@@ -678,12 +741,17 @@ const Checkout: FunctionComponent = () => {
 
   const pastRecipients = useMemo(
     () =>
-      user?.recipients.map(recipient => ({
-        label: `${recipient.name} | ${recipient.phone} | ${recipient.phoneAlt} | ${recipient.address}`,
-        value: recipient._id
-      })) || [],
+      user?.recipients
+        .map(
+          recipient =>
+            recipient.name && {
+              label: `${recipient.name} | ${recipient.phone} | ${recipient.phoneAlt} | ${recipient.address}`,
+              value: recipient._id
+            }
+        )
+        .filter(Boolean) || [],
     [user]
-  );
+  ) as Option[];
 
   const deliveryLocationOptions = useMemo(() => {
     return (
@@ -731,12 +799,15 @@ const Checkout: FunctionComponent = () => {
         response?: PaystackSuccessResponse
       ) => Promise<void> = async response => {
         setPageLoading(true);
-        const { error, message } = await verifyPaystackPayment(
+        const { error, message, status } = await verifyPaystackPayment(
           response?.reference as string
         );
         setPageLoading(false);
         if (error) {
           notify("error", `Unable to make payment: ${message}`);
+        } else if (status === 214 && message) {
+          notify("info", `Order is successful, but not that: ${message}`);
+          markAsPaid();
         } else {
           notify("success", `Order paid successfully`);
           markAsPaid();
@@ -763,12 +834,15 @@ const Checkout: FunctionComponent = () => {
           paymentDescription: "Floral Hub Order",
           onComplete: async response => {
             setPageLoading(true);
-            const { error, message } = await verifyMonnifyPayment(
+            const { error, message, status } = await verifyMonnifyPayment(
               response.paymentReference as string
             );
             setPageLoading(false);
             if (error) {
               notify("error", `Unable to make payment: ${message}`);
+            } else if (status === 214 && message) {
+              notify("info", `Order is successful, but not that: ${message}`);
+              markAsPaid();
             } else {
               notify("success", `Order paid successfully`);
               markAsPaid();
@@ -1039,9 +1113,7 @@ const Checkout: FunctionComponent = () => {
                                   }${freeDeliveryThresholdFestive[
                                     currency.name
                                   ].toLocaleString()}`
-                                : valsDates.includes(
-                                    deliveryDate?.format("DD-MM") || ""
-                                  )
+                                : isValsDate
                                 ? `Free Valentine (Feb 13th, 14th, 15th) Delivery in selected zones across Lagos and Abuja on orders above ${
                                     currency.sign
                                   }${freeDeliveryThresholdVals[
@@ -1076,7 +1148,8 @@ const Checkout: FunctionComponent = () => {
                                 dimmed
                               />
                             </div>
-                            {formData.state &&
+                            {!isValsDate &&
+                              formData.state &&
                               formData.state !== "other-locations" && (
                                 <div className="input-group">
                                   <span className="question">
@@ -1100,7 +1173,7 @@ const Checkout: FunctionComponent = () => {
                         )}
 
                         {formData.deliveryMethod === "delivery" &&
-                          formData.zone && (
+                          (formData.zone || isValsDate) && (
                             <div className={styles["pickup-locations"]}>
                               {deliveryLocationOptions.length > 0 && (
                                 <p className="primary-color align-icon normal-text bold margin-bottom">
@@ -1111,24 +1184,25 @@ const Checkout: FunctionComponent = () => {
                                 </p>
                               )}
 
-                              {deliveryLocationOptions.length === 0 && (
-                                <div className="flex center-align primary-color normal-text margin-bottom spaced">
-                                  <InfoRedIcon className="generic-icon xl" />
-                                  <span>
-                                    At the moment, we only deliver VIP Orders to
-                                    other states on request, by either
-                                    chartering a vehicle or by flight. Kindly
-                                    contact us on Phone/WhatsApp:
-                                    <br />
-                                    <a
-                                      href="tel:+2349077777994"
-                                      className="clickable neutral underline"
-                                    >
-                                      +234907 777 7994
-                                    </a>
-                                  </span>
-                                </div>
-                              )}
+                              {deliveryLocationOptions.length === 0 &&
+                                formData.state === "other-locations" && (
+                                  <div className="flex center-align primary-color normal-text margin-bottom spaced">
+                                    <InfoRedIcon className="generic-icon xl" />
+                                    <span>
+                                      At the moment, we only deliver VIP Orders
+                                      to other states on request, by either
+                                      chartering a vehicle or by flight. Kindly
+                                      contact us on Phone/WhatsApp:
+                                      <br />
+                                      <a
+                                        href="tel:+2349077777994"
+                                        className="clickable neutral underline"
+                                      >
+                                        +234907 777 7994
+                                      </a>
+                                    </span>
+                                  </div>
+                                )}
 
                               {deliveryLocationOptions.map(locationOption => {
                                 return (
@@ -1181,35 +1255,44 @@ const Checkout: FunctionComponent = () => {
                               />
                             </div>
                             <div className="margin-top spaced">
-                              {formData.pickUpLocation === "Lagos" && (
-                                <div>
-                                  <Radio
-                                    label={
-                                      <span className="flex spaced column">
-                                        <span>Lagos, Ikoyi</span>
-                                        <span className="grayed">
-                                          15, Ikeja Way, Dolphin Estate, Ikoyi
-                                        </span>
-                                      </span>
-                                    }
-                                    onChange={() => {}}
-                                    checked={
-                                      formData.pickUpLocation === "Lagos"
-                                    }
-                                  />
-                                </div>
+                              {formData.pickupState === "lagos" && (
+                                <>
+                                  <div>
+                                    <Radio
+                                      label="Ikoyi - 15, Ikeja Way, Dolphin Estate, Ikoyi, Lagos"
+                                      onChange={() =>
+                                        handleChange("pickUpLocation", "Ikoyi")
+                                      }
+                                      checked={
+                                        formData.pickUpLocation === "Ikoyi"
+                                      }
+                                    />
+                                  </div>
+                                  <div className="vertical-margin">
+                                    <Radio
+                                      label="Lekki - 2C, Seed Education Center Road, off Kusenla Road, Ikate, Lekki"
+                                      onChange={() =>
+                                        handleChange("pickUpLocation", "Lekki")
+                                      }
+                                      checked={
+                                        formData.pickUpLocation === "Lekki"
+                                      }
+                                    />
+                                  </div>
+                                </>
                               )}
-                              {formData.pickUpLocation === "Abuja" && (
-                                <div className="vertical-margin">
-                                  <Radio
-                                    label="Abuja Pickup - 5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja"
-                                    onChange={() => {}}
-                                    checked={
-                                      formData.pickUpLocation === "Abuja"
-                                    }
-                                  />
-                                </div>
-                              )}
+                              {formData.pickUpLocation === "Abuja" &&
+                                formData.pickupState === "abuja" && (
+                                  <div className="vertical-margin">
+                                    <Radio
+                                      label="Abuja Pickup - 5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja"
+                                      onChange={() => {}}
+                                      checked={
+                                        formData.pickUpLocation === "Abuja"
+                                      }
+                                    />
+                                  </div>
+                                )}
 
                               {formData.pickupState === "other-locations" && (
                                 <div className="flex center-align primary-color normal-text margin-bottom spaced">
@@ -1571,7 +1654,7 @@ const Checkout: FunctionComponent = () => {
                       <p className="text-medium">
                         Order Summary ({cartItems.length} items)
                       </p>
-                      <Link href={`/cart?orderId=${orderId}`}>
+                      <Link href="/cart">
                         <a
                           className="text-medium underline"
                           style={{
@@ -1629,11 +1712,17 @@ const Checkout: FunctionComponent = () => {
                         {getPriceDisplay(total, currency)}
                       </span>
                     </div>
-                    {currentStage === 1 && deviceType === "desktop" && (
-                      <Button responsive buttonType="submit" loading={loading}>
-                        PROCEED TO PAYMENT
-                      </Button>
-                    )}
+                    {currentStage === 1 &&
+                      deviceType === "desktop" &&
+                      isSenderInfoCompleted && (
+                        <Button
+                          responsive
+                          buttonType="submit"
+                          loading={loading}
+                        >
+                          PROCEED TO PAYMENT
+                        </Button>
+                      )}
                   </div>
                   <div>
                     <div>
@@ -1983,13 +2072,8 @@ const PaypalModal: FunctionComponent<ModalProps & {
   order: Order | null;
   onComplete: () => void;
 }> = ({ visible, cancel, order, onComplete }) => {
-  const { currency, notify } = useContext(SettingsContext);
+  const { currency, notify, orderId } = useContext(SettingsContext);
   const currencyRef: MutableRefObject<AppCurrency> = useRef(currency);
-
-  const router = useRouter();
-  const { query } = router;
-  const { orderId: _orderId } = query;
-  const orderId = String(_orderId || "");
 
   currencyRef.current = currency;
 
@@ -2070,8 +2154,6 @@ const PaypalModal: FunctionComponent<ModalProps & {
     }
   ] as PurchaseUnit[];
 
-  console.log({ purchase_units });
-
   const handleSessionCreate = (
     data: CreateOrderData,
     actions: CreateOrderActions
@@ -2092,12 +2174,16 @@ const PaypalModal: FunctionComponent<ModalProps & {
     }
 
     if (response?.status === "COMPLETED") {
-      const { error, message } = await verifyPaypalPayment(
+      const { error, message, status } = await verifyPaypalPayment(
         data.orderID,
         orderId
       );
       if (error) {
         notify("error", `Unable to verify paypal payment: ${message}`);
+      } else if (status === 214 && message) {
+        notify("info", `Order is successful, but not that: ${message}`);
+        onComplete();
+        cancel?.();
       } else {
         notify("success", "Successfully paid for order");
         onComplete();
@@ -2396,7 +2482,7 @@ const PaymentDetailsModal: FunctionComponent<ModalProps & {
       return notify("error", `Amount Sent is required`);
     }
     setLoading(true);
-    const { error, message } = await manualTransferPayment({
+    const { error, message, status } = await manualTransferPayment({
       ...formData,
       currency: currency.name,
       orderId: orderId as string,
@@ -2405,6 +2491,10 @@ const PaymentDetailsModal: FunctionComponent<ModalProps & {
     setLoading(false);
     if (error) {
       notify("error", `Unable to send Transfer Details: ${message}`);
+    } else if (status === 214 && message) {
+      notify("info", `Order is successful, but not that: ${message}`);
+      onCompleted();
+      cancel();
     } else {
       notify("success", `Transfer Details sent successfully`);
       onCompleted();

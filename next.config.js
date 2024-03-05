@@ -4,12 +4,7 @@ module.exports = {
     domains: ["storage.googleapis.com"],
     unoptimized: true
   },
-  trailingSlash: true,
-  exportPathMap() {
-    return {
-      "/404": { page: "/404" }
-    };
-  }
+  trailingSlash: true
   // i18n: {
   //   locales: ["en"],
   //   defaultLocale: "en"

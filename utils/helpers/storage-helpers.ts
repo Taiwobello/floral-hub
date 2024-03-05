@@ -4,6 +4,7 @@ export const AppStorageConstants = {
   USER_DATA: "userData",
   CART_ITEMS: "CART_ITEMS",
   REDIRECT_TO: "REDIRECT_TO",
+  ORDER_ID: "ORDER_ID",
   DELIVERY_DATE: "DELIVERY_DATE"
 };
 
@@ -48,7 +49,7 @@ const AppStorage = {
 };
 
 if (typeof window !== "undefined") {
-  const currentVersion = 0;
+  const currentVersion = 1;
   const savedVersionStr = AppStorage.get<number>(
     AppStorageConstants.LOCAL_STORAGE_SYNC_VERSION
   );

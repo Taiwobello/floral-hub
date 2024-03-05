@@ -36,6 +36,7 @@ interface OrderActor {
   lastname?: string;
   phone?: string;
   name?: string;
+  phoneCountryCode?: string;
 }
 
 export interface Order {
@@ -123,7 +124,7 @@ type DeliveryStatus =
   | "Despatched (drivers update)"
   | "Delivered (drivers update)";
 
-type DeliveryZone =
+export type DeliveryZone =
   | "LND"
   | "LIK"
   | "LVI"

@@ -4,7 +4,7 @@ import { Option } from "../components/select/Select";
 import { getPriceDisplay } from "./helpers/type-conversions";
 import { BooleanFilter } from "./helpers/type-helpers";
 import { AppCurrency, AppCurrencyName, AppLink } from "./types/Core";
-import { PaymentMethod } from "./types/Order";
+import { DeliveryZone, PaymentMethod } from "./types/Order";
 import { DesignOptionName, Gift } from "./types/Product";
 import {
   Service,
@@ -19,7 +19,7 @@ import { Breadcrumb } from "./context/SettingsContext";
 export const pickupLocations: Record<string, JSX.Element> = {
   Lagos: (
     <p>
-      <strong>Lagos Pickup Address</strong> - 81b, Lafiaji Way, Dolphin Estate,
+      <strong>Lagos Pickup Address</strong> - 15, Ikeja Way, Dolphin Estate,
       Ikoyi, Lagos
     </p>
   ),
@@ -230,7 +230,7 @@ export const breadcrumbItems: Breadcrumb[] = [
   { url: "flowers-to-say-thanks-sorry-etc", label: "Mother's Day" },
 
   {
-    url: "chocolate-and-biscuits",
+    url: "chocolates-and-biscuits",
     label: "Chocolate & Biscuits"
   },
   {
@@ -269,7 +269,11 @@ export const defaultBreadcrumb: Breadcrumb = {
 };
 
 export const allOccasionOptions: Option[] = [
-  { slug: "valentines-day-flowers", value: 8, label: "Valentine's Flowers" },
+  {
+    slug: "flowers-to-say-thanks-sorry-etc",
+    value: 9,
+    label: "Mother's Day Flowers"
+  },
   {
     slug: "flowers-to-say-thanks-sorry-etc",
     value: 0,
@@ -299,11 +303,7 @@ export const allOccasionOptions: Option[] = [
   { slug: "bridal-bouquets", value: 6, label: "Bridal Flowers" },
   { slug: "funeral-condolence-flowers", value: 7, label: "Funeral Flowers" },
 
-  {
-    slug: "flowers-to-say-thanks-sorry-etc",
-    value: 9,
-    label: "Mother's Day Flowers"
-  }
+  { slug: "valentines-day-flowers", value: 8, label: "Valentine's Flowers" }
 ];
 
 export const defaultCurrency: AppCurrency = {
@@ -721,7 +721,7 @@ export const giftItems: Gift[] = [
     name: "Chocolates",
     description: "A guilty pleasure and always a winning gift for most people",
     image: "/images/sample-flowers/addon-group-1.png",
-    slug: "/product-category/chocolate-and-biscuits"
+    slug: "/product-category/chocolates-and-biscuits"
   },
   {
     name: "Cakes and Cupcakes",
@@ -770,7 +770,7 @@ export const regalAddresses: LocationAddress[] = [
     name: "Lagos Head Office/Delivery Center",
     url: "https://goo.gl/maps/cNB9Jx9sidQhJgtD6",
     workingTimes: "24/7",
-    location: "81b, Lafiaji Way, Dolphin Estate, Ikoyi, Lagos"
+    location: "15, Ikeja Way, Dolphin Estate, Ikoyi, Lagos"
   },
   {
     name: "Lagos VI Branch",
@@ -2021,7 +2021,7 @@ export const countryCodes = [
 export const gifts: { title: string; url: string; category?: string }[] = [
   {
     title: "Chocolates and Biscuits",
-    url: "/product-category/chocolate-and-biscuits",
+    url: "/product-category/chocolates-and-biscuits",
     category: "Chocolates and Biscuits"
   },
   {
@@ -2072,7 +2072,7 @@ export const occasionsPageTitle: Record<string, string> = {
     "Accessories & Boutonnieres Flowers",
   "indoor-plants-and-cactus": "Plants",
   vip: "VIP Flower Arrangements",
-  "chocolate-and-biscuits": "Chocolates and Biscuits",
+  "chocolates-and-biscuits": "Chocolates and Biscuits",
   "cakes-and-cupcakes": "Cakes and Cupcakes",
   "teddy-bears": "Teddy Bears",
   balloons: "Balloons",
@@ -2367,12 +2367,12 @@ export const productSampleData = {
 
 export const links: AppLink[] = [
   {
-    title: "Valentine",
+    title: "Mother's Day",
     url: "",
     children: [
       {
         title: "Flowers",
-        url: "/product-category/valentines-day-flowers",
+        url: "/product-category/flowers-to-say-thanks-sorry-etc",
         children: []
       },
       {
@@ -2418,12 +2418,12 @@ export const links: AppLink[] = [
         ]
       },
       {
-        title: "Valentine",
+        title: "Mother's Day",
         url: "",
         children: [
           {
             title: "Flowers",
-            url: "/product-category/valentines-day-flowers",
+            url: "/product-category/flowers-to-say-thanks-sorry-etc",
             children: []
           },
           {
@@ -2436,6 +2436,10 @@ export const links: AppLink[] = [
             url: "/product-category/gifts",
             children: []
           }
+        ],
+        featuredSlugs: [
+          "loxarre-bouquet-a-bouquet-of-arrangement-of-red-roses-and-purple-roses-with-million-stars",
+          "classic-roses-and-chocolate"
         ]
       },
       {
@@ -2524,13 +2528,13 @@ export const links: AppLink[] = [
         url: "",
         children: [
           {
-            title: "Valentine's Day",
-            url: "/product-category/valentines-day-flowers",
+            title: "Events & Centerpiece",
+            url: "/product-category/event-centerpiece",
             children: []
           },
           {
-            title: "Events & Centerpiece",
-            url: "/product-category/event-centerpiece",
+            url: "/product-category/indoor-plants-and-cactus",
+            title: "Plants",
             children: []
           },
           {
@@ -2541,6 +2545,11 @@ export const links: AppLink[] = [
           {
             title: "Mother's Day",
             url: "/product-category/flowers-to-say-thanks-sorry-etc",
+            children: []
+          },
+          {
+            title: "Valentine's Day",
+            url: "/product-category/valentines-day-flowers",
             children: []
           }
         ]
@@ -2669,7 +2678,7 @@ export const links: AppLink[] = [
     title: "Gifts",
     children: [
       {
-        url: "/product-category/chocolate-and-biscuits",
+        url: "/product-category/chocolates-and-biscuits",
         title: "Chocolates and Biscuits",
         children: []
       },
@@ -2764,6 +2773,8 @@ export const bestSellers: RegalContent = {
 
 export const bestSellersValentine = "Bestselling Valentine's Day Flowers";
 
+export const bestSellersOccasion = "Bestselling Mother's Day Flowers";
+
 export const bestSellersRomance: RegalContent = {
   general: "Bestselling Romance or Just to Say Flowers in Lagos & Abuja",
   lagos: "Bestselling Flowers in Lagos",
@@ -2776,7 +2787,19 @@ export const featuredSlugs: Record<string, string[]> = {
     "allure-bouquet-of-red-roses",
     "numero-uno-mix-of-different-colors-of-roses-with-a-different-shade-in-the-middle-and-million-stars-or-lepidium",
     "debonair-lilies-with-red-roses-and-million-star",
-    "chrysant-delight-mixture-of-bright-and-vibrant-chrysanthemums-with-million-stars-gypsophila-more"
+    "purity-classy-mix-of-white-roses-with-million-stars"
+  ],
+  "featured-gift": [
+    "classic-roses-and-chocolate",
+    "balloons",
+    "pergale-assorted-luxury-chocolates-114g",
+    "teddy-bear"
+  ],
+  "featured-product": [
+    "chrysant-delight-mixture-of-bright-and-vibrant-chrysanthemums-with-million-stars-gypsophila",
+    "cupcakes-004-pack-of-6-12-or-24-strawberry-red-velvet-cupcake-select-size",
+    "ted-baker-eau-de-toilette-spray-for-female-75ml",
+    "loxarre-bouquet-a-bouquet-of-arrangement-of-red-roses-and-purple-roses-with-million-stars"
   ],
   "featured-romance": [
     "euphoria-roses-and-million-stars-or-statice-select-size",
@@ -2784,7 +2807,7 @@ export const featuredSlugs: Record<string, string[]> = {
     "numero-uno-mix-of-different-colors-of-roses-with-a-different-shade-in-the-middle-and-million-stars-or-lepidium",
     "dune-beautiful-arrangement-of-roses-with-mixed-chrysanthemums-and-million-stars"
   ],
-  "featured-valentine": [
+  "featured-occasion": [
     "arabiati-bouquet-red-roses-mixed-with-million-stars",
     "casablanca-bouquet-a-bouquet-arrangement-of-red-and-purple-roses-with-million-stars",
     "donatello-box-arrangement-box-of-red-roses-and-one-contrasting-color-with-million-stars",
@@ -2923,13 +2946,13 @@ export const sortOptions: Option[] = [
 export const freeDeliveryThreshold: Record<AppCurrencyName, number> = {
   USD: 185,
   GBP: 150,
-  NGN: 100000
+  NGN: 165000
 };
 
 export const freeDeliveryThresholdVals: Record<AppCurrencyName, number> = {
   USD: 255,
   GBP: 210,
-  NGN: 150000
+  NGN: 165000
 };
 
 export const freeDeliveryThresholdFestive: Record<AppCurrencyName, number> = {
@@ -3027,10 +3050,13 @@ export const allDeliveryLocationZones: Record<
                   ? "Festive"
                   : ""
               }-zone3`
+            : valsDates.includes(deliveryDate?.format("DD-MM") || "")
+            ? "highLagosVals-zone1"
             : `mediumLagos${
-                valsDates.includes(deliveryDate?.format("DD-MM") || "")
-                  ? "Vals"
-                  : festiveDates.includes(deliveryDate?.format("DD-MM") || "")
+                // valsDates.includes(deliveryDate?.format("DD-MM") || "")
+                //   ? "Vals"
+                //   :
+                festiveDates.includes(deliveryDate?.format("DD-MM") || "")
                   ? "Festive"
                   : ""
               }-zone3`
@@ -3093,10 +3119,10 @@ export const allDeliveryLocationZones: Record<
                 ? "Festive"
                 : ""
             }-zone3`
+          : valsDates.includes(deliveryDate?.format("DD-MM") || "")
+          ? "highAbujaVals-zone1"
           : `mediumAbuja${
-              valsDates.includes(deliveryDate?.format("DD-MM") || "")
-                ? "Vals"
-                : festiveDates.includes(deliveryDate?.format("DD-MM") || "")
+              festiveDates.includes(deliveryDate?.format("DD-MM") || "")
                 ? "Festive"
                 : ""
             }-zone3`
@@ -3141,31 +3167,36 @@ export const allDeliveryLocationOptions: Record<
         amount: 10000
       },
 
+      // valsDates.includes(deliveryDate?.format("DD-MM") || "") && {
+      //   label: `${getPriceDisplay(20000, currency)} - Orders BELOW ${
+      //     currency.sign
+      //   }${freeDeliveryThresholdVals[
+      //     currency.name
+      //   ].toLocaleString()} to Lekki, VI, Ikoyi, Ikeja, Gbagada, Yaba and similar environs (or please pickup instead)`,
+      //   name: "mediumLagosVals",
+      //   amount: 20000
+      // },
+
       valsDates.includes(deliveryDate?.format("DD-MM") || "") && {
-        label: `${getPriceDisplay(20000, currency)} - Orders BELOW ${
-          currency.sign
-        }${freeDeliveryThresholdVals[
-          currency.name
-        ].toLocaleString()} to Lekki, VI, Ikoyi, Ikeja, Gbagada, Yaba and similar environs (or please pickup instead)`,
-        name: "mediumLagosVals",
-        amount: 20000
+        label: `${getPriceDisplay(
+          29900,
+          currency
+        )} - Valentine (13th-15th Feb) Orders below ${getPriceDisplay(
+          165000,
+          currency
+        )}`,
+        name: "highLagosVals",
+        amount: 29900
       },
 
       valsDates.includes(deliveryDate?.format("DD-MM") || "") && {
         label: `${getPriceDisplay(
-          30000,
+          0,
           currency
-        )} - All Orders to Ibeju Lekki, Ikorodu, Ikotun, Epe, Iyana-Ipaja, Egbeda, Badore, Apapa, Badagry, Abule Egba and similar environs (or please pickup instead)`,
-        name: "highLagosVals",
-        amount: 30000
-      },
-
-      valsDates.includes(deliveryDate?.format("DD-MM") || "") && {
-        label: `${getPriceDisplay(0, currency)} - Orders ABOVE ${
-          currency.sign
-        }${freeDeliveryThresholdVals[
-          currency.name
-        ].toLocaleString()}  to Lekki, VI, Ikoyi, Ikeja, Gbagada, Yaba and similar environs`,
+        )} - Valentine (13th-15th Feb) Orders above ${getPriceDisplay(
+          165000,
+          currency
+        )}`,
         name: "freeLagosVals",
         amount: 0
       },
@@ -3228,31 +3259,27 @@ export const allDeliveryLocationOptions: Record<
         name: "highAbuja",
         amount: 6000
       },
+
       valsDates.includes(deliveryDate?.format("DD-MM") || "") && {
-        label: `${getPriceDisplay(7000, currency)} - Orders BELOW ${
-          currency.sign
-        }${freeDeliveryThresholdVals[
-          currency.name
-        ].toLocaleString()} to Wuse, Maitama, Jabi, Asokoro, Garki, Dutse, Gwarimpa, Lokogoma, Kubwa, Durumi and similar environs (or please pickup instead)`,
-        name: "mediumAbujaVals",
-        amount: 7000
+        label: `${getPriceDisplay(
+          29900,
+          currency
+        )} - Valentine (13th-15th Feb) Orders below ${getPriceDisplay(
+          165000,
+          currency
+        )}`,
+        name: "highAbujaVals",
+        amount: 29900
       },
 
       valsDates.includes(deliveryDate?.format("DD-MM") || "") && {
         label: `${getPriceDisplay(
-          15000,
+          0,
           currency
-        )} - All Orders to Mandala, Bwari, Suleja, Airport, Jikwoyi, Gwagwalada, Kuje, Lugbe, Kagini and similar environs (or please pickup instead)`,
-        name: "highAbujaVals",
-        amount: 15000
-      },
-
-      valsDates.includes(deliveryDate?.format("DD-MM") || "") && {
-        label: `${getPriceDisplay(0, currency)} - Orders ABOVE ${
-          currency.sign
-        }${freeDeliveryThresholdVals[
-          currency.name
-        ].toLocaleString()} (FREE* Delivery Abuja)`,
+        )} - Valentine (13th-15th Feb) Orders above ${getPriceDisplay(
+          165000,
+          currency
+        )}`,
         name: "freeAbujaVals",
         amount: 0
       },
@@ -3370,7 +3397,7 @@ export const occasionsPageMetaData: Record<
     title: "",
     description: ""
   },
-  "chocolate-and-biscuits": {
+  "chocolates-and-biscuits": {
     title: "",
     description: ""
   },
@@ -3627,3 +3654,11 @@ export const blogMinimals: BlogMinimal[] = [
     slug: "how-to-make-your-flowers-last-longer"
   }
 ];
+
+export type PickUpLocation = "Ikoyi" | "Abuja" | "Lekki";
+
+export const deliveryZoneMap: Record<string, DeliveryZone> = {
+  Ikoyi: "LPI",
+  Abuja: "APA",
+  Lekki: "LPL"
+};

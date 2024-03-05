@@ -112,6 +112,6 @@ export const adaptCheckOutFomData: (
     zone: record.deliveryDetails.zone,
     state: record.deliveryDetails.state,
     deliveryInstruction: record.deliveryInstruction,
-    pickupState: record.despatchLocation.toLowerCase()
+    pickupState: record.pickupState
   };
 };
