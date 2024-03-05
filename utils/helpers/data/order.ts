@@ -26,6 +26,7 @@ const adaptCheckoutStateRecord = (
       despatchLocation: record.pickUpLocation,
       purpose: record.purpose,
       deliveryZone: record.deliveryZone,
+      pickupState: record.pickupState,
       recipient:
         record.deliveryMethod === "delivery"
           ? {
@@ -125,6 +126,7 @@ export const getOrder: (
     };
   } catch (err) {
     if ((err as any).status === 404) {
+      AppStorage.remove(AppStorageConstants.ORDER_ID);
       AppStorage.remove(AppStorageConstants.CART_ITEMS);
     }
     return {

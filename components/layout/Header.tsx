@@ -43,6 +43,7 @@ const Header: FunctionComponent = () => {
     user,
     setOrder,
     setCurrentStage,
+    orderId,
     setDeliveryDate,
     setSearchText,
     setUser,
@@ -64,7 +65,7 @@ const Header: FunctionComponent = () => {
   useEffect(() => {
     setActiveNavLink("");
     setActiveSublinkNav("");
-    if (pathname !== "checkout") {
+    if (!orderId && pathname !== "checkout") {
       setOrder(null);
       setCurrentStage(1);
       setDeliveryDate(null);

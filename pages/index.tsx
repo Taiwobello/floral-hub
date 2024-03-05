@@ -40,7 +40,6 @@ import SchemaMarkup from "../components/schema-mark-up/SchemaMarkUp";
 import Meta from "../components/meta/Meta";
 import Input from "../components/input/Input";
 import { subscribeToNewsletter } from "../utils/helpers/data/core";
-import InstagramFeed from "../components/instagram-feed/InstagramFeed";
 
 const getReviewRender = (review: UserReview, i: number) => (
   <div key={i} className={styles.review}>
@@ -76,13 +75,22 @@ const getReviewRender = (review: UserReview, i: number) => (
 
 let reviewScrollTimer: NodeJS.Timeout;
 
+export const metadata = {
+  title:
+    "Floral Hub | 24/7 Online & Walk-in Fresh Flowers & Gifts Shop in Lagos and Abuja, Nigeria that offers Same Day Delivery in Lagos, and Abuja, Nigeria",
+  description:
+    "Order flowers and gifts online for same-day delivery or walk in 24/7. Send flowers to celebrate someone special from the top flower shop in Lagos & Abuja, Nigeria.",
+  metadataBase: "https://www.floralhub.com.ng/"
+};
+
 const LandingPage: FunctionComponent<{
   locationName: LocationName;
   featuredBirthday?: Product[];
   featuredRomance?: Product[];
   featuredFlowers?: Product[];
   featuredValentine?: Product[];
-}> = ({ featuredBirthday, locationName, featuredValentine }) => {
+  featuredGifts?: Product[];
+}> = ({ featuredBirthday, locationName, featuredValentine, featuredGifts }) => {
   const [currentReviewPageIndex, setCurrentReviewPageIndex] = useState(0);
   const [subscriptionEmail, setSubscriptionEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
@@ -282,7 +290,7 @@ const LandingPage: FunctionComponent<{
             </div>
 
             <div className="flex between">
-              <h2 className="featured-title">BEST SELLING FLOWERS</h2>
+              <h2 className="featured-title">BEST SELLING FLOWERS AND GIFTS</h2>
               {deviceType === "desktop" && (
                 <Button
                   url="/product-category/flowers-to-say-thanks-sorry-etc"
@@ -295,6 +303,24 @@ const LandingPage: FunctionComponent<{
             </div>
             <div className={[styles.section, styles.wrap].join(" ")}>
               {featuredBirthday?.map(flower => (
+                <FlowerCard
+                  key={flower.key}
+                  image={flower.images[0]?.src || ""}
+                  name={flower.name.split("–")[0]}
+                  subTitle={flower.subtitle || flower.name.split("–")[1]}
+                  price={flower.price}
+                  url={`/product/${flower.slug}`}
+                  buttonText={
+                    flower.variants?.length ? "Select Size" : "Add to Cart"
+                  }
+                  cart={flower.variants?.length ? false : true}
+                  product={flower}
+                />
+              ))}
+            </div>
+
+            <div className={[styles.section, styles.wrap].join(" ")}>
+              {featuredGifts?.map(flower => (
                 <FlowerCard
                   key={flower.key}
                   image={flower.images[0]?.src || ""}
@@ -610,11 +636,11 @@ const LandingPage: FunctionComponent<{
             />
           </div>
 
-          <InstagramFeed
+          {/* <InstagramFeed
             accessToken={
               process.env.NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN as string
             }
-          />
+          /> */}
 
           <div className={styles["story-section"]}>
             <div className={styles["story-wrapper"]}>
@@ -881,12 +907,16 @@ const FlowerDeliveryInput: FunctionComponent = () => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const locationName = "featured-birthday";
   const { data, error, message } = await getProductsBySlugs(
-    featuredSlugs[locationName]
+    featuredSlugs["featured-birthday"]
   );
+
   const featuredValentine = await getProductsBySlugs(
     featuredSlugs["featured-valentine"]
+  );
+
+  const featuredGifts = await getProductsBySlugs(
+    featuredSlugs["featured-gift"]
   );
 
   if (error) {
@@ -897,7 +927,8 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       locationName: "general",
       featuredBirthday: data || [],
-      featuredValentine: featuredValentine.data || []
+      featuredValentine: featuredValentine.data || [],
+      featuredGifts: featuredGifts.data || []
     },
     revalidate: 1800
   };

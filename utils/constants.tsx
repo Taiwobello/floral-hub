@@ -4,7 +4,7 @@ import { Option } from "../components/select/Select";
 import { getPriceDisplay } from "./helpers/type-conversions";
 import { BooleanFilter } from "./helpers/type-helpers";
 import { AppCurrency, AppCurrencyName, AppLink } from "./types/Core";
-import { PaymentMethod } from "./types/Order";
+import { DeliveryZone, PaymentMethod } from "./types/Order";
 import { DesignOptionName, Gift } from "./types/Product";
 import {
   Service,
@@ -19,7 +19,7 @@ import { Breadcrumb } from "./context/SettingsContext";
 export const pickupLocations: Record<string, JSX.Element> = {
   Lagos: (
     <p>
-      <strong>Lagos Pickup Address</strong> - 81b, Lafiaji Way, Dolphin Estate,
+      <strong>Lagos Pickup Address</strong> - 15, Ikeja Way, Dolphin Estate,
       Ikoyi, Lagos
     </p>
   ),
@@ -770,7 +770,7 @@ export const regalAddresses: LocationAddress[] = [
     name: "Lagos Head Office/Delivery Center",
     url: "https://goo.gl/maps/cNB9Jx9sidQhJgtD6",
     workingTimes: "24/7",
-    location: "81b, Lafiaji Way, Dolphin Estate, Ikoyi, Lagos"
+    location: "15, Ikeja Way, Dolphin Estate, Ikoyi, Lagos"
   },
   {
     name: "Lagos VI Branch",
@@ -2776,7 +2776,13 @@ export const featuredSlugs: Record<string, string[]> = {
     "allure-bouquet-of-red-roses",
     "numero-uno-mix-of-different-colors-of-roses-with-a-different-shade-in-the-middle-and-million-stars-or-lepidium",
     "debonair-lilies-with-red-roses-and-million-star",
-    "chrysant-delight-mixture-of-bright-and-vibrant-chrysanthemums-with-million-stars-gypsophila-more"
+    "purity-classy-mix-of-white-roses-with-million-stars"
+  ],
+  "featured-gift": [
+    "classic-roses-and-chocolate",
+    "balloons",
+    "pergale-assorted-luxury-chocolates-114g",
+    "teddy-bear"
   ],
   "featured-romance": [
     "euphoria-roses-and-million-stars-or-statice-select-size",
@@ -2929,7 +2935,7 @@ export const freeDeliveryThreshold: Record<AppCurrencyName, number> = {
 export const freeDeliveryThresholdVals: Record<AppCurrencyName, number> = {
   USD: 255,
   GBP: 210,
-  NGN: 150000
+  NGN: 165000
 };
 
 export const freeDeliveryThresholdFestive: Record<AppCurrencyName, number> = {
@@ -3027,10 +3033,13 @@ export const allDeliveryLocationZones: Record<
                   ? "Festive"
                   : ""
               }-zone3`
+            : valsDates.includes(deliveryDate?.format("DD-MM") || "")
+            ? "highLagosVals-zone1"
             : `mediumLagos${
-                valsDates.includes(deliveryDate?.format("DD-MM") || "")
-                  ? "Vals"
-                  : festiveDates.includes(deliveryDate?.format("DD-MM") || "")
+                // valsDates.includes(deliveryDate?.format("DD-MM") || "")
+                //   ? "Vals"
+                //   :
+                festiveDates.includes(deliveryDate?.format("DD-MM") || "")
                   ? "Festive"
                   : ""
               }-zone3`
@@ -3093,10 +3102,10 @@ export const allDeliveryLocationZones: Record<
                 ? "Festive"
                 : ""
             }-zone3`
+          : valsDates.includes(deliveryDate?.format("DD-MM") || "")
+          ? "highAbujaVals-zone1"
           : `mediumAbuja${
-              valsDates.includes(deliveryDate?.format("DD-MM") || "")
-                ? "Vals"
-                : festiveDates.includes(deliveryDate?.format("DD-MM") || "")
+              festiveDates.includes(deliveryDate?.format("DD-MM") || "")
                 ? "Festive"
                 : ""
             }-zone3`
@@ -3141,31 +3150,36 @@ export const allDeliveryLocationOptions: Record<
         amount: 10000
       },
 
+      // valsDates.includes(deliveryDate?.format("DD-MM") || "") && {
+      //   label: `${getPriceDisplay(20000, currency)} - Orders BELOW ${
+      //     currency.sign
+      //   }${freeDeliveryThresholdVals[
+      //     currency.name
+      //   ].toLocaleString()} to Lekki, VI, Ikoyi, Ikeja, Gbagada, Yaba and similar environs (or please pickup instead)`,
+      //   name: "mediumLagosVals",
+      //   amount: 20000
+      // },
+
       valsDates.includes(deliveryDate?.format("DD-MM") || "") && {
-        label: `${getPriceDisplay(20000, currency)} - Orders BELOW ${
-          currency.sign
-        }${freeDeliveryThresholdVals[
-          currency.name
-        ].toLocaleString()} to Lekki, VI, Ikoyi, Ikeja, Gbagada, Yaba and similar environs (or please pickup instead)`,
-        name: "mediumLagosVals",
-        amount: 20000
+        label: `${getPriceDisplay(
+          29900,
+          currency
+        )} - Valentine (13th-15th Feb) Orders below ${getPriceDisplay(
+          165000,
+          currency
+        )}`,
+        name: "highLagosVals",
+        amount: 29900
       },
 
       valsDates.includes(deliveryDate?.format("DD-MM") || "") && {
         label: `${getPriceDisplay(
-          30000,
+          0,
           currency
-        )} - All Orders to Ibeju Lekki, Ikorodu, Ikotun, Epe, Iyana-Ipaja, Egbeda, Badore, Apapa, Badagry, Abule Egba and similar environs (or please pickup instead)`,
-        name: "highLagosVals",
-        amount: 30000
-      },
-
-      valsDates.includes(deliveryDate?.format("DD-MM") || "") && {
-        label: `${getPriceDisplay(0, currency)} - Orders ABOVE ${
-          currency.sign
-        }${freeDeliveryThresholdVals[
-          currency.name
-        ].toLocaleString()}  to Lekki, VI, Ikoyi, Ikeja, Gbagada, Yaba and similar environs`,
+        )} - Valentine (13th-15th Feb) Orders above ${getPriceDisplay(
+          165000,
+          currency
+        )}`,
         name: "freeLagosVals",
         amount: 0
       },
@@ -3228,31 +3242,27 @@ export const allDeliveryLocationOptions: Record<
         name: "highAbuja",
         amount: 6000
       },
+
       valsDates.includes(deliveryDate?.format("DD-MM") || "") && {
-        label: `${getPriceDisplay(7000, currency)} - Orders BELOW ${
-          currency.sign
-        }${freeDeliveryThresholdVals[
-          currency.name
-        ].toLocaleString()} to Wuse, Maitama, Jabi, Asokoro, Garki, Dutse, Gwarimpa, Lokogoma, Kubwa, Durumi and similar environs (or please pickup instead)`,
-        name: "mediumAbujaVals",
-        amount: 7000
+        label: `${getPriceDisplay(
+          29900,
+          currency
+        )} - Valentine (13th-15th Feb) Orders below ${getPriceDisplay(
+          165000,
+          currency
+        )}`,
+        name: "highAbujaVals",
+        amount: 29900
       },
 
       valsDates.includes(deliveryDate?.format("DD-MM") || "") && {
         label: `${getPriceDisplay(
-          15000,
+          0,
           currency
-        )} - All Orders to Mandala, Bwari, Suleja, Airport, Jikwoyi, Gwagwalada, Kuje, Lugbe, Kagini and similar environs (or please pickup instead)`,
-        name: "highAbujaVals",
-        amount: 15000
-      },
-
-      valsDates.includes(deliveryDate?.format("DD-MM") || "") && {
-        label: `${getPriceDisplay(0, currency)} - Orders ABOVE ${
-          currency.sign
-        }${freeDeliveryThresholdVals[
-          currency.name
-        ].toLocaleString()} (FREE* Delivery Abuja)`,
+        )} - Valentine (13th-15th Feb) Orders above ${getPriceDisplay(
+          165000,
+          currency
+        )}`,
         name: "freeAbujaVals",
         amount: 0
       },
@@ -3627,3 +3637,11 @@ export const blogMinimals: BlogMinimal[] = [
     slug: "how-to-make-your-flowers-last-longer"
   }
 ];
+
+export type PickUpLocation = "Ikoyi" | "Abuja" | "Lekki";
+
+export const deliveryZoneMap: Record<string, DeliveryZone> = {
+  Ikoyi: "LPI",
+  Abuja: "APA",
+  Lekki: "LPL"
+};

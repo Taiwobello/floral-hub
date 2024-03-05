@@ -34,7 +34,9 @@ import {
   checkoutContent,
   valsDates,
   festiveDates,
-  freeDeliveryThresholdFestive
+  freeDeliveryThresholdFestive,
+  deliveryZoneMap,
+  PickUpLocation
 } from "../utils/constants";
 import SettingsContext from "../utils/context/SettingsContext";
 import {
@@ -172,6 +174,7 @@ const Checkout: FunctionComponent = () => {
     order,
     confirm,
     setCartItems,
+    setOrderId,
     orderLoading,
     setDeliveryFee,
     setOrderLoading,
@@ -182,6 +185,7 @@ const Checkout: FunctionComponent = () => {
   const deviceType = useDeviceType();
 
   const isBankTransfer = /but not seen yet/i.test(order?.paymentStatus || "");
+  const isValsDate = valsDates.includes(deliveryDate?.format("DD-MM") || "");
 
   const total = useMemo(() => {
     const total =
@@ -217,8 +221,10 @@ const Checkout: FunctionComponent = () => {
     setIsPaid(true);
     setCartItems([]);
     setCurrentStage(3);
+    setOrderId("");
     setDeliveryDate(null);
     setDeliveryFee(0);
+    AppStorage.remove(AppStorageConstants.ORDER_ID);
     AppStorage.remove(AppStorageConstants.CART_ITEMS);
     AppStorage.remove(AppStorageConstants.DELIVERY_DATE);
   };
@@ -252,26 +258,35 @@ const Checkout: FunctionComponent = () => {
         zone: value === "other-locations" ? value : "",
         pickUpLocation: "",
         deliveryLocation: null,
-        deliveryZone: value === "lagos" ? "WBL" : "WBA"
+        deliveryZone: value === "abuja" ? "WBL" : "WBA"
       });
       return;
     }
     if (key === "pickupState") {
-      if (value === "lagos") {
-        setFormData({
-          ...formData,
-          [key as string]: value,
-          pickUpLocation: "Lagos",
-          deliveryLocation: null
-        });
-      } else if (value === "abuja") {
+      if (value === "abuja") {
         setFormData({
           ...formData,
           [key as string]: value,
           pickUpLocation: "Abuja",
-          deliveryLocation: null
+          deliveryLocation: null,
+          deliveryZone: "APA"
         });
+        return;
+      } else {
+        setFormData({
+          ...formData,
+          [key as string]: value,
+          pickUpLocation: ""
+        });
+        return;
       }
+    }
+    if (key === "pickUpLocation") {
+      setFormData({
+        ...formData,
+        [key as string]: value,
+        deliveryZone: deliveryZoneMap[value as PickUpLocation]
+      });
       return;
     }
     if (key === "zone") {
@@ -333,6 +348,7 @@ const Checkout: FunctionComponent = () => {
 
     if (error) {
       if (status === 404) {
+        setOrderId("");
         setOrder(null);
         setCartItems([]);
         setDeliveryDate(null);
@@ -420,7 +436,9 @@ const Checkout: FunctionComponent = () => {
     residenceType
   } = formData;
 
-  const completedDeliveryLocation = Boolean(deliveryLocation && state && zone);
+  const completedDeliveryLocation = Boolean(
+    deliveryLocation && state && (zone || isValsDate)
+  );
 
   const completedPickUpLocation = Boolean(pickUpLocation);
 
@@ -432,17 +450,20 @@ const Checkout: FunctionComponent = () => {
   );
 
   useEffect(() => {
+    if (isReady && !user) {
+      setShouldShowAuthDropdown(true);
+    }
     fetchPurposes();
     fetchResidentTypes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (isReady && !user) {
-      setShouldShowAuthDropdown(true);
+    if (isReady) {
+      setOrderId(orderId as string);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isReady, user]);
+  }, [orderId, isReady]);
 
   useEffect(() => {
     const _isPaid =
@@ -1039,9 +1060,7 @@ const Checkout: FunctionComponent = () => {
                                   }${freeDeliveryThresholdFestive[
                                     currency.name
                                   ].toLocaleString()}`
-                                : valsDates.includes(
-                                    deliveryDate?.format("DD-MM") || ""
-                                  )
+                                : isValsDate
                                 ? `Free Valentine (Feb 13th, 14th, 15th) Delivery in selected zones across Lagos and Abuja on orders above ${
                                     currency.sign
                                   }${freeDeliveryThresholdVals[
@@ -1076,7 +1095,8 @@ const Checkout: FunctionComponent = () => {
                                 dimmed
                               />
                             </div>
-                            {formData.state &&
+                            {!isValsDate &&
+                              formData.state &&
                               formData.state !== "other-locations" && (
                                 <div className="input-group">
                                   <span className="question">
@@ -1100,7 +1120,7 @@ const Checkout: FunctionComponent = () => {
                         )}
 
                         {formData.deliveryMethod === "delivery" &&
-                          formData.zone && (
+                          (formData.zone || isValsDate) && (
                             <div className={styles["pickup-locations"]}>
                               {deliveryLocationOptions.length > 0 && (
                                 <p className="primary-color align-icon normal-text bold margin-bottom">
@@ -1111,24 +1131,25 @@ const Checkout: FunctionComponent = () => {
                                 </p>
                               )}
 
-                              {deliveryLocationOptions.length === 0 && (
-                                <div className="flex center-align primary-color normal-text margin-bottom spaced">
-                                  <InfoRedIcon className="generic-icon xl" />
-                                  <span>
-                                    At the moment, we only deliver VIP Orders to
-                                    other states on request, by either
-                                    chartering a vehicle or by flight. Kindly
-                                    contact us on Phone/WhatsApp:
-                                    <br />
-                                    <a
-                                      href="tel:+2349077777994"
-                                      className="clickable neutral underline"
-                                    >
-                                      +234907 777 7994
-                                    </a>
-                                  </span>
-                                </div>
-                              )}
+                              {deliveryLocationOptions.length === 0 &&
+                                formData.state === "other-locations" && (
+                                  <div className="flex center-align primary-color normal-text margin-bottom spaced">
+                                    <InfoRedIcon className="generic-icon xl" />
+                                    <span>
+                                      At the moment, we only deliver VIP Orders
+                                      to other states on request, by either
+                                      chartering a vehicle or by flight. Kindly
+                                      contact us on Phone/WhatsApp:
+                                      <br />
+                                      <a
+                                        href="tel:+2349077777994"
+                                        className="clickable neutral underline"
+                                      >
+                                        +234907 777 7994
+                                      </a>
+                                    </span>
+                                  </div>
+                                )}
 
                               {deliveryLocationOptions.map(locationOption => {
                                 return (
@@ -1146,9 +1167,10 @@ const Checkout: FunctionComponent = () => {
                                       }
                                       disabled={
                                         locationOption.name !==
-                                        (
-                                          (selectedZone?.value as string) || ""
-                                        )?.split("-")[0]
+                                          (
+                                            (selectedZone?.value as string) ||
+                                            ""
+                                          )?.split("-")[0] && !isValsDate
                                       }
                                       checked={
                                         formData.deliveryLocation?.name ===
@@ -1181,35 +1203,44 @@ const Checkout: FunctionComponent = () => {
                               />
                             </div>
                             <div className="margin-top spaced">
-                              {formData.pickUpLocation === "Lagos" && (
-                                <div>
-                                  <Radio
-                                    label={
-                                      <span className="flex spaced column">
-                                        <span>Lagos, Ikoyi</span>
-                                        <span className="grayed">
-                                          15, Ikeja Way, Dolphin Estate, Ikoyi
-                                        </span>
-                                      </span>
-                                    }
-                                    onChange={() => {}}
-                                    checked={
-                                      formData.pickUpLocation === "Lagos"
-                                    }
-                                  />
-                                </div>
+                              {formData.pickupState === "lagos" && (
+                                <>
+                                  <div>
+                                    <Radio
+                                      label="Ikoyi - 15, Ikeja Way, Dolphin Estate, Ikoyi, Lagos"
+                                      onChange={() =>
+                                        handleChange("pickUpLocation", "Ikoyi")
+                                      }
+                                      checked={
+                                        formData.pickUpLocation === "Ikoyi"
+                                      }
+                                    />
+                                  </div>
+                                  <div className="vertical-margin">
+                                    <Radio
+                                      label="Lekki - 2C, Seed Education Center Road, off Kusenla Road, Ikate, Lekki"
+                                      onChange={() =>
+                                        handleChange("pickUpLocation", "Lekki")
+                                      }
+                                      checked={
+                                        formData.pickUpLocation === "Lekki"
+                                      }
+                                    />
+                                  </div>
+                                </>
                               )}
-                              {formData.pickUpLocation === "Abuja" && (
-                                <div className="vertical-margin">
-                                  <Radio
-                                    label="Abuja Pickup - 5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja"
-                                    onChange={() => {}}
-                                    checked={
-                                      formData.pickUpLocation === "Abuja"
-                                    }
-                                  />
-                                </div>
-                              )}
+                              {formData.pickUpLocation === "Abuja" &&
+                                formData.pickupState === "abuja" && (
+                                  <div className="vertical-margin">
+                                    <Radio
+                                      label="Abuja Pickup - 5, Nairobi Street, off Aminu Kano Crescent, Wuse 2, Abuja"
+                                      onChange={() => {}}
+                                      checked={
+                                        formData.pickUpLocation === "Abuja"
+                                      }
+                                    />
+                                  </div>
+                                )}
 
                               {formData.pickupState === "other-locations" && (
                                 <div className="flex center-align primary-color normal-text margin-bottom spaced">
@@ -1571,7 +1602,7 @@ const Checkout: FunctionComponent = () => {
                       <p className="text-medium">
                         Order Summary ({cartItems.length} items)
                       </p>
-                      <Link href={`/cart?orderId=${orderId}`}>
+                      <Link href="/cart">
                         <a
                           className="text-medium underline"
                           style={{
@@ -1983,13 +2014,8 @@ const PaypalModal: FunctionComponent<ModalProps & {
   order: Order | null;
   onComplete: () => void;
 }> = ({ visible, cancel, order, onComplete }) => {
-  const { currency, notify } = useContext(SettingsContext);
+  const { currency, notify, orderId } = useContext(SettingsContext);
   const currencyRef: MutableRefObject<AppCurrency> = useRef(currency);
-
-  const router = useRouter();
-  const { query } = router;
-  const { orderId: _orderId } = query;
-  const orderId = String(_orderId || "");
 
   currencyRef.current = currency;
 
@@ -2069,8 +2095,6 @@ const PaypalModal: FunctionComponent<ModalProps & {
       ...(isTestAccount ? purchaseUnitTestProps : {})
     }
   ] as PurchaseUnit[];
-
-  console.log({ purchase_units });
 
   const handleSessionCreate = (
     data: CreateOrderData,
