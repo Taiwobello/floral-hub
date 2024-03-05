@@ -252,15 +252,56 @@ const Checkout: FunctionComponent = () => {
 
   const handleChange = (key: keyof CheckoutFormData, value: unknown) => {
     if (key === "state") {
-      setFormData({
-        ...formData,
-        [key as string]: value,
-        zone: value === "other-locations" ? value : "",
-        pickUpLocation: "",
-        deliveryLocation: null,
-        deliveryZone: value === "abuja" ? "WBL" : "WBA"
-      });
-      return;
+      const deliveryZone = value === "abuja" ? "WBA" : "WBL";
+      if (subTotal >= freeDeliveryThresholdVals.NGN && isValsDate) {
+        setFormData({
+          ...formData,
+          [key as string]: value,
+          deliveryLocation: {
+            label: "₦0 - Valentine (13th-15th Feb) Orders above ₦165,000",
+            name:
+              value === "lagos"
+                ? "freeLagosVals"
+                : value === "abuja"
+                ? "freeAbujaVals"
+                : "",
+            amount: 0
+          },
+          zone:
+            value === "lagos" ? "freeLagosVals-zone1" : "freeAbujaVals-zone1",
+          deliveryZone
+        });
+        return;
+      } else if (subTotal <= freeDeliveryThresholdVals.NGN && isValsDate) {
+        setFormData({
+          ...formData,
+          [key as string]: value,
+          deliveryLocation: {
+            label: "₦29,900 - Valentine (13th-15th Feb) Orders below ₦165,000",
+            name:
+              value === "lagos"
+                ? "highLagosVals"
+                : value === "abuja"
+                ? "highAbujaVals"
+                : "",
+            amount: 29900
+          },
+          zone:
+            value === "lagos" ? "highLagosVals-zone1" : "highAbujaVals-zone1",
+          deliveryZone
+        });
+        return;
+      } else {
+        setFormData({
+          ...formData,
+          [key as string]: value,
+          zone: value === "other-locations" ? value : "",
+          pickUpLocation: "",
+          deliveryLocation: null,
+          deliveryZone
+        });
+        return;
+      }
     }
     if (key === "pickupState") {
       if (value === "abuja") {
@@ -510,7 +551,8 @@ const Checkout: FunctionComponent = () => {
         senderName: order?.client.name,
         senderPhoneNumber: order?.client.phone,
         deliveryDate: dayjs(order.deliveryDate),
-        senderEmail: order.client.email
+        senderEmail: order.client.email,
+        senderCountryCode: order.client.phoneCountryCode || "+234"
       });
       setDeliveryDate(dayjs(order?.deliveryDate));
       setIsSenderInfoCompleted(true);
@@ -699,12 +741,17 @@ const Checkout: FunctionComponent = () => {
 
   const pastRecipients = useMemo(
     () =>
-      user?.recipients.map(recipient => ({
-        label: `${recipient.name} | ${recipient.phone} | ${recipient.phoneAlt} | ${recipient.address}`,
-        value: recipient._id
-      })) || [],
+      user?.recipients
+        .map(
+          recipient =>
+            recipient.name && {
+              label: `${recipient.name} | ${recipient.phone} | ${recipient.phoneAlt} | ${recipient.address}`,
+              value: recipient._id
+            }
+        )
+        .filter(Boolean) || [],
     [user]
-  );
+  ) as Option[];
 
   const deliveryLocationOptions = useMemo(() => {
     return (
@@ -752,12 +799,15 @@ const Checkout: FunctionComponent = () => {
         response?: PaystackSuccessResponse
       ) => Promise<void> = async response => {
         setPageLoading(true);
-        const { error, message } = await verifyPaystackPayment(
+        const { error, message, status } = await verifyPaystackPayment(
           response?.reference as string
         );
         setPageLoading(false);
         if (error) {
           notify("error", `Unable to make payment: ${message}`);
+        } else if (status === 214 && message) {
+          notify("info", `Order is successful, but not that: ${message}`);
+          markAsPaid();
         } else {
           notify("success", `Order paid successfully`);
           markAsPaid();
@@ -784,12 +834,15 @@ const Checkout: FunctionComponent = () => {
           paymentDescription: "Floral Hub Order",
           onComplete: async response => {
             setPageLoading(true);
-            const { error, message } = await verifyMonnifyPayment(
+            const { error, message, status } = await verifyMonnifyPayment(
               response.paymentReference as string
             );
             setPageLoading(false);
             if (error) {
               notify("error", `Unable to make payment: ${message}`);
+            } else if (status === 214 && message) {
+              notify("info", `Order is successful, but not that: ${message}`);
+              markAsPaid();
             } else {
               notify("success", `Order paid successfully`);
               markAsPaid();
@@ -1167,10 +1220,9 @@ const Checkout: FunctionComponent = () => {
                                       }
                                       disabled={
                                         locationOption.name !==
-                                          (
-                                            (selectedZone?.value as string) ||
-                                            ""
-                                          )?.split("-")[0] && !isValsDate
+                                        (
+                                          (selectedZone?.value as string) || ""
+                                        )?.split("-")[0]
                                       }
                                       checked={
                                         formData.deliveryLocation?.name ===
@@ -1660,11 +1712,17 @@ const Checkout: FunctionComponent = () => {
                         {getPriceDisplay(total, currency)}
                       </span>
                     </div>
-                    {currentStage === 1 && deviceType === "desktop" && (
-                      <Button responsive buttonType="submit" loading={loading}>
-                        PROCEED TO PAYMENT
-                      </Button>
-                    )}
+                    {currentStage === 1 &&
+                      deviceType === "desktop" &&
+                      isSenderInfoCompleted && (
+                        <Button
+                          responsive
+                          buttonType="submit"
+                          loading={loading}
+                        >
+                          PROCEED TO PAYMENT
+                        </Button>
+                      )}
                   </div>
                   <div>
                     <div>
@@ -2116,12 +2174,16 @@ const PaypalModal: FunctionComponent<ModalProps & {
     }
 
     if (response?.status === "COMPLETED") {
-      const { error, message } = await verifyPaypalPayment(
+      const { error, message, status } = await verifyPaypalPayment(
         data.orderID,
         orderId
       );
       if (error) {
         notify("error", `Unable to verify paypal payment: ${message}`);
+      } else if (status === 214 && message) {
+        notify("info", `Order is successful, but not that: ${message}`);
+        onComplete();
+        cancel?.();
       } else {
         notify("success", "Successfully paid for order");
         onComplete();
@@ -2420,7 +2482,7 @@ const PaymentDetailsModal: FunctionComponent<ModalProps & {
       return notify("error", `Amount Sent is required`);
     }
     setLoading(true);
-    const { error, message } = await manualTransferPayment({
+    const { error, message, status } = await manualTransferPayment({
       ...formData,
       currency: currency.name,
       orderId: orderId as string,
@@ -2429,6 +2491,10 @@ const PaymentDetailsModal: FunctionComponent<ModalProps & {
     setLoading(false);
     if (error) {
       notify("error", `Unable to send Transfer Details: ${message}`);
+    } else if (status === 214 && message) {
+      notify("info", `Order is successful, but not that: ${message}`);
+      onCompleted();
+      cancel();
     } else {
       notify("success", `Transfer Details sent successfully`);
       onCompleted();

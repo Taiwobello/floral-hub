@@ -60,14 +60,24 @@ const Cart: FunctionComponent<CartContextProps> = props => {
     const { error, data, status } = await getOrder(orderId);
     if (error) {
       if (status === 404) {
-        setOrderId("");
-        setOrder(null);
-        setCartItems([]);
-        setDeliveryDate(null);
-        push("/");
+        if (cartItems.length) {
+          const { data } = await createOrder({
+            cartItems,
+            deliveryDate: deliveryDate?.format("YYYY-MM-DD") || "",
+            currency: currency.name
+          });
+          setOrderId(data?.id || "");
+        } else {
+          setOrderId("");
+          setOrder(null);
+          setCartItems([]);
+          setDeliveryDate(null);
+          push("/");
+        }
       }
     } else {
-      const _cartItems: CartItem[] =
+      const alreadyAddedItems = new Set<string>();
+      const cartItemsOnOrder: CartItem[] =
         data?.orderProducts?.map(item => ({
           image: item.image as ProductImage,
           name: item.name,
@@ -79,7 +89,15 @@ const Cart: FunctionComponent<CartContextProps> = props => {
           description: item.description,
           SKU: item.SKU || ""
         })) || [];
-      setCartItems(_cartItems);
+
+      const newCartItems: CartItem[] = [];
+      [...cartItemsOnOrder, ...cartItems].forEach(item => {
+        if (!alreadyAddedItems.has(item.SKU)) {
+          newCartItems.push(item);
+          alreadyAddedItems.add(item.SKU);
+        }
+      });
+      setCartItems(newCartItems);
 
       setOrder(data);
       setDeliveryDate(data?.deliveryDate ? dayjs(data?.deliveryDate) : null);
@@ -158,11 +176,14 @@ const Cart: FunctionComponent<CartContextProps> = props => {
     }
   };
 
-  const handleUpdateOrder = async (clearCartItems: boolean) => {
+  const handleUpdateOrder = async () => {
+    if (!cartItems.length) {
+      return;
+    }
     setLoading(true);
 
     const { data, error, message } = await updateOrder({
-      cartItems: clearCartItems ? null : cartItems,
+      cartItems,
       deliveryDate: deliveryDate?.format("YYYY-MM-DD") || "",
       id: orderId as string,
       currency: currency.name
@@ -175,12 +196,8 @@ const Cart: FunctionComponent<CartContextProps> = props => {
       setOrder(data);
       setDeliveryDate(data.deliveryDate ? dayjs(data?.deliveryDate) : null);
 
-      if (header === "main" && !clearCartItems) {
+      if (header === "main") {
         router.push(`/checkout?orderId=${data.id}`);
-      }
-
-      if (clearCartItems && header === "checkout") {
-        router.push(`/`);
       }
 
       setShouldShowCart(false);
@@ -189,13 +206,6 @@ const Cart: FunctionComponent<CartContextProps> = props => {
   };
 
   const handleRemoveItem = (key: string) => {
-    if (cartItems.length === 1) {
-      setCartItems([]);
-      if (orderId) {
-        handleUpdateOrder(true);
-      }
-      return;
-    }
     setCartItems(cartItems.filter(item => item.SKU !== key));
   };
 
@@ -254,7 +264,7 @@ const Cart: FunctionComponent<CartContextProps> = props => {
               <Button
                 responsive
                 onClick={() =>
-                  orderId ? handleUpdateOrder(false) : handleCreateOrder()
+                  orderId ? handleUpdateOrder() : handleCreateOrder()
                 }
                 loading={loading}
                 disabled={!cartItems.length}

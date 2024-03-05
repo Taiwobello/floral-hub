@@ -19,7 +19,7 @@ import SettingsContext from "../../utils/context/SettingsContext";
 import { CartItem } from "../../utils/types/Core";
 import { getPriceDisplay } from "../../utils/helpers/type-conversions";
 import useDeviceType from "../../utils/hooks/useDeviceType";
-import { DesignOption, websiteUrl } from "../../utils/constants";
+import { DesignOption, websiteUrl, giftItems } from "../../utils/constants";
 import Link from "next/dist/client/link";
 import Meta from "../../components/meta/Meta";
 import SchemaMarkup from "../../components/schema-mark-up/SchemaMarkUp";
@@ -1009,6 +1009,53 @@ const ProductPage: FunctionComponent<{ product: Product }> = props => {
           </div>
         )}
         <div className={styles.padding}>
+          <div className={styles.gifts}>
+            <>
+              <div className="flex between margin-bottom spaced normal">
+                <span className={styles.title}>
+                  GIFTS TO INCLUDE WITH FLOWERS
+                </span>
+                {deviceType === "desktop" && (
+                  <Button
+                    url="/product-category/gifts"
+                    className="flex spaced center center-align"
+                    type="transparent"
+                  >
+                    <h3 className="red margin-right normal text-semilarge">
+                      See All
+                    </h3>
+                  </Button>
+                )}
+              </div>
+              <div className="flex between vertical-margin spaced wrap">
+                {giftItems.map((gift, index) => (
+                  <FlowerCard
+                    key={index}
+                    name={gift.name}
+                    image={gift.image}
+                    subTitle={gift.description}
+                    buttonText="VIEW GIFTS"
+                    url={gift.slug}
+                  />
+                ))}
+              </div>
+              {deviceType === "mobile" && (
+                <Button
+                  url="/product-category/gifts"
+                  type="transparent"
+                  minWidth
+                  className={`${styles["see-all"]}`}
+                >
+                  <h3 className="normal text-small">Browse All Gifts</h3>
+                  <img
+                    alt="arrow"
+                    className="generic-icon xsmall"
+                    src="/icons/arrow-right.svg"
+                  />
+                </Button>
+              )}{" "}
+            </>
+          </div>
           <p className="title bold margin-top spaced">OTHERS ALSO BOUGHT</p>
           <div className="flex between vertical-margin spaced wrap">
             {product.relatedProducts?.slice(0, 4)?.map((item, index) => (
@@ -1119,7 +1166,6 @@ const VerticalImageCarousel: React.FC<{
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { productSlug } = params || {};
   const { data, error, message } = await getProduct(String(productSlug), 8);
-  console.log(data?.relatedProducts);
   if (error || !data) {
     console.error(`Unable to fetch product "${productSlug}": ${message}`);
     return {

@@ -20,7 +20,8 @@ import {
   defaultBreadcrumb,
   websiteUrl,
   schemaProperties,
-  bestSellersValentine
+  bestSellersValentine,
+  bestSellersOccasion
 } from "../utils/constants";
 import ServiceCard from "../components/service-card/ServiceCard";
 import OccasionCard from "../components/occasion-card/OccasionCard";
@@ -88,9 +89,16 @@ const LandingPage: FunctionComponent<{
   featuredBirthday?: Product[];
   featuredRomance?: Product[];
   featuredFlowers?: Product[];
-  featuredValentine?: Product[];
   featuredGifts?: Product[];
-}> = ({ featuredBirthday, locationName, featuredValentine, featuredGifts }) => {
+  featuredProduct?: Product[];
+  featuredOccasion?: Product[];
+}> = ({
+  featuredBirthday,
+  locationName,
+  featuredGifts,
+  featuredProduct,
+  featuredOccasion
+}) => {
   const [currentReviewPageIndex, setCurrentReviewPageIndex] = useState(0);
   const [subscriptionEmail, setSubscriptionEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
@@ -167,7 +175,7 @@ const LandingPage: FunctionComponent<{
               to Lagos and Abuja, {deviceType === "desktop" && (
                 <br />
               )} Nigeria {deviceType === "desktop" && <br />}
-              This Valentine.
+              This Mother's Day
             </h1>
             <p className={styles.subtitle}>
               Your Favorite Online Fresh Flowers and Gifts Shop.
@@ -198,7 +206,7 @@ const LandingPage: FunctionComponent<{
                 className={`flex between ${deviceType === "desktop" &&
                   "margin-top xl"}`}
               >
-                <h2 className="featured-title">{bestSellersValentine}</h2>
+                <h2 className="featured-title">{bestSellersOccasion}</h2>
                 {deviceType === "desktop" && (
                   <Button
                     url="/product-category/valentines-day-flowers"
@@ -215,7 +223,7 @@ const LandingPage: FunctionComponent<{
                 )}
               </div>
               <div className={[styles.section, styles.wrap].join(" ")}>
-                {featuredValentine?.map(flower => (
+                {featuredOccasion?.map(flower => (
                   <FlowerCard
                     key={flower.key}
                     image={flower.images[0]?.src || ""}
@@ -238,13 +246,13 @@ const LandingPage: FunctionComponent<{
                   minWidth
                   className={styles["see-all"]}
                 >
-                  <h3 className="red margin-right">Browse Vals Flowers</h3>
+                  <h3 className="red margin-right">Browse More Flowers</h3>
                   <img alt="see all" src="/icons/arrow-right.svg" />
                 </Button>
               )}
             </>
             <h2 className="featured-title text-center vertical-margin xl">
-              Flower Delivery For All Occasions
+              Same Day Flower Delivery For All Occasions
             </h2>
             <div className={styles["featured-occasion"]}>
               <img
@@ -336,6 +344,25 @@ const LandingPage: FunctionComponent<{
                 />
               ))}
             </div>
+            <div className={[styles.section, styles.wrap].join(" ")}>
+              {featuredProduct?.map(flower => (
+                <FlowerCard
+                  key={flower.key}
+                  image={flower.images[0]?.src || ""}
+                  name={flower.name.split("–")[0]}
+                  subTitle={flower.subtitle || flower.name.split("–")[1]}
+                  price={flower.price}
+                  url={`/product/${flower.slug}`}
+                  buttonText={
+                    flower.variants?.length ? "Select Size" : "Add to Cart"
+                  }
+                  cart={flower.variants?.length ? false : true}
+                  product={flower}
+                  mode="four-x-grid"
+                />
+              ))}
+            </div>
+
             {deviceType === "mobile" && (
               <Button
                 url="/product-category/flowers-to-say-thanks-sorry-etc"
@@ -911,12 +938,16 @@ export const getStaticProps: GetStaticProps = async () => {
     featuredSlugs["featured-birthday"]
   );
 
-  const featuredValentine = await getProductsBySlugs(
-    featuredSlugs["featured-valentine"]
+  const featuredOccasion = await getProductsBySlugs(
+    featuredSlugs["featured-occasion"]
   );
 
   const featuredGifts = await getProductsBySlugs(
     featuredSlugs["featured-gift"]
+  );
+
+  const featuredProduct = await getProductsBySlugs(
+    featuredSlugs["featured-product"]
   );
 
   if (error) {
@@ -927,8 +958,9 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       locationName: "general",
       featuredBirthday: data || [],
-      featuredValentine: featuredValentine.data || [],
-      featuredGifts: featuredGifts.data || []
+      featuredGifts: featuredGifts.data || [],
+      featuredProduct: featuredProduct.data || [],
+      featuredOccasion: featuredOccasion.data || []
     },
     revalidate: 1800
   };

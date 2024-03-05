@@ -230,7 +230,7 @@ export const breadcrumbItems: Breadcrumb[] = [
   { url: "flowers-to-say-thanks-sorry-etc", label: "Mother's Day" },
 
   {
-    url: "chocolate-and-biscuits",
+    url: "chocolates-and-biscuits",
     label: "Chocolate & Biscuits"
   },
   {
@@ -269,7 +269,11 @@ export const defaultBreadcrumb: Breadcrumb = {
 };
 
 export const allOccasionOptions: Option[] = [
-  { slug: "valentines-day-flowers", value: 8, label: "Valentine's Flowers" },
+  {
+    slug: "flowers-to-say-thanks-sorry-etc",
+    value: 9,
+    label: "Mother's Day Flowers"
+  },
   {
     slug: "flowers-to-say-thanks-sorry-etc",
     value: 0,
@@ -299,11 +303,7 @@ export const allOccasionOptions: Option[] = [
   { slug: "bridal-bouquets", value: 6, label: "Bridal Flowers" },
   { slug: "funeral-condolence-flowers", value: 7, label: "Funeral Flowers" },
 
-  {
-    slug: "flowers-to-say-thanks-sorry-etc",
-    value: 9,
-    label: "Mother's Day Flowers"
-  }
+  { slug: "valentines-day-flowers", value: 8, label: "Valentine's Flowers" }
 ];
 
 export const defaultCurrency: AppCurrency = {
@@ -721,7 +721,7 @@ export const giftItems: Gift[] = [
     name: "Chocolates",
     description: "A guilty pleasure and always a winning gift for most people",
     image: "/images/sample-flowers/addon-group-1.png",
-    slug: "/product-category/chocolate-and-biscuits"
+    slug: "/product-category/chocolates-and-biscuits"
   },
   {
     name: "Cakes and Cupcakes",
@@ -2021,7 +2021,7 @@ export const countryCodes = [
 export const gifts: { title: string; url: string; category?: string }[] = [
   {
     title: "Chocolates and Biscuits",
-    url: "/product-category/chocolate-and-biscuits",
+    url: "/product-category/chocolates-and-biscuits",
     category: "Chocolates and Biscuits"
   },
   {
@@ -2072,7 +2072,7 @@ export const occasionsPageTitle: Record<string, string> = {
     "Accessories & Boutonnieres Flowers",
   "indoor-plants-and-cactus": "Plants",
   vip: "VIP Flower Arrangements",
-  "chocolate-and-biscuits": "Chocolates and Biscuits",
+  "chocolates-and-biscuits": "Chocolates and Biscuits",
   "cakes-and-cupcakes": "Cakes and Cupcakes",
   "teddy-bears": "Teddy Bears",
   balloons: "Balloons",
@@ -2367,12 +2367,12 @@ export const productSampleData = {
 
 export const links: AppLink[] = [
   {
-    title: "Valentine",
+    title: "Mother's Day",
     url: "",
     children: [
       {
         title: "Flowers",
-        url: "/product-category/valentines-day-flowers",
+        url: "/product-category/flowers-to-say-thanks-sorry-etc",
         children: []
       },
       {
@@ -2418,12 +2418,12 @@ export const links: AppLink[] = [
         ]
       },
       {
-        title: "Valentine",
+        title: "Mother's Day",
         url: "",
         children: [
           {
             title: "Flowers",
-            url: "/product-category/valentines-day-flowers",
+            url: "/product-category/flowers-to-say-thanks-sorry-etc",
             children: []
           },
           {
@@ -2436,6 +2436,10 @@ export const links: AppLink[] = [
             url: "/product-category/gifts",
             children: []
           }
+        ],
+        featuredSlugs: [
+          "loxarre-bouquet-a-bouquet-of-arrangement-of-red-roses-and-purple-roses-with-million-stars",
+          "classic-roses-and-chocolate"
         ]
       },
       {
@@ -2524,13 +2528,13 @@ export const links: AppLink[] = [
         url: "",
         children: [
           {
-            title: "Valentine's Day",
-            url: "/product-category/valentines-day-flowers",
+            title: "Events & Centerpiece",
+            url: "/product-category/event-centerpiece",
             children: []
           },
           {
-            title: "Events & Centerpiece",
-            url: "/product-category/event-centerpiece",
+            url: "/product-category/indoor-plants-and-cactus",
+            title: "Plants",
             children: []
           },
           {
@@ -2541,6 +2545,11 @@ export const links: AppLink[] = [
           {
             title: "Mother's Day",
             url: "/product-category/flowers-to-say-thanks-sorry-etc",
+            children: []
+          },
+          {
+            title: "Valentine's Day",
+            url: "/product-category/valentines-day-flowers",
             children: []
           }
         ]
@@ -2669,7 +2678,7 @@ export const links: AppLink[] = [
     title: "Gifts",
     children: [
       {
-        url: "/product-category/chocolate-and-biscuits",
+        url: "/product-category/chocolates-and-biscuits",
         title: "Chocolates and Biscuits",
         children: []
       },
@@ -2764,6 +2773,8 @@ export const bestSellers: RegalContent = {
 
 export const bestSellersValentine = "Bestselling Valentine's Day Flowers";
 
+export const bestSellersOccasion = "Bestselling Mother's Day Flowers";
+
 export const bestSellersRomance: RegalContent = {
   general: "Bestselling Romance or Just to Say Flowers in Lagos & Abuja",
   lagos: "Bestselling Flowers in Lagos",
@@ -2784,13 +2795,19 @@ export const featuredSlugs: Record<string, string[]> = {
     "pergale-assorted-luxury-chocolates-114g",
     "teddy-bear"
   ],
+  "featured-product": [
+    "chrysant-delight-mixture-of-bright-and-vibrant-chrysanthemums-with-million-stars-gypsophila",
+    "cupcakes-004-pack-of-6-12-or-24-strawberry-red-velvet-cupcake-select-size",
+    "ted-baker-eau-de-toilette-spray-for-female-75ml",
+    "loxarre-bouquet-a-bouquet-of-arrangement-of-red-roses-and-purple-roses-with-million-stars"
+  ],
   "featured-romance": [
     "euphoria-roses-and-million-stars-or-statice-select-size",
     "my-heart-concentric-mix-of-two-or-three-colours-of-roses-to-form-a-heart-shape-select-size",
     "numero-uno-mix-of-different-colors-of-roses-with-a-different-shade-in-the-middle-and-million-stars-or-lepidium",
     "dune-beautiful-arrangement-of-roses-with-mixed-chrysanthemums-and-million-stars"
   ],
-  "featured-valentine": [
+  "featured-occasion": [
     "arabiati-bouquet-red-roses-mixed-with-million-stars",
     "casablanca-bouquet-a-bouquet-arrangement-of-red-and-purple-roses-with-million-stars",
     "donatello-box-arrangement-box-of-red-roses-and-one-contrasting-color-with-million-stars",
@@ -2929,7 +2946,7 @@ export const sortOptions: Option[] = [
 export const freeDeliveryThreshold: Record<AppCurrencyName, number> = {
   USD: 185,
   GBP: 150,
-  NGN: 100000
+  NGN: 165000
 };
 
 export const freeDeliveryThresholdVals: Record<AppCurrencyName, number> = {
@@ -3380,7 +3397,7 @@ export const occasionsPageMetaData: Record<
     title: "",
     description: ""
   },
-  "chocolate-and-biscuits": {
+  "chocolates-and-biscuits": {
     title: "",
     description: ""
   },
