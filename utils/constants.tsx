@@ -15,6 +15,7 @@ import {
   LocationAddress
 } from "./types/Regal";
 import { Breadcrumb } from "./context/SettingsContext";
+import { BlogMinimal } from "./types/Blog";
 
 export const pickupLocations: Record<string, JSX.Element> = {
   Lagos: (
@@ -3611,16 +3612,6 @@ export const trendingPosts = [
     title: "5 awesome methods of receiving payment in your store. "
   }
 ];
-
-interface BlogMinimal {
-  id: string;
-  title: string;
-  featuredImage: string;
-  excerpt: string;
-  category: string;
-  readMinutes: number;
-  slug: string;
-}
 
 export const blogMinimals: BlogMinimal[] = [
   {
