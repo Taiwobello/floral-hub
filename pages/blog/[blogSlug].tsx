@@ -18,12 +18,13 @@ import { getProductsBySlugs } from "../../utils/helpers/data/products";
 import { featuredSlugs } from "../../utils/constants";
 import Product from "../../utils/types/Product";
 import FlowerCard from "../../components/flower-card/FlowerCard";
-import Blog from "../../utils/types/Blog";
+import { Blog } from "../../utils/types/Blog";
 import { getAllBlogs, getBlog } from "../../utils/helpers/data/blog";
 
-const BlogPost: FunctionComponent<{ featuredFlowers: Product[], blog: Blog }> = ({
-  featuredFlowers, blog
-}) => {
+const BlogPost: FunctionComponent<{
+  featuredFlowers: Product[];
+  blog: Blog;
+}> = ({ featuredFlowers, blog }) => {
   const [subscriptionEmail, setSubscriptionEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
 
@@ -39,14 +40,11 @@ const BlogPost: FunctionComponent<{ featuredFlowers: Product[], blog: Blog }> = 
     }
     notify("success", "Successfully subscribed to newsletter");
   };
-  const markup = {__html: blog.body}
+  const markup = { __html: blog.body };
   return (
     <section className={`${styles["blog-post"]}`}>
       <div className={styles["hero-header"]}>
-        <p className={styles["title"]}>
-          {" "}
-        {blog.title}
-        </p>
+        <p className={styles["title"]}> {blog.title}</p>
         <div className={styles["header-details"]}>
           <div className={`${styles["info"]} text-medium`}>
             <p>
@@ -57,7 +55,9 @@ const BlogPost: FunctionComponent<{ featuredFlowers: Product[], blog: Blog }> = 
               </span>
             </p>
             <p>
-              <span className={styles["read-duration"]}>{blog.readMinutes} minutes read </span>{" "}
+              <span className={styles["read-duration"]}>
+                {blog.readMinutes} minutes read{" "}
+              </span>{" "}
               <span className={styles["tag"]}> Everything Flowers & Gift</span>
             </p>
           </div>
@@ -96,8 +96,10 @@ const BlogPost: FunctionComponent<{ featuredFlowers: Product[], blog: Blog }> = 
 
       <div className={styles["blog-body"]}>
         <div className={styles["content"]}>
-          <article className={`text-small ${articleStyles["article"]}`} dangerouslySetInnerHTML={markup}>
-          </article>
+          <article
+            className={`text-small ${articleStyles["article"]}`}
+            dangerouslySetInnerHTML={markup}
+          ></article>
         </div>
         <div className={styles["side"]}>
           <div className={styles["trending"]}>
@@ -192,7 +194,7 @@ const BlogPost: FunctionComponent<{ featuredFlowers: Product[], blog: Blog }> = 
 
       <div className={styles["popular-sections"]}>
         <h2 className={`${styles.title} vertical-margin spaced normal`}>
-          {featuredFlowers ? "FEATURED FLOWERS" : ""} 
+          {featuredFlowers ? "FEATURED FLOWERS" : ""}
         </h2>
         <div className={[styles.section, styles.wrap].join(" ")}>
           {featuredFlowers?.map(flower => (
@@ -257,32 +259,30 @@ const BlogPost: FunctionComponent<{ featuredFlowers: Product[], blog: Blog }> = 
 
 export default BlogPost;
 
-export const getStaticProps: GetStaticProps = async ({params}) => {
-  const {blogSlug} = params ||  {}
-  const { data: featuredFlowers, } = await getProductsBySlugs(
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { blogSlug } = params || {};
+  const { data: featuredFlowers } = await getProductsBySlugs(
     featuredSlugs["featured-birthday"]
   );
-  const {data, error, message} = await getBlog(String(blogSlug));
+  const { data, error, message } = await getBlog(String(blogSlug));
   if (error || !data) {
     console.error(`Unable to fetch product "${blogSlug}": ${message}`);
     return {
       props: {
-        blog: {
-        }
+        blog: {}
       },
       revalidate: 1800
     };
   }
   return {
-    props: { blog: data,
-      featuredFlowers: featuredFlowers || [] },
+    props: { blog: data, featuredFlowers: featuredFlowers || [] },
     revalidate: 1800
   };
 };
 
 export const getStaticPaths = async () => {
   const { data, error } = await getAllBlogs();
-  const slugs = data?.map( blog => ({
+  const slugs = data?.map(blog => ({
     params: { blogSlug: blog.slug }
   }));
 
@@ -298,5 +298,4 @@ export const getStaticPaths = async () => {
       fallback: false // true or 'blocking'
     };
   }
-
 };
