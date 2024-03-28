@@ -16,6 +16,7 @@ type PhoneInputProps = {
   required?: boolean;
   className?: string;
   countryCodePlaceholder?: string;
+  inputWrapperClassName?: string;
 };
 
 const PhoneInput = (props: PhoneInputProps) => {
@@ -27,13 +28,16 @@ const PhoneInput = (props: PhoneInputProps) => {
     question,
     required,
     className,
-    countryCodePlaceholder
+    countryCodePlaceholder,
+    inputWrapperClassName
   } = props;
 
   return (
     <div className={["input-group", className].join(" ")}>
       <span className="question">{question || "Phone Number"}</span>
-      <div className={styles["input-wrapper"]}>
+      <div
+        className={[styles["input-wrapper"], inputWrapperClassName].join(" ")}
+      >
         <Select
           onSelect={onChangeCountryCode as (value: ValueType) => void}
           value={countryCode}

@@ -159,6 +159,8 @@ const Checkout: FunctionComponent = () => {
   const [selectedRecipient, setSelectedRecipient] = useState<Recipient | null>(
     null
   );
+  const [invalidInputs, setInvalidInputs] = useState<string[]>([]);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const {
     user,
@@ -619,10 +621,20 @@ const Checkout: FunctionComponent = () => {
     return true;
   };
 
+  useEffect(() => {
+    if (isSubmitted) {
+      setInvalidInputs(emptyFields);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formData, isSubmitted]);
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const isDeliveryMethodComplete = validateDeliveryMethod();
     const isReceiverInfoComplete = validateReceiverInfo();
+
+    setIsSubmitted(true);
+    setInvalidInputs(emptyFields);
 
     if (!deliveryDate) {
       notify("error", "Please select a delivery date");
@@ -680,6 +692,8 @@ const Checkout: FunctionComponent = () => {
   };
 
   const handleSaveSenderInfo = async () => {
+    setIsSubmitted(true);
+    setInvalidInputs(emptyFields);
     if (emailValidator(formData.senderEmail)) {
       notify("error", "Please enter a valid email address");
       return;
@@ -722,6 +736,8 @@ const Checkout: FunctionComponent = () => {
       notify("success", "Saved successfully");
       setDeliveryStage("delivery-type");
       setIsSenderInfoCompleted(true);
+      setIsSubmitted(false);
+      setInvalidInputs([]);
     }
     setSavingSenderInfo(false);
   };
@@ -732,7 +748,8 @@ const Checkout: FunctionComponent = () => {
       ...formData,
       zone: "",
       deliveryLocation: null,
-      state: ""
+      state: "",
+      deliveryDate: date
     });
   };
 
@@ -773,6 +790,14 @@ const Checkout: FunctionComponent = () => {
       )?.find(zone => zone.value === formData.zone) || null
     );
   }, [currency, deliveryDate, formData.state, formData.zone, subTotal]);
+
+  const emptyFields = useMemo(() => {
+    return Object.entries(formData)
+      .filter(
+        ([, value]) => value === null || value === undefined || value === ""
+      )
+      .map(([key]) => key);
+  }, [formData]);
 
   if (pageLoading || orderLoading) {
     return (
@@ -944,6 +969,11 @@ const Checkout: FunctionComponent = () => {
                             dimmed
                             required
                             responsive
+                            className={
+                              invalidInputs.includes("senderName")
+                                ? styles.invalid
+                                : ""
+                            }
                           />
                         </div>
                         <div
@@ -963,6 +993,11 @@ const Checkout: FunctionComponent = () => {
                             responsive
                             required={formData.freeAccount}
                             onBlurValidation={emailValidator}
+                            className={
+                              invalidInputs.includes("senderEmail")
+                                ? styles.invalid
+                                : ""
+                            }
                           />
                         </div>
                       </div>
@@ -984,6 +1019,11 @@ const Checkout: FunctionComponent = () => {
                             deviceType === "desktop" ? "half-width" : ""
                           }`}
                           countryCodePlaceholder="Code"
+                          inputWrapperClassName={[
+                            invalidInputs.includes("senderPhoneNumber")
+                              ? styles.invalid
+                              : ""
+                          ].join(" ")}
                         />
 
                         <div
@@ -998,6 +1038,11 @@ const Checkout: FunctionComponent = () => {
                             format="D MMMM YYYY"
                             responsive
                             disablePastDays
+                            className={
+                              invalidInputs.includes("deliveryDate")
+                                ? styles.invalid
+                                : ""
+                            }
                           />
                         </div>
                       </div>
@@ -1077,9 +1122,11 @@ const Checkout: FunctionComponent = () => {
                               formData.deliveryMethod === "pick-up" &&
                                 styles.active
                             ].join(" ")}
-                            onClick={() =>
-                              handleChange("deliveryMethod", "pick-up")
-                            }
+                            onClick={() => {
+                              handleChange("deliveryMethod", "pick-up");
+                              setInvalidInputs([]);
+                              setIsSubmitted(false);
+                            }}
                           >
                             <p className={`${styles["method-title"]}`}>
                               Pick Up
@@ -1093,9 +1140,11 @@ const Checkout: FunctionComponent = () => {
                                 styles.active,
                               (order?.amount as number) < 20000 && "disabled"
                             ].join(" ")}
-                            onClick={() =>
-                              handleChange("deliveryMethod", "delivery")
-                            }
+                            onClick={() => {
+                              handleChange("deliveryMethod", "delivery");
+                              setInvalidInputs([]);
+                              setIsSubmitted(false);
+                            }}
                           >
                             <p className={`${styles["method-title"]}`}>
                               Delivery
@@ -1147,6 +1196,11 @@ const Checkout: FunctionComponent = () => {
                                 placeholder="Select a state"
                                 responsive
                                 dimmed
+                                className={
+                                  invalidInputs.includes("state")
+                                    ? styles.invalid
+                                    : ""
+                                }
                               />
                             </div>
                             {!isValsDate &&
@@ -1167,6 +1221,11 @@ const Checkout: FunctionComponent = () => {
                                     dimmed
                                     dropdownOnTop
                                     optionColor="gray-white"
+                                    className={
+                                      invalidInputs.includes("zone")
+                                        ? styles.invalid
+                                        : ""
+                                    }
                                   />
                                 </div>
                               )}
@@ -1253,6 +1312,11 @@ const Checkout: FunctionComponent = () => {
                                 placeholder="Select a state"
                                 responsive
                                 dimmed
+                                className={
+                                  invalidInputs.includes("pickupState")
+                                    ? styles.invalid
+                                    : ""
+                                }
                               />
                             </div>
                             <div className="margin-top spaced">
@@ -1399,6 +1463,11 @@ const Checkout: FunctionComponent = () => {
                                   handleChange("recipientName", value)
                                 }
                                 dimmed
+                                className={
+                                  invalidInputs.includes("recipientName")
+                                    ? styles.invalid
+                                    : ""
+                                }
                               />
                             </div>
 
@@ -1411,7 +1480,11 @@ const Checkout: FunctionComponent = () => {
                               onChangeCountryCode={value =>
                                 handleChange("recipientCountryCode", value)
                               }
-                              className="input-group"
+                              inputWrapperClassName={[
+                                invalidInputs.includes("recipientPhoneNumber")
+                                  ? styles.invalid
+                                  : ""
+                              ].join(" ")}
                               question="Receiver Phone number"
                               countryCodePlaceholder="Code"
                             />
@@ -1447,6 +1520,11 @@ const Checkout: FunctionComponent = () => {
                                 placeholder="Select a residence type"
                                 responsive
                                 dimmed
+                                className={
+                                  invalidInputs.includes("residenceType")
+                                    ? styles.invalid
+                                    : ""
+                                }
                               />
                             </div>
                           </div>
@@ -1461,6 +1539,11 @@ const Checkout: FunctionComponent = () => {
                               }
                               dimmed
                               rows={3}
+                              className={
+                                invalidInputs.includes("recipientHomeAddress")
+                                  ? styles.invalid
+                                  : ""
+                              }
                             />
                           </div>
                           <div className="input-group">

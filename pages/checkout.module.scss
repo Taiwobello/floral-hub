@@ -10,6 +10,10 @@
   padding-bottom: 0;
   animation: fadein 2s ease-out forwards;
 
+  .invalid {
+    border: 0.1rem solid red;
+  }
+
   @media (max-width: 980px) {
     padding: 2rem;
   }
@@ -231,7 +235,7 @@
   }
 
   .payment-methods {
-    margin-top: .5rem;
+    margin-top: 0.5rem;
     .method {
       border: 0.1rem solid #e5e7eb;
       padding: 0.8rem;
